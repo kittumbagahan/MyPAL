@@ -46,6 +46,10 @@ public class SectionController : MonoBehaviour {
                 Section _section = _obj.GetComponent<Section>();
                 _section.id = i;
                 _section.name = PlayerPrefs.GetString("section_id" + i);
+                if(_obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>() == null)
+                {
+                    _obj.transform.GetChild(0).gameObject.AddComponent<TextMeshProUGUI>();
+                }
                 _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
                 _obj.transform.SetParent(btnSectionContainer.transform);
                 n++;
