@@ -39,20 +39,49 @@ public class BackUpSaves : MonoBehaviour {
 	List<string> fileNames;
 	[SerializeField]
 	TMP_Dropdown dropDownFiles;
-	void Start () {
-		d = new DirectoryInfo(Application.persistentDataPath);
-		files = d.GetFiles("*.txt");
-		for(int i=0; i<files.Length; i++)
-		{
-			fileNames.Add(files[i].ToString().Remove(0, Application.persistentDataPath.ToString().Length));
-		}
-		dropDownFiles.ClearOptions();
-		dropDownFiles.AddOptions(fileNames);
 
-		GetTime();
-	}
-	
-	void GetTime()
+	// kit
+	NetworkBackup networkBackup;
+    [SerializeField]
+    Button btnSendData, btnReceiveData;
+
+    [SerializeField]
+    Text txtTestData;
+
+    #region MONO
+
+    void Start()
+    {
+
+        // kit
+        networkBackup = GetComponent<NetworkBackup>();
+        // add event
+        btnSendData.onClick.AddListener(BackUpDataNetwork);
+        btnReceiveData.onClick.AddListener(() => networkBackup.Receiver(txtTestData));
+
+        d = new DirectoryInfo(Application.persistentDataPath);
+        files = d.GetFiles("*.txt");
+
+
+        for (int i = 0; i < files.Length; i++)
+        {            
+            fileNames.Add(files[i].ToString().Remove(0, Application.persistentDataPath.ToString().Length + 1));         
+        }
+        dropDownFiles.ClearOptions();
+        dropDownFiles.AddOptions(fileNames);
+
+        GetTime();
+    }
+
+    private void OnDestroy()
+    {
+        btnSendData.onClick.RemoveListener(BackUpDataNetwork);
+        btnReceiveData.onClick.RemoveListener(() => networkBackup.Receiver(txtTestData));
+    }
+
+#endregion
+
+    void GetTime()
 	{
 		txtTime.text = "Time until subscription expires " + ((TimeUsageCounter.ins.GetTime()/60)/60).ToString() + "hrs";
 	}
@@ -63,6 +92,48 @@ public class BackUpSaves : MonoBehaviour {
 		print(path);
         StartCoroutine(IEGetData());
 	}
+
+    // kit
+    void BackUpDataNetwork()
+    {
+        // check if there is backup data
+        if(fileNames[dropDownFiles.value].Equals(""))
+        {
+            MessageBox.ins.ShowOk("No existing backup!", MessageBox.MsgIcon.msgInformation, null);
+            return;
+        }
+
+        path = Application.persistentDataPath + "/" + fileNames[dropDownFiles.value];
+        string filename = fileNames[dropDownFiles.value];
+        string data = "";
+
+        // read file
+        path = Application.persistentDataPath + "/" + filename;
+        print("trying to load: " + path);
+        if (File.Exists(path))
+        {                      
+            StreamReader reader = new StreamReader(path);
+            string _line = "";
+
+            // add 
+            _line = filename + "<filename>\n";
+            txtTestData.text = _line;
+
+            //lstData.Clear();
+            while ((_line = reader.ReadLine()) != "endofline13XX")
+            {
+                // append line to separate later
+                _line += _line + "<line>\n";
+                lstData.Add(_line);
+
+                txtTestData.text = txtTestData.text + _line;
+
+                //n++;
+                print("reading" + "line=" + _line);                
+            }
+            networkBackup.Sender(_line);
+        }        
+    }
 
 	void ClosePB()
 	{
