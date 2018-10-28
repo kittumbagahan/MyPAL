@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 
+using System.Text;
+
 public class BackUpSaves : MonoBehaviour {
 
 	[SerializeField]
@@ -62,10 +64,20 @@ public class BackUpSaves : MonoBehaviour {
         d = new DirectoryInfo(Application.persistentDataPath);
         files = d.GetFiles("*.txt");
 
+        // kit
+        txtTestData.text = "Path: " + Application.persistentDataPath + "\n";
 
         for (int i = 0; i < files.Length; i++)
-        {            
-            fileNames.Add(files[i].ToString().Remove(0, Application.persistentDataPath.ToString().Length + 1));         
+        {                        
+
+#if UNITY_EDITOR
+            fileNames.Add(files[i].ToString().Remove(0, Application.persistentDataPath.ToString().Length));
+#elif UNITY_ANDROID
+            fileNames.Add(files[i].ToString());
+#endif
+
+            // kit
+            txtTestData.text = txtTestData.text + "File" + i + ": " + files[i].ToString() + "\n";
         }
         dropDownFiles.ClearOptions();
         dropDownFiles.AddOptions(fileNames);
@@ -103,35 +115,51 @@ public class BackUpSaves : MonoBehaviour {
             return;
         }
 
+        // read file
         path = Application.persistentDataPath + "/" + fileNames[dropDownFiles.value];
         string filename = fileNames[dropDownFiles.value];
         string data = "";
-
-        // read file
-        path = Application.persistentDataPath + "/" + filename;
+        
         print("trying to load: " + path);
         if (File.Exists(path))
         {                      
             StreamReader reader = new StreamReader(path);
             string _line = "";
 
+            string _data = "";
+
             // add 
             _line = filename + "<filename>\n";
-            txtTestData.text = _line;
+            txtTestData.text = txtTestData.text + _line;
+
+            // kit _data
+            _data = _line;
 
             //lstData.Clear();
             while ((_line = reader.ReadLine()) != "endofline13XX")
             {
                 // append line to separate later
-                _line += _line + "<line>\n";
-                lstData.Add(_line);
+                _data += _line + "<line>\n";
 
-                txtTestData.text = txtTestData.text + _line;
+                // kit, commented
+                //lstData.Add(_line);
+
+                txtTestData.text = txtTestData.text + _data;
 
                 //n++;
                 print("reading" + "line=" + _line);                
             }
-            networkBackup.Sender(_line);
+
+            // kit, sample
+            //_data = "Kit Tumbagahan";
+            byte[] _byte = Encoding.UTF8.GetBytes(_data);
+            
+            Debug.Log("HASH " + _byte.GetHashCode());
+            Debug.Log("string length " + _data.Length);
+            Debug.Log("byte length " +_byte.Length);
+            Debug.Log("byte " + _byte.ToString());
+
+            networkBackup.Sender(_data);
         }        
     }
 
