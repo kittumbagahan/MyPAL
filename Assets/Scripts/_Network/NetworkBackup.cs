@@ -6,28 +6,22 @@ using UnityEngine.UI;
 
 public class NetworkBackup : NetworkDiscovery {
 
-    Text txtTestData;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    Text txtTestData;	
 
 	#region UI
 
 	// start as server to send data
 	public void Sender(string data)
 	{
-		Initialize ();
-		StartAsServer ();
+        Initialize();
+        StartAsServer();
 
-		// set the data to be sent
-		broadcastData = data;
+        // set the data to be sent
+        broadcastData = data;
+
+        StopBroadcast();
+
+        StartCoroutine(fak());
 
         Debug.Log("Started as Server");
 	}
@@ -48,12 +42,22 @@ public class NetworkBackup : NetworkDiscovery {
 
 	public override void OnReceivedBroadcast (string fromAddress, string data)
 	{
+        Debug.Log("OnReceivedBroadcast");
+
 		fromAddress = fromAddress.Replace ("::ffff:", "");
 
         // show prompt to write the receieved data
 
         txtTestData.text = data;
 	}
+
+    IEnumerator fak()
+    {
+        yield return new WaitForSeconds(1);
+
+        Initialize();
+        StartAsServer();        
+    }   
 
 	#endregion
 }
