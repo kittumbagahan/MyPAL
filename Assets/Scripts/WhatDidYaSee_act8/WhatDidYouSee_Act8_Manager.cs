@@ -24,18 +24,12 @@ public class WhatDidYouSee_Act8_Manager : MonoBehaviour {
 		ScoreManager.ins.AW();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void Insert(Transform parent, Transform item)
     {
         
       
         audSrc.PlayOneShot(clipFit);
-        
+        item.GetComponent<Item>().Locked = true;
         
         Destroy(item.gameObject, 1f);
         //Destroy(parent.gameObject, 1F);
