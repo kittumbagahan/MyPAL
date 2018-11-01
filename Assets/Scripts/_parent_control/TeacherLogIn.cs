@@ -30,7 +30,8 @@ public class TeacherLogIn : MonoBehaviour {
 	public void LogIn()
 	{
 		if(PlayerPrefs.GetString("admin") == inputPWD.text){
-			gameObject.SetActive(false);
+            UserRestrictionController.ins.Restrict(0);
+            gameObject.SetActive(false);
             //show section selection
 		}
 		else
