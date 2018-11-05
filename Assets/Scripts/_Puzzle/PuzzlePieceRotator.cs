@@ -26,10 +26,6 @@ public class PuzzlePieceRotator : MonoBehaviour {
 		ScoreManager.ins.AW();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	#region Event
 	void OnEnable()
