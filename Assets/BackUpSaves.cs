@@ -42,53 +42,27 @@ public class BackUpSaves : MonoBehaviour {
 	[SerializeField]
 	TMP_Dropdown dropDownFiles;
 
-	// kit
-	NetworkBackup networkBackup;
-    [SerializeField]
-    Button btnSendData, btnReceiveData;
-
-    [SerializeField]
-    Text txtTestData;
-
     #region MONO
 
     void Start()
-    {
-
-        // kit
-        networkBackup = GetComponent<NetworkBackup>();
-        // add event
-        btnSendData.onClick.AddListener(BackUpDataNetwork);
-        btnReceiveData.onClick.AddListener(() => networkBackup.Receiver(txtTestData));
-
+    {    
         d = new DirectoryInfo(Application.persistentDataPath);
         files = d.GetFiles("*.txt");
-
-        // kit
-        txtTestData.text = "Path: " + Application.persistentDataPath + "\n";
 
         for (int i = 0; i < files.Length; i++)
         {                        
 
 #if UNITY_EDITOR
-            fileNames.Add(files[i].ToString().Remove(0, Application.persistentDataPath.ToString().Length));
+            fileNames.Add (files[i].ToString ().Remove (0, Application.persistentDataPath.ToString ().Length + 1));
 #elif UNITY_ANDROID
             fileNames.Add(files[i].ToString());
 #endif
-
-            // kit
-            txtTestData.text = txtTestData.text + "File" + i + ": " + files[i].ToString() + "\n";
         }
+
         dropDownFiles.ClearOptions();
         dropDownFiles.AddOptions(fileNames);
 
         GetTime();
-    }
-
-    private void OnDestroy()
-    {
-        btnSendData.onClick.RemoveListener(BackUpDataNetwork);
-        btnReceiveData.onClick.RemoveListener(() => networkBackup.Receiver(txtTestData));
     }
 
 #endregion
@@ -104,64 +78,6 @@ public class BackUpSaves : MonoBehaviour {
 		print(path);
         StartCoroutine(IEGetData());
 	}
-
-    // kit
-    void BackUpDataNetwork()
-    {
-        // check if there is backup data
-        if(fileNames[dropDownFiles.value].Equals(""))
-        {
-            MessageBox.ins.ShowOk("No existing backup!", MessageBox.MsgIcon.msgInformation, null);
-            return;
-        }
-
-        // read file
-        path = Application.persistentDataPath + "/" + fileNames[dropDownFiles.value];
-        string filename = fileNames[dropDownFiles.value];
-        string data = "";
-        
-        print("trying to load: " + path);
-        if (File.Exists(path))
-        {                      
-            StreamReader reader = new StreamReader(path);
-            string _line = "";
-
-            string _data = "";
-
-            // add 
-            _line = filename + "<filename>\n";
-            txtTestData.text = txtTestData.text + _line;
-
-            // kit _data
-            _data = _line;
-
-            //lstData.Clear();
-            while ((_line = reader.ReadLine()) != "endofline13XX")
-            {
-                // append line to separate later
-                _data += _line + "<line>\n";
-
-                // kit, commented
-                //lstData.Add(_line);
-
-                txtTestData.text = txtTestData.text + _data;
-
-                //n++;
-                print("reading" + "line=" + _line);                
-            }
-
-            // kit, sample
-            //_data = "Kit Tumbagahan";
-            byte[] _byte = Encoding.UTF8.GetBytes(_data);
-            
-            Debug.Log("HASH " + _byte.GetHashCode());
-            Debug.Log("string length " + _data.Length);
-            Debug.Log("byte length " +_byte.Length);
-            Debug.Log("byte " + _byte.ToString());
-
-            networkBackup.Sender(_data);
-        }        
-    }
 
 	void ClosePB()
 	{
