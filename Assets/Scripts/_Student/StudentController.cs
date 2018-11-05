@@ -58,6 +58,10 @@ public class StudentController : MonoBehaviour {
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
 
         int n = 0;
+        for(int i=0; i< btnStudentContainer.transform.childCount; i++)
+        {
+            Destroy(btnStudentContainer.transform.GetChild(i).gameObject);
+        }
 
         for(int i=0; i<maxStudentAllowed; i++)
         {
