@@ -4666,6 +4666,23 @@ Prefab:
       propertyPath: m_textAlignment
       value: 257
       objectReference: {fileID: 0}
+    - target: {fileID: 22409394, guid: 0283769c18405a148afe42e930fb85bf, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 22409394, guid: 0283769c18405a148afe42e930fb85bf, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 88.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428898, guid: 0283769c18405a148afe42e930fb85bf, type: 2}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f76ef802b8b940c46a31f9027f2b0158,
+        type: 2}
+    - target: {fileID: 11428898, guid: 0283769c18405a148afe42e930fb85bf, type: 2}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0283769c18405a148afe42e930fb85bf, type: 2}
   m_IsPrefabParent: 0
