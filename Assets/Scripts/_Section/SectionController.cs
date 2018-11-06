@@ -61,30 +61,37 @@ public class SectionController : MonoBehaviour {
 
 	public void CreateNewSection(Text newSection)
     {
-        if(currentMaxSection < maxSectionAllowed)
+        if ("".Equals(newSection.text))
         {
-            if (!IsDuplicate(newSection.text))
-            {
-                int newId = SetSectionId();
-                PlayerPrefs.SetString("section_id" + newId, newSection.text);
-                GameObject _obj = Instantiate(btnSectionPrefab);
-                Section _section = _obj.GetComponent<Section>();
-                _section.id = newId;
-                _section.name = newSection.text;
-                _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
-                _obj.transform.SetParent(btnSectionContainer.transform);
-
-                panelSectionInput.gameObject.SetActive(false);
-                currentMaxSection++;
-            }
-            else
-            {
-                MessageBox.ins.ShowOk(newSection.text + " already exist.", MessageBox.MsgIcon.msgError, null);
-            }
+            MessageBox.ins.ShowOk("Enter section name.", MessageBox.MsgIcon.msgError, null);
         }
         else
         {
-            MessageBox.ins.ShowOk("Max number of sections allowed already reached.", MessageBox.MsgIcon.msgError, null);
+            if (currentMaxSection < maxSectionAllowed)
+            {
+                if (!IsDuplicate(newSection.text))
+                {
+                    int newId = SetSectionId();
+                    PlayerPrefs.SetString("section_id" + newId, newSection.text);
+                    GameObject _obj = Instantiate(btnSectionPrefab);
+                    Section _section = _obj.GetComponent<Section>();
+                    _section.id = newId;
+                    _section.name = newSection.text;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
+                    _obj.transform.SetParent(btnSectionContainer.transform);
+
+                    panelSectionInput.gameObject.SetActive(false);
+                    currentMaxSection++;
+                }
+                else
+                {
+                    MessageBox.ins.ShowOk(newSection.text + " already exist.", MessageBox.MsgIcon.msgError, null);
+                }
+            }
+            else
+            {
+                MessageBox.ins.ShowOk("Max number of sections allowed already reached.", MessageBox.MsgIcon.msgError, null);
+            }
         }
         //PrintSections();
     }
