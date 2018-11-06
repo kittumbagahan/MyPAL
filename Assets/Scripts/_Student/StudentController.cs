@@ -84,32 +84,40 @@ public class StudentController : MonoBehaviour {
 
     public void CreateNewStudent()
     {
-        string studentName = txtGivenName.text + " " + txtMiddleName.text + " " + txtSurname.text + " " + txtNickName.text;
-        if (currentMaxStudent < maxStudentAllowed)
+        if ("".Equals(txtGivenName.text) || "".Equals(txtMiddleName.text) || "".Equals(txtSurname.text) || "".Equals(txtNickName.text))
         {
-            if (!IsDuplicate(studentName))
-            {
-                int newId = SetStudentId();
-                PlayerPrefs.SetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + newId, studentName);
-                GameObject _obj = Instantiate(btnStudentPrefab);
-                Student _student = _obj.GetComponent<Student>();
-                _student.id = newId;
-                _student.name = studentName;
-                _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
-                _obj.transform.SetParent(btnStudentContainer.transform);
-
-                panelStudentInput.gameObject.SetActive(false);
-                currentMaxStudent++;
-            }
-            else
-            {
-                MessageBox.ins.ShowOk("Name already exist.", MessageBox.MsgIcon.msgError, null);
-            }
+            MessageBox.ins.ShowOk("All fields are required.", MessageBox.MsgIcon.msgError, null);
         }
         else
         {
-            MessageBox.ins.ShowOk("Max number of students allowed already reached.", MessageBox.MsgIcon.msgError, null);
+            string studentName = txtGivenName.text + " " + txtMiddleName.text + " " + txtSurname.text + " " + txtNickName.text;
+            if (currentMaxStudent < maxStudentAllowed)
+            {
+                if (!IsDuplicate(studentName))
+                {
+                    int newId = SetStudentId();
+                    PlayerPrefs.SetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + newId, studentName);
+                    GameObject _obj = Instantiate(btnStudentPrefab);
+                    Student _student = _obj.GetComponent<Student>();
+                    _student.id = newId;
+                    _student.name = studentName;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
+                    _obj.transform.SetParent(btnStudentContainer.transform);
+
+                    panelStudentInput.gameObject.SetActive(false);
+                    currentMaxStudent++;
+                }
+                else
+                {
+                    MessageBox.ins.ShowOk("Name already exist.", MessageBox.MsgIcon.msgError, null);
+                }
+            }
+            else
+            {
+                MessageBox.ins.ShowOk("Max number of students allowed already reached.", MessageBox.MsgIcon.msgError, null);
+            }
         }
+        
         //PrintSections();
     }
 
