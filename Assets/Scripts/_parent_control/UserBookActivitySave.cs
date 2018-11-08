@@ -9,7 +9,7 @@ public class UserBookActivitySave : MonoBehaviour, IPointerClickHandler {
 	
     public void UpdatePlayedActivityUsage()
     {
-        //2018 08 30//string key = btnAct.Mode + StoryBookSaveManager.ins.User + StoryBookSaveManager.ins.selectedBook;
+        //2018 08 30//string key = btnAct.Mode + StoryBookSaveManager.ins.oldUsername + StoryBookSaveManager.ins.selectedBook;
         string key = btnAct.Mode + "section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id
             + StoryBookSaveManager.ins.selectedBook;
         // +btnAct.SceneToLoad; //SceneManager.GetActiveScene(); // + SaveTest.Set; DONT GET THE SET IT SEPERATES THE ONE GAME TO MANHY

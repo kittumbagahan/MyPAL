@@ -13,6 +13,6 @@ public class UserRecent{
         Singleton.userActive = true;
         string s = PlayerPrefs.GetString("recent_user");
         if(s != "")
-        StoryBookSaveManager.ins.User = s;
+        StoryBookSaveManager.ins.oldUsername = s;
     }
 }

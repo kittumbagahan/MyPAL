@@ -130,7 +130,7 @@ public class UserAccount : MonoBehaviour {
     void LoadSavedGameYes()
     {
         Singleton.userActive = true;
-        StoryBookSaveManager.ins.User = userName;
+        StoryBookSaveManager.ins.activeUser = userName;
         StoryBookSaveManager.ins.activeUser_id = userId;
         print(userName + " loaded!");
         PrintData(userName);

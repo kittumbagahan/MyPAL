@@ -59,18 +59,18 @@ public class LogIn : MonoBehaviour {
         
     }
 
-    void Load(string user)
+    void Load(string oldUsername)
     {
         gameObject.SetActive(false);
-        StoryBookSaveManager.ins.activeUser = user;
+        StoryBookSaveManager.ins.activeUser = oldUsername;
        
         if (UnityEngine.Random.Range(0, 5) > 2)
         {
-            Tammytam.ins.Say("Hello, \n" + user.Split(' ')[3] + "!");
+            Tammytam.ins.Say("Hello, \n" + oldUsername.Split(' ')[3] + "!");
         }
         else
         {
-            Tammytam.ins.Say("Let's read \n" + user.Split(' ')[3] + "!");
+            Tammytam.ins.Say("Let's read \n" + oldUsername.Split(' ')[3] + "!");
         }
 
         

@@ -7,7 +7,7 @@ public class ExitApp : MonoBehaviour {
 
     void CloseMe()
     {
-      //  recent.SaveRecentUser(StoryBookSaveManager.instance.user);
+      //  recent.SaveRecentUser(StoryBookSaveManager.instance.oldUsername);
         Application.Quit();
     }
     void CancelClose()

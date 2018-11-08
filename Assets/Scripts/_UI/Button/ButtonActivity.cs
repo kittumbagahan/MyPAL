@@ -53,7 +53,7 @@ public class ButtonActivity : MonoBehaviour {
             storyBook = StoryBookSaveManager.ins.selectedBook;
             index = Read.instance.SceneIndex(storyBook, module, buttonIndex);
             sceneToLoad = Read.instance.SceneName(storyBook, module, buttonIndex);
-			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.User + storyBook.ToString() + sceneToLoad + module.ToString() + index);
+			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
 			saveState = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
                 storyBook.ToString() + sceneToLoad + module.ToString() + index);
             //print(sceneToLoad + " on start " + gameObject.name);
@@ -68,7 +68,7 @@ public class ButtonActivity : MonoBehaviour {
                 GetComponent<Image>().material = grayscale;
             }
 
-            //print(StoryBookSaveManager.instance.user + storyBook + "_" + module + ", " + buttonIndex);
+            //print(StoryBookSaveManager.instance.oldUsername + storyBook + "_" + module + ", " + buttonIndex);
         }catch(Exception ex){
             //print("---------------------------------");
             //print(storyBook.ToString() + " " + index.ToString());

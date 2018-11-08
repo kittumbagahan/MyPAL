@@ -1,143 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 using System.Collections.Generic;
-using System;
-/*
- key, value
- * slotID, username
- */
+using UnityEngine;
 
-public class UserAccountManager : MonoBehaviour
-{
-    public static UserAccountManager ins;
-    [SerializeField]
-    UserBooksManager userBooksManager;
-    [SerializeField]
-    private GameObject panelStart;
-    [SerializeField]
-    private GameObject panelSaves;
-    [SerializeField]
-    private GameObject panelInput;
-    [SerializeField]
-    private GameObject objSaveOptions;
-    public Text txtUsernameInput;
-    [SerializeField]
-    UserAccount selectedSlot;
-    [SerializeField]
-    List<UserAccount> lstAccount;
-    public enum ECommand { newgame, continue_ };
-    [SerializeField]
-    ECommand cmd = new ECommand();
-    [SerializeField]
-    bool overwriteASaveSlot;
-    [SerializeField]
-    Button loadButton;
-    [SerializeField]
-    Transform saves_group;
-
-
-    [SerializeField]
-    GameObject btnUserSavePrefab;
-    [SerializeField]
-    GameObject btnStudentContainer;
-    int currentMaxStudent;
-    int maxStudentAllowed;
-
-    string prevUsername;
-
-    public string PrevUsername { set { prevUsername = value; } get { return prevUsername; } }
-    public ECommand Command { get { return cmd; } set { cmd = value; } }
-    public GameObject PanelSaves { get { return panelSaves; } }
-    public GameObject slotHighlight, pnlSaveSlots, pnlStartOptions;
-    public GameObject PanelInput { get { return panelInput; } }
-    public Button LoadButton { set { loadButton = value; } get { return loadButton; } }
-    public UserAccount SelectedSlot { get { return selectedSlot; } set { selectedSlot = value; } }
-    public List<UserAccount> UserAccounts {
-        get { return lstAccount; }
-    }
-    public GameObject SaveOptions { get { return objSaveOptions; } }
-    public GameObject PanelStart { get { return panelStart; } }
-    public UserBooksManager UserBooksManager{ get{ return userBooksManager; }}
-    void Start()
-    {
-        ins = this;
-        if (Singleton.userActive)
-        {
-            gameObject.SetActive(false);
-        }
-        panelSaves.SetActive(true);
-        LoadStudents();
-    }
-
-
-    public void LoadStudents()
-    {
-        int n = 0;
-        maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
-        for (int i = 0; i < maxStudentAllowed; i++)
-        {
-            if (PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + i) != "")
-            {
-                GameObject _obj = Instantiate(btnUserSavePrefab);
-                UserAccount _student = _obj.GetComponent<UserAccount>();
-                _student.UserId = i;
-                _student.Username = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-                "student_id" + i);
-                _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.Username;
-                _obj.transform.SetParent(btnStudentContainer.transform);
-                n++;
-            }
-
-        }
-        currentMaxStudent = n;
-
-    }
-
-    #region old
-
-    public void Overwrite(bool val)
-    {
-        UserParentalManager.ins.PlayClickClip();
-        overwriteASaveSlot = val;
-    }
-    public void SelectSlot(GameObject slot)
-    {
-        //  selectedSlot = slot;
-    }
-    public void Delete()
-    {
-        UserParentalManager.ins.PlayClickClip();
-        MessageBox.ins.ShowQuestion("Delete user?", MessageBox.MsgIcon.msgInformation, new UnityAction(DeleteSaveYes), new UnityAction(DeleteSaveNo));
-    }
-
-    void DeleteSaveNo()
-    {
-        UserParentalManager.ins.PlayClickClip();
-    }
-    void DeleteSaveYes()
-    {
-        string user = selectedSlot.Username;
-        int saveId = selectedSlot.UserId;
-      
-        PlayerPrefs.DeleteKey("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + selectedSlot.UserId);
-        print("DElete ?" + PlayerPrefs.GetString("student_id" + saveId.ToString()));
-
-        UserParentalManager.ins.PlayClickClip();
-
-        DeleteActivity("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + selectedSlot.UserId);
-        DeleteBooksUsage("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + selectedSlot.UserId);
-        DeleteActivityUsage("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + selectedSlot.UserId);
-
-        DeleteFinished();
-    }
+public class UpdateStudentName{
 
     public void DeleteActivity(string user)
     {
@@ -287,7 +153,7 @@ public class UserAccountManager : MonoBehaviour
         PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act4" + Module.PUZZLE.ToString() + "0");
         PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act5" + Module.PUZZLE.ToString() + "0");
         PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act6" + Module.PUZZLE.ToString() + "0");
-        PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act7" + Module.PUZZLE.ToString() + "0"); 
+        PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act7" + Module.PUZZLE.ToString() + "0");
 
         PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act3" + Module.OBSERVATION.ToString() + "-1");
         PlayerPrefs.DeleteKey(user + StoryBook.TINA_AND_JUN.ToString() + "TinaAndJun_Act3" + Module.OBSERVATION.ToString() + "3");
@@ -311,7 +177,7 @@ public class UserAccountManager : MonoBehaviour
         PlayerPrefs.DeleteKey(user + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION.ToString() + "0");
         PlayerPrefs.DeleteKey(user + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION.ToString() + "4");
         PlayerPrefs.DeleteKey(user + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION.ToString() + "8");
-      
+
     }
     public void DeleteBooksUsage(string user)
     {
@@ -325,7 +191,7 @@ public class UserAccountManager : MonoBehaviour
         }
     }
     public void DeleteActivityUsage(string user)
-    { 
+    {
         //string key = btnAct.Mode + StoryBookSaveManager.instance.User + StoryBookSaveManager.instance.selectedBook;
         foreach (StoryBook val in Enum.GetValues(typeof(StoryBook)))
         {
@@ -335,151 +201,4 @@ public class UserAccountManager : MonoBehaviour
         }
     }
 
-    public void DeleteFinished()
-    {
-        selectedSlot.Username = "";
-        selectedSlot = null;
-        objSaveOptions.SetActive(false);
-    }
-    
-    int checkDuplicate(string name)
-    {
-        for (int i = 0; i < lstAccount.Count; i++ )
-        {
-            if(lstAccount[i].Username.Equals(name, StringComparison.Ordinal))
-            {
-                return 1;
-            }
-        }
-
-        return 0;
-    }
-
-    public void OK(GameObject inputPanel)
-    {
-        if (txtUsernameInput.text == "")
-        {
-            print("Please enter username.");
-            MessageBox.ins.ShowOk("Please enter a username", MessageBox.MsgIcon.msgError, null);
-            UserParentalManager.ins.PlayClickClip();
-        }
-        else if(checkDuplicate(txtUsernameInput.text) >= 1)
-        {
-            UserParentalManager.ins.PlayClickClip();
-            //print("that username is already taken.");
-            MessageBox.ins.ShowOk("Username already taken", MessageBox.MsgIcon.msgError, null);
-        }
-        else if ((txtUsernameInput.text != "" && txtUsernameInput.text.Length <= 12) || cmd == ECommand.newgame)
-        {
-            if (!overwriteASaveSlot)
-            {
-                cmd = ECommand.continue_;
-                selectedSlot.GetComponent<UserAccount>().Username = txtUsernameInput.text;
-                selectedSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = txtUsernameInput.text;
-                inputPanel.SetActive(false);
-                PlayerPrefs.SetString("student_id" + selectedSlot.GetComponent<UserAccount>().UserId.ToString(), selectedSlot.GetComponent<UserAccount>().Username);
-                print("SAVED! student_id" + selectedSlot.GetComponent<UserAccount>().UserId.ToString() + selectedSlot.GetComponent<UserAccount>().Username);
-            }
-            else if (overwriteASaveSlot && (txtUsernameInput.text != "" && txtUsernameInput.text.Length <= 12))
-            {
-                cmd = ECommand.continue_;
-
-                // PlayerPrefs.DeleteKey(prevUsername + selectedSlot.GetComponent<UserAccount>().SlotID.ToString());
-                //DELETE HERE
-                //DeleteSave(prevUsername, id);
-                overwriteASaveSlot = false;
-                selectedSlot.GetComponent<UserAccount>().Username = txtUsernameInput.text;
-                selectedSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = txtUsernameInput.text;
-                inputPanel.SetActive(false);
-                //SAVE NEW ONE
-                PlayerPrefs.SetString("student_id" + selectedSlot.GetComponent<UserAccount>().UserId.ToString(), selectedSlot.GetComponent<UserAccount>().Username);
-                print("OVERWRITTEN SAVED! student_id" + selectedSlot.GetComponent<UserAccount>().UserId.ToString() + selectedSlot.GetComponent<UserAccount>().Username);
-                UserParentalManager.ins.PlayClickClip();
-            }
-            else
-            {
-                UserParentalManager.ins.PlayClickClip();
-                print("Please enter username.");
-                MessageBox.ins.ShowOk("Please enter a username", MessageBox.MsgIcon.msgError, null);
-            }
-        }
-        
-     
-    }
-
-    void OnEnable()
-    {
-        OpenUserAccounts();
-    }
-    public void OpenUserAccounts()
-    {
-        panelSaves.SetActive(true);
-        panelStart.SetActive(false);
-        panelInput.SetActive(false);
-    }
-
-    public void EmptyUser()
-    {
-        //StoryBookSaveManager.instance.user = "";
-    }
-
-
-	int savesGroupPosN = 0;
-	IEnumerator co;
-	//Vector2 _savesGroupPosTemp = new Vector2(0,0);
-	public void ShowNextSaves()
-	{
-		if(savesGroupPosN < 2)
-		{
-			savesGroupPosN++;
-			ShowSavesN(savesGroupPosN);
-		}
-	}
-
-	public void ShowPrevSaves()
-	{
-		if(savesGroupPosN > 0)
-		{
-			savesGroupPosN--;
-			ShowSavesN(savesGroupPosN);
-		}
-	}
-
-	void ShowSavesN(int posN)
-	{
-		if(co != null)
-			StopCoroutine(co);
-		
-		switch(posN)
-		{
-			case 0:
-				co = IEMoveToPosX(0f);
-				StartCoroutine(co);
-			break;
-			case 1:
-				co = IEMoveToPosX(-800f);
-				StartCoroutine(co);
-			break;
-			case 2:
-				co = IEMoveToPosX(-1600f);
-				StartCoroutine(co);
-			break;
-		default: break;
-		}
-	}
-
-	IEnumerator IEMoveToPosX(float xPos)
-	{
-		
-		while(saves_group.GetLocalXPos() != xPos+1f)
-		{
-			//saves_group.position = Vector2.MoveTowards(saves_group.position, _savesGroupPosTemp, 3 * Time.deltaTime);
-
-			saves_group.SetLocalXPos(Mathf.Lerp(saves_group.GetLocalXPos(),xPos,0.1f));
-			yield return new WaitForSeconds(0.001f);
-		}
-
-	}
-
-    #endregion old
 }

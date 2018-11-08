@@ -39,7 +39,7 @@ public class UserBooksManager : MonoBehaviour {
     public void Show(string key)
     {
         gameObject.SetActive(true);
-        //get user name by slotID(s)
+        //get oldUsername name by slotID(s)
         print("key is " + key);
         userId = key; // PlayerPrefs.GetString(key);
         //txtUserBookHeader.text = username + "'s" + " favorite books";
@@ -55,7 +55,7 @@ public class UserBooksManager : MonoBehaviour {
     {
         //hindi nakaayos sa image                                                                  
       
-        //StoryBookSaveManager.instance.user + "FavoriteBox";
+        //StoryBookSaveManager.instance.oldUsername + "FavoriteBox";
 // 
 //        AfterTheRain
 //          ABC_Circus

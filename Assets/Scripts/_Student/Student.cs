@@ -9,7 +9,15 @@ public class Student : MonoBehaviour {
 
     public void Click()
     {
-        MessageBox.ins.ShowQuestion("Load student " + name + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadYes), new UnityAction(LoadNo));
+        if (StudentController.ins.editMode)
+        {
+            StudentController.ins.Edit(this);
+        }
+        else
+        {
+            MessageBox.ins.ShowQuestion("Load student " + name + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadYes), new UnityAction(LoadNo));
+        }
+       
     }
 
     void LoadYes()

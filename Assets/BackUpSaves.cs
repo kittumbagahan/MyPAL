@@ -121,7 +121,7 @@ public class BackUpSaves : MonoBehaviour {
                     _userId = "section_id" + a.ToString() + "student_id" + b.ToString();//Get(PlayerPrefs.GetString("sectiond_id" + a.ToString() + "student_id" + b.ToString()));
                     string _userName = PlayerPrefs.GetString(_userId);
                     yield return new WaitForSeconds(loadSpd);
-                    print("user " + b + "=" + _userId + "/" + _userName);
+                    print("oldUsername " + b + "=" + _userId + "/" + _userName);
 					
                     lstData.Add(_userId + "/" + _userName);
                     yield return new WaitForSeconds(loadSpd);

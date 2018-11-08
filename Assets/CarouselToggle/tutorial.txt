@@ -58,7 +58,7 @@ HOW TO USE:
 4.- Fiddling (optional)
 -Try different settings in SnapSpeed. Setting it to 0 means it doesn't move. Larger numbers make it snap faster.
 -Carousel Toggler will always center on the center of the RectTransform that has a Toggle component (not the pivot). Use this information to have it centered where you want it.
--Tune your UI so that part of the other toggles are visible, so the user will know where to scroll to.
+-Tune your UI so that part of the other toggles are visible, so the oldUsername will know where to scroll to.
 
 5.- Rotator (optional)
 -Add the CarouselRotator script to the Carousel.

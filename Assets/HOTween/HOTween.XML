@@ -67,7 +67,7 @@
             <summary>
             Creates a new instance of this plugin with the given options.
             Used because easeType can't be null, and otherwise there's no way
-            to understand if the ease was voluntarily set by the user or not.
+            to understand if the ease was voluntarily set by the oldUsername or not.
             </summary>
             <param name="p_endVal">
             The <see cref="T:System.Object"/> value to tween to.

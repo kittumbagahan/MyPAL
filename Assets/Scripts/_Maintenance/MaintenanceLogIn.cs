@@ -33,7 +33,7 @@ public class MaintenanceLogIn : MonoBehaviour {
 		}
 		else if(inputPWD.text == "tammytam")
 		{
-			MessageBox.ins.ShowOk("THE SUPER USER HAS LOGGED IN!", MessageBox.MsgIcon.msgInformation, new UnityAction(ShowParentalControl));
+			MessageBox.ins.ShowOk("THE SUPER oldUsername HAS LOGGED IN!", MessageBox.MsgIcon.msgInformation, new UnityAction(ShowParentalControl));
 			print("Developer Logged In!");
 			MaintenanceManager.ins.loggedInPassword = "tammytam";
 			ClearPWDField();

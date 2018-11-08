@@ -21,7 +21,7 @@ public class Tammytam : MonoBehaviour {
         else
         {
             bubble.SetActive(true);
-           // print("user is " + StoryBookSaveManager.instance.user);
+           // print("oldUsername is " + StoryBookSaveManager.instance.oldUsername);
         }
         txtHello.text = sentence;
     }
@@ -33,7 +33,7 @@ public class Tammytam : MonoBehaviour {
     void Start () {
         ins = this;
         //bubble.SetActive(true);
-        //txtHello.text = StoryBookSaveManager.instance.user + abc;
+        //txtHello.text = StoryBookSaveManager.instance.oldUsername + abc;
 	}
 
     

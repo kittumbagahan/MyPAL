@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class StudentController : MonoBehaviour {
     public static StudentController ins;
     [SerializeField]
-    GameObject panelStudentInput;
+    GameObject panelCreateStudentInput;
+    [SerializeField]
+    GameObject panelEditStudentInput;
     [SerializeField]
     GameObject btnStudentContainer;
     [SerializeField]
@@ -25,6 +28,7 @@ public class StudentController : MonoBehaviour {
     [SerializeField]
     int maxStudentAllowed;
 
+    public bool editMode = false;
 
     void Start()
     {
@@ -82,6 +86,8 @@ public class StudentController : MonoBehaviour {
 
     }
 
+   
+
     public void CreateNewStudent()
     {
         if ("".Equals(txtGivenName.text) || "".Equals(txtMiddleName.text) || "".Equals(txtSurname.text) || "".Equals(txtNickName.text))
@@ -104,7 +110,7 @@ public class StudentController : MonoBehaviour {
                     _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
                     _obj.transform.SetParent(btnStudentContainer.transform);
 
-                    panelStudentInput.gameObject.SetActive(false);
+                    panelCreateStudentInput.gameObject.SetActive(false);
                     currentMaxStudent++;
                 }
                 else
@@ -164,8 +170,6 @@ public class StudentController : MonoBehaviour {
         return false;
     }
 
-    
-
     public void Show()
     {
         gameObject.SetActive(true);
@@ -175,5 +179,74 @@ public class StudentController : MonoBehaviour {
     public void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    //EDIT ------------------------------------
+    public void EditStudent()
+    {
+        editMode = true;
+        MessageBox.ins.ShowOkCancel("Select student to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
+            EditYes, EditCancel);
+    }
+
+    void EditYes()
+    {
+        editMode = true;
+       
+    }
+    void EditCancel()
+    {
+        editMode = false;
+        MessageBox.ins.ShowOk("Edit student cancelled.", MessageBox.MsgIcon.msgInformation, null);
+    }
+
+   
+    public void Edit(Student student)
+    {
+        EditStudentView view = panelEditStudentInput.GetComponent<EditStudentView>();
+        view.gameObject.SetActive(true);
+        view.txtGivenName.text = student.name.Split(' ')[0];
+        view.txtMiddleName.text = student.name.Split(' ')[1];
+        view.txtSurname.text = student.name.Split(' ')[2];
+        view.txtNickname.text = student.name.Split(' ')[3];
+        UpdateStudent updateStudent = new UpdateStudent(view, student);
+        print("checking update " + student.name);
+        view.btnOK.onClick.AddListener(updateStudent.UpdateStudentName);
+
+    }
+
+  
+}
+
+class UpdateStudent
+{
+
+    EditStudentView view;
+    Student s;
+    public UpdateStudent(EditStudentView view, Student s)
+    {
+        this.view = view;
+        this.s = s;
+    }
+    public void UpdateStudentName()
+    {
+        if ("".Equals(view.txtGivenName.text) || "".Equals(view.txtMiddleName.text) || "".Equals(view.txtSurname.text) || "".Equals(view.txtNickname.text))
+        {
+            MessageBox.ins.ShowOk("All fields are required.", MessageBox.MsgIcon.msgError, null);
+        }
+
+        else if (view.txtGivenName.text.Equals(s.name.Split(' ')[0]) && view.txtMiddleName.text.Equals(s.name.Split(' ')[1]) && view.txtSurname.text.Equals(s.name.Split(' ')[2])
+            && view.txtNickname.text.Equals(s.name.Split(' ')[3]))
+        {
+            //nothing to update just say updated!
+            MessageBox.ins.ShowOk("Student name updated!.", MessageBox.MsgIcon.msgInformation, null);
+        }
+        else
+        {
+            //save the oldname
+            //copy the oldname keys
+            //replace the keys oldname by newname
+            //save
+        }
     }
 }

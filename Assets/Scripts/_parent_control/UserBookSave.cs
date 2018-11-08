@@ -18,7 +18,7 @@ public class UserBookSave : MonoBehaviour {
 
     public void UpdateReadItToMeUsage()
     {
-        //2018 08 30//string key = "readItToMe" + StoryBookSaveManager.ins.User + StoryBookSaveManager.ins.selectedBook;
+        //2018 08 30//string key = "readItToMe" + StoryBookSaveManager.ins.oldUsername + StoryBookSaveManager.ins.selectedBook;
         string key = "readItToMe" + "section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id
             + StoryBookSaveManager.ins.selectedBook;
         PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
@@ -27,7 +27,7 @@ public class UserBookSave : MonoBehaviour {
 
     public void UpdateAutoReadUsage()
     {
-        //2018 08 30//string key = "auto" + StoryBookSaveManager.ins.User + StoryBookSaveManager.ins.selectedBook;
+        //2018 08 30//string key = "auto" + StoryBookSaveManager.ins.oldUsername + StoryBookSaveManager.ins.selectedBook;
         string key = "auto" + "section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id
             + StoryBookSaveManager.ins.selectedBook;
         PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
