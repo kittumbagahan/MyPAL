@@ -23,7 +23,7 @@ public class SaveTest:MonoBehaviour{
             + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set, ScoreManager.ins.GetGrade());
 
         print("SAVED " + ScoreManager.ins.GetGrade());
-        print(StoryBookSaveManager.ins.oldUsername + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
+        print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
 
 
         //PlayerPrefs.SetString("USERNAME" + storyBook.ToString() + module.ToString() + set, "done");

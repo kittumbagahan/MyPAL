@@ -209,13 +209,16 @@ public class StudentController : MonoBehaviour {
         view.txtMiddleName.text = student.name.Split(' ')[1];
         view.txtSurname.text = student.name.Split(' ')[2];
         view.txtNickname.text = student.name.Split(' ')[3];
+
+        
+
         UpdateStudent updateStudent = new UpdateStudent(view, student);
         print("checking update " + student.name);
         view.btnOK.onClick.AddListener(updateStudent.UpdateStudentName);
 
     }
 
-  
+   
 }
 
 class UpdateStudent
@@ -239,14 +242,16 @@ class UpdateStudent
             && view.txtNickname.text.Equals(s.name.Split(' ')[3]))
         {
             //nothing to update just say updated!
-            MessageBox.ins.ShowOk("Student name updated!.", MessageBox.MsgIcon.msgInformation, null);
+            MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
+            StudentController.ins.editMode = false;
         }
         else
         {
-            //save the oldname
-            //copy the oldname keys
-            //replace the keys oldname by newname
-            //save
+            PlayerPrefs.SetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + s.id,
+            view.txtGivenName.text + " " + view.txtMiddleName.text + " " + view.txtSurname.text + " " + view.txtNickname.text);
+            StudentController.ins.LoadStudents();
+            MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
+            StudentController.ins.editMode = false;
         }
     }
 }

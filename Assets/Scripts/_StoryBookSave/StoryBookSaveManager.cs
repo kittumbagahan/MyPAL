@@ -54,7 +54,7 @@ public class StoryBookSaveManager : MonoBehaviour {
        
     }
 
-    public string oldUsername {
+    public string Username {
         get {
             if (activeUser != "")
             {
