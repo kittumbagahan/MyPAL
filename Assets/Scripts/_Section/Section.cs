@@ -9,7 +9,15 @@ public class Section : MonoBehaviour {
 
     public void Click()
     {
-        MessageBox.ins.ShowQuestion("Load section " + name + "?", MessageBox.MsgIcon.msgInformation,new UnityAction(LoadYes), new UnityAction(LoadNo));
+        if (SectionController.ins.editMode)
+        {
+            SectionController.ins.Edit(this);
+        }
+        else
+        {
+            MessageBox.ins.ShowQuestion("Load section " + name + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadYes), new UnityAction(LoadNo));
+        }
+     
     }
 
     void LoadYes()

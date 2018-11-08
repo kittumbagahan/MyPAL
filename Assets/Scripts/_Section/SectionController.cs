@@ -8,6 +8,8 @@ public class SectionController : MonoBehaviour {
     [SerializeField]
     GameObject panelSectionInput;
     [SerializeField]
+    GameObject panelEditSectionInput;
+    [SerializeField]
     GameObject btnSectionContainer;
     [SerializeField]
     GameObject btnSectionPrefab;
@@ -16,6 +18,10 @@ public class SectionController : MonoBehaviour {
     int currentMaxSection = 0;
     [SerializeField]
     int maxSectionAllowed;
+
+
+
+    public bool editMode = false;
 
     void Start () {
         if(ins != null)
@@ -37,7 +43,12 @@ public class SectionController : MonoBehaviour {
     {
         int n = 0;
         maxSectionAllowed = PlayerPrefs.GetInt("maxNumberOfSectionsAllowed");
-    
+
+        for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
+        {
+            Destroy(btnSectionContainer.transform.GetChild(i).gameObject);
+        }
+
         for (int i = 0; i < maxSectionAllowed; i++)
         {
             if (PlayerPrefs.GetString("section_id" + i) != "")
@@ -152,5 +163,66 @@ public class SectionController : MonoBehaviour {
 
     public void Show() {
         gameObject.SetActive(true);
+    }
+
+    //Edit-----------------------------
+    public void EditSection()
+    {
+        editMode = true;
+        MessageBox.ins.ShowOkCancel("Select section to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
+            EditYes, EditCancel);
+    }
+
+    void EditYes()
+    {
+        editMode = true;
+
+    }
+    void EditCancel()
+    {
+        editMode = false;
+        MessageBox.ins.ShowOk("Edit section cancelled.", MessageBox.MsgIcon.msgInformation, null);
+    }
+
+    public void Edit(Section s)
+    {
+        EditSectionView view = panelEditSectionInput.GetComponent<EditSectionView>();
+        view.gameObject.SetActive(true);
+        view.txtSectionName.text = s.name;
+
+        UpdateSection updateSection = new UpdateSection(view, s);
+        view.btnOK.onClick.AddListener(updateSection.UpdateSectionName);
+    }
+}
+
+class UpdateSection{
+    EditSectionView view;
+    Section s;
+    public UpdateSection(EditSectionView view, Section s)
+    {
+        this.view = view;
+        this.s = s;
+    }
+
+    public void UpdateSectionName()
+    {
+        if ("".Equals(view.txtSectionName.text))
+        {
+            MessageBox.ins.ShowOk("All fields are required.", MessageBox.MsgIcon.msgError, null);
+        }
+
+        else if (view.txtSectionName.text.Equals(s.name))
+        {
+            //nothing to update just say updated!
+            MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
+            SectionController.ins.editMode = false;
+        }
+        else
+        {
+            PlayerPrefs.SetString("section_id" + s.id, view.txtSectionName.text);
+            SectionController.ins.LoadSections();
+            MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
+            SectionController.ins.editMode = false;
+        }
     }
 }
