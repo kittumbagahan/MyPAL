@@ -184,7 +184,14 @@ public class SectionController : MonoBehaviour {
         MessageBox.ins.ShowOk("Edit section cancelled.", MessageBox.MsgIcon.msgInformation, null);
     }
 
-    public void Edit(Section s)
+   void EditClose()
+   {
+      editMode = false;
+      EditSectionView view = panelEditSectionInput.GetComponent<EditSectionView> ();
+      view.btnOK.onClick.RemoveAllListeners ();
+   }
+
+   public void Edit(Section s)
     {
         EditSectionView view = panelEditSectionInput.GetComponent<EditSectionView>();
         view.gameObject.SetActive(true);
@@ -192,6 +199,8 @@ public class SectionController : MonoBehaviour {
 
         UpdateSection updateSection = new UpdateSection(view, s);
         view.btnOK.onClick.AddListener(updateSection.UpdateSectionName);
+        view.btnClose.onClick.AddListener (EditClose);
+       
     }
 }
 
@@ -216,6 +225,8 @@ class UpdateSection{
             //nothing to update just say updated!
             MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
             SectionController.ins.editMode = false;
+            view.btnOK.onClick.RemoveAllListeners ();
+            //view.btnClose.onClick.RemoveAllListeners ();
         }
         else
         {
@@ -223,6 +234,8 @@ class UpdateSection{
             SectionController.ins.LoadSections();
             MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
             SectionController.ins.editMode = false;
-        }
+            view.btnOK.onClick.RemoveAllListeners ();
+            //view.btnClose.onClick.RemoveAllListeners ();
+      }
     }
 }

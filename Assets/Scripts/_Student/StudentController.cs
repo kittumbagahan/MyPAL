@@ -199,7 +199,13 @@ public class StudentController : MonoBehaviour {
         editMode = false;
         MessageBox.ins.ShowOk("Edit student cancelled.", MessageBox.MsgIcon.msgInformation, null);
     }
-
+    
+   void EditClose()
+   {
+      editMode = false;
+      EditStudentView view = panelEditStudentInput.GetComponent<EditStudentView> ();
+      view.btnOK.onClick.RemoveAllListeners ();
+   }
    
     public void Edit(Student student)
     {
@@ -215,7 +221,7 @@ public class StudentController : MonoBehaviour {
         UpdateStudent updateStudent = new UpdateStudent(view, student);
         print("checking update " + student.name);
         view.btnOK.onClick.AddListener(updateStudent.UpdateStudentName);
-
+        view.btnClose.onClick.AddListener (EditClose);
     }
 
    
@@ -244,7 +250,8 @@ class UpdateStudent
             //nothing to update just say updated!
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
             StudentController.ins.editMode = false;
-        }
+            view.btnOK.onClick.RemoveAllListeners ();
+      }
         else
         {
             PlayerPrefs.SetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + s.id,
@@ -252,6 +259,7 @@ class UpdateStudent
             StudentController.ins.LoadStudents();
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
             StudentController.ins.editMode = false;
-        }
+            view.btnOK.onClick.RemoveAllListeners ();
+      }
     }
 }
