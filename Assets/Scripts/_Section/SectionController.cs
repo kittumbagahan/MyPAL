@@ -168,9 +168,18 @@ public class SectionController : MonoBehaviour {
     //Edit-----------------------------
     public void EditSection()
     {
-        editMode = true;
-        MessageBox.ins.ShowOkCancel("Select section to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
-            EditYes, EditCancel);
+      if (btnSectionContainer.transform.childCount == 0)
+      {
+         MessageBox.ins.ShowOk("No section to edit.", MessageBox.MsgIcon.msgInformation,
+            null);
+      }
+      else
+      {
+         editMode = true;
+         MessageBox.ins.ShowOkCancel ("Select section to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
+             EditYes, EditCancel);
+      }
+       
     }
 
     void EditYes()

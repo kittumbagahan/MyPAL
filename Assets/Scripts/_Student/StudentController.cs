@@ -184,9 +184,18 @@ public class StudentController : MonoBehaviour {
     //EDIT ------------------------------------
     public void EditStudent()
     {
-        editMode = true;
-        MessageBox.ins.ShowOkCancel("Select student to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
-            EditYes, EditCancel);
+      if(btnStudentContainer.transform.childCount == 0)
+      {
+         MessageBox.ins.ShowOk ("No student to edit.", MessageBox.MsgIcon.msgInformation,
+          null);
+      }
+      else
+      {
+         editMode = true;
+         MessageBox.ins.ShowOkCancel ("Select student to edit. Click cancel to return.", MessageBox.MsgIcon.msgInformation,
+             EditYes, EditCancel);
+      }
+       
     }
 
     void EditYes()

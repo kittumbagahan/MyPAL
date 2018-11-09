@@ -2420,7 +2420,6 @@ GameObject:
   - component: {fileID: 937922802}
   - component: {fileID: 937922801}
   - component: {fileID: 937922803}
-  - component: {fileID: 937922808}
   m_Layer: 5
   m_Name: btnBack_this
   m_TagString: Untagged
@@ -2527,9 +2526,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 937922808}
-        m_MethodName: Click
-        m_Mode: 1
+      - m_Target: {fileID: 1627747133}
+        m_MethodName: LoadStr
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2537,6 +2536,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: YummyShapes
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2057952448}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -2575,18 +2585,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 937922799}
---- !u!114 &937922808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 937922799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8afd85b81f54b689840dc300b85106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: YummyShapes
 --- !u!1 &976002238
 GameObject:
   m_ObjectHideFlags: 0
