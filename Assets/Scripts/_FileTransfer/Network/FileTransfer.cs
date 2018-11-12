@@ -10,9 +10,6 @@ using BeardedManStudios.Forge.Networking.Generated;
 
 public class FileTransfer : MonoBehaviour
 {
-    [SerializeField]
-    UnityEngine.UI.Text txtLog;
-
     public string filePath;
     private bool sentFile;
 
@@ -34,47 +31,33 @@ public class FileTransfer : MonoBehaviour
 
         Debug.Log("Reading file!");
 
-        //StringBuilder("Reading file!");
-        MainThreadManager.Run (() => StringBuilder ("Reading file!"));
+        //StringBuilder("Reading file!");        
 
         // Read the string from the beginning of the payload
         string fileName = frame.StreamData.GetBasicType<string>();
 
-        MainThreadManager.Run( () => Debug.Log("File name is " + fileName + ", path: " +  Application.persistentDataPath));
-        MainThreadManager.Run( () => StringBuilder("File name is " + fileName + ", path: " + Application.persistentDataPath));
+        MainThreadManager.Run( () => Debug.Log("File name is " + fileName + ", path: " +  Application.persistentDataPath));        
 
         if (File.Exists(fileName))
         {
             Debug.LogError("The file " + fileName + " already exists!");
+            MainThreadManager.Run(() => GetComponent<MultiplayerMenu>().UpdateNetworkStatus(string.Format("File {0} alreadey exist!")));
             //StringBuilder("The file " + fileName + " already exists!");
             return;
         }
 
         // Write the rest of the payload as the contents of the file and
-        // use the file name that was extracted as the file's name
-        //#if UNITY_ANDROID
-        //        MainThreadManager.Run( () => File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes()));
-        //#else
-        //        MainThreadManager.Run( () =>  File.WriteAllBytes(fileName, frame.StreamData.CompressBytes()));
-        //#endif
-        MainThreadManager.Run (() => File.WriteAllBytes (string.Format ("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes ()));
-    }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))//  && !sentFile
-    //    {
-    //        SendFile();
-    //    }
-    //}
+        // use the file name that was extracted as the file's name    
+        MainThreadManager.Run(() => File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes()));
+        MainThreadManager.Run(() => GetComponent<MultiplayerMenu>().UpdateNetworkStatus(string.Format("File {0}, received!")));
+    }   
 
     public void SendFile(string pFilePath)
     {
         // test
         //MessageBox.ins.ShowOk (string.Format ("File path is {0}", pFilePath), MessageBox.MsgIcon.msgInformation, null);
         //return;
-        Debug.Log ("File Path " + pFilePath);
-        MainThreadManager.Run (() => StringBuilder ("File Path" + pFilePath));
+        Debug.Log ("File Path " + pFilePath);        
 
         // kit, temp
         //sentFile = true;
@@ -89,16 +72,14 @@ public class FileTransfer : MonoBehaviour
 
         if (!networker.IsServer)
         {
-            Debug.LogError("Only the server can send files in this example!");
-            StringBuilder("Only the server can send files in this example!");
+            Debug.LogError("Only the server can send files in this example!");            
             return;
         }
 
         // Throw an error if the file does not exist
         if (!File.Exists(filePath))
         {
-            Debug.LogError("The file " + filePath + " could not be found");
-            //StringBuilder("The file " + filePath + " could not be found");
+            Debug.LogError("The file " + filePath + " could not be found");            
             return;
         }
 
@@ -123,14 +104,8 @@ public class FileTransfer : MonoBehaviour
         if (networker is UDPServer)
             ((UDPServer)networker).Send(frame, true);
         else
-            ((TCPServer)networker).SendAll(frame);
+            ((TCPServer)networker).SendAll(frame);                
 
         //StringBuilder("sending file");
-    }
-
-    public void StringBuilder(string pText)
-    {
-        if(txtLog != null)
-            txtLog.text += pText + "\n";
     }
 }
