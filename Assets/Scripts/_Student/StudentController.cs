@@ -27,7 +27,8 @@ public class StudentController : MonoBehaviour {
     int currentMaxStudent;
     [SerializeField]
     int maxStudentAllowed;
-
+   [SerializeField]
+   GameObject btnEdit;
     public bool editMode = false;
 
     void Start()
@@ -84,7 +85,20 @@ public class StudentController : MonoBehaviour {
         }
         currentMaxStudent = n;
 
-    }
+         if (btnStudentContainer.transform.childCount == 0)
+         {
+            btnEdit.gameObject.SetActive (false);
+         }
+         else
+         {
+            if(UserRestrictionController.ins.restriction == 0)
+            {
+               btnEdit.gameObject.SetActive (true);
+            }
+           
+         }
+
+   }
 
    
 
@@ -112,7 +126,8 @@ public class StudentController : MonoBehaviour {
 
                     panelCreateStudentInput.gameObject.SetActive(false);
                     currentMaxStudent++;
-                }
+                    btnEdit.gameObject.SetActive (true);
+            }
                 else
                 {
                     MessageBox.ins.ShowOk("Name already exist.", MessageBox.MsgIcon.msgError, null);

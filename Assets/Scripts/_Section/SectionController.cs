@@ -13,7 +13,8 @@ public class SectionController : MonoBehaviour {
     GameObject btnSectionContainer;
     [SerializeField]
     GameObject btnSectionPrefab;
-   
+   [SerializeField]
+   GameObject btnEdit;
     [SerializeField]
     int currentMaxSection = 0;
     [SerializeField]
@@ -37,6 +38,7 @@ public class SectionController : MonoBehaviour {
         }
         //PlayerPrefs.SetInt("maxNumberOfSectionsAllowed", 10);
         LoadSections();
+        
 	}
 	
     public void LoadSections()
@@ -68,7 +70,20 @@ public class SectionController : MonoBehaviour {
         }
 
         currentMaxSection = n;
-    }
+
+      if (btnSectionContainer.transform.childCount == 0)
+      {
+         btnEdit.gameObject.SetActive (false);
+      }
+      else
+      {
+         if (UserRestrictionController.ins.restriction == 0)
+         {
+            btnEdit.gameObject.SetActive (true);
+         }
+            
+      }
+   }
 
 	public void CreateNewSection(Text newSection)
     {

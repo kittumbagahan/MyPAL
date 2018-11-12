@@ -9016,7 +9016,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -12734,6 +12734,7 @@ MonoBehaviour:
   txtNickName: {fileID: 892126504}
   currentMaxStudent: 0
   maxStudentAllowed: 0
+  btnEdit: {fileID: 1533993543}
   editMode: 0
 --- !u!1 &534759433
 GameObject:
@@ -37980,6 +37981,7 @@ MonoBehaviour:
   btnSectionContainer: {fileID: 1426317774}
   btnSectionPrefab: {fileID: 1136546680231722, guid: 182128a91f147a646aa9c98089248844,
     type: 2}
+  btnEdit: {fileID: 1064671738}
   currentMaxSection: 0
   maxSectionAllowed: 0
   editMode: 0

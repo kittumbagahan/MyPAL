@@ -8,7 +8,7 @@ public class UserRestrictionController : MonoBehaviour {
     [SerializeField]
     GameObject[] objects;
 
-    //public int restriction = -1;
+    public int restriction = -1;
 
     private void Start()
     {
@@ -17,6 +17,7 @@ public class UserRestrictionController : MonoBehaviour {
 
     public void Restrict(int restriction)
     {
+        this.restriction = restriction;
         if(restriction == 0)
         {
             for(int i=0; i<objects.Length; i++)
