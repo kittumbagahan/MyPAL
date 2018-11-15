@@ -9,6 +9,8 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
+using System.Net.Sockets;
+
 public class MainNetwork : MonoBehaviour {
 
     //public InputField ipAddress = null;
@@ -180,7 +182,7 @@ public class MainNetwork : MonoBehaviour {
     }
 
     public void Host()
-    {
+    {               
         if (useTCP)
         {
             server = new TCPServer(100);
@@ -194,12 +196,26 @@ public class MainNetwork : MonoBehaviour {
             if (natServerHost.Trim().Length == 0)
             //((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
             {
-                ((UDPServer)server).Connect(mIpAddress, mPort);
+                try
+                {
+                    ((UDPServer)server).Connect(mIpAddress, mPort);
+                }
+                catch (BaseNetworkException ex)
+                {
+                    MessageBox.ins.ShowOk("A server already exist. Please check your network connection.", MessageBox.MsgIcon.msgInformation, null);
+                }            
             }
             else
             //((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
             {
-                ((UDPServer)server).Connect(port: mPort, natHost: natServerHost, natPort: natServerPort);
+                try
+                {
+                    ((UDPServer)server).Connect(port: mPort, natHost: natServerHost, natPort: natServerPort);
+                }
+                catch (BaseNetworkException ex)
+                {
+                    MessageBox.ins.ShowOk("A server already exist. Please check your network connection.", MessageBox.MsgIcon.msgInformation, null);
+                }
             }
         }
 
@@ -211,7 +227,7 @@ public class MainNetwork : MonoBehaviour {
         server.playerConnected += Server_playerConnected;
         server.disconnected += Server_disconnected;
         // kit, event                      
-        Connected(server);
+        Connected(server);                
     }
 
     private void Server_disconnected(NetWorker sender)

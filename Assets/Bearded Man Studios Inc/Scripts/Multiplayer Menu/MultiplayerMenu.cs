@@ -10,6 +10,7 @@ using System.Collections;
 
 // kit
 using TMPro;
+using System.Net.Sockets;
 
 public class MultiplayerMenu : MonoBehaviour
 {
@@ -188,33 +189,40 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void Host ()
     {
-        if (useTCP)
+        try
         {
-            server = new TCPServer (100);
+            if (useTCP)
+            {
+                server = new TCPServer(100);
 
-            ((TCPServer)server).Connect ();
-        }
-        else
-        {
-            server = new UDPServer (100);
-
-            if (natServerHost.Trim ().Length == 0)
-                //((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
-                ((UDPServer)server).Connect (mIpAddress, mPort);
+                ((TCPServer)server).Connect();
+            }
             else
-                //((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
-                ((UDPServer)server).Connect (port: mPort, natHost: natServerHost, natPort: natServerPort);
-        }
+            {
+                server = new UDPServer(100);
 
-        server.playerTimeout += (player, sender) =>
+                if (natServerHost.Trim().Length == 0)
+                    //((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
+                    ((UDPServer)server).Connect(mIpAddress, mPort);
+                else
+                    //((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
+                    ((UDPServer)server).Connect(port: mPort, natHost: natServerHost, natPort: natServerPort);
+            }
+
+            server.playerTimeout += (player, sender) =>
+            {
+                Debug.Log("Player " + player.NetworkId + " timed out");
+            };
+            //LobbyService.Instance.Initialize(server);
+            server.playerConnected += Server_playerConnected;
+            server.disconnected += Server_disconnected;
+            // kit, event                      
+            Connected(server);
+        }
+        catch(SocketException ex)
         {
-            Debug.Log ("Player " + player.NetworkId + " timed out");
-        };
-        //LobbyService.Instance.Initialize(server);
-        server.playerConnected += Server_playerConnected;
-        server.disconnected += Server_disconnected;        
-        // kit, event                      
-        Connected (server);
+            MessageBox.ins.ShowOk("A server already exist, Please check your network connection.", MessageBox.MsgIcon.msgInformation, null);
+        }
     }
 
     private void Server_disconnected (NetWorker sender)
