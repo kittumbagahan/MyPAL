@@ -46,16 +46,12 @@ public class BookshelfManager : MonoBehaviour {
         ins = this;
         audSrc = GetComponent<AudioSource>();
         PlayerPrefs.SetInt("openedTimes", PlayerPrefs.GetInt("openedTimes") + 1);
-        Analytics.CustomEvent("gameOver", new Dictionary<string, object>
-        {
-            { "play_times", PlayerPrefs.GetInt("openedTimes") }
-        });
+        //Analytics.CustomEvent("gameOver", new Dictionary<string, object>
+        //{
+        //    { "play_times", PlayerPrefs.GetInt("openedTimes") }
+        //});
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
     public void PlayBookClick() 
     {

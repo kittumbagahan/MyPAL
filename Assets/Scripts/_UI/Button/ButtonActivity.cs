@@ -88,12 +88,13 @@ public class ButtonActivity : MonoBehaviour {
 		//BG_Music.ins.Mute();
 		BG_Music.ins.SetToReadingVolume();
 		StartCoroutine(IEClick());
-        //Application.LoadLevel(sceneToLoad);
-       
-        /*
-         the line below does not work
-         */
-		//SceneLoader.instance.LoadStr(sceneToLoad);
+      //Application.LoadLevel(sceneToLoad);
+
+      /*
+       the line below does not work
+       */
+      //SceneLoader.instance.LoadStr(sceneToLoad);
+      AddActivity ();
     }
     IEnumerator IEClick()
     {
@@ -111,4 +112,34 @@ public class ButtonActivity : MonoBehaviour {
 	{
 		animator.SetInteger("index", UnityEngine.Random.Range(0, 3));
 	}
+
+   void AddActivity()
+   {
+      DataService ds = new DataService ("tempDatabase.db");
+      string _module = module.ToString ();
+      string _book = storyBook.ToString ();
+      var dup = ds._connection.Table<ActivityModel> ().Where (x => x.Module == _module &&
+         x.Description == sceneToLoad &&
+         x.Set == index
+      ).FirstOrDefault ();
+    
+      if (dup == null)
+      {
+         var act = new ActivityModel
+         {
+            BookId = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ().Id,
+            Description = sceneToLoad,
+            Module = module.ToString (),
+            Set = index
+         };
+         ds._connection.Insert (act);
+         var a = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ();
+         Debug.Log (a.ToString ());
+
+      }
+      else
+      {
+         Debug.Log (dup.ToString ());
+      }
+   }
 }

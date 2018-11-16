@@ -12767,7 +12767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76cf8196b87ea746912e2be058ba71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtLog: {fileID: 1803305479}
   filePath: 
 --- !u!114 &534759435
 MonoBehaviour:
@@ -12796,6 +12795,7 @@ MonoBehaviour:
   useInlineChat: 0
   getLocalNetworkConnections: 0
   useTCP: 0
+  txtStatus: {fileID: 0}
   btnSender: {fileID: 1019856203}
   btnReceiver: {fileID: 1001082266}
   fileDropDown: {fileID: 847515055}
@@ -15130,6 +15130,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+--- !u!114 &670454534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 670454532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbbe27e7e4128c4480effd81452cbd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugText: {fileID: 0}
 --- !u!114 &670454538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42561,6 +42573,7 @@ MonoBehaviour:
   - {fileID: 1156811897}
   - {fileID: 1064671738}
   - {fileID: 1533993543}
+  restriction: -1
 --- !u!1 &1871064844
 GameObject:
   m_ObjectHideFlags: 0
@@ -47228,7 +47241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000052078, y: 0.0000015633524}
+  m_AnchoredPosition: {x: 0.0000052078, y: 0.0000014502299}
   m_SizeDelta: {x: -0.000061035, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2095856164
