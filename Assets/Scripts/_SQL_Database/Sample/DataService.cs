@@ -188,6 +188,11 @@ public class DataService
       return _connection.Table<SectionModel> ();
    }
 
+   public IEnumerable<StudentModel> GetStudents()
+   {
+      return _connection.Table<StudentModel> ();
+   }
+
    public IEnumerable<Person> GetPersonsNamedRoberto()
    {
       return _connection.Table<Person> ().Where (x => x.Name == "Roberto");

@@ -166,6 +166,7 @@ public class SectionController : MonoBehaviour
       editMode = false;
       EditSectionView view = panelEditSectionInput.GetComponent<EditSectionView> ();
       view.btnOK.onClick.RemoveAllListeners ();
+     
    }
 
    public void Edit(Section s)
@@ -203,12 +204,13 @@ class UpdateSection
          //nothing to update just say updated!
          MessageBox.ins.ShowOk ("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
          SectionController.ins.editMode = false;
+         
          view.btnOK.onClick.RemoveAllListeners ();
          //view.btnClose.onClick.RemoveAllListeners ();
       }
       else
       {
-         PlayerPrefs.SetString ("section_id" + s.id, view.txtSectionName.text);
+     
          SectionController.ins.LoadSectionsSQL();
          MessageBox.ins.ShowOk ("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
          SectionController.ins.editMode = false;

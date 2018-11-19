@@ -25,7 +25,7 @@ public class Section : MonoBehaviour {
         StoryBookSaveManager.ins.activeSection = name;
         StoryBookSaveManager.ins.activeSection_id = id;
         SectionController.ins.Close();
-        StudentController.ins.LoadStudents();
+        StudentController.ins.LoadStudentsSQL();
     }
 
     void LoadNo()
