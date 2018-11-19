@@ -50,6 +50,10 @@ public class SectionController : MonoBehaviour
    {
       DataService ds = new DataService ("tempDatabase.db");
       var sections = ds.GetSections ();
+      for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
+      {
+         Destroy (btnSectionContainer.transform.GetChild (i).gameObject);
+      }
       foreach (var section in sections)
       {
          GameObject _obj = Instantiate (btnSectionPrefab);
@@ -211,14 +215,16 @@ class UpdateSection
       else
       {
      
-         SectionController.ins.LoadSectionsSQL();
-         MessageBox.ins.ShowOk ("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
-         SectionController.ins.editMode = false;
+        
+        
          DataService ds = new DataService ("tempDatabase.db");
          SectionModel model = new SectionModel { Id = s.id, Description = view.txtSectionName.text };
          //_connection.Execute ("Update UserTable set currentCar=" + currnetCarNumb + " where
          //ID = "+userID);
-         ds._connection.Execute ("Update SectionModel set Description='" + model.Description + "' where Id=" + model.Id);
+         ds._connection.Execute ("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "'");
+         MessageBox.ins.ShowOk ("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
+         SectionController.ins.editMode = false;
+         SectionController.ins.LoadSectionsSQL ();
          view.btnOK.onClick.RemoveAllListeners ();
 
          //view.btnClose.onClick.RemoveAllListeners ();

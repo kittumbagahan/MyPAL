@@ -12,6 +12,6 @@ public class StudentModel {
 
     public override string ToString()
     {
-        return string.Format("[Person: Id={0}, Name={2}", Id, Givenname);
+        return string.Format("[Student: Id={0}, Name={2}", Id, Givenname);
     }
 }

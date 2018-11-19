@@ -8,7 +8,7 @@ public class BookModel {
 
     public override string ToString()
     {
-        return string.Format("[Person: Id={0}, Desc={1}", Id, Description);
+        return string.Format("[Book: Id={0}, Desc={1}", Id, Description);
     }
 
 }

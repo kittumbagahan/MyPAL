@@ -7,6 +7,6 @@ public class SectionModel{
     public string Description { get; set; }
     public override string ToString()
     {
-        return string.Format("[Person: Id={0}, Desc={1}", Id, Description);
+        return string.Format("[Section: Id={0}, Description={1}", Id, Description);
     }
 }
