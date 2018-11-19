@@ -18,7 +18,8 @@ public class CreateDBScript : MonoBehaviour {
       var books = ds.GetBooks ();
       var acts = ds.GetActivities ();
       //ToConsole (books);
-      ToConsole (acts);
+      var sections = ds.GetSections ();
+      ToConsole (sections);
         //var people = ds.GetPersons ();
         //ToConsole (people);
         //people = ds.GetPersonsNamedRoberto ();
@@ -26,15 +27,24 @@ public class CreateDBScript : MonoBehaviour {
         //ToConsole (people); 
     }
 	
-	private void ToConsole(IEnumerable<BookModel> people){
-		foreach (var person in people) {
+	private void ToConsole(IEnumerable<BookModel> model){
+		foreach (var person in model) {
+         
          //ToConsole(person.ToString());
          Debug.Log (person.ToString());
 		}
 	}
-   private void ToConsole(IEnumerable<ActivityModel> people)
+   private void ToConsole(IEnumerable<ActivityModel> model)
    {
-      foreach (var person in people)
+      foreach (var person in model)
+      {
+         //ToConsole(person.ToString());
+         Debug.Log (person.ToString ());
+      }
+   }
+   private void ToConsole(IEnumerable<SectionModel> model)
+   {
+      foreach (var person in model)
       {
          //ToConsole(person.ToString());
          Debug.Log (person.ToString ());
