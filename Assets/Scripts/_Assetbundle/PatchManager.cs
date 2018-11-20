@@ -37,14 +37,21 @@ public class PatchManager : CachedAssetBundleLoader {
 
 	void Start () {
       DataService ds = new DataService ("tempDatabase.db");
-      ds._connection.DeleteAll<BookModel> ();
-      ds._connection.DeleteAll<StudentModel> ();
-      ds._connection.DeleteAll<ActivityModel> ();
-      ds._connection.DeleteAll<SectionModel> ();
-      ds._connection.DeleteAll<StudentActivityModel> ();
-      ds._connection.DeleteAll<StudentBookModel> ();
-      //Caching.CleanCache();
-      PlayerPrefs.DeleteAll();
+      //ds._connection.DeleteAll<BookModel> ();
+      //ds._connection.DeleteAll<StudentModel> ();
+      //ds._connection.DeleteAll<ActivityModel> ();
+      //ds._connection.DeleteAll<SectionModel> ();
+      //ds._connection.DeleteAll<StudentActivityModel> ();
+      //ds._connection.DeleteAll<StudentBookModel> ();
+      //drop tables to update fields on creation if model members have change
+      ds._connection.Execute("drop table StudentActivityModel");
+      ds._connection.Execute("drop table StudentBookModel");
+      ds._connection.Execute("drop table BookModel");
+      ds._connection.Execute("drop table StudentModel");
+      ds._connection.Execute("drop table ActivityModel");
+      ds._connection.Execute("drop table SectionModel");
+        //Caching.CleanCache();
+        PlayerPrefs.DeleteAll();
 //		PlayerPrefs.SetInt("bundleVersion", 6);
 //		PlayerPrefs.SetInt("paid",1);
 //		PlayerPrefs.SetInt(productId_1,1);

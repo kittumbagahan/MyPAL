@@ -25,46 +25,40 @@ public class SaveTest : MonoBehaviour
 
         print("SAVED " + ScoreManager.ins.GetGrade());
         print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
-
+      
         DataService ds = new DataService("tempDatabase.db");
 
-        ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(x => x.BookId == ds._connection.Table<BookModel>()
-            .Where(a => a.Description == storyBook.ToString()).FirstOrDefault().Id
-            && x.Description == SceneManager.GetActiveScene().name
-            && x.Module == module.ToString()
-            && x.Set == set).FirstOrDefault();
+        print(storyBook.ToString());
+        string bookname = storyBook.ToString();
+        string modulename = module.ToString();
+        string scenename = SceneManager.GetActiveScene().name;
+        string grade = ScoreManager.ins.GetGrade();
 
-        //    new ActivityModel
-        //{
-        //    BookId = ds._connection.Table<BookModel>().Where(x => x.Description == storyBook.ToString()).FirstOrDefault().Id,
-        //    Description = SceneManager.GetActiveScene().name,
-        //    Module = module.ToString(),
-        //    Set = set
-        //};
+        BookModel book = ds._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
+       
+        ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(
+             x => x.BookId == book.Id &&
+             x.Description == scenename &&
+             x.Module == modulename &&
+             x.Set == set).FirstOrDefault();
 
         StudentActivityModel studentActivityModel = ds._connection.Table<StudentActivityModel>().Where(x =>
             x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
             x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
             x.BookId == activityModel.BookId &&
-            //ds._connection.Table<BookModel>().Where(a => a.Description == storyBook.ToString()).FirstOrDefault().Id &&
             x.ActivityId == activityModel.Id
-            //ds._connection.Table<ActivityModel>().Where(b => b.BookId == activityModel.BookId && b.Description == activityModel.Description &&
-            //   b.Module == activityModel.Module && b.Set == activityModel.Set).FirstOrDefault().Id
             ).FirstOrDefault();
 
         if (studentActivityModel == null)
         {
             StudentActivityModel model = new StudentActivityModel
             {
+                Id =0,
                 SectionId = StoryBookSaveManager.ins.activeSection_id,
                 StudentId = StoryBookSaveManager.ins.activeUser_id,
                 BookId = activityModel.BookId,
-                //ds._connection.Table<BookModel>().Where(x => x.Description == storyBook.ToString()).FirstOrDefault().Id,
                 ActivityId = activityModel.Id,
-                //ds._connection.Table<ActivityModel>().Where(x => x.BookId == activityModel.BookId &&
-                //             x.Description == activityModel.Description &&
-                //             x.Module == activityModel.Module && x.Set == activityModel.Set).FirstOrDefault().Id,
-                Grade = ScoreManager.ins.GetGrade(),
+                Grade = grade,
                 PlayCount = 1
 
             };
@@ -72,8 +66,10 @@ public class SaveTest : MonoBehaviour
         }
         else
         {
-            ds._connection.Execute("Update StudentActivityModel set Grade='" + ScoreManager.ins.GetGrade()
-                + "', PlayCount='" + studentActivityModel.PlayCount+1 + "' where Id='" + activityModel.Id + "'");
+            print(grade + " updated!" );
+            int playN = studentActivityModel.PlayCount + 1;
+            ds._connection.Execute("Update StudentActivityModel set Grade='" + grade
+                + "', PlayCount='" + playN + "' where Id='" + studentActivityModel.Id + "'");
         }
 
 
