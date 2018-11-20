@@ -48,7 +48,8 @@ public class ButtonActivity : MonoBehaviour {
     void LoadStarButton()
     {
 		string saveState = "";
-        try {
+        try
+        {
             //storyBook = Singleton.SelectedBook;
             storyBook = StoryBookSaveManager.ins.selectedBook;
             index = Read.instance.SceneIndex(storyBook, module, buttonIndex);
@@ -57,7 +58,27 @@ public class ButtonActivity : MonoBehaviour {
 			saveState = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
                 storyBook.ToString() + sceneToLoad + module.ToString() + index);
             //print(sceneToLoad + " on start " + gameObject.name);
-			if (!saveState.Equals("0") && saveState != "")
+            DataService ds = new DataService("tempDatabase.db");
+            string bookname = storyBook.ToString();
+            string modulename = module.ToString();
+          
+         
+
+            BookModel book = ds._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
+
+            ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(
+                 x => x.BookId == book.Id &&
+                 x.Description == sceneToLoad &&
+                 x.Module == modulename &&
+                 x.Set == index).FirstOrDefault();
+
+            var studentActivityModel = ds._connection.Table<StudentActivityModel>().Where(x=>
+                x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+                x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
+                x.BookId == book.Id &&
+                x.ActivityId == activityModel.Id ).FirstOrDefault();
+			//if (!saveState.Equals("0") && saveState != "")
+            if(studentActivityModel != null)
             {
                 /*change mat*/
                 GetComponent<Image>().material = null;
@@ -69,14 +90,17 @@ public class ButtonActivity : MonoBehaviour {
             }
 
             //print(StoryBookSaveManager.instance.oldUsername + storyBook + "_" + module + ", " + buttonIndex);
-        }catch(Exception ex){
+        }
+        catch (Exception ex)
+        {
             //print("---------------------------------");
             //print(storyBook.ToString() + " " + index.ToString());
             //print(sceneToLoad + " wow");
             print(ex + "\n" + "THIS BUTTON HAS BEEN DISABLED. TRY REMOVING THE TRY CATCH BLOCK TO SEE WHY.");
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            GetComponent<Image>().material = grayscale;
         }
-	
+
     }
 
     public void Click()

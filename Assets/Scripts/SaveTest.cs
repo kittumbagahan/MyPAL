@@ -20,9 +20,7 @@ public class SaveTest : MonoBehaviour
     {
         //print("USERNAME"+storyBook.ToString() + ", " + module.ToString() +  ", " + Set);
         //-----------------------------------------------------------------------------------add scene name here
-        PlayerPrefs.SetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id
-            + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set, ScoreManager.ins.GetGrade());
-
+     
         print("SAVED " + ScoreManager.ins.GetGrade());
         print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
       
