@@ -62,7 +62,7 @@ public class StudentController : MonoBehaviour
    {
       maxStudentAllowed = PlayerPrefs.GetInt ("maxNumberOfStudentsAllowed");
       DataService ds = new DataService ("tempDatabase.db");
-      var students = ds.GetStudents ();
+        var students = ds._connection.Table<StudentModel>().Where(x=>x.SectionId == StoryBookSaveManager.ins.activeSection_id);
       for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
       {
          Destroy (btnStudentContainer.transform.GetChild (i).gameObject);
@@ -106,7 +106,7 @@ public class StudentController : MonoBehaviour
             StudentModel sm = ds._connection.Table<StudentModel> ().Where (
                a => a.Lastname == txtSurname.text &&
                a.Middlename == txtMiddleName.text &&
-               a.Givenname == txtSurname.text &&
+               a.Givenname == txtGivenName.text &&
                a.Nickname == txtNickName.text
                ).FirstOrDefault ();
             if (sm == null)
@@ -129,10 +129,10 @@ public class StudentController : MonoBehaviour
                StudentModel s = ds._connection.Table<StudentModel> ().Where (
                 a => a.Lastname == txtSurname.text &&
                 a.Middlename == txtMiddleName.text &&
-                a.Givenname == txtSurname.text &&
+                a.Givenname == txtGivenName.text &&
                 a.Nickname == txtNickName.text
                 ).FirstOrDefault ();
-
+              
                _student.id = s.Id;
                _student.name = studentName;
                _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _student.name;

@@ -10,13 +10,13 @@ using System.Collections.Generic;
 public class DataService
 {
 
-   public SQLiteConnection _connection { private set;  get; }
+    public SQLiteConnection _connection { private set; get; }
 
-   public DataService(string DatabaseName)
-   {
+    public DataService(string DatabaseName)
+    {
 
 #if UNITY_EDITOR
-      var dbPath = string.Format (@"Assets/StreamingAssets/{0}", DatabaseName);
+        var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
 #else
         // check if file exists in Application.persistentDataPath
         var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
@@ -62,156 +62,162 @@ public class DataService
 
         var dbPath = filepath;
 #endif
-      _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-      Debug.Log ("Final PATH: " + dbPath);
+        _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+        Debug.Log("Final PATH: " + dbPath);
 
-   }
+    }
 
 
-   public void CreateDB()
-   {
+    public void CreateDB()
+    {
 
-      
-      if (0.Equals (PlayerPrefs.GetInt ("section_table_created")))
-      {
-         _connection.CreateTable<SectionModel> ();
 
-         PlayerPrefs.SetInt ("section_table_created", 1);
-      }
+        if (0.Equals(PlayerPrefs.GetInt("section_table_created")))
+        {
+            _connection.CreateTable<SectionModel>();
 
-      if (0.Equals (PlayerPrefs.GetInt ("student_table_created")))
-      {
-         _connection.CreateTable<StudentModel> ();
-         PlayerPrefs.SetInt ("student_table_created", 1);
-      }
+            PlayerPrefs.SetInt("section_table_created", 1);
+        }
 
-      if (0.Equals (PlayerPrefs.GetInt ("book_table_created")))
-      {
-         _connection.CreateTable<BookModel> ();
-      
-         _connection.InsertAll (new[] {
+        if (0.Equals(PlayerPrefs.GetInt("student_table_created")))
+        {
+            _connection.CreateTable<StudentModel>();
+            PlayerPrefs.SetInt("student_table_created", 1);
+        }
+
+        if (0.Equals(PlayerPrefs.GetInt("book_table_created")))
+        {
+            _connection.CreateTable<BookModel>();
+
+            _connection.InsertAll(new[] {
                    new BookModel
                    {
-                 
+
                       Description = StoryBook.ABC_CIRCUS.ToString()
                    },
                     new BookModel
                    {
-                  
+
                       Description = StoryBook.AFTER_THE_RAIN.ToString()
                    },
                        new BookModel
                    {
-                  
+
                       Description = StoryBook.CHAT_WITH_MY_CAT.ToString()
                    },
                   new BookModel
                    {
-                    
+
                       Description = StoryBook.COLORS_ALL_MIXED_UP.ToString()
                    },
                      new BookModel
                    {
-                   
+
                       Description = StoryBook.FAVORITE_BOX.ToString()
                    },
                      new BookModel
                    {
-                    
+
                       Description = StoryBook.JOEY_GO_TO_SCHOOL.ToString()
                    },
                   new BookModel
                    {
-                    
+
                       Description = StoryBook.SOUNDS_FANTASTIC.ToString()
                    },
                      new BookModel
                    {
-                   
+
                       Description = StoryBook.TINA_AND_JUN.ToString()
                    },
                         new BookModel
                    {
-                   
+
                       Description = StoryBook.WHAT_DID_YOU_SEE.ToString()
                    },
                            new BookModel
                    {
-                      
+
                       Description = StoryBook.YUMMY_SHAPES.ToString()
                    }
              });
 
-        
-         PlayerPrefs.SetInt ("book_table_created", 1);
-      }
-      //MessageBox.ins.ShowOk (_connection.Table<BookModel> ().Where (x => x.Description == "ABC_CIRCUS").FirstOrDefault ().ToString (),
-      //     MessageBox.MsgIcon.msgError, null);
-      if (0.Equals (PlayerPrefs.GetInt ("activity_table_created")))
-      {
-         _connection.CreateTable<ActivityModel> ();
-         //saved on ButtonActivity.cs
-          
-         PlayerPrefs.SetInt ("activity_table_created", 1);
-      }
 
-      //--------------------------------------------
+            PlayerPrefs.SetInt("book_table_created", 1);
+        }
+        //MessageBox.ins.ShowOk (_connection.Table<BookModel> ().Where (x => x.Description == "ABC_CIRCUS").FirstOrDefault ().ToString (),
+        //     MessageBox.MsgIcon.msgError, null);
+        if (0.Equals(PlayerPrefs.GetInt("activity_table_created")))
+        {
+            _connection.CreateTable<ActivityModel>();
+            //saved on ButtonActivity.cs
 
-      if (0.Equals (PlayerPrefs.GetInt ("studentActivityModel_table_created")))
-      {
-         _connection.CreateTable<StudentActivityModel> ();
-         PlayerPrefs.SetInt ("studentActivityModel_table_created", 1);
-      }
+            PlayerPrefs.SetInt("activity_table_created", 1);
+        }
 
-      if (0.Equals (PlayerPrefs.GetInt ("studentBookModel_table_created")))
-      {
-         _connection.CreateTable<StudentBookModel> ();
-         PlayerPrefs.SetInt ("studentBookModel_table_created", 1);
-      }
+        //--------------------------------------------
+
+        if (0.Equals(PlayerPrefs.GetInt("studentActivityModel_table_created")))
+        {
+            _connection.CreateTable<StudentActivityModel>();
+            PlayerPrefs.SetInt("studentActivityModel_table_created", 1);
+        }
+
+        if (0.Equals(PlayerPrefs.GetInt("studentBookModel_table_created")))
+        {
+            _connection.CreateTable<StudentBookModel>();
+            PlayerPrefs.SetInt("studentBookModel_table_created", 1);
+        }
 
 
 
-   }
+    }
 
-   public IEnumerable<BookModel> GetBooks()
-   {
-      return _connection.Table<BookModel> ();
-   }
+    public IEnumerable<BookModel> GetBooks()
+    {
+        return _connection.Table<BookModel>();
+    }
 
-   public IEnumerable<ActivityModel> GetActivities()
-   {
-      return _connection.Table<ActivityModel> ();
-   }
+    public IEnumerable<ActivityModel> GetActivities()
+    {
+        return _connection.Table<ActivityModel>();
+    }
 
-   public IEnumerable<SectionModel> GetSections()
-   {
-      return _connection.Table<SectionModel> ();
-   }
+    public IEnumerable<SectionModel> GetSections()
+    {
+        return _connection.Table<SectionModel>();
+    }
 
-   public IEnumerable<StudentModel> GetStudents()
-   {
-      return _connection.Table<StudentModel> ();
-   }
+    public IEnumerable<StudentModel> GetStudents()
+    {
+        return _connection.Table<StudentModel>();
+    }
 
-   public IEnumerable<Person> GetPersonsNamedRoberto()
-   {
-      return _connection.Table<Person> ().Where (x => x.Name == "Roberto");
-   }
+    public IEnumerable<StudentActivityModel> GetStudentActivities()
+    {
+        return _connection.Table<StudentActivityModel>();
+    }
 
-   public Person GetJohnny()
-   {
-      return _connection.Table<Person> ().Where (x => x.Name == "Johnny").FirstOrDefault ();
-   }
 
-   public Person CreatePerson()
-   {
-      var p = new Person
-      {
-         Name = "Johnny",
-         Surname = "Mnemonic",
-         Age = 21
-      };
-      _connection.Insert (p);
-      return p;
-   }
+    public IEnumerable<Person> GetPersonsNamedRoberto()
+    {
+        return _connection.Table<Person>().Where(x => x.Name == "Roberto");
+    }
+
+    public Person GetJohnny()
+    {
+        return _connection.Table<Person>().Where(x => x.Name == "Johnny").FirstOrDefault();
+    }
+
+    public Person CreatePerson()
+    {
+        var p = new Person
+        {
+            Name = "Johnny",
+            Surname = "Mnemonic",
+            Age = 21
+        };
+        _connection.Insert(p);
+        return p;
+    }
 }
