@@ -55,8 +55,7 @@ public class ButtonActivity : MonoBehaviour {
             index = Read.instance.SceneIndex(storyBook, module, buttonIndex);
             sceneToLoad = Read.instance.SceneName(storyBook, module, buttonIndex);
 			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
-			saveState = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
-                storyBook.ToString() + sceneToLoad + module.ToString() + index);
+
             //print(sceneToLoad + " on start " + gameObject.name);
             DataService ds = new DataService("tempDatabase.db");
             string bookname = storyBook.ToString();
@@ -98,6 +97,7 @@ public class ButtonActivity : MonoBehaviour {
             //print(sceneToLoad + " wow");
             print(ex + "\n" + "THIS BUTTON HAS BEEN DISABLED. TRY REMOVING THE TRY CATCH BLOCK TO SEE WHY.");
             //gameObject.SetActive(false);
+            //LINQ activitymodel returns null
             GetComponent<Image>().material = grayscale;
         }
 

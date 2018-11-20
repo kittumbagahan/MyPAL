@@ -22,7 +22,8 @@ public class CreateDBScript : MonoBehaviour
         var sections = ds.GetSections();
         var st = ds.GetStudents();
         var studentActivities = ds.GetStudentActivities();
-        ToConsole(studentActivities);
+        var studentBooks = ds.GetStudentBooks();
+        ToConsole(studentBooks);
         //ToConsole (books);
         //ToConsole (sections);
         //ToConsole (st);
@@ -70,6 +71,14 @@ public class CreateDBScript : MonoBehaviour
     }
 
     private void ToConsole(IEnumerable<StudentActivityModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
+    private void ToConsole(IEnumerable<StudentBookModel> model)
     {
         foreach (var person in model)
         {

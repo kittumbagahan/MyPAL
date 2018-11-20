@@ -13,6 +13,6 @@ public class StudentBookModel {
 
     public override string ToString()
     {
-        return string.Format("[Person: Id={0}, Name={1}", Id, AutoReadCount);
+        return string.Format("[StudentBookModel: Id={0}, AutoReadCount={1}, ReadToMeCount={2}, ReadCount={3}", Id, AutoReadCount, ReadToMeCount, ReadCount);
     }
 }

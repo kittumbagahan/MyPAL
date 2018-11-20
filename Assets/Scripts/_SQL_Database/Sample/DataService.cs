@@ -198,7 +198,10 @@ public class DataService
         return _connection.Table<StudentActivityModel>();
     }
 
-
+    public IEnumerable<StudentBookModel> GetStudentBooks()
+    {
+        return _connection.Table<StudentBookModel>();
+    }
     public IEnumerable<Person> GetPersonsNamedRoberto()
     {
         return _connection.Table<Person>().Where(x => x.Name == "Roberto");
