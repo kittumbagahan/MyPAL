@@ -13,7 +13,7 @@ public class StudentActivityModel  {
 
     public override string ToString()
     {
-        return string.Format("[StudentActivityModel: Id={0}, Grade={1}, PlayCount={2}", Id, Grade, PlayCount);
+        return string.Format("[StudentActivityModel: Id={0}, ActivityId={1} Grade={2}, PlayCount={3}", Id, ActivityId, Grade, PlayCount);
     }
 
 

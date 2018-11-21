@@ -84,8 +84,10 @@ public class UserAccount : MonoBehaviour {
 
     public void ShowProgress()
     {
-        UserAccountManager.ins.UserBooksManager.Show("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + userId);
+        //UserAccountManager.ins.UserBooksManager.Show("section_id" + StoryBookSaveManager.ins.activeSection_id +
+        //    "student_id" + userId);
+        UserAccountManager.ins.UserBooksManager.Show(userId);
+
         UserAccountManager.ins.SelectedSlot = this;
     }
  
