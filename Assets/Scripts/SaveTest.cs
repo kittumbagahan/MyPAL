@@ -90,8 +90,8 @@ public class SaveTest : MonoBehaviour
 
             NetworkData networkData = new NetworkData
             {
-                grade = ScoreManager.ins.GetGrade(),
-                playCount = studentActivityModel.PlayCount + 1,
+                grade = grade,
+                playCount = playN,
                 ID = studentActivityModel.Id
             };
 

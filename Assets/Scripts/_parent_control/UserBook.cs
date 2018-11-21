@@ -38,7 +38,7 @@ public class UserBook : MonoBehaviour {
     {
         get
         {
-            return (bookAccuracy.total / bookAccuracy.max) * 100;
+            return PlayedCount == 0 ? 0 : (bookAccuracy.total / bookAccuracy.max) * 100;
         }
     }
 

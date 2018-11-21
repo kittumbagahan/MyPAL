@@ -12,5 +12,14 @@ public class NetworkData {
     public int bookId;
     public int activityId;
     public string grade;
-    public int playCount;    
+    public int playCount;
+
+    // StudentBookModel
+    public int book_Id;
+    public int book_SectionId;
+    public int book_StudentId;
+    public int book_bookId;
+    public int book_readCount;
+    public int book_readToMeCount;
+    public int book_autoReadCount;
 }
