@@ -42,7 +42,7 @@ public class MainNetwork : MonoBehaviour {
     [SerializeField]
     private ushort mPort = 14937;
     private string mIpAddress = "127.0.0.1";
-    Button btnTeacher, btnStudent;
+    [SerializeField] Button btnTeacher, btnStudent;
 	ClientSendFile mClientSendFile;
 
     // kit
@@ -144,7 +144,8 @@ public class MainNetwork : MonoBehaviour {
     private void Client_serverAccepted(NetWorker sender)
     {
         Debug.Log(string.Format("{0} is connected to server", "Huehue"));
-		MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
+        //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
+        MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
     }
 
     public void ConnectToMatchmaking()
@@ -298,7 +299,7 @@ public class MainNetwork : MonoBehaviour {
                 NetworkObject.Flush(networker); //Called because we are already in the correct scene!                
 
             // kit, is server
-			btnTeacher.GetComponentInChildren<Text>().text = "Stop";
+			btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Stop";
 			btnTeacher.onClick.RemoveAllListeners ();
 			btnTeacher.onClick.AddListener (Quit);
             Debug.Log("Connected as server");
@@ -351,10 +352,12 @@ public class MainNetwork : MonoBehaviour {
 		btnStudent.onClick.RemoveAllListeners ();
 
 		btnTeacher.onClick.AddListener (AsTeacher);
-		btnStudent.onClick.AddListener (AsStudent);
+		btnStudent.onClick.AddListener (AsStudent);        
 
-		btnStudent.GetComponentInChildren<Text>().text = "Student";
-		btnTeacher.GetComponentInChildren<Text>().text = "Teacher";
+        if(btnStudent.GetComponentInChildren<Text>() != null)
+            btnStudent.GetComponentInChildren<Text>().text = "I'm a Student";
+        if(btnTeacher.GetComponentInChildren<TextMeshProUGUI>() != null)
+            btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Start Server";
 	}
 
     private void OnEnable()

@@ -7,30 +7,74 @@ using UnityEngine;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ClientSendFile : MonoBehaviour
-{   
+{
+    public enum MessageGroup
+    {
+        Insert = 2,
+        Update = 3
+    }
+
+    Queue<NetworkData> networkQueue;
+
+    DataService dataService;
+
     private void Start()
     {        
         NetworkManager.Instance.Networker.binaryMessageReceived += ReceiveFile;
+        networkQueue = new Queue<NetworkData>();
+
+        // create database connection
+        dataService = new DataService("tempDatabase.db");
     }
     
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)
     {
-        // We are looking to read a very specific message
-        if (frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + 2)
+
+        if (frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert ||
+            frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
             return;
 
-        Debug.Log("Reading file!");                        
+        Debug.Log("Reading file!");
 
-		Debug.Log (string.Format ("Stream data {0}", frame.StreamData.CompressBytes ()));
+        NetworkData networkData = ConvertToObject(frame.StreamData.CompressBytes());
+        // add to queue for execution
+        networkQueue.Enqueue(networkData);
 
-		NetworkTestObject netObj = ConvertToObject(frame.StreamData.CompressBytes());
+        // if message is insert
+        if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert)
+        {
+            // handle insert here, check first item in queue
+            StudentActivityModel studentActivityModel = new StudentActivityModel
+            {
+                Id = networkQueue.Peek().ID,
+                SectionId = networkQueue.Peek().sectionId,
+                StudentId = networkQueue.Peek().studentId,
+                BookId = networkQueue.Peek().bookId,
+                ActivityId = networkQueue.Peek().activityId,
+                Grade = networkQueue.Peek().grade,
+                PlayCount = networkQueue.Peek().playCount
+            };
 
-		Debug.Log (string.Format ("Object. Name: {0}, age: {1}", netObj.name, netObj.age));
+            dataService._connection.Insert(studentActivityModel);
+            networkQueue.Dequeue();
+            
+        }
+        else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
+        {
+            // handle update here
+            string command = string.Format("Update StudentActivityModel set Grade='{0}'," +
+                "PlayCount='{1}' where Id='{2}'", networkData.grade, networkData.playCount, networkData.ID);
+
+            dataService._connection.Execute(command);
+            networkQueue.Dequeue();
+        }                                       		                
 
 		// kit, test data display text
-		MainThreadManager.Run( () => GameObject.FindGameObjectWithTag("data").GetComponent<UnityEngine.UI.Text>().text = string.Format("Name: {0}\nAge: {1}\nSection: {2}\n\n", netObj.name, netObj.age, netObj.section));
+		//MainThreadManager.Run( () => GameObject.FindGameObjectWithTag("data").GetComponent<UnityEngine.UI.Text>().text = string.Format("Name: {0}\nAge: {1}\nSection: {2}\n\n", networkData.name, networkData.age, networkData.section));
 
         // Write the rest of the payload as the contents of the file and
         // use the file name that was extracted as the file's name    
@@ -38,7 +82,7 @@ public class ClientSendFile : MonoBehaviour
         //MainThreadManager.Run(() => File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes()));        
     }
 
-    public void SendData(NetworkTestObject pData)
+    public void SendData(NetworkData pNetworkData, MessageGroup messageGroup)
     {       
         // Throw an error if this is not the server
         var networker = NetworkManager.Instance.Networker;
@@ -57,16 +101,11 @@ public class ClientSendFile : MonoBehaviour
 		// convert pData as byte[]
 		BinaryFormatter binFormatter = new BinaryFormatter();
 		MemoryStream memStream = new MemoryStream ();
-		binFormatter.Serialize (memStream, pData);
+		binFormatter.Serialize (memStream, pNetworkData);
 
 		allData = memStream.ToArray ();
 
-		Debug.Log ("allData " + allData.Length);
-
-		// kit, test
-		NetworkTestObject _obj = new NetworkTestObject();
-		_obj = ConvertToObject (allData);
-		Debug.Log (string.Format ("Test. Name {0}, age {1}.", _obj.name, _obj.age));
+		Debug.Log ("allData " + allData.Length);		
 
 //        // Prepare a byte array for sending
 //        BMSByte allData = new BMSByte();        
@@ -80,7 +119,7 @@ public class ClientSendFile : MonoBehaviour
             false,                                      // We are server, no mask needed
             allData,                                    // The file that is being sent
 			Receivers.Server,                           // Send to all clients
-            MessageGroupIds.START_OF_GENERIC_IDS + 2,   // Some random fake number
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)messageGroup,   // Some random fake number
             networker is TCPServer);
 
 //        if (networker is UDPServer)
@@ -97,13 +136,13 @@ public class ClientSendFile : MonoBehaviour
         //StringBuilder("sending file");
     }
 
-	NetworkTestObject ConvertToObject(byte[] byteData)
+	NetworkData ConvertToObject(byte[] byteData)
 	{
 		BinaryFormatter bin = new BinaryFormatter ();
 		MemoryStream ms = new MemoryStream ();
 		ms.Write (byteData, 0, byteData.Length);
 		ms.Seek (0, SeekOrigin.Begin);
 
-		return (NetworkTestObject)bin.Deserialize (ms);
+		return (NetworkData)bin.Deserialize (ms);
 	}
 }

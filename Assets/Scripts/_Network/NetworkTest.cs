@@ -11,12 +11,12 @@ public class NetworkTest : MonoBehaviour {
 
 	public void PassData()
 	{
-		NetworkTestObject mObject = new NetworkTestObject ();
-		mObject.name = inputName.text;
-		mObject.age = inputAge.text;
-		mObject.section = inputSection.text;
+		//NetworkTestObject mObject = new NetworkTestObject ();
+		//mObject.name = inputName.text;
+		//mObject.age = inputAge.text;
+		//mObject.section = inputSection.text;
 
-		MainNetwork.Instance.clientSendFile.SendData (mObject);
+		//MainNetwork.Instance.clientSendFile.SendData (mObject);
 
 		Debug.Log ("Data sent.");
 	}

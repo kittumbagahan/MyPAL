@@ -60,14 +60,42 @@ public class SaveTest : MonoBehaviour
                 PlayCount = 1
 
             };
+
+            // network data
+            NetworkData networkData = new NetworkData
+            {
+                ID = model.Id,
+                sectionId = model.SectionId,
+                studentId = model.StudentId,
+                bookId = model.BookId,
+                activityId = model.ActivityId,
+                grade = model.Grade,
+                playCount = model.PlayCount
+            };
+
             ds._connection.Insert(model);
+
+            // send data to server for insert
+            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
         }
         else
         {
             print(grade + " updated!" );
             int playN = studentActivityModel.PlayCount + 1;
-            ds._connection.Execute("Update StudentActivityModel set Grade='" + grade
-                + "', PlayCount='" + playN + "' where Id='" + studentActivityModel.Id + "'");
+
+            string command = "Update StudentActivityModel set Grade='" + grade
+                + "', PlayCount='" + playN + "' where Id='" + studentActivityModel.Id + "'";
+
+            ds._connection.Execute(command);
+
+            NetworkData networkData = new NetworkData
+            {
+                grade = ScoreManager.ins.GetGrade(),
+                playCount = studentActivityModel.PlayCount + 1,
+                ID = studentActivityModel.Id
+            };
+
+            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Update);
         }
 
 
