@@ -12,6 +12,10 @@ using System.Collections.Generic;
 
 public class ClientSendFile : MonoBehaviour
 {
+    // kit
+    [SerializeField]
+    UnityEngine.UI.Text txtTest;
+
     public enum MessageGroup
     {
         Insert = 2,
@@ -145,4 +149,10 @@ public class ClientSendFile : MonoBehaviour
 
 		return (NetworkData)bin.Deserialize (ms);
 	}
+
+    // kit, test
+    void DebugText(string pText)
+    {
+        txtTest.text += pText;
+    }
 }
