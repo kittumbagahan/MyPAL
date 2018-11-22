@@ -42,7 +42,8 @@ public class UserBookSave : MonoBehaviour {
 
             ds._connection.Insert(model);
 
-            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
+            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
         }
     }
 
@@ -62,7 +63,8 @@ public class UserBookSave : MonoBehaviour {
             book_readCount = count
         };
 
-        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
+        if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
     }
 
     public void UpdateReadItToMeUsage()
@@ -81,7 +83,8 @@ public class UserBookSave : MonoBehaviour {
             book_readToMeCount = count
         };
 
-        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
+        if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
     }
 
     public void UpdateAutoReadUsage()
@@ -100,7 +103,8 @@ public class UserBookSave : MonoBehaviour {
             book_autoReadCount = count
         };
 
-        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
+        if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
     }
 
 
