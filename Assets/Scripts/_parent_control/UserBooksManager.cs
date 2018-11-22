@@ -97,52 +97,98 @@ public class UserBooksManager : MonoBehaviour
 
         for (int i = 0; i < userBookLst.Count; i++)
         {
-            userBookLst[i].readCount = 0;
-            userBookLst[i].playedCount = 0;
+            //userBookLst[i].readCount = 0;
+            //userBookLst[i].playedCount = 0;
+            switch (userBookLst[i].CoverSprite.name)
+            {
+                case "ABC-Circus-TabletCover-6":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.ABC_CIRCUS.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.ABC_CIRCUS.ToString());
+                    break;
+                case "After The Rain Page-tabletcover":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.AFTER_THE_RAIN.ToString());
+                    break;
+                case "Chat with my Cat p00 Cover":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
+                    break;
+                case "Colors All Mixed Up-Cover-7":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
+                    break;
+                case "Joey Goes to School-TabletCover":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
+                    break;
+                case "My Favorite box-Tablet cover":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.FAVORITE_BOX.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.FAVORITE_BOX.ToString());
+                    break;
+                case "Sounds Fantastic-TabletCover-8":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.SOUNDS_FANTASTIC.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.SOUNDS_FANTASTIC.ToString());
+                    break;
+                case "Tina and Jun-TabletCover-9":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.TINA_AND_JUN.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.TINA_AND_JUN.ToString());
+                    break;
+                case "What Did You See - Cover":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
+                    break;
+                case "Yummy-Shapes-tablet-cover-10":
+                    userBookLst[i].readCount = GetReadCount(StoryBook.YUMMY_SHAPES.ToString());
+                    userBookLst[i].playedCount = GetPlayCount(StoryBook.YUMMY_SHAPES.ToString());
+                    break;
+                default:
+
+                    break;
+            }
         }
 
-        userBookLst[0].readCount += GetReadCount(StoryBook.FAVORITE_BOX.ToString()); //PlayerPrefs.GetInt("read" + userId + StoryBook.FAVORITE_BOX);
+        //userBookLst[0].readCount += GetReadCount(StoryBook.FAVORITE_BOX.ToString()); //PlayerPrefs.GetInt("read" + userId + StoryBook.FAVORITE_BOX);
 
-        userBookLst[1].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());
+        /*serBookLst[1].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());*/
 
-        userBookLst[2].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());
+        //userBookLst[2].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());
 
-        userBookLst[3].readCount += GetReadCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
+        //userBookLst[3].readCount += GetReadCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
 
-        userBookLst[4].readCount += GetReadCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
+        //userBookLst[4].readCount += GetReadCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
 
-        userBookLst[5].readCount += GetReadCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
+        //userBookLst[5].readCount += GetReadCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
 
-        userBookLst[6].readCount += GetReadCount(StoryBook.SOUNDS_FANTASTIC.ToString());
+        //userBookLst[6].readCount += GetReadCount(StoryBook.SOUNDS_FANTASTIC.ToString());
 
-        userBookLst[7].readCount += GetReadCount(StoryBook.TINA_AND_JUN.ToString());
+        //userBookLst[7].readCount += GetReadCount(StoryBook.TINA_AND_JUN.ToString());
 
-        userBookLst[8].readCount += GetReadCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
+        //userBookLst[8].readCount += GetReadCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
 
-        userBookLst[9].readCount += GetReadCount(StoryBook.YUMMY_SHAPES.ToString());
+        //userBookLst[9].readCount += GetReadCount(StoryBook.YUMMY_SHAPES.ToString());
 
 
         //MODULES
 
-        userBookLst[0].playedCount += GetPlayCount(StoryBook.FAVORITE_BOX.ToString());
+        //userBookLst[0].playedCount += GetPlayCount(StoryBook.FAVORITE_BOX.ToString());
 
-        userBookLst[1].playedCount += GetPlayCount(StoryBook.AFTER_THE_RAIN.ToString());
+        //userBookLst[1].playedCount += GetPlayCount(StoryBook.AFTER_THE_RAIN.ToString());
 
-        userBookLst[2].playedCount += GetPlayCount(StoryBook.ABC_CIRCUS.ToString());
+        //userBookLst[2].playedCount += GetPlayCount(StoryBook.ABC_CIRCUS.ToString());
 
-        userBookLst[3].playedCount += GetPlayCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
+        //userBookLst[3].playedCount += GetPlayCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
 
-        userBookLst[4].playedCount += GetPlayCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
+        //userBookLst[4].playedCount += GetPlayCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
 
-        userBookLst[5].playedCount += GetPlayCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
+        //userBookLst[5].playedCount += GetPlayCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
 
-        userBookLst[6].playedCount += GetPlayCount(StoryBook.SOUNDS_FANTASTIC.ToString());
+        //userBookLst[6].playedCount += GetPlayCount(StoryBook.SOUNDS_FANTASTIC.ToString());
 
-        userBookLst[7].playedCount += GetPlayCount(StoryBook.TINA_AND_JUN.ToString());
+        //userBookLst[7].playedCount += GetPlayCount(StoryBook.TINA_AND_JUN.ToString());
 
-        userBookLst[8].playedCount += GetPlayCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
+        //userBookLst[8].playedCount += GetPlayCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
 
-        userBookLst[9].playedCount += GetPlayCount(StoryBook.YUMMY_SHAPES.ToString());
+        //userBookLst[9].playedCount += GetPlayCount(StoryBook.YUMMY_SHAPES.ToString());
 
 
 
@@ -150,39 +196,48 @@ public class UserBooksManager : MonoBehaviour
 
     void Sort()
     {
-
+        Debug.Log("SOOOOOOOOOOORT");
         int tempCount;
         Sprite tempCover;
         // BookAccuracy tempBookAcc;
-
+        bool swapped = false;
         for (int x = 0; x < userBookLst.Count; x++)
         {
-            for (int j = x; j < userBookLst.Count - 1; j++)
+            for (int j = 0; j < userBookLst.Count - 1; j++)
             {
 
-                if ((userBookLst[x].readCount + userBookLst[x].playedCount) < (userBookLst[j + 1].readCount + userBookLst[j + 1].playedCount))
+                if ((userBookLst[j].readCount + userBookLst[j].playedCount) < (userBookLst[j+1].readCount + userBookLst[j+1].playedCount))
                 {
+                    //Transform parent = userBookLst[j].transform.parent;
+                    //userBookLst[j].transform.SetParent(userBookLst[j + 1].transform.parent);
+                    //userBookLst[j+1].transform.SetParent(parent);
 
+
+                    //userBookLst[j+1].transform.localPosition = new Vector2(0, 0);
+                    //userBookLst[j].transform.localPosition = new Vector2(0, 0);
+                    //print("SWAPPPSSS");
+                    //swapped = true;
                     //userBookLst[j].transform.localPosition = new Vector2(0, 0);
                     tempCover = userBookLst[j + 1].Cover.sprite;
                     tempCount = userBookLst[j + 1].readCount;
                     // tempBookAcc = userBookLst[j + 1].bookAccuracy;
                     //read count
-                    userBookLst[j + 1].ReadCount = userBookLst[x].readCount;
-                    userBookLst[x].ReadCount = tempCount;
+                    userBookLst[j + 1].ReadCount = userBookLst[j].readCount;
+                    userBookLst[j].ReadCount = tempCount;
 
                     //played count
                     tempCount = userBookLst[j + 1].playedCount;
-                    userBookLst[j + 1].playedCount = userBookLst[x].playedCount;
-                    userBookLst[x].playedCount = tempCount;
+                    userBookLst[j + 1].playedCount = userBookLst[j].playedCount;
+                    userBookLst[j].playedCount = tempCount;
 
-                    userBookLst[j + 1].Cover.sprite = userBookLst[x].Cover.sprite;
-                    userBookLst[x].Cover.sprite = tempCover;
+                    userBookLst[j + 1].Cover.sprite = userBookLst[j].Cover.sprite;
+                    userBookLst[j].Cover.sprite = tempCover;
 
                     // userBookLst[j + 1].bookAccuracy = userBookLst[j].bookAccuracy;
                     // userBookLst[j].bookAccuracy = tempBookAcc;
 
                 }
+                //if (!swapped) break;
             }
         }
 
@@ -193,43 +248,53 @@ public class UserBooksManager : MonoBehaviour
             switch (userBookLst[i].CoverSprite.name)
             {
                 case "ABC-Circus-TabletCover-6":
+                    if(userBookLst[i].gameObject.GetComponent<AccuracyABC>() == null)
                     userBookLst[i].gameObject.AddComponent<AccuracyABC>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "After The Rain Page-tabletcover":
-                    userBookLst[i].gameObject.AddComponent<AccuracyAfterTheRain>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyAfterTheRain>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyAfterTheRain>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Chat with my Cat p00 Cover":
-                    userBookLst[i].gameObject.AddComponent<AccuracyChatWithCat>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyChatWithCat>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyChatWithCat>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Colors All Mixed Up-Cover-7":
-                    userBookLst[i].gameObject.AddComponent<AccuracyColorsAllMixedUp>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyColorsAllMixedUp>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyColorsAllMixedUp>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Joey Goes to School-TabletCover":
-                    userBookLst[i].gameObject.AddComponent<AccuracyJoeyGoesToSchool>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyJoeyGoesToSchool>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyJoeyGoesToSchool>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "My Favorite box-Tablet cover":
-                    userBookLst[i].gameObject.AddComponent<AccuracyFavoriteBox>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyFavoriteBox>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyFavoriteBox>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Sounds Fantastic-TabletCover-8":
-                    userBookLst[i].gameObject.AddComponent<AccuracySoundsFantastic>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracySoundsFantastic>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracySoundsFantastic>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Tina and Jun-TabletCover-9":
-                    userBookLst[i].gameObject.AddComponent<AccuracyTinaAndJun>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyTinaAndJun>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyTinaAndJun>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "What Did You See - Cover":
-                    userBookLst[i].gameObject.AddComponent<AccuracyWhatDidYouSee>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyWhatDidYouSee>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyWhatDidYouSee>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 case "Yummy-Shapes-tablet-cover-10":
-                    userBookLst[i].gameObject.AddComponent<AccuracyYummyShapes>();
+                    if (userBookLst[i].gameObject.GetComponent<AccuracyYummyShapes>() == null)
+                        userBookLst[i].gameObject.AddComponent<AccuracyYummyShapes>();
                     userBookLst[i].bookAccuracy = userBookLst[i].GetComponent<BookAccuracy>();
                     break;
                 default:

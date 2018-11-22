@@ -87,7 +87,8 @@ public class BookAccuracy : MonoBehaviour {
         {
             StudentActivityModel sam = ds._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
              x.StudentId == UserAccountManager.ins.SelectedSlot.UserId && x.ActivityId == am.Id).FirstOrDefault();
-            return sam.Grade;
+
+            return sam == null ? "" : sam.Grade;
         }
         else
         {
