@@ -47,6 +47,7 @@ public class MainNetwork : MonoBehaviour {
 
     // kit
     public static MainNetwork Instance;
+    NetworkingPlayer player;
 
     private void Start()
     {
@@ -58,7 +59,7 @@ public class MainNetwork : MonoBehaviour {
         //	Button btn = ToggledButtons[i].GetComponent<Button>();
         //	if (btn != null)
         //		_uiButtons.Add(btn);
-        //}		       
+        //}		                                               
 
 		mClientSendFile = GetComponent<ClientSendFile> ();
 
@@ -87,7 +88,7 @@ public class MainNetwork : MonoBehaviour {
             NetWorker.localServerLocated += LocalServerLocated;
             //NetWorker.RefreshLocalUdpListings(ushort.Parse(portNumber.text));
             NetWorker.RefreshLocalUdpListings(mPort);
-        }
+        }        
     }
 
     private void LocalServerLocated(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
@@ -113,13 +114,17 @@ public class MainNetwork : MonoBehaviour {
 
         if (useTCP)
         {
-            client = new TCPClient();
+            client = new TCPClient();            
+            
             //((TCPClient)client).Connect(ipAddress.text, (ushort)port);
-            ((TCPClient)client).Connect(mIpAddress, mPort);
+            ((TCPClient)client).Connect(mIpAddress, mPort);            
+            ((TCPClient)client).Connect(mIpAddress, mPort);            
         }
         else
         {
             client = new UDPClient();
+
+
             if (natServerHost.Trim().Length == 0)
                 //((UDPClient)client).Connect(ipAddress.text, (ushort)port);
                 ((UDPClient)client).Connect(mIpAddress, mPort);
@@ -130,7 +135,7 @@ public class MainNetwork : MonoBehaviour {
 
         // kit, add event                     
         client.serverAccepted += Client_serverAccepted;
-        client.disconnected += Client_disconnected;
+        client.disconnected += Client_disconnected;        
 
         Connected(client);
     }
@@ -226,7 +231,7 @@ public class MainNetwork : MonoBehaviour {
         };
         //LobbyService.Instance.Initialize(server);
         server.playerConnected += Server_playerConnected;
-        server.disconnected += Server_disconnected;
+        server.disconnected += Server_disconnected;        
         // kit, event                      
         Connected(server);                
     }
@@ -286,8 +291,8 @@ public class MainNetwork : MonoBehaviour {
             masterServerData = mgr.MasterServerRegisterData(networker, serverId, serverName, type, mode, comment, useElo, eloRequired);
         }
 
-        mgr.Initialize(networker, masterServerHost, masterServerPort, masterServerData);
-
+        mgr.Initialize(networker, masterServerHost, masterServerPort, masterServerData);        
+        
         if (useInlineChat && networker.IsServer)
             SceneManager.sceneLoaded += CreateInlineChat;
 
@@ -302,7 +307,7 @@ public class MainNetwork : MonoBehaviour {
 			btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Stop";
 			btnTeacher.onClick.RemoveAllListeners ();
 			btnTeacher.onClick.AddListener (Quit);
-            Debug.Log("Connected as server");
+            Debug.Log("Connected as server");            
         }  
 
 		mClientSendFile.enabled = true;
@@ -317,7 +322,7 @@ public class MainNetwork : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        Quit();
+        Quit();        
     }
 
     void Quit()
@@ -346,13 +351,18 @@ public class MainNetwork : MonoBehaviour {
 
 	private void ResetNetwork()
 	{
-		btnTeacher.interactable = true;
+        if(btnTeacher != null)
+        {
+            btnTeacher.interactable = true;
+            btnTeacher.onClick.RemoveAllListeners();
+            btnTeacher.onClick.AddListener(AsTeacher);
+        }        
 
-		btnTeacher.onClick.RemoveAllListeners ();
-		btnStudent.onClick.RemoveAllListeners ();
-
-		btnTeacher.onClick.AddListener (AsTeacher);
-		btnStudent.onClick.AddListener (AsStudent);        
+        if(btnStudent != null)
+        {
+            btnStudent.onClick.RemoveAllListeners();
+            btnStudent.onClick.AddListener(AsStudent);
+        }						                       
 
         if(btnStudent.GetComponentInChildren<Text>() != null)
             btnStudent.GetComponentInChildren<Text>().text = "I'm a Student";

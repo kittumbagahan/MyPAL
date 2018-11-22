@@ -39,7 +39,14 @@ public class ClientSendFile : MonoBehaviour
     }
     
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)
-    {        
+    {
+        if (frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount &&
+            frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount &&
+            frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount &&
+            frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert &&
+            frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
+            return;        
+
         Debug.Log("Reading file!");
 
         // kit
@@ -52,77 +59,81 @@ public class ClientSendFile : MonoBehaviour
         // add to queue for execution
         networkQueue.Enqueue(networkData);
 
-        // if message is insert
-        if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert)
+        while (networkQueue.Count > 0)
         {
             // kit
-            Debug.Log("Insert");
-            // handle insert here, check first item in queue
-            StudentActivityModel studentActivityModel = new StudentActivityModel
-            {
-                Id = networkQueue.Peek().ID,
-                SectionId = networkQueue.Peek().sectionId,
-                StudentId = networkQueue.Peek().studentId,
-                BookId = networkQueue.Peek().bookId,
-                ActivityId = networkQueue.Peek().activityId,
-                Grade = networkQueue.Peek().grade,
-                PlayCount = networkQueue.Peek().playCount
-            };
+            Debug.Log("Queue count " + networkQueue.Count);
 
-            // kit
-            Debug.Log(string.Format("ID {0}\nSection ID {1}\nStudent ID {2}\nBook ID {3}\nActivity ID {4}\nGrade {5}\nPlay Count {6}",
-                studentActivityModel.Id,
-                studentActivityModel.SectionId,
-                studentActivityModel.StudentId,
-                studentActivityModel.BookId,
-                studentActivityModel.ActivityId,
-                studentActivityModel.Grade,
-                studentActivityModel.PlayCount));
+            // if message is insert
+            if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert)
+            {
+                // kit
+                Debug.Log("Insert");
+                // handle insert here, check first item in queue
+                StudentActivityModel studentActivityModel = new StudentActivityModel
+                {
+                    Id = networkQueue.Peek().ID,
+                    SectionId = networkQueue.Peek().sectionId,
+                    StudentId = networkQueue.Peek().studentId,
+                    BookId = networkQueue.Peek().bookId,
+                    ActivityId = networkQueue.Peek().activityId,
+                    Grade = networkQueue.Peek().grade,
+                    PlayCount = networkQueue.Peek().playCount
+                };
 
-            dataService._connection.Insert(studentActivityModel);
-            networkQueue.Dequeue();
-            
-        }
-        else
-        {
-            // handle update here
-            string command = "";
-            if(frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
-            {
-                command = string.Format("Update StudentActivityModel set Grade='{0}'," +
-                "PlayCount='{1}' where Id='{2}'", networkData.grade, networkData.playCount, networkData.ID);
-            }            
-            else if(frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount)
-            {
-                command = string.Format("Update StudentBookModel set ReadCount='{0}' where id='{1}'",
-                    networkData.book_readCount,
-                    networkData.book_Id);
-            }
-            else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount)
-            {
-                command = string.Format("Update StudentBookModel set ReadToMeCount='{0}' where id='{1}'",
-                    networkData.book_readToMeCount,
-                    networkData.book_Id);
-            }
-            else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount)
-            {
-                command = string.Format("Update StudentBookModel set AutoReadCount='{0}' where id='{1}'",
-                    networkData.book_autoReadCount,
-                    networkData.book_Id);
+                // kit
+                Debug.Log(string.Format("ID {0}\nSection ID {1}\nStudent ID {2}\nBook ID {3}\nActivity ID {4}\nGrade {5}\nPlay Count {6}",
+                    studentActivityModel.Id,
+                    studentActivityModel.SectionId,
+                    studentActivityModel.StudentId,
+                    studentActivityModel.BookId,
+                    studentActivityModel.ActivityId,
+                    studentActivityModel.Grade,
+                    studentActivityModel.PlayCount));
+
+                dataService._connection.Insert(studentActivityModel);
+                networkQueue.Dequeue();
+
             }
             else
             {
+                // handle update here
+                string command = "";
+                if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
+                {
+                    command = string.Format("Update StudentActivityModel set Grade='{0}'," +
+                    "PlayCount='{1}' where Id='{2}'", networkData.grade, networkData.playCount, networkData.ID);
+                }
+                else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount)
+                {
+                    command = string.Format("Update StudentBookModel set ReadCount='{0}' where id='{1}'",
+                        networkData.book_readCount,
+                        networkData.book_Id);
+                }
+                else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount)
+                {
+                    command = string.Format("Update StudentBookModel set ReadToMeCount='{0}' where id='{1}'",
+                        networkData.book_readToMeCount,
+                        networkData.book_Id);
+                }
+                else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount)
+                {
+                    command = string.Format("Update StudentBookModel set AutoReadCount='{0}' where id='{1}'",
+                        networkData.book_autoReadCount,
+                        networkData.book_Id);
+                }                
+
+                // kit
+                Debug.Log("Update");
+                Debug.Log(command);
+
+                dataService._connection.Execute(command);
                 networkQueue.Dequeue();
-                return;
             }
+        }
 
-            // kit
-            Debug.Log("Update");
-            Debug.Log(command);
-
-            dataService._connection.Execute(command);
-            networkQueue.Dequeue();
-        }                                       		                
+        // kit
+        Debug.Log("Queue empty");
 
 		// kit, test data display text
 		//MainThreadManager.Run( () => GameObject.FindGameObjectWithTag("data").GetComponent<UnityEngine.UI.Text>().text = string.Format("Name: {0}\nAge: {1}\nSection: {2}\n\n", networkData.name, networkData.age, networkData.section));
