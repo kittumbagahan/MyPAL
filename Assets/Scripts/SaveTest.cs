@@ -76,7 +76,8 @@ public class SaveTest : MonoBehaviour
             ds._connection.Insert(model);
 
             // send data to server for insert
-            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
+            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
         }
         else
         {
@@ -95,7 +96,8 @@ public class SaveTest : MonoBehaviour
                 ID = studentActivityModel.Id
             };
 
-            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Update);
+            if(MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Update);
         }
 
 
