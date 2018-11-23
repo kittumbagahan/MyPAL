@@ -321,61 +321,61 @@ public class UserBooksManager : MonoBehaviour
             switch (userBookLst[0].CoverSprite.name)
             {
                 case "ABC-Circus-TabletCover-6":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is ABC Circus Your child LOVES TO LEARN ABOUT NEW WORDS and could grow up to be a teacher or scholar! You might want to encourage your child to read and write more!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "After The Rain Page-tabletcover":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is After the Rain this means that your child could grow up to be event planner or project manager";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Chat with my Cat p00 Cover":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is Chat With My Cat! Your child is ARTISTIC  and could grow up to be a POET!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Colors All Mixed Up-Cover-7":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         "  favorite book is Colors All Mixed Up! Your child is ARTISTIC and could grow up to be an artist! You might want to encourage your child to draw or paint!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Joey Goes to School-TabletCover":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is Joey Goes To School! Your child LIKES CONQUERING FEAR and have NEW EXPERIENCES and could grow up to be an explorer! You might want to encourage your child to try new things and go places!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "My Favorite box-Tablet cover":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is My Favorite Box! Your child is IMAGINATIVE and could grow up to be a WRITER! You might want to encourage your child create and tell his/her own stories!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Sounds Fantastic-TabletCover-8":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is Sounds Fantastic Your child LOVES TO LISTEN TO SOUNDS and could grow up to be a composer! You might want to encourage your child to sing or learn a musical instrument!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Tina and Jun-TabletCover-9":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is Tina and Jun! Your child LOVES MUSIC and could grow up to be a Rock/Pop star! You might want to encourage your child to sing or learn a musical instrument!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "What Did You See - Cover":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is What did you See?  Your child likes to be SOCIABLE and could grow up to be a reporter! You might want to encourage your child to play and interact with other kids and other people!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
                     break;
                 case "Yummy-Shapes-tablet-cover-10":
-                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = PlayerPrefs.GetString(sm.Nickname) + "'s" +
+                    utoBubble.transform.GetChild(0).GetComponent<Text>().text = sm.Nickname + "'s" +
                         " favorite book is YUMMY SHAPES! Your child is ARTISTIC and could grow up to be chef! You might want to encourage your child to do more creative and artistic activities!";
                     print(userBookLst[0].CoverSprite.name);
                     utoBubble.gameObject.SetActive(true);
