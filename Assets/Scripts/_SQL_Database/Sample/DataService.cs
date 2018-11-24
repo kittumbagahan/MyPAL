@@ -134,7 +134,12 @@ public class DataService
 
     public void CreateDB()
     {
+        if (0.Equals(PlayerPrefs.GetInt("device_table_created")))
+        {
+            _connection.CreateTable<DeviceModel>();
 
+            PlayerPrefs.SetInt("device_table_created", 1);
+        }
 
         if (0.Equals(PlayerPrefs.GetInt("section_table_created")))
         {
