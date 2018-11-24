@@ -14,7 +14,16 @@ public class DataService
 
     public DataService()
     {
-        string DatabaseName = PlayerPrefs.GetString("activeDatabase");
+        string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
+        if (PlayerPrefs.GetString("activeDatabase") == "")
+        {
+            PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
+            DatabaseName = "tempDatabase.db";
+        }
+        else
+        {
+            DatabaseName = PlayerPrefs.GetString("activeDatabase");
+        }
 #if UNITY_EDITOR
         var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
 #else

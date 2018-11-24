@@ -6,7 +6,7 @@ public class UserBookSave : MonoBehaviour {
 
     //REFERENCE FROM CarouItem.cs StoryBookSaveManager.instance.selectedBookName = sceneToLoad;
 
-    DataService ds = new DataService("tempDatabase.db");
+    DataService ds = new DataService();
     StudentBookModel model;
     void Start()
     {

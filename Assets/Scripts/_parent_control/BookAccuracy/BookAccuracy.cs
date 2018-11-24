@@ -77,7 +77,7 @@ public class BookAccuracy : MonoBehaviour {
     }
     public string GetGrade(string bookDesc, string activityDesc, string module, int set)
     {
-        DataService ds = new DataService("tempDatabase.db");
+        DataService ds = new DataService();
 
         BookModel bm = ds._connection.Table<BookModel>().Where(x=>x.Description == bookDesc).FirstOrDefault();
 

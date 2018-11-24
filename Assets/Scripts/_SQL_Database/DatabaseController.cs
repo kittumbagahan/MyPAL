@@ -17,7 +17,7 @@ public class DatabaseController
     string activeDbName;
     DirectoryInfo directoryInfo;
     FileInfo[] files;
-
+    
     public DatabaseController()
     {
         date = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss_tt");

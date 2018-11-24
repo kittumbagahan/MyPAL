@@ -61,7 +61,7 @@ public class StudentController : MonoBehaviour
    public void LoadStudentsSQL()
    {
       maxStudentAllowed = PlayerPrefs.GetInt ("maxNumberOfStudentsAllowed");
-      DataService ds = new DataService ("tempDatabase.db");
+      DataService ds = new DataService ();
         var students = ds._connection.Table<StudentModel>().Where(x=>x.SectionId == StoryBookSaveManager.ins.activeSection_id);
       for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
       {
@@ -101,7 +101,7 @@ public class StudentController : MonoBehaviour
       {
          if (currentMaxStudent < maxStudentAllowed)
          {
-            DataService ds = new DataService ("tempDatabase.db");
+            DataService ds = new DataService ();
             string studentName = txtGivenName.text + " " + txtMiddleName.text + " " + txtSurname.text + " " + txtNickName.text;
             StudentModel sm = ds._connection.Table<StudentModel> ().Where (
                a => a.Lastname == txtSurname.text &&
@@ -249,7 +249,7 @@ class UpdateStudent
       }
       else
       {
-         DataService ds = new DataService ("tempDatabase.db");
+         DataService ds = new DataService ();
          StudentModel model = new StudentModel
          {
             Id = s.id,

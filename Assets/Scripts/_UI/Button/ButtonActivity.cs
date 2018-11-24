@@ -57,7 +57,7 @@ public class ButtonActivity : MonoBehaviour {
 			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
 
             //print(sceneToLoad + " on start " + gameObject.name);
-            DataService ds = new DataService("tempDatabase.db");
+            DataService ds = new DataService();
             string bookname = storyBook.ToString();
             string modulename = module.ToString();
           
@@ -139,7 +139,7 @@ public class ButtonActivity : MonoBehaviour {
 
    void AddActivity()
    {
-      DataService ds = new DataService ("tempDatabase.db");
+      DataService ds = new DataService ();
       string _module = module.ToString ();
       string _book = storyBook.ToString ();
       var dup = ds._connection.Table<ActivityModel> ().Where (x => x.Module == _module &&

@@ -35,7 +35,7 @@ public class ClientSendFile : MonoBehaviour
         networkQueue = new Queue<NetworkData>();
 
         // create database connection
-        dataService = new DataService("tempDatabase.db");
+        dataService = new DataService();
     }
     
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)

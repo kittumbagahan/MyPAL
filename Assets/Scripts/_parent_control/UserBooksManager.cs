@@ -45,7 +45,7 @@ public class UserBooksManager : MonoBehaviour
     public void Show(int key)
     {
         userId = key;
-        DataService ds = new DataService("tempDatabase.db");
+        DataService ds = new DataService();
         sm = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.Id == userId).FirstOrDefault();
         gameObject.SetActive(true);
@@ -59,7 +59,7 @@ public class UserBooksManager : MonoBehaviour
 
     int GetReadCount(string bookname)
     {
-        DataService ds = new DataService("tempDatabase.db");
+        DataService ds = new DataService();
         BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
         StudentBookModel sbm = ds._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == userId && x.BookId == book.Id).FirstOrDefault();
@@ -69,7 +69,7 @@ public class UserBooksManager : MonoBehaviour
   
     int GetPlayCount(string bookname)
     {
-        DataService ds = new DataService("tempDatabase.db");
+        DataService ds = new DataService();
         BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
         var activity = ds._connection.Table<ActivityModel>().Where(x => x.BookId == book.Id);
         var studentActivity = ds._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&

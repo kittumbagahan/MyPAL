@@ -36,7 +36,8 @@ public class PatchManager : CachedAssetBundleLoader {
 
 
 	void Start () {
-      DataService ds = new DataService ("tempDatabase.db");
+        PlayerPrefs.DeleteAll();
+        DataService ds = new DataService ();
       //ds._connection.DeleteAll<BookModel> ();
       //ds._connection.DeleteAll<StudentModel> ();
       //ds._connection.DeleteAll<ActivityModel> ();
@@ -51,7 +52,7 @@ public class PatchManager : CachedAssetBundleLoader {
       ds._connection.Execute("drop table ActivityModel");
       ds._connection.Execute("drop table SectionModel");
         //Caching.CleanCache();
-        PlayerPrefs.DeleteAll();
+       
 //		PlayerPrefs.SetInt("bundleVersion", 6);
 //		PlayerPrefs.SetInt("paid",1);
 //		PlayerPrefs.SetInt(productId_1,1);

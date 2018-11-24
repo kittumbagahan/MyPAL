@@ -48,7 +48,7 @@ public class SectionController : MonoBehaviour
 
    public void LoadSectionsSQL()
    {
-      DataService ds = new DataService ("tempDatabase.db");
+      DataService ds = new DataService ();
       var sections = ds.GetSections ();
       for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
       {
@@ -93,7 +93,7 @@ public class SectionController : MonoBehaviour
       {
          if (currentMaxSection < maxSectionAllowed)
          {
-            DataService ds = new DataService ("tempDatabase.db");
+            DataService ds = new DataService ();
             if (ds._connection.Table<SectionModel>().Where(x =>x.Description == newSection.text).FirstOrDefault() == null)
             {
                
@@ -217,7 +217,7 @@ class UpdateSection
      
         
         
-         DataService ds = new DataService ("tempDatabase.db");
+         DataService ds = new DataService ();
          SectionModel model = new SectionModel { Id = s.id, Description = view.txtSectionName.text };
          //_connection.Execute ("Update UserTable set currentCar=" + currnetCarNumb + " where
          //ID = "+userID);

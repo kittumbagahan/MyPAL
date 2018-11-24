@@ -24,7 +24,7 @@ public class SaveTest : MonoBehaviour
         print("SAVED " + ScoreManager.ins.GetGrade());
         print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
       
-        DataService ds = new DataService("tempDatabase.db");
+        DataService ds = new DataService();
 
         print(storyBook.ToString());
         string bookname = storyBook.ToString();
