@@ -11,10 +11,18 @@ public class CreateDBScript : MonoBehaviour
     void Start()
     {
         StartSync();
+        DatabaseController dc = new DatabaseController();
+        dc.MakeBackUp();
     }
 
     private void StartSync()
     {
+        //set the active database for the app for the firstime
+        if ("".Equals(PlayerPrefs.GetString("activeDatabase")))
+        {
+            PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
+        }
+
         var ds = new DataService("tempDatabase.db");
         ds.CreateDB();
         var books = ds.GetBooks();
