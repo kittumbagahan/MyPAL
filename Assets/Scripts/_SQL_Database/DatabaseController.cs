@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using System;
 using System.IO;
 
@@ -44,7 +48,9 @@ public class DatabaseController
         else
         {
             //FileUtil.CopyFileOrDirectory ("sourcepath/YourFileOrFolder", "destpath/YourFileOrFolder");
+#if UNITY_EDITOR
             FileUtil.CopyFileOrDirectory(DatabaseDirectory + activeDbName, DatabaseDirectory + schoolName + "-" + date + ".db");
+#endif
             MessageBox.ins.ShowOk(schoolName + "-" + date + ".db" + " Created!", MessageBox.MsgIcon.msgInformation, null);
         }
 

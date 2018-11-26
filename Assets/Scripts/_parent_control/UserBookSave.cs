@@ -6,10 +6,19 @@ public class UserBookSave : MonoBehaviour {
 
     //REFERENCE FROM CarouItem.cs StoryBookSaveManager.instance.selectedBookName = sceneToLoad;
 
-    DataService ds = new DataService();
+    //DataService ds = new DataService();
+    DataService ds;
+
     StudentBookModel model;
+
+    // network data
+    NetworkData networkData;
+
     void Start()
     {
+        // kit
+        ds = new DataService();
+
         string bookname = StoryBookSaveManager.ins.selectedBook.ToString();
 
         BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
@@ -30,20 +39,15 @@ public class UserBookSave : MonoBehaviour {
                 AutoReadCount = 0
             };
 
-            NetworkData networkData = new NetworkData
-            {
-                book_SectionId = model.SectionId,
-                book_StudentId = model.StudentId,
-                book_bookId = model.BookId,
-                book_readCount = model.ReadCount,
-                book_readToMeCount = model.ReadToMeCount,
-                book_autoReadCount = model.AutoReadCount
-            };
+            networkData = new NetworkData ();
+            networkData.studentBook_SectionId = model.SectionId;
+            networkData.studentBook_StudentId = model.StudentId;
+            networkData.studentBook_bookId = model.BookId;
+            networkData.studentBook_readCount = model.ReadCount;
+            networkData.studentBook_readToMeCount = model.ReadToMeCount;
+            networkData.studentBook_autoReadCount = model.AutoReadCount;
 
             ds._connection.Insert(model);
-
-            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
-                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Insert);
         }
     }
 
@@ -57,11 +61,9 @@ public class UserBookSave : MonoBehaviour {
         int count = model.ReadCount + 1;
         ds._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where id='" + model.Id + "'");
 
-        NetworkData networkData = new NetworkData
-        {
-            book_Id = model.Id,
-            book_readCount = count
-        };
+        // network data
+        networkData.studentBook_Id = model.Id;
+        networkData.studentBook_readCount = count;
 
         if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
             MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
@@ -77,11 +79,9 @@ public class UserBookSave : MonoBehaviour {
         int count = model.ReadToMeCount + 1;
         ds._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where id='" + model.Id + "'");
 
-        NetworkData networkData = new NetworkData
-        {
-            book_Id = model.Id,
-            book_readToMeCount = count
-        };
+        // network data
+        networkData.studentBook_Id = model.Id;
+        networkData.studentBook_readCount = count;
 
         if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
             MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
@@ -97,11 +97,9 @@ public class UserBookSave : MonoBehaviour {
         int count = model.AutoReadCount + 1;
         ds._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where id='" + model.Id + "'");
 
-        NetworkData networkData = new NetworkData
-        {
-            book_Id = model.Id,
-            book_autoReadCount = count
-        };
+        // network data
+        networkData.studentBook_Id = model.Id;
+        networkData.studentBook_readCount = count;
 
         if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
             MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);

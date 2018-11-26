@@ -64,21 +64,49 @@ public class ClientSendFile : MonoBehaviour
             // kit
             Debug.Log("Queue count " + networkQueue.Count);
 
+            if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update ||
+               frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert)
+            {
+                // activity model
+
+                string module = networkQueue.Peek ().activity_module;
+                string description = networkQueue.Peek ().activity_description;
+                int set = networkQueue.Peek ().activity_set;
+                string book_description = networkQueue.Peek ().book_description;
+
+                var activity = dataService._connection.Table<ActivityModel> ().Where (x => x.Module == module &&
+                                                                                      x.Description == description &&
+                                                                                      x.Set == set).FirstOrDefault ();
+
+                if (activity == null)
+                {
+                    var _activity = new ActivityModel
+                    {
+                        BookId = dataService._connection.Table<BookModel> ().Where (x => x.Description == book_description).FirstOrDefault ().Id,
+                        Description = networkQueue.Peek ().activity_description,
+                        Module = networkQueue.Peek ().activity_module,
+                        Set = networkQueue.Peek ().activity_set
+                    };
+                    dataService._connection.Insert (_activity);
+                }
+            }
+
             // if message is insert
             if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert)
             {
+
                 // kit
                 Debug.Log("Insert");
                 // handle insert here, check first item in queue
                 StudentActivityModel studentActivityModel = new StudentActivityModel
                 {
-                    Id = networkQueue.Peek().ID,
-                    SectionId = networkQueue.Peek().sectionId,
-                    StudentId = networkQueue.Peek().studentId,
-                    BookId = networkQueue.Peek().bookId,
-                    ActivityId = networkQueue.Peek().activityId,
-                    Grade = networkQueue.Peek().grade,
-                    PlayCount = networkQueue.Peek().playCount
+                    Id = networkQueue.Peek().studentActivity_ID,
+                    SectionId = networkQueue.Peek().studentActivity_sectionId,
+                    StudentId = networkQueue.Peek().studentActivity_studentId,
+                    BookId = networkQueue.Peek().studentActivity_bookId,
+                    ActivityId = networkQueue.Peek().studentActivity_activityId,
+                    Grade = networkQueue.Peek().studentActivity_grade,
+                    PlayCount = networkQueue.Peek().studentActivity_playCount
                 };
 
                 // kit
@@ -102,32 +130,50 @@ public class ClientSendFile : MonoBehaviour
                 if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update)
                 {
                     command = string.Format("Update StudentActivityModel set Grade='{0}'," +
-                    "PlayCount='{1}' where Id='{2}'", networkData.grade, networkData.playCount, networkData.ID);
+                    "PlayCount='{1}' where Id='{2}'", networkData.studentActivity_grade, networkData.studentActivity_playCount, networkData.studentActivity_ID);
                 }
                 else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount)
                 {
-                    command = string.Format("Update StudentBookModel set ReadCount='{0}' where id='{1}'",
-                        networkData.book_readCount,
-                        networkData.book_Id);
+                    Debug.Log ("Update read count");
+                    if (CreateStudentBookModel (networkQueue.Peek ()) == false)
+                    {
+                        command = string.Format ("Update StudentBookModel set ReadCount='{0}' where id='{1}'",
+                            networkData.studentBook_readCount,
+                            networkData.studentBook_Id);
+
+                        dataService._connection.Execute (command);
+                    }
                 }
                 else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount)
                 {
-                    command = string.Format("Update StudentBookModel set ReadToMeCount='{0}' where id='{1}'",
-                        networkData.book_readToMeCount,
-                        networkData.book_Id);
+                    Debug.Log ("Update read to me count");
+                    if (CreateStudentBookModel (networkQueue.Peek ()) == false)
+                    {
+                        command = string.Format ("Update StudentBookModel set ReadToMeCount='{0}' where id='{1}'",
+                        networkData.studentBook_readToMeCount,
+                        networkData.studentBook_Id);
+
+                        dataService._connection.Execute (command);
+                    }
                 }
                 else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount)
                 {
-                    command = string.Format("Update StudentBookModel set AutoReadCount='{0}' where id='{1}'",
-                        networkData.book_autoReadCount,
-                        networkData.book_Id);
+                    Debug.Log ("Update auto read count");
+                    if (CreateStudentBookModel (networkQueue.Peek ()) == false)
+                    {
+                        command = string.Format ("Update StudentBookModel set AutoReadCount='{0}' where id='{1}'",
+                        networkData.studentBook_autoReadCount,
+                        networkData.studentBook_Id);
+
+                        dataService._connection.Execute (command);
+                    }
                 }                
 
                 // kit
                 Debug.Log("Update");
                 Debug.Log(command);
 
-                dataService._connection.Execute(command);
+                //dataService._connection.Execute(command);
                 networkQueue.Dequeue();
             }
         }
@@ -180,7 +226,7 @@ public class ClientSendFile : MonoBehaviour
             networker.Time.Timestep,                    // The current timestep for this frame
             false,                                      // We are server, no mask needed
             allData,                                    // The file that is being sent
-			Receivers.Server,                           // Send to all clients
+            Receivers.Others,                           // Send to all clients
             MessageGroupIds.START_OF_GENERIC_IDS + (int)messageGroup,   // Some random fake number
             networker is TCPServer);
 
@@ -207,6 +253,39 @@ public class ClientSendFile : MonoBehaviour
 
 		return (NetworkData)bin.Deserialize (ms);
 	}
+
+    bool CreateStudentBookModel (NetworkData pNetworkData)
+    {
+        // check student book model
+        StudentBookModel studentModel = dataService._connection.Table<StudentBookModel> ().Where
+        (
+           x => x.SectionId == pNetworkData.studentBook_SectionId &&
+           x.StudentId == pNetworkData.studentBook_StudentId &&
+           x.BookId == pNetworkData.studentBook_bookId
+        ).FirstOrDefault ();
+
+        if (studentModel == null)
+        {
+            Debug.Log ("Create student book model");
+            StudentBookModel studentBookModel = new StudentBookModel
+            {
+                SectionId = pNetworkData.studentBook_SectionId,
+                StudentId = pNetworkData.studentBook_StudentId,
+                BookId = pNetworkData.studentBook_bookId,
+                ReadCount = pNetworkData.studentBook_readCount,
+                ReadToMeCount = pNetworkData.studentBook_readToMeCount,
+                AutoReadCount = pNetworkData.studentBook_autoReadCount
+            };
+            dataService._connection.Insert (studentBookModel);
+
+            return true;
+        }
+        else
+        {
+            Debug.Log ("Create student book model update");
+            return true;
+        }
+    }
 
     // kit, test
     void DebugText(string pText)

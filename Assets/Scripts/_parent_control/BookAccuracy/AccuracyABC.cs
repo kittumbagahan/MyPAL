@@ -6,7 +6,7 @@ public class AccuracyABC : BookAccuracy
 {
 
   
-     void OnEnable()
+    void OnEnable()
     {
         total = GetAccuracy();
     }

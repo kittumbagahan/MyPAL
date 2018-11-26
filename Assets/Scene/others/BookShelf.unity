@@ -2049,7 +2049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &101956136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34031,7 +34031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1508281059
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42294,9 +42294,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'I''m a student
-
-    (local)'
+  m_Text: I'm a student
 --- !u!222 &1842664923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43252,7 +43250,6 @@ MonoBehaviour:
   - {fileID: 1156811897}
   - {fileID: 1064671738}
   - {fileID: 1533993543}
-  - {fileID: 1508281058}
   restriction: -1
 --- !u!1 &1871064844
 GameObject:

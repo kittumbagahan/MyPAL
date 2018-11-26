@@ -47,6 +47,16 @@ public class SaveTest : MonoBehaviour
             x.ActivityId == activityModel.Id
             ).FirstOrDefault();
 
+
+        // network data, activity
+        NetworkData networkData = new NetworkData ();
+        networkData.activity_book_ID = book.Id;
+        networkData.activity_description = scenename;
+        networkData.activity_module = modulename;
+        networkData.activity_set = set;
+        // book
+        networkData.book_description = bookname;
+
         if (studentActivityModel == null)
         {
             StudentActivityModel model = new StudentActivityModel
@@ -62,16 +72,13 @@ public class SaveTest : MonoBehaviour
             };
 
             // network data
-            NetworkData networkData = new NetworkData
-            {
-                ID = model.Id,
-                sectionId = model.SectionId,
-                studentId = model.StudentId,
-                bookId = model.BookId,
-                activityId = model.ActivityId,
-                grade = model.Grade,
-                playCount = model.PlayCount
-            };
+            networkData.studentActivity_ID = model.Id;
+            networkData.studentActivity_sectionId = model.SectionId;
+            networkData.studentActivity_studentId = model.StudentId;
+            networkData.studentActivity_bookId = model.BookId;
+            networkData.studentActivity_activityId = model.ActivityId;
+            networkData.studentActivity_grade = model.Grade;
+            networkData.studentActivity_playCount = model.PlayCount;
 
             ds._connection.Insert(model);
 
@@ -89,14 +96,12 @@ public class SaveTest : MonoBehaviour
 
             ds._connection.Execute(command);
 
-            NetworkData networkData = new NetworkData
-            {
-                grade = grade,
-                playCount = playN,
-                ID = studentActivityModel.Id
-            };
+            // network data
+            networkData.studentActivity_grade = grade;
+            networkData.studentActivity_playCount = playN;
+            networkData.studentActivity_ID = studentActivityModel.Id;
 
-            if(MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Update);
         }
 
