@@ -48,16 +48,36 @@ public class ButtonActivity : MonoBehaviour {
     void LoadStarButton()
     {
 		string saveState = "";
-        try {
+        try
+        {
             //storyBook = Singleton.SelectedBook;
             storyBook = StoryBookSaveManager.ins.selectedBook;
             index = Read.instance.SceneIndex(storyBook, module, buttonIndex);
             sceneToLoad = Read.instance.SceneName(storyBook, module, buttonIndex);
 			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
-			saveState = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
-                storyBook.ToString() + sceneToLoad + module.ToString() + index);
+
             //print(sceneToLoad + " on start " + gameObject.name);
-			if (!saveState.Equals("0") && saveState != "")
+            DataService ds = new DataService();
+            string bookname = storyBook.ToString();
+            string modulename = module.ToString();
+          
+         
+
+            BookModel book = ds._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
+
+            ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(
+                 x => x.BookId == book.Id &&
+                 x.Description == sceneToLoad &&
+                 x.Module == modulename &&
+                 x.Set == index).FirstOrDefault();
+
+            var studentActivityModel = ds._connection.Table<StudentActivityModel>().Where(x=>
+                x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+                x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
+                x.BookId == book.Id &&
+                x.ActivityId == activityModel.Id ).FirstOrDefault();
+			//if (!saveState.Equals("0") && saveState != "")
+            if(studentActivityModel != null)
             {
                 /*change mat*/
                 GetComponent<Image>().material = null;
@@ -69,14 +89,18 @@ public class ButtonActivity : MonoBehaviour {
             }
 
             //print(StoryBookSaveManager.instance.oldUsername + storyBook + "_" + module + ", " + buttonIndex);
-        }catch(Exception ex){
+        }
+        catch (Exception ex)
+        {
             //print("---------------------------------");
             //print(storyBook.ToString() + " " + index.ToString());
             //print(sceneToLoad + " wow");
             print(ex + "\n" + "THIS BUTTON HAS BEEN DISABLED. TRY REMOVING THE TRY CATCH BLOCK TO SEE WHY.");
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            //LINQ activitymodel returns null
+            GetComponent<Image>().material = grayscale;
         }
-	
+
     }
 
     public void Click()
@@ -88,12 +112,13 @@ public class ButtonActivity : MonoBehaviour {
 		//BG_Music.ins.Mute();
 		BG_Music.ins.SetToReadingVolume();
 		StartCoroutine(IEClick());
-        //Application.LoadLevel(sceneToLoad);
-       
-        /*
-         the line below does not work
-         */
-		//SceneLoader.instance.LoadStr(sceneToLoad);
+      //Application.LoadLevel(sceneToLoad);
+
+      /*
+       the line below does not work
+       */
+      //SceneLoader.instance.LoadStr(sceneToLoad);
+      AddActivity ();
     }
     IEnumerator IEClick()
     {
@@ -111,4 +136,34 @@ public class ButtonActivity : MonoBehaviour {
 	{
 		animator.SetInteger("index", UnityEngine.Random.Range(0, 3));
 	}
+
+   void AddActivity()
+   {
+      DataService ds = new DataService ();
+      string _module = module.ToString ();
+      string _book = storyBook.ToString ();
+      var dup = ds._connection.Table<ActivityModel> ().Where (x => x.Module == _module &&
+         x.Description == sceneToLoad &&
+         x.Set == index
+      ).FirstOrDefault ();
+    
+      if (dup == null)
+      {
+         var act = new ActivityModel
+         {
+            BookId = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ().Id,
+            Description = sceneToLoad,
+            Module = module.ToString (),
+            Set = index
+         };
+         ds._connection.Insert (act);
+         var a = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ();
+         Debug.Log (a.ToString ());
+
+      }
+      else
+      {
+         Debug.Log (dup.ToString ());
+      }
+   }
 }

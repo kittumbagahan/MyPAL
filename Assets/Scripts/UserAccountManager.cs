@@ -77,22 +77,36 @@ public class UserAccountManager : MonoBehaviour
     {
         int n = 0;
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
-        for (int i = 0; i < maxStudentAllowed; i++)
-        {
-            if (PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + i) != "")
-            {
-                GameObject _obj = Instantiate(btnUserSavePrefab);
-                UserAccount _student = _obj.GetComponent<UserAccount>();
-                _student.UserId = i;
-                _student.Username = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-                "student_id" + i);
-                _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.Username;
-                _obj.transform.SetParent(btnStudentContainer.transform);
-                n++;
-            }
+        DataService ds = new DataService();
+        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
 
+        foreach(StudentModel student in students)
+        {
+            GameObject _obj = Instantiate(btnUserSavePrefab);
+            UserAccount _student = _obj.GetComponent<UserAccount>();
+            _student.UserId = student.Id;
+            _student.Username = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname; 
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.Username;
+            _obj.transform.SetParent(btnStudentContainer.transform);
+            n++;
         }
+
+        //for (int i = 0; i < maxStudentAllowed; i++)
+        //{
+        //    if (PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
+        //    "student_id" + i) != "")
+        //    {
+        //        GameObject _obj = Instantiate(btnUserSavePrefab);
+        //        UserAccount _student = _obj.GetComponent<UserAccount>();
+        //        _student.UserId = i;
+        //        _student.Username = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
+        //        "student_id" + i);
+        //        _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.Username;
+        //        _obj.transform.SetParent(btnStudentContainer.transform);
+        //        n++;
+        //    }
+
+        //}
         currentMaxStudent = n;
 
     }
@@ -313,6 +327,7 @@ public class UserAccountManager : MonoBehaviour
         PlayerPrefs.DeleteKey(user + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION.ToString() + "8");
       
     }
+
     public void DeleteBooksUsage(string user)
     {
         // string key = "read" + StoryBookSaveManager.instance.User + StoryBookSaveManager.instance.selectedBook;

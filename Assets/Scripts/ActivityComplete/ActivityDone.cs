@@ -31,8 +31,8 @@ public class ActivityDone : MonoBehaviour {
             Item.RemoveSubscribers();
             WordGameManager.RemoveSubscribers();
             WordGameManager_2.RemoveSubscribers();
-           
-            Application.LoadLevel(0);
+                       
+            SceneManager.LoadScene(0);
         }
     }
 

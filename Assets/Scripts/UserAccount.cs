@@ -39,11 +39,11 @@ public class UserAccount : MonoBehaviour {
 
 			if (userName.Equals("") || userName.Equals("0"))
             {
-                btnDelete.SetActive(false);
+                //btnDelete.SetActive(false);
                 btnProgress.SetActive(false);
             }
             else {
-                btnDelete.SetActive(true);
+                //btnDelete.SetActive(true);
                 btnProgress.SetActive(true);
             }
         } 
@@ -52,18 +52,7 @@ public class UserAccount : MonoBehaviour {
     public int UserId { set { userId = value; } get { return userId; } }
 
 	void Start () {
-        
-        //this block is fishy
-        //if (userName != "")
-        //{
-        //    //txtLoadedusrname.text = username;
-        //    UserAccountManager.ins.Command = UserAccountManager.ECommand.continue_;
-        //}
-        //else
-        //{
-        //    txtLoadedusrname.text = "Empty";
-        //    UserAccountManager.ins.Command = UserAccountManager.ECommand.newgame;
-        //}
+       
         btn = GetComponent<Button>();
         
 	}
@@ -84,8 +73,10 @@ public class UserAccount : MonoBehaviour {
 
     public void ShowProgress()
     {
-        UserAccountManager.ins.UserBooksManager.Show("section_id" + StoryBookSaveManager.ins.activeSection_id +
-            "student_id" + userId);
+        //UserAccountManager.ins.UserBooksManager.Show("section_id" + StoryBookSaveManager.ins.activeSection_id +
+        //    "student_id" + userId);
+        UserAccountManager.ins.UserBooksManager.Show(userId);
+
         UserAccountManager.ins.SelectedSlot = this;
     }
  

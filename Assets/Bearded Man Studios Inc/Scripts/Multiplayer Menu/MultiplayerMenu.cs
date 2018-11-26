@@ -10,6 +10,7 @@ using System.Collections;
 
 // kit
 using TMPro;
+using System.Net.Sockets;
 
 public class MultiplayerMenu : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class MultiplayerMenu : MonoBehaviour
     // kit
     private ushort mPort;
     private string mIpAddress;
+
+    [SerializeField]
+    TextMeshProUGUI txtStatus;
 
     [SerializeField]
     Button btnSender, btnReceiver;
@@ -132,7 +136,7 @@ public class MultiplayerMenu : MonoBehaviour
 
     private void Client_disconnected (NetWorker sender)
     {
-        MainThreadManager.Run (ResetButtons);
+        MainThreadManager.Run (ResetNetwork);
     }
 
     private void Client_serverAccepted (NetWorker sender)
@@ -143,6 +147,9 @@ public class MultiplayerMenu : MonoBehaviour
             NetworkUI.Receiver (btnSender, btnReceiver);
             btnReceiver.onClick.RemoveAllListeners ();
             btnReceiver.onClick.AddListener (() => client.Disconnect (false));
+
+            UpdateNetworkStatus("Connected to Server. Ready to receive file");
+
         });
     }
 
@@ -182,39 +189,47 @@ public class MultiplayerMenu : MonoBehaviour
 
     public void Host ()
     {
-        if (useTCP)
+        try
         {
-            server = new TCPServer (100);
+            if (useTCP)
+            {
+                server = new TCPServer(100);
 
-            ((TCPServer)server).Connect ();
-        }
-        else
-        {
-            server = new UDPServer (100);
-
-            if (natServerHost.Trim ().Length == 0)
-                //((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
-                ((UDPServer)server).Connect (mIpAddress, mPort);
+                ((TCPServer)server).Connect();
+            }
             else
-                //((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
-                ((UDPServer)server).Connect (port: mPort, natHost: natServerHost, natPort: natServerPort);
-        }
+            {
+                server = new UDPServer(100);
 
-        server.playerTimeout += (player, sender) =>
+                if (natServerHost.Trim().Length == 0)
+                    //((UDPServer)server).Connect(ipAddress.text, ushort.Parse(portNumber.text));
+                    ((UDPServer)server).Connect(mIpAddress, mPort);
+                else
+                    //((UDPServer)server).Connect(port: ushort.Parse(portNumber.text), natHost: natServerHost, natPort: natServerPort);
+                    ((UDPServer)server).Connect(port: mPort, natHost: natServerHost, natPort: natServerPort);
+            }
+
+            server.playerTimeout += (player, sender) =>
+            {
+                Debug.Log("Player " + player.NetworkId + " timed out");
+            };
+            //LobbyService.Instance.Initialize(server);
+            server.playerConnected += Server_playerConnected;
+            server.disconnected += Server_disconnected;
+            // kit, event                      
+            Connected(server);
+        }
+        catch(SocketException ex)
         {
-            Debug.Log ("Player " + player.NetworkId + " timed out");
-        };
-        //LobbyService.Instance.Initialize(server);
-        server.playerConnected += Server_playerConnected;
-        server.disconnected += Server_disconnected;
-        // kit, event                      
-        Connected (server);
+            MessageBox.ins.ShowOk("A server already exist, Please check your network connection.", MessageBox.MsgIcon.msgInformation, null);
+        }
     }
 
     private void Server_disconnected (NetWorker sender)
     {
         Debug.Log ("Server disconnected");
-        MainThreadManager.Run (ResetButtons);
+        MainThreadManager.Run(() => UpdateNetworkStatus("Server disconnected"));
+        MainThreadManager.Run (ResetNetwork);
     }
 
     private void Server_playerConnected (NetworkingPlayer player, NetWorker sender)
@@ -222,8 +237,10 @@ public class MultiplayerMenu : MonoBehaviour
         Debug.Log ("Player connected");
     }
 
-    private void ResetButtons ()
+    private void ResetNetwork ()
     {
+        isServerFound = false;
+
         btnSender.GetComponentInChildren<TextMeshProUGUI> ().text = "Send";
         btnReceiver.GetComponentInChildren<TextMeshProUGUI> ().text = "Receive";
 
@@ -235,6 +252,8 @@ public class MultiplayerMenu : MonoBehaviour
 
         btnReceiver.GetComponent<Button> ().interactable = true;
         btnSender.GetComponent<Button> ().interactable = true;
+
+        UpdateNetworkStatus("");
     }
 
     //   private void Update()
@@ -314,7 +333,7 @@ public class MultiplayerMenu : MonoBehaviour
 
             // pass method
             btnSender.onClick.AddListener (() =>
-                {
+            {
                 if (fileDropDown.options[fileDropDown.value].text == "")
                 {
                     MessageBox.ins.ShowOk ("No file selected", MessageBox.MsgIcon.msgError, null);
@@ -328,6 +347,8 @@ public class MultiplayerMenu : MonoBehaviour
 
             btnReceiver.onClick.RemoveAllListeners();
             btnReceiver.onClick.AddListener(Quit);
+
+            UpdateNetworkStatus("Started as Server. Ready to send file.");
 		}
 
         // kit, enable FileTransfer
@@ -355,6 +376,12 @@ public class MultiplayerMenu : MonoBehaviour
 
         //if (server != null) server.Disconnect(true);
         if (server != null) server.Disconnect(false);
+    }
+
+    public void UpdateNetworkStatus(string status)
+    {
+        if (txtStatus != null)
+            txtStatus.text = status;
     }
 
 #region ADDITIONAL LOGIC
@@ -394,13 +421,15 @@ public class MultiplayerMenu : MonoBehaviour
         btnReceiver.onClick.AddListener(() =>
         {
             StopCoroutine("_FindServer");
-            ResetButtons();
+            StopCoroutine("_FindServerLoading");
+            ResetNetwork();
         });
 
         StartCoroutine("_FindServer");
+        StartCoroutine("_FindServerLoading");
     }
 
-    WaitForSeconds wfs = new WaitForSeconds(1.5f);
+    WaitForSeconds wfs = new WaitForSeconds(1.5f);    
     IEnumerator _FindServer()
     {
         while (isServerFound == false)
@@ -408,11 +437,42 @@ public class MultiplayerMenu : MonoBehaviour
             NetWorker.RefreshLocalUdpListings();            
             Debug.Log("Finding Server");
             yield return wfs;
-        }
+        }        
 
         Debug.Log("Coroutine exited.");        
         Connect();
 
     }
+
+    IEnumerator _FindServerLoading()
+    {
+        int counter = 0;
+        string status = "";
+        while(isServerFound == false)
+        {
+            switch (counter)
+            {
+                case 0:
+                    status = "Finding Server.";
+                    break;
+                case 1:
+                    status = "Finding Server..";
+                    break;
+                case 2:
+                    status = "Finding Server...";
+                    break;
+            }
+
+            if (counter == 2)
+                counter = 0;
+            else
+                counter++;
+
+            UpdateNetworkStatus(status);
+
+            yield return new WaitForSeconds(1);
+        }              
+    }
+
 #endregion
 }
