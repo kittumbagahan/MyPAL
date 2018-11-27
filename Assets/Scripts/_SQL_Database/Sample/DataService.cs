@@ -134,12 +134,16 @@ public class DataService
 
     public void CreateDB()
     {
-
+        if ("".Equals(PlayerPrefs.GetString("deviceId_created")))
+        {
+            //do we need to save?
+            PlayerPrefs.SetString("deviceId_created", SystemInfo.deviceUniqueIdentifier);
+        }
 
         if (0.Equals(PlayerPrefs.GetInt("device_table_created")))
         {
             _connection.CreateTable<DeviceModel>();
-
+            //add UID through networking
             PlayerPrefs.SetInt("device_table_created", 1);
         }
 

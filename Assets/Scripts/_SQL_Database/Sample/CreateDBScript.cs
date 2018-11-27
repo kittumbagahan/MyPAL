@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using UnityEngine;
 public class CreateDBScript : MonoBehaviour
 {
 
@@ -10,6 +10,7 @@ public class CreateDBScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         StartSync();
         DatabaseController dc = new DatabaseController();
        
@@ -32,16 +33,7 @@ public class CreateDBScript : MonoBehaviour
         var studentActivities = ds.GetStudentActivities();
         var studentBooks = ds.GetStudentBooks();
         ToConsole(books);
-        //ToConsole(studentBooks);
-        //ToConsole (books);
-        //ToConsole (sections);
-        //ToConsole (st);
-        //ToConsole (acts);
-        //var people = ds.GetPersons ();
-        //ToConsole (people);
-        //people = ds.GetPersonsNamedRoberto ();
-        //ToConsole("Searching for Roberto ...");
-        //ToConsole (people); 
+    
     }
 
     private void ToConsole(IEnumerable<BookModel> model)
