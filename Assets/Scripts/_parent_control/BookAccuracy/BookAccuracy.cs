@@ -81,7 +81,8 @@ public class BookAccuracy : MonoBehaviour {
 
         BookModel bm = ds._connection.Table<BookModel>().Where(x=>x.Description == bookDesc).FirstOrDefault();
 
-        ActivityModel am = ds._connection.Table<ActivityModel>().Where(x=>x.BookId == bm.Id && x.Description == activityDesc && x.Module == module && x.Set == set).FirstOrDefault();
+        ActivityModel am = ds._connection.Table<ActivityModel>().Where(x=>x.BookId == bm.Id &&
+        x.Description == activityDesc && x.Module == module && x.Set == set).FirstOrDefault();
         //In this case this activity is have not yet taken by the user. ActivityModel table is created when user played the activity for the first time.
         if (am != null)
         {
