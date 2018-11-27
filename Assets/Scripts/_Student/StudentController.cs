@@ -62,21 +62,15 @@ public class StudentController : MonoBehaviour
     {
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
         DataService ds = new DataService();
-        //var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
-        //select all students "view" in a section regardless of from which device they are available
-        var sectionStudents = ds._connection.Table<TeacherStudentsViewModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
-
+        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+     
         for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
         {
             Destroy(btnStudentContainer.transform.GetChild(i).gameObject);
         }
 
-        foreach (var sectionStudent in sectionStudents)
+        foreach (var student in students)
         {
-            //select all students in a section regardless of from which device they are available
-            StudentModel student = ds._connection.Table<StudentModel>().Where(x=>x.SectionId == sectionStudent.SectionId &&
-            x.Id == sectionStudent.StudentId).FirstOrDefault();
-
             GameObject _obj = Instantiate(btnStudentPrefab);
             Student _student = _obj.GetComponent<Student>();
             _student.id = student.Id;
@@ -84,16 +78,6 @@ public class StudentController : MonoBehaviour
             _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
             _obj.transform.SetParent(btnStudentContainer.transform);
         }
-
-        //foreach (var student in students)
-        //{
-        //    GameObject _obj = Instantiate(btnStudentPrefab);
-        //    Student _student = _obj.GetComponent<Student>();
-        //    _student.id = student.Id;
-        //    _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
-        //    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
-        //    _obj.transform.SetParent(btnStudentContainer.transform);
-        //}
 
         if (btnStudentContainer.transform.childCount == 0)
         {

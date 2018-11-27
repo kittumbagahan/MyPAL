@@ -134,12 +134,7 @@ public class DataService
 
     public void CreateDB()
     {
-        if (0.Equals(PlayerPrefs.GetInt("teacherStudentsViewModel_table_created")))
-        {
-            _connection.CreateTable<TeacherStudentsViewModel>();
-
-            PlayerPrefs.SetInt("teacherStudentsViewModel_table_created", 1);
-        }
+      
 
         if (0.Equals(PlayerPrefs.GetInt("device_table_created")))
         {
