@@ -31,7 +31,7 @@ public class CreateDBScript : MonoBehaviour
         var st = ds.GetStudents();
         var studentActivities = ds.GetStudentActivities();
         var studentBooks = ds.GetStudentBooks();
-        ToConsole(studentActivities);
+        ToConsole(books);
         //ToConsole(studentBooks);
         //ToConsole (books);
         //ToConsole (sections);
