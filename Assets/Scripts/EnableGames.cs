@@ -8,27 +8,29 @@ public class EnableGames : MonoBehaviour {
     void Start()
     {
         ins = this;
-
-        if (PlayerPrefs.GetInt("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
-            StoryBookSaveManager.ins.selectedBook + "have_read") == 0)
+        if (IsAvailable() == 0)
         {
-            this.GetComponent<Button>().interactable = false;
+            GetComponent<Button>().interactable = false;
         }
         else
         {
-            this.GetComponent<Button>().interactable = true;
+            GetComponent<Button>().interactable = true;
         }
+
+
     }
 
-    public void Enable()
+
+    int IsAvailable()
     {
-        if(PlayerPrefs.GetInt("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id + 
-            StoryBookSaveManager.ins.selectedBook + "have_read") == 0)
-        {
-            PlayerPrefs.SetInt("section_id" + StoryBookSaveManager.ins.activeSection_id + "student_id" + StoryBookSaveManager.ins.activeUser_id +
-                StoryBookSaveManager.ins.selectedBook + "have_read", 1);
-            this.GetComponent<Button>().interactable = true;
-        }
-          
+        DataService ds = new DataService();
+        string bookname = StoryBookSaveManager.ins.selectedBook.ToString();
+        BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
+        var model = ds._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        x.StudentId == StoryBookSaveManager.ins.activeUser_id && x.BookId == book.Id).FirstOrDefault();
+
+        if (model == null) return 0;
+
+        return model.ReadCount + model.ReadToMeCount + model.AutoReadCount;
     }
 }

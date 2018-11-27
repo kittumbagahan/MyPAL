@@ -59,14 +59,18 @@ public class UserBookSave : MonoBehaviour {
         ////print("Read Usage " + key);
         //PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
         int count = model.ReadCount + 1;
-        ds._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where id='" + model.Id + "'");
+        ds._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where Id='" + model.Id + "'");
 
-        // network data
-        networkData.studentBook_Id = model.Id;
-        networkData.studentBook_readCount = count;
+        if(networkData != null)
+        {
+            // network data
+            networkData.studentBook_Id = model.Id;
+            networkData.studentBook_readCount = count;
 
-        if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
-            MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
+            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
+        }
+      
     }
 
     public void UpdateReadItToMeUsage()
@@ -77,7 +81,7 @@ public class UserBookSave : MonoBehaviour {
         //PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
         //print("Read Usage " + key);
         int count = model.ReadToMeCount + 1;
-        ds._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where id='" + model.Id + "'");
+        ds._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
 
         // network data
         networkData.studentBook_Id = model.Id;
@@ -95,7 +99,7 @@ public class UserBookSave : MonoBehaviour {
         //PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
         //print("Read Usage " + key);
         int count = model.AutoReadCount + 1;
-        ds._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where id='" + model.Id + "'");
+        ds._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
 
         // network data
         networkData.studentBook_Id = model.Id;

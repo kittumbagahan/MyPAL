@@ -4,7 +4,7 @@ public class StudentBookModel {
 
 	[PrimaryKey, AutoIncrement]
     public int Id { get; set; }
-    public int DeviceId { get; set; }
+    public string DeviceId { get; set; }
     public int SectionId { get; set; }
     public int StudentId { get; set; }
     public int BookId { get; set; }

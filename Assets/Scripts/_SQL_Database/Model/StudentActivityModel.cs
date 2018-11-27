@@ -4,7 +4,7 @@ public class StudentActivityModel  {
 
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
-    public int DeviceId { get; set; }
+    public string DeviceId { get; set; }
     public int SectionId { get; set; } //section Id can be selection from StudentId but the plugin has a bug in using function inside its LINQ
     public int StudentId { get; set; }
     public int BookId { get; set; }

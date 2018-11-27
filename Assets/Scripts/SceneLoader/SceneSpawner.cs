@@ -155,7 +155,7 @@ public class SceneSpawner : MonoBehaviour
             sceneIndex++; //for the "next" object
             if (curr == null)
             {
-                EnableGames.ins.Enable();
+                
                 //Application.LoadLevel(Application.loadedLevelName);
 
 				print("END");
