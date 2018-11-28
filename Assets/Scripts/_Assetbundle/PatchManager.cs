@@ -51,6 +51,7 @@ public class PatchManager : CachedAssetBundleLoader {
       ds._connection.Execute("drop table StudentModel");
       ds._connection.Execute("drop table ActivityModel");
       ds._connection.Execute("drop table SectionModel");
+        
         //Caching.CleanCache();
        
 //		PlayerPrefs.SetInt("bundleVersion", 6);

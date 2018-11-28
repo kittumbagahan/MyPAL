@@ -33,7 +33,8 @@ public class CreateDBScript : MonoBehaviour
         var studentActivities = ds.GetStudentActivities();
         var studentBooks = ds.GetStudentBooks();
         ToConsole(books);
-    
+       
+
     }
 
     private void ToConsole(IEnumerable<BookModel> model)

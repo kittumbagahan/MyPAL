@@ -62,8 +62,14 @@ public class StudentController : MonoBehaviour
     {
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
         DataService ds = new DataService();
-        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+       
+        //load all students from their section in all devices
      
+       
+        var students = UserRestrictionController.ins.restriction == 0? 
+            ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id) : 
+            ds._connection.Table<StudentModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier && x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+
         for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
         {
             Destroy(btnStudentContainer.transform.GetChild(i).gameObject);
@@ -73,9 +79,10 @@ public class StudentController : MonoBehaviour
         {
             GameObject _obj = Instantiate(btnStudentPrefab);
             Student _student = _obj.GetComponent<Student>();
+            _student.UID = student.DeviceId;
             _student.id = student.Id;
             _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.UID;
             _obj.transform.SetParent(btnStudentContainer.transform);
         }
 
@@ -105,6 +112,9 @@ public class StudentController : MonoBehaviour
             {
                 DataService ds = new DataService();
                 string studentName = txtGivenName.text + " " + txtMiddleName.text + " " + txtSurname.text + " " + txtNickName.text;
+                
+                //check duplicate entry in all devices and sections
+                //assuming there can be no same names in a school
                 StudentModel sm = ds._connection.Table<StudentModel>().Where(
                    a => a.Lastname == txtSurname.text &&
                    a.Middlename == txtMiddleName.text &&
@@ -115,6 +125,7 @@ public class StudentController : MonoBehaviour
                 {
                     StudentModel model = new StudentModel
                     {
+                        DeviceId = SystemInfo.deviceUniqueIdentifier,
                         SectionId = StoryBookSaveManager.ins.activeSection_id,
                         Givenname = txtGivenName.text,
                         Middlename = txtMiddleName.text,
@@ -135,9 +146,10 @@ public class StudentController : MonoBehaviour
                      a.Nickname == txtNickName.text
                      ).FirstOrDefault();
 
+                    _student.UID = s.DeviceId;
                     _student.id = s.Id;
                     _student.name = studentName;
-                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + s.DeviceId;
                     _obj.transform.SetParent(btnStudentContainer.transform);
 
                     panelCreateStudentInput.gameObject.SetActive(false);
@@ -255,6 +267,7 @@ class UpdateStudent
             StudentModel model = new StudentModel
             {
                 Id = s.id,
+                DeviceId = s.UID,
                 SectionId = StoryBookSaveManager.ins.activeSection_id,
                 Givenname = view.txtGivenName.text,
                 Middlename = view.txtMiddleName.text,
@@ -263,7 +276,7 @@ class UpdateStudent
             };
 
             ds._connection.Execute("Update StudentModel set Givenname='" + model.Givenname + "', Middlename='" + model.Middlename + "', " +
-               "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "'");
+               "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "' and DeviceId= '" + model.DeviceId + "'");
 
             StudentController.ins.LoadStudentsSQL();
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);

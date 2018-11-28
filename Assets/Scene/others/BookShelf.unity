@@ -12551,6 +12551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   name: 
+  UID: 
 --- !u!114 &529296663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43250,7 +43251,7 @@ MonoBehaviour:
   - {fileID: 1156811897}
   - {fileID: 1064671738}
   - {fileID: 1533993543}
-  restriction: -1
+  restriction: 0
 --- !u!1 &1871064844
 GameObject:
   m_ObjectHideFlags: 0

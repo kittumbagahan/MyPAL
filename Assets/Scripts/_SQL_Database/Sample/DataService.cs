@@ -150,7 +150,27 @@ public class DataService
         if (0.Equals(PlayerPrefs.GetInt("section_table_created")))
         {
             _connection.CreateTable<SectionModel>();
-
+            SectionModel sectionModel = new SectionModel
+            {
+                Id = 0,
+                DeviceId = "9999",
+                Description = "Diamond"
+            };
+            SectionModel sectionModel2 = new SectionModel
+            {
+                Id = 0,
+                DeviceId = SystemInfo.deviceUniqueIdentifier,
+                Description = "Gold"
+            };
+            SectionModel sectionModel3 = new SectionModel
+            {
+                Id = 1,
+                DeviceId = SystemInfo.deviceUniqueIdentifier,
+                Description = "Diamond"
+            };
+            _connection.Insert(sectionModel);
+            _connection.Insert(sectionModel2);
+            _connection.Insert(sectionModel3);
             PlayerPrefs.SetInt("section_table_created", 1);
         }
 

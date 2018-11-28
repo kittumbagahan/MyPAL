@@ -6,6 +6,7 @@ public class Student : MonoBehaviour {
 
     public int id;
     public string name;
+    public string UID;
 
     public void Click()
     {
