@@ -45,18 +45,26 @@ public class BackUpSaves : MonoBehaviour {
     DatabaseController dc;
     #region MONO
 
+    private void Awake()
+    {
+        dc = new DatabaseController();
+    }
     void Start()
     {    
 
-        dc = new DatabaseController();
-        
+      
+       
+    }
+
+    void OnEnable()
+    {
         dropDownFiles.ClearOptions();
         dropDownFiles.AddOptions(dc.GetFileNames());
 
         GetTime();
     }
 
-#endregion
+    #endregion
 
     void GetTime()
 	{

@@ -12,19 +12,20 @@ using System.IO;
 public class DatabaseController
 {
 
-    public string DatabaseDirectory {
-        get { return "Assets/StreamingAssets/"; }
+    string DatabaseDirectory;// = "Assets/StreamingAssets/";
 
-    } 
     string schoolName = "default";
     string date;
     string activeDbName;
     DirectoryInfo directoryInfo;
     FileInfo[] files;
-    
+
     public DatabaseController()
     {
+
         date = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss_tt");
+
+        DatabaseDirectory = Application.persistentDataPath + "/";
         directoryInfo = new DirectoryInfo(DatabaseDirectory);
         files = directoryInfo.GetFiles("*.db");
 
@@ -59,7 +60,7 @@ public class DatabaseController
     public List<string> GetFileNames()
     {
         List<string> filenames = new List<string>();
-        for(int i=0; i<files.Length; i++)
+        for (int i = 0; i < files.Length; i++)
         {
             filenames.Add(files[i].ToString().Remove(0, files[i].ToString().Length - (schoolName + "-" + date + ".db").ToString().Length));
 
