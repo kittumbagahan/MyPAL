@@ -25,7 +25,7 @@ public class DatabaseController
 
         date = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss_tt");
 
-        DatabaseDirectory = Application.persistentDataPath + "/";
+        DatabaseDirectory = Application.persistentDataPath;
         directoryInfo = new DirectoryInfo(DatabaseDirectory);
         files = directoryInfo.GetFiles("*.db");
 
@@ -49,9 +49,10 @@ public class DatabaseController
         else
         {
             //FileUtil.CopyFileOrDirectory ("sourcepath/YourFileOrFolder", "destpath/YourFileOrFolder");
-#if UNITY_EDITOR
-            FileUtil.CopyFileOrDirectory(DatabaseDirectory + activeDbName, DatabaseDirectory + schoolName + "-" + date + ".db");
-#endif
+            //#if UNITY_EDITOR
+            //            FileUtil.CopyFileOrDirectory(DatabaseDirectory + activeDbName, DatabaseDirectory + schoolName + "-" + date + ".db");
+            //#endif
+            File.Copy(DatabaseDirectory + "/"+ activeDbName, DatabaseDirectory + "/" + schoolName + "-" + date + ".db");
             MessageBox.ins.ShowOk(schoolName + "-" + date + ".db" + " Created!", MessageBox.MsgIcon.msgInformation, null);
         }
 
@@ -62,8 +63,11 @@ public class DatabaseController
         List<string> filenames = new List<string>();
         for (int i = 0; i < files.Length; i++)
         {
+#if UNITY_EDITOR
             filenames.Add(files[i].ToString().Remove(0, files[i].ToString().Length - (schoolName + "-" + date + ".db").ToString().Length));
-
+#else
+            filenames.Add(files[i].ToString());
+#endif
         }
         return filenames;
     }
