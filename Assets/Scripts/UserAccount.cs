@@ -99,8 +99,8 @@ public class UserAccount : MonoBehaviour {
 
     void LoadSave()
     {
-        UserParentalManager.ins.PlayClickClip();
-        MessageBox.ins.ShowQuestion("Load user " + Username + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadSavedGameYes), new UnityAction(LoadSavedGameNo));
+        //UserParentalManager.ins.PlayClickClip();
+        //MessageBox.ins.ShowQuestion("Load user " + Username + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadSavedGameYes), new UnityAction(LoadSavedGameNo));
     }
 
     void NewUser()

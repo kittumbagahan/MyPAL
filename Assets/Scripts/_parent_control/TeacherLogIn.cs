@@ -33,6 +33,7 @@ public class TeacherLogIn : MonoBehaviour {
             UserRestrictionController.ins.Restrict(0);
             StoryBookSaveManager.ins.activeUser = "teacher";
             StoryBookSaveManager.ins.activeUser_id = -1;
+            Tammytam.ins.Say("Hi teacher!");
             gameObject.SetActive(false);
             //show section selection
 		}
