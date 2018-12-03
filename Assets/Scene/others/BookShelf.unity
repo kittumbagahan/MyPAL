@@ -360,7 +360,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 8
+  m_CharacterLimit: 10
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -4844,14 +4844,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 188492663}
   m_TextComponent: {fileID: 255294813}
   m_Placeholder: {fileID: 1973003348}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 20
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -6579,14 +6579,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 282361507}
   m_TextComponent: {fileID: 1951445129}
   m_Placeholder: {fileID: 907572830}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 12
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -8963,14 +8963,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 360528740}
   m_TextComponent: {fileID: 1407171208}
   m_Placeholder: {fileID: 125808809}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 12
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -10268,14 +10268,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 418796380}
   m_TextComponent: {fileID: 1280554416}
   m_Placeholder: {fileID: 1660304682}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 12
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -23738,14 +23738,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1058041006}
   m_TextComponent: {fileID: 892126504}
   m_Placeholder: {fileID: 1827207765}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 8
+  m_CharacterLimit: 10
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -26776,14 +26776,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1209661470}
   m_TextComponent: {fileID: 819878549}
   m_Placeholder: {fileID: 1669905501}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 12
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -39245,14 +39245,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1724876305}
   m_TextComponent: {fileID: 1689044247}
   m_Placeholder: {fileID: 897835757}
-  m_ContentType: 5
+  m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 6
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 4
-  m_CharacterLimit: 20
+  m_CharacterLimit: 30
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
