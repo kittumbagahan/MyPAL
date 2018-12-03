@@ -34,7 +34,7 @@ public class MaintenanceDevResetTImeWindow : MonoBehaviour {
 
 	void Reset()
 	{
-      DataService ds = new DataService ();
+      DataService ds = new DataService ("subscription.db");
       SubscriptionTimeModel model = new SubscriptionTimeModel
       {
          SettedTime = (timeInput * 60) * 60,

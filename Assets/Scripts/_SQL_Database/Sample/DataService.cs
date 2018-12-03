@@ -133,7 +133,20 @@ public class DataService
 
    }
 
-
+   public void CreateSubscriptionDB()
+   {
+      if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
+      {
+         _connection.CreateTable<SubscriptionTimeModel> ();
+         SubscriptionTimeModel model = new SubscriptionTimeModel
+         {
+            SettedTime = 1080000, //300hrs to seconds
+            Timer = 1080000
+         };
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("subscriptionTime_table", 1);
+      }
+   }
    public void CreateDB()
    {
       Debug.Log (Application.persistentDataPath);
@@ -1274,17 +1287,7 @@ public class DataService
          PlayerPrefs.SetInt ("studentBookModel_table_created", 1);
       }
 
-      if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
-      {
-         _connection.CreateTable<SubscriptionTimeModel> ();
-         SubscriptionTimeModel model = new SubscriptionTimeModel
-         {
-            SettedTime = 1080000, //300hrs to seconds
-            Timer = 1080000
-         };
-         _connection.Insert (model);
-         PlayerPrefs.SetInt ("subscriptionTime_table", 1);
-      }
+     
 
       if (0.Equals (PlayerPrefs.GetInt ("resetPasswordTimes_table")))
       {
