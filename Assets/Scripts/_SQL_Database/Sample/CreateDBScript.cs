@@ -32,12 +32,23 @@ public class CreateDBScript : MonoBehaviour
         var st = ds.GetStudents();
         var studentActivities = ds.GetStudentActivities();
         var studentBooks = ds.GetStudentBooks();
-        ToConsole(acts);
+      var subs = ds.GetSubscription ();
+        ToConsole(subs);
        
 
     }
 
-    private void ToConsole(IEnumerable<BookModel> model)
+   private void ToConsole(IEnumerable<SubscriptionTimeModel> model)
+   {
+      foreach (var person in model)
+      {
+
+         //ToConsole(person.ToString());
+         Debug.Log (person.ToString ());
+      }
+   }
+
+   private void ToConsole(IEnumerable<BookModel> model)
     {
         foreach (var person in model)
         {

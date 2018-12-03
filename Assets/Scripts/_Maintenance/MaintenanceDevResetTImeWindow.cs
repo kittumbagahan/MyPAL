@@ -34,9 +34,17 @@ public class MaintenanceDevResetTImeWindow : MonoBehaviour {
 
 	void Reset()
 	{
-		print(timeInput);
+      DataService ds = new DataService ();
+      SubscriptionTimeModel model = new SubscriptionTimeModel
+      {
+         SettedTime = (timeInput * 60) * 60,
+         Timer = (timeInput * 60) * 60
+      };
+		//print(timeInput);
 		timeInput = (timeInput*60)*60;
-		PlayerPrefs.SetInt("TimeUsage", timeInput);
+		//PlayerPrefs.SetInt("TimeUsage", timeInput);
+
+      ds._connection.Update (model);
 		TimeUsageCounter.ins.SetTime(timeInput);
 		timeLeft.text = "Time usage left: " + timeInput + "s";
 		MessageBox.ins.ShowOk("Time usage updated!", MessageBox.MsgIcon.msgInformation, null);

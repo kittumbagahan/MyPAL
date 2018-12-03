@@ -51,23 +51,27 @@ public class PatchManager : CachedAssetBundleLoader {
       ds._connection.Execute("drop table StudentModel");
       ds._connection.Execute("drop table ActivityModel");
       ds._connection.Execute("drop table SectionModel");
-        
-        //Caching.CleanCache();
-       
-//		PlayerPrefs.SetInt("bundleVersion", 6);
-//		PlayerPrefs.SetInt("paid",1);
-//		PlayerPrefs.SetInt(productId_1,1);
-//		PlayerPrefs.SetInt(productId_2,1);
-//		PlayerPrefs.SetInt(productId_3,1);
+      ds._connection.Execute ("drop table SubscriptionTimeModel");
+      ds._connection.Execute ("drop table ResetPasswordTimesModel");
+      ds._connection.Execute ("drop table NumberOfStudentsModel");
+      ds._connection.Execute ("drop table AdminPasswordModel");
 
-		//PlayerPrefs.SetInt("product" + "JoeyGoesToSchool", 0);
-		//PlayerPrefs.SetInt("product" + "ChatWithMyCat", 0);
-		//PlayerPrefs.SetInt("product" + "SoundsFantastic", 0);
-		//PlayerPrefs.SetInt("product" + "TinaAndJun", 0);
-		//PlayerPrefs.SetInt("product" + "WhatDidYouSee", 0);
-		//UnlockAll();
+      //Caching.CleanCache();
 
-		pb.gameObject.SetActive(false);
+      //		PlayerPrefs.SetInt("bundleVersion", 6);
+      //		PlayerPrefs.SetInt("paid",1);
+      //		PlayerPrefs.SetInt(productId_1,1);
+      //		PlayerPrefs.SetInt(productId_2,1);
+      //		PlayerPrefs.SetInt(productId_3,1);
+
+      //PlayerPrefs.SetInt("product" + "JoeyGoesToSchool", 0);
+      //PlayerPrefs.SetInt("product" + "ChatWithMyCat", 0);
+      //PlayerPrefs.SetInt("product" + "SoundsFantastic", 0);
+      //PlayerPrefs.SetInt("product" + "TinaAndJun", 0);
+      //PlayerPrefs.SetInt("product" + "WhatDidYouSee", 0);
+      //UnlockAll();
+
+      pb.gameObject.SetActive(false);
 		//if (PlayerPrefs.GetInt("paid") == 1)
 		//{
 		//	if (Application.internetReachability == NetworkReachability.NotReachable)
