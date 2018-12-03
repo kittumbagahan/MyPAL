@@ -11,58 +11,58 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/others/BookShelf.unity
     guid: 2bec84230aaa8452e8970deb23c6b47d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/ActivitySelection.unity
     guid: 44ebd0b2ebec84efdbf5666ee3f816cb
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/ABC_Circus.unity
     guid: d6a57d2455a402144a0eeb70ddff2ee9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/AfterTheRain.unity
     guid: 0466e9ea2a37d47aaa274eaa93ac885c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/ChatWithMyCat.unity
     guid: 2a00746fd9cef4a5196ed128b23bf7d5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/Colors All Mixed Up.unity
     guid: 85d37baf5d0134a6497e511aa45db070
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/FavoriteBox.unity
     guid: edbf1a8d06f0142648847ee5940497ff
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/JoeyGoesToSchool.unity
     guid: b0a0d83df40c50b45a7d74fb115ffff8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/SoundsFantastic.unity
     guid: ca50536e4d67e704eba32116e8219fcb
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/TinaAndJun.unity
     guid: 0b4e8ccd44002244a9796677f4884c0b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/WhatDidYouSee.unity
     guid: 4a3a2637714e17a4887851d6ff060c25
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/YummyShapes.unity
     guid: fc093a1aa6d9ec247888963962f0332d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act1.unity
     guid: dcfe48dafd5658e429b18e220c8f2e46
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act2.unity
     guid: 3d4cb040c9a1d6749a1c14e4c3b18ca9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act3_listen.unity
     guid: 46df597891920b448bae8cc169a7f7fa
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act4.unity
     guid: 5353e33e4bd0a4f55a73f5f716d0c84c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act5.unity
     guid: 72ca49dfb6f30db459e3dc9f9abdd540
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act6.unity
     guid: 325ada057699bbe4abe32bf582ea6333
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/activities/afterTheRain_Act1.unity
     guid: 79b9a68452d20874a95505abe4ffceb0
   - enabled: 0

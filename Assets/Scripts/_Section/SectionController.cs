@@ -54,8 +54,8 @@ public class SectionController : MonoBehaviour
     public void LoadSectionsSQL()
     {
         DataService ds = new DataService();
-        var sections = UserRestrictionController.ins.restriction == 0? 
-           ds.GetSections() : ds._connection.Table<SectionModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier);
+   
+        var sections = ds.GetSections();
 
         for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
         {
@@ -73,7 +73,7 @@ public class SectionController : MonoBehaviour
             {
                 _obj.transform.GetChild(0).gameObject.AddComponent<TextMeshProUGUI>();
             }
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name + _section.UID;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name + _section.id;
             _obj.transform.SetParent(btnSectionContainer.transform);
             currentMaxSection++;
         }
@@ -104,9 +104,8 @@ public class SectionController : MonoBehaviour
             if (currentMaxSection < maxSectionAllowed)
             {
                 DataService ds = new DataService();
-                //check if section "name" is already created for this device
-                if (ds._connection.Table<SectionModel>().Where(x => x.Description == newSection.text &&
-                x.DeviceId == SystemInfo.deviceUniqueIdentifier).FirstOrDefault() == null)
+             
+                if (ds._connection.Table<SectionModel>().Where(x => x.Description == newSection.text).FirstOrDefault() == null)
                 {
 
                     SectionModel model = new SectionModel { DeviceId = SystemInfo.deviceUniqueIdentifier, Description = newSection.text };
@@ -116,12 +115,10 @@ public class SectionController : MonoBehaviour
                     //PlayerPrefs.SetString ("section_id" + newId, newSection.text);
                     GameObject _obj = Instantiate(btnSectionPrefab);
                     Section _section = _obj.GetComponent<Section>();
-                    SectionModel s = ds._connection.Table<SectionModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier &&
-                    x.Description == model.Description).FirstOrDefault();
+                    SectionModel s = ds._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
                     _section.id = s.Id;
-                    _section.UID = s.DeviceId;
                     _section.name = newSection.text;
-                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name + _section.UID;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
                     _obj.transform.SetParent(btnSectionContainer.transform);
 
                     panelSectionInput.gameObject.SetActive(false);
@@ -228,18 +225,14 @@ class UpdateSection
         }
         else
         {
-
-
-
             DataService ds = new DataService();
             SectionModel model = new SectionModel {
                 Id = s.id,
-                DeviceId = s.UID,
                 Description = view.txtSectionName.text
             };
             //_connection.Execute ("Update UserTable set currentCar=" + currnetCarNumb + " where
             //ID = "+userID);
-            ds._connection.Execute("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "' and DeviceId='" + model.DeviceId + "'");
+            ds._connection.Execute("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "'");
             MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
             SectionController.ins.editMode = false;
             SectionController.ins.LoadSectionsSQL();

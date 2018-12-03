@@ -62,14 +62,15 @@ public class StudentController : MonoBehaviour
     {
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
         DataService ds = new DataService();
-       
-        //load all students from their section in all devices
-     
-       
-        var students = UserRestrictionController.ins.restriction == 0? 
-            ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id) : 
-            ds._connection.Table<StudentModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier && x.SectionId == StoryBookSaveManager.ins.activeSection_id);
 
+        //load all students from their section in all devices
+
+
+        //var students = UserRestrictionController.ins.restriction == 0? 
+        //    ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id) : 
+        //    ds._connection.Table<StudentModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier && x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+        
         for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
         {
             Destroy(btnStudentContainer.transform.GetChild(i).gameObject);
@@ -82,7 +83,7 @@ public class StudentController : MonoBehaviour
             _student.UID = student.DeviceId;
             _student.id = student.Id;
             _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.UID;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
             _obj.transform.SetParent(btnStudentContainer.transform);
         }
 
@@ -125,7 +126,6 @@ public class StudentController : MonoBehaviour
                 {
                     StudentModel model = new StudentModel
                     {
-                        DeviceId = SystemInfo.deviceUniqueIdentifier,
                         SectionId = StoryBookSaveManager.ins.activeSection_id,
                         Givenname = txtGivenName.text,
                         Middlename = txtMiddleName.text,
@@ -146,10 +146,10 @@ public class StudentController : MonoBehaviour
                      a.Nickname == txtNickName.text
                      ).FirstOrDefault();
 
-                    _student.UID = s.DeviceId;
+               
                     _student.id = s.Id;
                     _student.name = studentName;
-                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + s.DeviceId;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + s.Id;
                     _obj.transform.SetParent(btnStudentContainer.transform);
 
                     panelCreateStudentInput.gameObject.SetActive(false);
@@ -267,7 +267,6 @@ class UpdateStudent
             StudentModel model = new StudentModel
             {
                 Id = s.id,
-                DeviceId = s.UID,
                 SectionId = StoryBookSaveManager.ins.activeSection_id,
                 Givenname = view.txtGivenName.text,
                 Middlename = view.txtMiddleName.text,
@@ -276,7 +275,7 @@ class UpdateStudent
             };
 
             ds._connection.Execute("Update StudentModel set Givenname='" + model.Givenname + "', Middlename='" + model.Middlename + "', " +
-               "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "' and DeviceId= '" + model.DeviceId + "'");
+               "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "'");
 
             StudentController.ins.LoadStudentsSQL();
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
