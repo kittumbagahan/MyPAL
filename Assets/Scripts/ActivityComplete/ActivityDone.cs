@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 public class ActivityDone : MonoBehaviour {
 
 	public static ActivityDone instance;
-    [SerializeField]
-    bool showAds;
+    //[SerializeField]
+    //bool showAds;
 	[SerializeField]
 	AudioClip[] goodJob;
     [SerializeField]
@@ -66,16 +67,31 @@ public class ActivityDone : MonoBehaviour {
         //    {
         //        PlayerPrefs.SetInt("played_free_count", PlayerPrefs.GetInt("played_free_count") + 1);
         //    }
-            
+
         //} 
-        SaveTest.Save();
+        if (1 == UserRestrictionController.ins.restriction)
+        {
+            SaveTest.Save();
+            ToActivitySelection();
+        }
+        else {
+            ToActivitySelection();
+           // MessageBox.ins.ShowOk("This is not saved.", MessageBox.MsgIcon.msgInformation, new UnityAction(ToActivitySelection));
+        }
+       
 		//Application.LoadLevel(levelToLoad);
-        SceneManager.LoadScene(levelToLoad);
+      
 	}
+
+    void ToActivitySelection()
+    {
+        SceneManager.LoadScene(levelToLoad);
+    }
 
 	public void PlayAgain()
 	{
         //SceneManager.LoadScene(SceneManager.GetActiveScene);
-		Application.LoadLevel(Application.loadedLevelName);
+	
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

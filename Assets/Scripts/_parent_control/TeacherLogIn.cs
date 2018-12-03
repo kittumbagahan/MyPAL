@@ -31,6 +31,8 @@ public class TeacherLogIn : MonoBehaviour {
 	{
 		if(PlayerPrefs.GetString("admin") == inputPWD.text){
             UserRestrictionController.ins.Restrict(0);
+            StoryBookSaveManager.ins.activeUser = "teacher";
+            StoryBookSaveManager.ins.activeUser_id = -1;
             gameObject.SetActive(false);
             //show section selection
 		}

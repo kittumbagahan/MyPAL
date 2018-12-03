@@ -8,14 +8,22 @@ public class EnableGames : MonoBehaviour {
     void Start()
     {
         ins = this;
-        if (IsAvailable() == 0)
-        {
-            GetComponent<Button>().interactable = false;
-        }
-        else
+        if(0 == UserRestrictionController.ins.restriction)
         {
             GetComponent<Button>().interactable = true;
         }
+        else
+        {
+            if (IsAvailable() == 0)
+            {
+                GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                GetComponent<Button>().interactable = true;
+            }
+        }
+      
 
 
     }

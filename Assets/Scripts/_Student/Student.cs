@@ -16,7 +16,18 @@ public class Student : MonoBehaviour {
         }
         else
         {
-            MessageBox.ins.ShowQuestion("Load student " + name + "?", MessageBox.MsgIcon.msgInformation, new UnityAction(LoadYes), new UnityAction(LoadNo));
+            //MessageBox.ins.ShowQuestion("Load student " + name + "?", MessageBox.MsgIcon.msgInformation,
+            //    new UnityAction(LoadYes), new UnityAction(LoadNo));
+            if (0 != UserRestrictionController.ins.restriction)
+            {
+                MessageBox.ins.ShowQuestion("Load student " + name + "?", MessageBox.MsgIcon.msgInformation, 
+                    new UnityAction(LoadYes), new UnityAction(LoadNo));
+            }
+            else
+            {
+                MessageBox.ins.ShowOk("Teachers can't play with student account.", MessageBox.MsgIcon.msgInformation, null);
+            }
+           
         }
        
     }

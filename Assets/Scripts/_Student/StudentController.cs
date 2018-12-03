@@ -225,8 +225,6 @@ public class StudentController : MonoBehaviour
         view.txtSurname.text = student.name.Split(' ')[2];
         view.txtNickname.text = student.name.Split(' ')[3];
 
-
-
         UpdateStudent updateStudent = new UpdateStudent(view, student);
         print("checking update " + student.name);
         view.btnOK.onClick.AddListener(updateStudent.UpdateStudentName);
