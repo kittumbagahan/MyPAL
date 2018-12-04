@@ -15,8 +15,17 @@ public class QuizAdmin : MonoBehaviour {
     [SerializeField]
     GameObject quizListContent;
 
-	// Use this for initialization
-	void Start () {
+
+    // privates
+    private QuizManager m_quizManager;
+
+    public enum MaintenanceState
+    {
+        Add, Edit
+    }
+
+    // Use this for initialization
+    void Start () {
         dataService = new DataService ();
 
         // check models
@@ -24,9 +33,18 @@ public class QuizAdmin : MonoBehaviour {
         CheckQuizItemModel ();
         CheckQuizItemChoicesModel ();
         CheckSubjectModel ();
+
+
+        SetUp ();
     }
 
     #region DB
+
+    void SetUp()
+    {
+        GetComponent<QuizManager> ().PopulateQuizList ();
+    }
+
     void CheckQuizModel()
     {
         try
