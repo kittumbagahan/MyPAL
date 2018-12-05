@@ -72,5 +72,25 @@ public class DatabaseController
         return filenames;
     }
 
+    public bool FindDatabase(string db)
+    {
+        if (File.Exists(DatabaseDirectory + "/" + db))
+        {
+            return true;
+        }
 
+        return false;
+    }
+
+    public void CreateDB(string dbName)
+    {
+        Directory.CreateDirectory(DatabaseDirectory + "/system");
+        if (!File.Exists(DatabaseDirectory + "/system/" + dbName))
+        {
+            File.Create(DatabaseDirectory + "/system/" + dbName);
+        }
+       
+
+       
+    }
 }
