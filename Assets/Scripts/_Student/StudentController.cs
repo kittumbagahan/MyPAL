@@ -46,10 +46,10 @@ public class StudentController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        if (PlayerPrefs.GetInt("maxNumberOfStudentsAllowed") == 0)
-        {
-            PlayerPrefs.SetInt("maxNumberOfStudentsAllowed", 10);
-        }
+        //if (PlayerPrefs.GetInt("maxNumberOfStudentsAllowed") == 0)
+        //{
+        //    PlayerPrefs.SetInt("maxNumberOfStudentsAllowed", 10);
+        //}
         //LoadStudents();
         // for (int i=0; i<10; i++)
         // {
@@ -60,9 +60,10 @@ public class StudentController : MonoBehaviour
     }
     public void LoadStudentsSQL()
     {
-        maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
+        //maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
+        currentMaxStudent = 0;
         DataService ds = new DataService();
-
+        maxStudentAllowed = ds._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
         //load all students from their section in all devices
 
 
@@ -85,6 +86,7 @@ public class StudentController : MonoBehaviour
             _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
             _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
             _obj.transform.SetParent(btnStudentContainer.transform);
+            currentMaxStudent++;
         }
 
         if (btnStudentContainer.transform.childCount == 0)
