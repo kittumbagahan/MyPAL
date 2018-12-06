@@ -54,6 +54,8 @@ public class PatchManager : CachedAssetBundleLoader
         ds._connection.Execute("drop table ActivityModel");
         ds._connection.Execute("drop table SectionModel");
 
+        ds._connection.Execute("drop table ResetPasswordModel");
+
         ds._connection.Execute("drop table ResetPasswordTimesModel");
         ds._connection.Execute("drop table NumberOfStudentsModel");
         ds._connection.Execute("drop table AdminPasswordModel");

@@ -14,22 +14,16 @@ public class TeacherLogIn : MonoBehaviour {
         {
             gameObject.SetActive(false);
         }
-		FirstRun();
-	}
-	
-	void FirstRun()
-	{
-		if(PlayerPrefs.GetInt("Maintenance_first_run") != 1)
-		{
-			PlayerPrefs.SetString("admin","1234");
-			PlayerPrefs.SetInt("Maintenance_first_run", 1);
-
-		}
+		
 	}
 
 	public void LogIn()
 	{
-		if(PlayerPrefs.GetString("admin") == inputPWD.text){
+        ResetPasswordModel m = null;
+        DataService ds = new DataService();
+        AdminPasswordModel admin = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+
+        if (inputPWD.text.Equals(admin.Password)){
             UserRestrictionController.ins.Restrict(0);
             StoryBookSaveManager.ins.activeUser = "teacher";
             StoryBookSaveManager.ins.activeUser_id = -1;
@@ -37,11 +31,35 @@ public class TeacherLogIn : MonoBehaviour {
             gameObject.SetActive(false);
             //show section selection
 		}
+        else if (m != SystemPassword(inputPWD.text))
+        {
+            UserRestrictionController.ins.Restrict(0);
+            StoryBookSaveManager.ins.activeUser = "teacher";
+            StoryBookSaveManager.ins.activeUser_id = -1;
+            MessageBox.ins.ShowOk("Admin password has been reset to 1234", MessageBox.MsgIcon.msgInformation, null);
+            gameObject.SetActive(false);
+        }
 		else
 		{
 			MessageBox.ins.ShowOk("Access denied!", MessageBox.MsgIcon.msgError, null);
 		}
 	}
 
+    private ResetPasswordModel SystemPassword(string input)
+    {
+        DataService ds = new DataService();
 
+        ResetPasswordModel model = ds._connection.Table<ResetPasswordModel>().Where(x => x.Used == false && x.SystemPasscode == input).FirstOrDefault();
+        if (model != null)
+            model.Used = true;
+        else
+        return null;
+
+        AdminPasswordModel admin = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+        admin.Password = "1234";
+        ds._connection.Update(model);
+        ds._connection.Update(admin);
+       
+        return model;
+    }
 }
