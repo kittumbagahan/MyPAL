@@ -25,7 +25,7 @@ public class TimeUsageCounter : MonoBehaviour
       else
       {
          ins = this;
-         ds = new DataService ("subscription.db");
+         ds = new DataService ("system/subscription.db");
          model = ds._connection.Table<SubscriptionTimeModel> ().Where (x => x.Id == 1).FirstOrDefault ();
       }
 

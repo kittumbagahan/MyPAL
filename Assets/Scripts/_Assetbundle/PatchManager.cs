@@ -60,73 +60,12 @@ public class PatchManager : CachedAssetBundleLoader
         ds._connection.Execute("drop table NumberOfStudentsModel");
         ds._connection.Execute("drop table AdminPasswordModel");
 
-        DataService ds2 = new DataService("subscription.db");
+        DataService ds2 = new DataService("system/subscription.db");
         ds2._connection.Execute("drop table SubscriptionTimeModel");
 
-        //Caching.CleanCache();
-
-        //		PlayerPrefs.SetInt("bundleVersion", 6);
-        //		PlayerPrefs.SetInt("paid",1);
-        //		PlayerPrefs.SetInt(productId_1,1);
-        //		PlayerPrefs.SetInt(productId_2,1);
-        //		PlayerPrefs.SetInt(productId_3,1);
-
-        //PlayerPrefs.SetInt("product" + "JoeyGoesToSchool", 0);
-        //PlayerPrefs.SetInt("product" + "ChatWithMyCat", 0);
-        //PlayerPrefs.SetInt("product" + "SoundsFantastic", 0);
-        //PlayerPrefs.SetInt("product" + "TinaAndJun", 0);
-        //PlayerPrefs.SetInt("product" + "WhatDidYouSee", 0);
-        //UnlockAll();
 
         pb.gameObject.SetActive(false);
-        //if (PlayerPrefs.GetInt("paid") == 1)
-        //{
-        //	if (Application.internetReachability == NetworkReachability.NotReachable)
-        //	{
-        //		print("not internet");
-        //		if(PlayerPrefs.GetInt(productId_1) == 1 && PlayerPrefs.GetInt(productId_1 + "downloaded") == 0)
-        //		{
-        //			MessageBox.ins.ShowOk("Cannot Download DLC. Internet connection is required.", MessageBox.MsgIcon.msgInformation, new UnityAction(ShowShelf));
-        //		}
-
-        //		else if(PlayerPrefs.GetInt(productId_2) == 1 && PlayerPrefs.GetInt(productId_2 + "downloaded") == 0)
-        //		{
-        //			MessageBox.ins.ShowOk("Cannot Download DLC. Internet connection is required.", MessageBox.MsgIcon.msgInformation, new UnityAction(ShowShelf));
-        //		}
-
-        //		else if(PlayerPrefs.GetInt(productId_3) == 1 && PlayerPrefs.GetInt(productId_3 + "downloaded") == 0)
-        //		{
-        //			MessageBox.ins.ShowOk("Unable to download In App Purchases. Internet connection is required.", MessageBox.MsgIcon.msgInformation, new UnityAction(ShowShelf));
-        //		}
-        //		else{
-        //			ShowShelf();
-        //		}
-
-        //	}
-        //	else
-        //	{
-
-        //		try
-        //		{
-        //			// StartCoroutine(IEDownload_All());
-        //			//CheckDLC();
-
-        //			StartCoroutine(IECheckForUpdates());
-        //		}
-        //		catch (Exception ex)
-        //		{
-        //			print(ex);
-        //		}
-
-        //		OnDownload += pb.SetProgress;
-        //	}
-
-        //	//OnFinished += ShowShelf;
-        //}
-        //else
-        //{
-        //	ShowShelf();
-        //}
+   
 
     }
 

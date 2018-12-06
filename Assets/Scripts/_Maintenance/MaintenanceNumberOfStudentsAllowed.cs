@@ -5,46 +5,53 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
 
-public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour {
+public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
+{
 
-    [SerializeField]
-    InputField txtNumOfStudentsAllowed;
-    int maxStudentAllowed;
-  
-    
-    void OnEnable () {
-        maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
-        txtNumOfStudentsAllowed.text = maxStudentAllowed.ToString();
-    }	
+   [SerializeField]
+   InputField txtNumOfStudentsAllowed;
+   int maxStudentAllowed;
 
-    public void UpdateNumberOfAllowedStudents()
-    {
-        try
-        {
-            int input = int.Parse(txtNumOfStudentsAllowed.text);
-            if (input == maxStudentAllowed)
-            {
-                MessageBox.ins.ShowOk("Enter new number!", MessageBox.MsgIcon.msgError, null);
-            }
-            else if (input < 10)
-            {
-                MessageBox.ins.ShowOk("Minimum number of student is 10.", MessageBox.MsgIcon.msgError, null);
-            }
-            else
-            {
-                MessageBox.ins.ShowQuestion("Are you sure you want to make changes?", MessageBox.MsgIcon.msgWarning, new UnityAction(Yes), null);
-            }
-        }
-        catch(Exception ex)
-        {
-            MessageBox.ins.ShowOk(ex.ToString(), MessageBox.MsgIcon.msgError, null);
-        }
-    }
-	
-    void Yes()
-    {
-        maxStudentAllowed = int.Parse(txtNumOfStudentsAllowed.text);
-        PlayerPrefs.SetInt("maxNumberOfStudentsAllowed", maxStudentAllowed);
-        MessageBox.ins.ShowOk("Number of students per section updated!", MessageBox.MsgIcon.msgInformation, null);
-    }
+   NumberOfStudentsModel model = null;
+   void OnEnable()
+   {
+      DataService ds = new DataService ();
+      model = ds._connection.Table<NumberOfStudentsModel> ().Where (x => x.Id == 1).FirstOrDefault ();
+      maxStudentAllowed = model.MaxStudent;
+      txtNumOfStudentsAllowed.text = maxStudentAllowed.ToString ();
+   }
+
+   public void UpdateNumberOfAllowedStudents()
+   {
+      try
+      {
+         int input = int.Parse (txtNumOfStudentsAllowed.text);
+         if (input == maxStudentAllowed)
+         {
+            MessageBox.ins.ShowOk ("Enter new number!", MessageBox.MsgIcon.msgError, null);
+         }
+         else if (input < maxStudentAllowed)
+         {
+            MessageBox.ins.ShowOk ("Minimum number of student is 10.", MessageBox.MsgIcon.msgError, null);
+         }
+         else
+         {
+            MessageBox.ins.ShowQuestion ("Are you sure you want to make changes?", MessageBox.MsgIcon.msgWarning, new UnityAction (Yes), null);
+         }
+      }
+      catch (Exception ex)
+      {
+         MessageBox.ins.ShowOk (ex.ToString (), MessageBox.MsgIcon.msgError, null);
+      }
+   }
+
+   void Yes()
+   {
+      DataService ds = new DataService ();
+      maxStudentAllowed = int.Parse (txtNumOfStudentsAllowed.text);
+      model.MaxStudent = maxStudentAllowed;
+      ds._connection.Update (model);
+      //PlayerPrefs.SetInt ("maxNumberOfStudentsAllowed", maxStudentAllowed);
+      MessageBox.ins.ShowOk ("Number of students per section updated!", MessageBox.MsgIcon.msgInformation, null);
+   }
 }

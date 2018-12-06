@@ -35,7 +35,7 @@ public class CreateDBScript : MonoBehaviour
 
         DatabaseController dc = new DatabaseController();
         dc.CreateDB("subscription.db");
-        var ds2 = new DataService("subscription.db");
+        var ds2 = new DataService("system/subscription.db");
         ds2.CreateSubscriptionDB();
         var subs = ds2.GetSubscription();
         ToConsole(subs);
