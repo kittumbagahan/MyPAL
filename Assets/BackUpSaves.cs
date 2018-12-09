@@ -49,12 +49,7 @@ public class BackUpSaves : MonoBehaviour {
     {
         dc = new DatabaseController();
     }
-    void Start()
-    {    
-
-      
-       
-    }
+    
 
     void OnEnable()
     {
