@@ -10,156 +10,162 @@ using System.Collections.Generic;
 public class DataService
 {
 
-    public SQLiteConnection _connection { private set; get; }
+   public SQLiteConnection _connection { private set; get; }
 
-    public DataService()
-    {
-        string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
-        if (PlayerPrefs.GetString("activeDatabase") == "")
-        {
-            PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
-            DatabaseName = "tempDatabase.db";
-        }
-        else
-        {
-            DatabaseName = PlayerPrefs.GetString("activeDatabase");
-        }
-        string dbPath = Application.persistentDataPath + "/" + DatabaseName;
-        Debug.Log(dbPath);
-        //#if UNITY_EDITOR
-        //        //var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
-        //#else
-        //        // check if file exists in Application.persistentDataPath
-        //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+   public DataService()
+   {
+      string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
+      if (PlayerPrefs.GetString ("activeDatabase") == "")
+      {
+         PlayerPrefs.SetString ("activeDatabase", "tempDatabase.db");
+         DatabaseName = "tempDatabase.db";
+      }
+      else
+      {
+         DatabaseName = PlayerPrefs.GetString ("activeDatabase");
+      }
+      string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+      Debug.Log (dbPath);
+      //#if UNITY_EDITOR
+      //        //var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
+      //#else
+      //        // check if file exists in Application.persistentDataPath
+      //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
 
-        //        if (!File.Exists(filepath))
-        //        {
-        //            Debug.Log("Database not in Persistent path");
-        //            // if it doesn't ->
-        //            // open StreamingAssets directory and load the db ->
+      //        if (!File.Exists(filepath))
+      //        {
+      //            Debug.Log("Database not in Persistent path");
+      //            // if it doesn't ->
+      //            // open StreamingAssets directory and load the db ->
 
-        //#if UNITY_ANDROID
-        //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
-        //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
-        //            // then save to Application.persistentDataPath
-        //            File.WriteAllBytes(filepath, loadDb.bytes);
-        //#elif UNITY_IOS
-        //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //                // then save to Application.persistentDataPath
-        //                File.Copy(loadDb, filepath);
-        //#elif UNITY_WP8
-        //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //                // then save to Application.persistentDataPath
-        //                File.Copy(loadDb, filepath);
+      //#if UNITY_ANDROID
+      //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+      //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
+      //            // then save to Application.persistentDataPath
+      //            File.WriteAllBytes(filepath, loadDb.bytes);
+      //#elif UNITY_IOS
+      //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //                // then save to Application.persistentDataPath
+      //                File.Copy(loadDb, filepath);
+      //#elif UNITY_WP8
+      //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //                // then save to Application.persistentDataPath
+      //                File.Copy(loadDb, filepath);
 
-        //#elif UNITY_WINRT
-        //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //		// then save to Application.persistentDataPath
-        //		File.Copy(loadDb, filepath);
+      //#elif UNITY_WINRT
+      //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //		// then save to Application.persistentDataPath
+      //		File.Copy(loadDb, filepath);
 
-        //#elif UNITY_STANDALONE_OSX
-        //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //		// then save to Application.persistentDataPath
-        //		File.Copy(loadDb, filepath);
-        //#else
-        //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //	// then save to Application.persistentDataPath
-        //	File.Copy(loadDb, filepath);
+      //#elif UNITY_STANDALONE_OSX
+      //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //		// then save to Application.persistentDataPath
+      //		File.Copy(loadDb, filepath);
+      //#else
+      //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //	// then save to Application.persistentDataPath
+      //	File.Copy(loadDb, filepath);
 
-        //#endif
+      //#endif
 
-        //            Debug.Log("Database written");
-        //        }
+      //            Debug.Log("Database written");
+      //        }
 
-        //        var dbPath = filepath;
-        //#endif
-        _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        Debug.Log("Final PATH: " + dbPath);
+      //        var dbPath = filepath;
+      //#endif
+      _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+      Debug.Log ("Final PATH: " + dbPath);
 
-    }
+   }
 
-    public DataService(string DatabaseName)
-    {
-        string dbPath = Application.persistentDataPath + "/" + DatabaseName;
-        //#if UNITY_EDITOR
-        //      var dbPath = string.Format (@"Assets/StreamingAssets/{0}", DatabaseName);
-        //#else
-        //        // check if file exists in Application.persistentDataPath
-        //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+   public DataService(string DatabaseName)
+   {
+      string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+      //#if UNITY_EDITOR
+      //      var dbPath = string.Format (@"Assets/StreamingAssets/{0}", DatabaseName);
+      //#else
+      //        // check if file exists in Application.persistentDataPath
+      //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
 
-        //        if (!File.Exists(filepath))
-        //        {
-        //            Debug.Log("Database not in Persistent path");
-        //            // if it doesn't ->
-        //            // open StreamingAssets directory and load the db ->
+      //        if (!File.Exists(filepath))
+      //        {
+      //            Debug.Log("Database not in Persistent path");
+      //            // if it doesn't ->
+      //            // open StreamingAssets directory and load the db ->
 
-        //#if UNITY_ANDROID
-        //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
-        //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
-        //            // then save to Application.persistentDataPath
-        //            File.WriteAllBytes(filepath, loadDb.bytes);
-        //#elif UNITY_IOS
-        //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //                // then save to Application.persistentDataPath
-        //                File.Copy(loadDb, filepath);
-        //#elif UNITY_WP8
-        //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //                // then save to Application.persistentDataPath
-        //                File.Copy(loadDb, filepath);
+      //#if UNITY_ANDROID
+      //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+      //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
+      //            // then save to Application.persistentDataPath
+      //            File.WriteAllBytes(filepath, loadDb.bytes);
+      //#elif UNITY_IOS
+      //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //                // then save to Application.persistentDataPath
+      //                File.Copy(loadDb, filepath);
+      //#elif UNITY_WP8
+      //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //                // then save to Application.persistentDataPath
+      //                File.Copy(loadDb, filepath);
 
-        //#elif UNITY_WINRT
-        //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //		// then save to Application.persistentDataPath
-        //		File.Copy(loadDb, filepath);
+      //#elif UNITY_WINRT
+      //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //		// then save to Application.persistentDataPath
+      //		File.Copy(loadDb, filepath);
 
-        //#elif UNITY_STANDALONE_OSX
-        //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //		// then save to Application.persistentDataPath
-        //		File.Copy(loadDb, filepath);
-        //#else
-        //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-        //	// then save to Application.persistentDataPath
-        //	File.Copy(loadDb, filepath);
+      //#elif UNITY_STANDALONE_OSX
+      //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //		// then save to Application.persistentDataPath
+      //		File.Copy(loadDb, filepath);
+      //#else
+      //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+      //	// then save to Application.persistentDataPath
+      //	File.Copy(loadDb, filepath);
 
-        //#endif
+      //#endif
 
-        //            Debug.Log("Database written");
-        //        }
+      //            Debug.Log("Database written");
+      //        }
 
-        //        var dbPath = filepath;
-        //#endif
-        _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        Debug.Log("Final PATH: " + dbPath);
+      //        var dbPath = filepath;
+      //#endif
+      _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+      Debug.Log ("Final PATH: " + dbPath);
 
-    }
+   }
 
-    public void CreateSubscriptionDB()
-    {
-        if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
-        {
-            _connection.CreateTable<SubscriptionTimeModel>();
-            SubscriptionTimeModel model = new SubscriptionTimeModel
-            {
-                SettedTime = 1080000, //300hrs to seconds
-                Timer = 1080000
-            };
-            _connection.Insert(model);
-            PlayerPrefs.SetInt("subscriptionTime_table", 1);
-        }
-    }
-    public void CreateDB()
-    {
-        Debug.Log(Application.persistentDataPath);
-        if ("".Equals(PlayerPrefs.GetString("deviceId_created")))
-        {
-            //do we need to save?
-            PlayerPrefs.SetString("deviceId_created", SystemInfo.deviceUniqueIdentifier);
-        }
+   public void CreateSubscriptionDB()
+   {
+      if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
+      {
+         _connection.CreateTable<SubscriptionTimeModel> ();
+         SubscriptionTimeModel model = new SubscriptionTimeModel
+         {
+            SettedTime = 1080000, //300hrs to seconds
+            Timer = 1080000
+         };
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("subscriptionTime_table", 1);
+      }
+   }
+   public void CreateDB()
+   {
+      Debug.Log (Application.persistentDataPath);
+      if ("".Equals (PlayerPrefs.GetString ("deviceId_created")))
+      {
+         //do we need to save?
+         PlayerPrefs.SetString ("deviceId_created", SystemInfo.deviceUniqueIdentifier);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("resetPassword_table_created")))
-        {
-            _connection.CreateTable<ResetPasswordModel>();
-            _connection.InsertAll(new[]{ new ResetPasswordModel
+      if (0.Equals(PlayerPrefs.GetInt ("teacherDevice_table_created")))
+      {
+         _connection.CreateTable<TeacherDeviceModel> ();
+         PlayerPrefs.SetInt ("teacherDevice_table_created", 1);
+      }
+
+      if (0.Equals (PlayerPrefs.GetInt ("resetPassword_table_created")))
+      {
+         _connection.CreateTable<ResetPasswordModel> ();
+         _connection.InsertAll (new[]{ new ResetPasswordModel
             {
                 SystemPasscode = "0AAA",
                 Used = false
@@ -210,46 +216,46 @@ public class DataService
                 Used = false
             },
             });
-            PlayerPrefs.SetInt("resetPassword_table_created", 1);
-        }
-        if (0.Equals(PlayerPrefs.GetInt("adminPassword_table_created")))
-        {
-            _connection.CreateTable<AdminPasswordModel>();
-            AdminPasswordModel model = new AdminPasswordModel
-            {
-                Password = "1234"
-            };
-            _connection.Insert(model);
-            PlayerPrefs.SetInt("adminPassword_table_created", 1);
-        }
-        //---------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------
-        if (0.Equals(PlayerPrefs.GetInt("device_table_created")))
-        {
-            _connection.CreateTable<DeviceModel>();
-            //add UID through networking
-            PlayerPrefs.SetInt("device_table_created", 1);
-        }
+         PlayerPrefs.SetInt ("resetPassword_table_created", 1);
+      }
+      if (0.Equals (PlayerPrefs.GetInt ("adminPassword_table_created")))
+      {
+         _connection.CreateTable<AdminPasswordModel> ();
+         AdminPasswordModel model = new AdminPasswordModel
+         {
+            Password = "1234"
+         };
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("adminPassword_table_created", 1);
+      }
+      //---------------------------------------------------------------------------------
+      //---------------------------------------------------------------------------------
+      //---------------------------------------------------------------------------------
+      if (0.Equals (PlayerPrefs.GetInt ("device_table_created")))
+      {
+         _connection.CreateTable<DeviceModel> ();
+         //add UID through networking
+         PlayerPrefs.SetInt ("device_table_created", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("section_table_created")))
-        {
-            _connection.CreateTable<SectionModel>();
+      if (0.Equals (PlayerPrefs.GetInt ("section_table_created")))
+      {
+         _connection.CreateTable<SectionModel> ();
 
-            PlayerPrefs.SetInt("section_table_created", 1);
-        }
+         PlayerPrefs.SetInt ("section_table_created", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("student_table_created")))
-        {
-            _connection.CreateTable<StudentModel>();
-            PlayerPrefs.SetInt("student_table_created", 1);
-        }
+      if (0.Equals (PlayerPrefs.GetInt ("student_table_created")))
+      {
+         _connection.CreateTable<StudentModel> ();
+         PlayerPrefs.SetInt ("student_table_created", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("book_table_created")))
-        {
-            _connection.CreateTable<BookModel>();
+      if (0.Equals (PlayerPrefs.GetInt ("book_table_created")))
+      {
+         _connection.CreateTable<BookModel> ();
 
-            _connection.InsertAll(new[] {
+         _connection.InsertAll (new[] {
                    new BookModel
                    {
 
@@ -303,17 +309,17 @@ public class DataService
              });
 
 
-            PlayerPrefs.SetInt("book_table_created", 1);
-        }
+         PlayerPrefs.SetInt ("book_table_created", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("activity_table_created")))
-        {
-            _connection.CreateTable<ActivityModel>();
+      if (0.Equals (PlayerPrefs.GetInt ("activity_table_created")))
+      {
+         _connection.CreateTable<ActivityModel> ();
 
-            //NOTE: THE BOOK ID BASED ON THE BOOK TABLE CREATION
+         //NOTE: THE BOOK ID BASED ON THE BOOK TABLE CREATION
 
-            //ABC-CIRCUS
-            _connection.InsertAll(new[] {
+         //ABC-CIRCUS
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 1,
@@ -414,8 +420,8 @@ public class DataService
                 },
             });
 
-            //AFTER THE RAIN
-            _connection.InsertAll(new[] {
+         //AFTER THE RAIN
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 2,
@@ -516,8 +522,8 @@ public class DataService
                 },
             });
 
-            //CHAT WITH MY CAT
-            _connection.InsertAll(new[] {
+         //CHAT WITH MY CAT
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 3,
@@ -618,8 +624,8 @@ public class DataService
                 },
             });
 
-            //COLORS ALL MIXED UP
-            _connection.InsertAll(new[] {
+         //COLORS ALL MIXED UP
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 4,
@@ -727,8 +733,8 @@ public class DataService
                 },
             });
 
-            //FAVORITE BOX
-            _connection.InsertAll(new[] {
+         //FAVORITE BOX
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 5,
@@ -829,8 +835,8 @@ public class DataService
                 },
             });
 
-            //JOEY GOES TO SCHOOL
-            _connection.InsertAll(new[] {
+         //JOEY GOES TO SCHOOL
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 6,
@@ -931,8 +937,8 @@ public class DataService
                 },
             });
 
-            //SOUNDS FANTASTIC
-            _connection.InsertAll(new[] {
+         //SOUNDS FANTASTIC
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 7,
@@ -1033,8 +1039,8 @@ public class DataService
                 },
             });
 
-            //TINA AND JUN
-            _connection.InsertAll(new[] {
+         //TINA AND JUN
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 8,
@@ -1135,8 +1141,8 @@ public class DataService
                 },
             });
 
-            //WHAT DID YOU SEE
-            _connection.InsertAll(new[] {
+         //WHAT DID YOU SEE
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 9,
@@ -1237,8 +1243,8 @@ public class DataService
                 },
             });
 
-            //YUMMY SHAPES
-            _connection.InsertAll(new[] {
+         //YUMMY SHAPES
+         _connection.InsertAll (new[] {
                 new ActivityModel
                 {
                     BookId = 10,
@@ -1339,115 +1345,116 @@ public class DataService
                 },
             });
 
-            PlayerPrefs.SetInt("activity_table_created", 1);
-        }
+         PlayerPrefs.SetInt ("activity_table_created", 1);
+      }
 
-        //--------------------------------------------
+      //--------------------------------------------
 
-        if (0.Equals(PlayerPrefs.GetInt("studentActivityModel_table_created")))
-        {
-            _connection.CreateTable<StudentActivityModel>();
-            PlayerPrefs.SetInt("studentActivityModel_table_created", 1);
-        }
+      if (0.Equals (PlayerPrefs.GetInt ("studentActivityModel_table_created")))
+      {
+         _connection.CreateTable<StudentActivityModel> ();
+         PlayerPrefs.SetInt ("studentActivityModel_table_created", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("studentBookModel_table_created")))
-        {
-            _connection.CreateTable<StudentBookModel>();
-            PlayerPrefs.SetInt("studentBookModel_table_created", 1);
-        }
+      if (0.Equals (PlayerPrefs.GetInt ("studentBookModel_table_created")))
+      {
+         _connection.CreateTable<StudentBookModel> ();
+         PlayerPrefs.SetInt ("studentBookModel_table_created", 1);
+      }
 
 
+      //MAINTENANCE
 
-        if (0.Equals(PlayerPrefs.GetInt("resetPasswordTimes_table")))
-        {
-            _connection.CreateTable<ResetPasswordTimesModel>();
-            ResetPasswordTimesModel model = new ResetPasswordTimesModel
-            {
-                MaxReset = 10,
-                ResetCount = 0
-            };
-            _connection.Insert(model);
-            PlayerPrefs.SetInt("resetPasswordTimes_table", 1);
-        }
+      if (0.Equals (PlayerPrefs.GetInt ("resetPasswordTimes_table")))
+      {
+         _connection.CreateTable<ResetPasswordTimesModel> ();
+         ResetPasswordTimesModel model = new ResetPasswordTimesModel
+         {
+            MaxReset = 10,
+            ResetCount = 0
+         };
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("resetPasswordTimes_table", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("numberOfStudents_table")))
-        {
-            _connection.CreateTable<NumberOfStudentsModel>();
-            NumberOfStudentsModel model = new NumberOfStudentsModel
-            {
-                MaxStudent = 250
-            };
-            _connection.Insert(model);
-            PlayerPrefs.SetInt("numberOfStudents_table", 1);
-        }
+      if (0.Equals (PlayerPrefs.GetInt ("numberOfStudents_table")))
+      {
+         _connection.CreateTable<NumberOfStudentsModel> ();
+         NumberOfStudentsModel model = new NumberOfStudentsModel
+         {
+            MaxStudent = 250
+         };
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("numberOfStudents_table", 1);
+      }
 
-        if (0.Equals(PlayerPrefs.GetInt("adminPassword_table")))
-        {
-            _connection.CreateTable<AdminPasswordModel>();
-            AdminPasswordModel model = new AdminPasswordModel
-            {
-                Password = "1234"
-            };
+      if (0.Equals (PlayerPrefs.GetInt ("adminPassword_table")))
+      {
+         _connection.CreateTable<AdminPasswordModel> ();
+         AdminPasswordModel model = new AdminPasswordModel
+         {
+            Password = "1234"
+         };
 
-            _connection.Insert(model);
-            PlayerPrefs.SetInt("adminPassword_table", 1);
-        }
+         _connection.Insert (model);
+         PlayerPrefs.SetInt ("adminPassword_table", 1);
+      }
 
-    }
+   }
 
-    public IEnumerable<SubscriptionTimeModel> GetSubscription()
-    {
-        return _connection.Table<SubscriptionTimeModel>();
-    }
+   public IEnumerable<SubscriptionTimeModel> GetSubscription()
+   {
+      return _connection.Table<SubscriptionTimeModel> ();
+   }
 
-    public IEnumerable<BookModel> GetBooks()
-    {
-        return _connection.Table<BookModel>();
-    }
+   public IEnumerable<BookModel> GetBooks()
+   {
+      return _connection.Table<BookModel> ();
+   }
 
-    public IEnumerable<ActivityModel> GetActivities()
-    {
-        return _connection.Table<ActivityModel>();
-    }
+   public IEnumerable<ActivityModel> GetActivities()
+   {
+      return _connection.Table<ActivityModel> ();
+   }
 
-    public IEnumerable<SectionModel> GetSections()
-    {
-        return _connection.Table<SectionModel>();
-    }
+   public IEnumerable<SectionModel> GetSections()
+   {
+      return _connection.Table<SectionModel> ();
+   }
 
-    public IEnumerable<StudentModel> GetStudents()
-    {
-        return _connection.Table<StudentModel>();
-    }
+   public IEnumerable<StudentModel> GetStudents()
+   {
+      return _connection.Table<StudentModel> ();
+   }
 
-    public IEnumerable<StudentActivityModel> GetStudentActivities()
-    {
-        return _connection.Table<StudentActivityModel>();
-    }
+   public IEnumerable<StudentActivityModel> GetStudentActivities()
+   {
+      return _connection.Table<StudentActivityModel> ();
+   }
 
-    public IEnumerable<StudentBookModel> GetStudentBooks()
-    {
-        return _connection.Table<StudentBookModel>();
-    }
-    public IEnumerable<Person> GetPersonsNamedRoberto()
-    {
-        return _connection.Table<Person>().Where(x => x.Name == "Roberto");
-    }
+   public IEnumerable<StudentBookModel> GetStudentBooks()
+   {
+      return _connection.Table<StudentBookModel> ();
+   }
+   public IEnumerable<Person> GetPersonsNamedRoberto()
+   {
+      return _connection.Table<Person> ().Where (x => x.Name == "Roberto");
+   }
 
-    public Person GetJohnny()
-    {
-        return _connection.Table<Person>().Where(x => x.Name == "Johnny").FirstOrDefault();
-    }
+   public Person GetJohnny()
+   {
+      return _connection.Table<Person> ().Where (x => x.Name == "Johnny").FirstOrDefault ();
+   }
 
-    public Person CreatePerson()
-    {
-        var p = new Person
-        {
-            Name = "Johnny",
-            Surname = "Mnemonic",
-            Age = 21
-        };
-        _connection.Insert(p);
-        return p;
-    }
+   public Person CreatePerson()
+   {
+      var p = new Person
+      {
+         Name = "Johnny",
+         Surname = "Mnemonic",
+         Age = 21
+      };
+      _connection.Insert (p);
+      return p;
+   }
 }
