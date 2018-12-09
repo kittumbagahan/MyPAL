@@ -60,6 +60,8 @@ public class PatchManager : CachedAssetBundleLoader
         ds._connection.Execute("drop table NumberOfStudentsModel");
         ds._connection.Execute("drop table AdminPasswordModel");
 
+        ds._connection.Execute("drop table TeacherDeviceModel");
+
         DataService ds2 = new DataService("system/subscription.db");
         ds2._connection.Execute("drop table SubscriptionTimeModel");
 

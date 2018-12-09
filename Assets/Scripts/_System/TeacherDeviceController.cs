@@ -8,7 +8,7 @@ public sealed class TeacherDeviceController{
    public bool SetAsTeacherDevice()
    {
       DataService ds = new DataService ();
-      var model = ds._connection.Table<TeacherDeviceModel> ().Select(x => x);
+      TeacherDeviceModel model = ds._connection.Table<TeacherDeviceModel> ().Where(x=>x.Id == 1).FirstOrDefault();
       if(model == null)
       {
          TeacherDeviceModel m = new TeacherDeviceModel {
@@ -17,6 +17,7 @@ public sealed class TeacherDeviceController{
          ds._connection.Insert (m);
          return true;
       }
+      Debug.Log (model.ToString());
       return false;
    }
 
