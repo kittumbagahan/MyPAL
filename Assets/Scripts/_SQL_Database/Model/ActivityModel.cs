@@ -1,7 +1,7 @@
 ﻿using SQLite4Unity3d;
 
+[System.Serializable]
 public class ActivityModel {
-
 
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }

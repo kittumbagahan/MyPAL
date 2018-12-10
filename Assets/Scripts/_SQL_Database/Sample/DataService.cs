@@ -15,15 +15,7 @@ public class DataService
    public DataService()
    {
       string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
-      if (PlayerPrefs.GetString ("activeDatabase") == "")
-      {
-         PlayerPrefs.SetString ("activeDatabase", "tempDatabase.db");
-         DatabaseName = "tempDatabase.db";
-      }
-      else
-      {
-         DatabaseName = PlayerPrefs.GetString ("activeDatabase");
-      }
+        DatabaseName = DbName ();
       string dbPath = Application.persistentDataPath + "/" + DatabaseName;
       Debug.Log (dbPath);
       //#if UNITY_EDITOR
@@ -78,7 +70,20 @@ public class DataService
 
    }
 
-   public DataService(string DatabaseName)
+    public static string DbName()
+    {
+        if (PlayerPrefs.GetString ("activeDatabase") == "")
+        {
+            PlayerPrefs.SetString ("activeDatabase", "tempDatabase.db");
+            return "tempDatabase.db";
+        }
+        else
+        {
+            return PlayerPrefs.GetString ("activeDatabase");
+        }
+    }
+
+    public DataService(string DatabaseName)
    {
       string dbPath = Application.persistentDataPath + "/" + DatabaseName;
       //#if UNITY_EDITOR

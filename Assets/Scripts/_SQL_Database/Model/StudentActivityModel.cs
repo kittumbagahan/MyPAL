@@ -1,5 +1,6 @@
 ﻿using SQLite4Unity3d;
 
+[System.Serializable]
 public class StudentActivityModel  {
 
     [PrimaryKey, AutoIncrement]

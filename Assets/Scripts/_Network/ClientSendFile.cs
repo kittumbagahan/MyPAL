@@ -44,7 +44,16 @@ public class ClientSendFile : MonoBehaviour
         // sync message
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
         {
+            Debug.Log ("Received file sync");
+            NetworkModel networkModel = NetworkModelToObject (frame.StreamData.CompressBytes ());
 
+            Debug.Log ("activity model " + networkModel.lstActivityModel.Count);
+            Debug.Log ("book model " + networkModel.lstBookModel.Count);
+            Debug.Log ("device model " + networkModel.lstDeviceModel.Count);
+            Debug.Log ("section model " + networkModel.lstSectionModel.Count);
+            Debug.Log ("student activity model " + networkModel.lstStudentActivityModel.Count);
+            Debug.Log ("student book model " + networkModel.lstStudentBookModel.Count);
+            Debug.Log ("student model " + networkModel.lstStudentModel.Count);
         }
         else
         {
@@ -253,7 +262,128 @@ public class ClientSendFile : MonoBehaviour
         //StringBuilder("sending file");
     }
 
-	NetworkData ConvertToObject(byte[] byteData)
+    public void SendDatabase(string pFilePath, string fileName)
+    {
+        // test
+        //MessageBox.ins.ShowOk (string.Format ("File path is {0}", pFilePath), MessageBox.MsgIcon.msgInformation, null);
+        //return;
+        Debug.Log ("File Path " + pFilePath);
+
+        // kit, temp
+        //sentFile = true;
+
+        // pass file path value to private variable
+         string filePath = pFilePath;
+
+        // Throw an error if this is not the server
+        var networker = NetworkManager.Instance.Networker;
+
+        // event when file is sent        
+
+        if (!networker.IsServer)
+        {
+            Debug.LogError ("Only the server can send files in this example!");
+            return;
+        }
+
+        // Throw an error if the file does not exist
+        if (!File.Exists (filePath))
+        {
+            Debug.LogError ("The file " + filePath + " could not be found");
+            return;
+        }
+
+        // Prepare a byte array for sending
+        BMSByte allData = new BMSByte ();
+
+        // Add the file name to the start of the payload
+        ObjectMapper.Instance.MapBytes (allData, Path.GetFileName (filePath));
+
+        // Add the data to the payload
+        allData.Append (File.ReadAllBytes (filePath));
+
+        // Send the file to all connected clients
+        Binary frame = new Binary (
+            networker.Time.Timestep,                    // The current timestep for this frame
+            false,                                      // We are server, no mask needed
+            allData,                                    // The file that is being sent
+            Receivers.Others,                           // Send to all clients
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
+            networker is TCPServer);
+
+        if (networker is UDPServer)
+            ((UDPServer)networker).Send (frame, true);
+        else
+            ((TCPServer)networker).SendAll (frame);
+
+        //StringBuilder("sending file");
+    }
+
+    public void SendSyncData(NetworkModel pNetworkModel)
+    {
+        Debug.Log ("Send sync data");
+
+        // Throw an error if this is not the server
+        var networker = NetworkManager.Instance.Networker;
+
+        // event when file is sent        
+
+        if (!networker.IsServer)
+        {
+            Debug.LogError ("Only the client can send files in this example!");
+            return;
+        }
+
+        //byte[] allData = { };
+
+        byte[] byteData = { };
+
+        // convert pData as byte[]
+        BinaryFormatter binFormatter = new BinaryFormatter ();
+        MemoryStream memStream = new MemoryStream ();
+        binFormatter.Serialize (memStream, pNetworkModel);
+
+        byteData = memStream.ToArray ();
+
+        // test
+        //NetworkModel n = new NetworkModel ();
+        //n = NetworkModelToObject (allData);
+        //Debug.Log ("section count " + n.lstSectionModel.Count);
+
+        // BMS byte
+        BMSByte allData = new BMSByte ();
+        allData.Append (byteData);
+
+        //        // Prepare a byte array for sending
+        //        BMSByte allData = new BMSByte();        
+        //
+        //        // Add the file name to the start of the payload        
+        //        ObjectMapper.Instance.MapBytes(allData);        
+
+        // Send the file to all connected clients
+        Binary frame = new Binary (
+            networker.Time.Timestep,                    // The current timestep for this frame
+            false,                                      // We are server, no mask needed
+            allData,                                    // The file that is being sent
+            Receivers.Others,                           // Send to all clients
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
+            networker is TCPServer);
+
+        //        if (networker is UDPServer)
+        //            ((UDPServer)networker).Send(frame, true);
+        //        else
+        //            ((TCPServer)networker).SendAll(frame);
+
+        if (networker is UDPClient)
+            ((UDPClient)networker).Send (frame, true);
+        else
+            ((TCPClient)networker).Send (frame);
+
+        Debug.Log ("SendSyncData exit");
+        //StringBuilder("sending file");
+    }
+
+    NetworkData ConvertToObject(byte[] byteData)
 	{
 		BinaryFormatter bin = new BinaryFormatter ();
 		MemoryStream ms = new MemoryStream ();
@@ -262,6 +392,16 @@ public class ClientSendFile : MonoBehaviour
 
 		return (NetworkData)bin.Deserialize (ms);
 	}
+
+    NetworkModel NetworkModelToObject(byte[] byteData)
+    {
+        BinaryFormatter bin = new BinaryFormatter ();
+        MemoryStream ms = new MemoryStream ();
+        ms.Write (byteData, 0, byteData.Length);
+        ms.Seek (0, SeekOrigin.Begin);
+
+        return (NetworkModel)bin.Deserialize (ms);
+    }
 
     bool CreateStudentBookModel (NetworkData pNetworkData)
     {
