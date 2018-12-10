@@ -19,13 +19,15 @@ public class QuizAdmin : MonoBehaviour {
     // privates
     private QuizManager m_quizManager;
 
-    public enum MaintenanceState
-    {
-        Add, Edit
-    }
-
     // Use this for initialization
     void Start () {
+
+    }
+
+    #region DB
+
+    public void Init()
+    {
         dataService = new DataService ();
 
         // check models
@@ -33,16 +35,6 @@ public class QuizAdmin : MonoBehaviour {
         CheckQuizItemModel ();
         CheckQuizItemChoicesModel ();
         CheckSubjectModel ();
-
-
-        SetUp ();
-    }
-
-    #region DB
-
-    void SetUp()
-    {
-        GetComponent<QuizManager> ().PopulateQuizList ();
     }
 
     void CheckQuizModel()

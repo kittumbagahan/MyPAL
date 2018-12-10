@@ -9,19 +9,26 @@ public class QuizManager : MonoBehaviour {
     [SerializeField]
     GameObject m_PrefabQuiz, m_PrefabQuizParent, m_QuizMaintenancePanel;
 
+    public QuizAdmin quizAdmin;
+
     public enum MaintenanceState
     {
         Add, Edit
     }
 
     // Use this for initialization
-    void Start () {    
+    void Start () {
+
+        quizAdmin = GetComponent<QuizAdmin> ();
+        quizAdmin.Init ();
+
+        PopulateQuizList ();
 
     }
 
     #region METHODS
 
-    public void PopulateQuizList()
+    void PopulateQuizList()
     {
         // kit
         //Test ();

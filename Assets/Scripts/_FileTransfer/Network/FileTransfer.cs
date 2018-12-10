@@ -41,7 +41,7 @@ public class FileTransfer : MonoBehaviour
         if (File.Exists(fileName))
         {
             Debug.LogError("The file " + fileName + " already exists!");
-            MainThreadManager.Run(() => GetComponent<MultiplayerMenu>().UpdateNetworkStatus(string.Format("File {0} alreadey exist!")));
+            MainThreadManager.Run(() => GetComponent<MultiplayerMenu>().UpdateNetworkStatus(string.Format("File {0} already exist!")));
             //StringBuilder("The file " + fileName + " already exists!");
             return;
         }
