@@ -35,6 +35,14 @@ public class SceneSpawner : MonoBehaviour
             UIBtnPrev = GameObject.Find("_btnPrev").GetComponent<Button>();
             UIBtnPrev.onClick.AddListener(Prev);
         }
+        //if (UIBtnAgain == null)
+        //{
+        //    UIBtnAgain = GameObject.Find("_btnAgain").GetComponent<Button>();
+        //    UIBtnAgain.onClick.AddListener(Again);
+        //    UIBtnAgain.gameObject.SetActive(false);
+        //}
+        StoryBookStart.instance.btnAgain.gameObject.SetActive(false);
+        StoryBookStart.instance.btnAgain.onClick.AddListener(Again);
         //print(lstScenes.Count - 1);
         ins = this;
         o = (GameObject)Instantiate(lstScenes[sceneIndex]);
@@ -64,24 +72,20 @@ public class SceneSpawner : MonoBehaviour
         subsMan.ShowSubs(0);
         //play text animation
         
-        //curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
         Trace();
     }
 
     void SetMyParent(GameObject _object)
     {
         _object.transform.SetParent(parent);
-        //_object.transform.localPosition = new Vector3(-407, 304, 0);
         _object.transform.SetAsFirstSibling();
-        //_object.transform.localPosition = new Vector3(0, 0, 0);
-        //_object.transform.localScale = new Vector3(bookH, bookW, 1f);
     }
 
     public void Prev()
     {
         if (UIBtnPrev.interactable)
         {
-            //sceneIndex--;
+   
             if (prev != null)
             {
                 sceneIndex--;
@@ -96,11 +100,6 @@ public class SceneSpawner : MonoBehaviour
                 {
                     prev = null;
                     next = lstPool[sceneIndex];
-                    //next = lstPool[0];
-                    //curr = next;
-                    //print(ex.Message);
-                    //sceneIndex++;
-                    //print("dulo");
                     UIBtnPrev.interactable = false;
                 }
 
@@ -118,30 +117,7 @@ public class SceneSpawner : MonoBehaviour
                 UIBtnNext.interactable = true;
             }
 
-            //try
-            //{
-            //    prev = lstPool[sceneIndex - 2];
-            //    next = lstPool[sceneIndex];
-            //    if (prev != null) { prev.SetActive(false); }
-            //}
-            //catch (System.ArgumentOutOfRangeException ex)
-            //{
-            //    prev = null;
-            //    ////next = lstPool[sceneIndex];
-            //    //next = lstPool[0];
-            //    //curr = next;
-            //    print(ex.Message);
-            //    sceneIndex++;
-            //    print("dulo");
-            //    UIBtnPrev.interactable = false;
-            //}
-
-            //next.SetActive(false);
-            //if (curr != null) curr.SetActive(true); /* play text animation */ curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
-            //print("pressed prev " + sceneIndex);
-            //print("---prev---");
-            //Trace();
-            //UIBtnNext.interactable = true;
+          
         }
 
     }
@@ -155,16 +131,9 @@ public class SceneSpawner : MonoBehaviour
             sceneIndex++; //for the "next" object
             if (curr == null)
             {
-                
-                //Application.LoadLevel(Application.loadedLevelName);
-
 				print("END");
-				//CachedAssetBundle.ins.UnloadBundle();
-
-
 				EmptySceneLoader.ins.sceneToLoad = SceneManager.GetActiveScene().name;
 				SceneLoader.instance.AsyncLoadStr("empty");
-
             }
             else
             {
@@ -186,10 +155,7 @@ public class SceneSpawner : MonoBehaviour
                 }
                 catch (System.ArgumentOutOfRangeException ex)
                 {
-                    //Application.LoadLevel(Application.loadedLevelName);
-                    //print(ex);
                     next = null;
-                    // UIBtnNext.interactable = false;
                 }
 
                 try
@@ -212,13 +178,7 @@ public class SceneSpawner : MonoBehaviour
                     print(ex);
                     //Application.LoadLevel(Application.loadedLevelName);
                 }
-                //if (curr != null) curr.SetActive(true); /* play text animation */ curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
-                //if (next != null) next.SetActive(false);
-                //if (prev != null) prev.SetActive(false);
-                //print("pressed next " + sceneIndex);
-                //print("---NEXT---");
-                //Trace();
-
+         
                 UIBtnPrev.interactable = true;
             
             }
@@ -226,6 +186,11 @@ public class SceneSpawner : MonoBehaviour
            
         }
 
+    }
+
+    public void Again()
+    {
+        subsMan.ShowSubs(sceneIndex - 1);
     }
 
     void Trace()
@@ -254,11 +219,13 @@ public class SceneSpawner : MonoBehaviour
     {
         UIBtnNext.gameObject.SetActive(true);
         UIBtnPrev.gameObject.SetActive(true);
+        StoryBookStart.instance.btnAgain.gameObject.SetActive(true);
     }
 
     public void DisableButton()
     {
         UIBtnNext.gameObject.SetActive(false);
         UIBtnPrev.gameObject.SetActive(false);
+        StoryBookStart.instance.btnAgain.gameObject.SetActive(false);
     }
 }

@@ -19,12 +19,8 @@ public class StoryBookPlayer : MonoBehaviour {
 	AudioSource audioSource;
 
 	#region MONO
-
-	// Use this for initialization
 	void Start () {
 		instance = this;
-		//audioSource = GetComponent<AudioSource>();
-       
 	}
 
 	#endregion MONO
@@ -54,6 +50,7 @@ public class StoryBookPlayer : MonoBehaviour {
 		if(StoryBookStart.instance.selectedReadType == ReadType.AutoRead)// shows next and prev button
 		{
 			SceneSpawner.ins.EnableButtons();
+            StoryBookStart.instance.btnAgain.gameObject.SetActive(false);
 		}
 		else
 		{
@@ -65,27 +62,15 @@ public class StoryBookPlayer : MonoBehaviour {
         if (StoryBookStart.instance.selectedReadType == ReadType.ReadItToMe || StoryBookStart.instance.selectedReadType == ReadType.AutoRead)// --
         {
             audioSource.Play();
-            //play audio
-            //PlayAudio(clip);
-            //txtAudio.Play(); --
-            //time = txtAudio.clip.length; --
-            //while (audioSource.isPlaying) { 
-            //}
         }        
 
         for (int i = 0; i < text.Length; i++)
         {
             text[i].transform.SetAsLastSibling();
-            //AudioClip clip = text[i].GetComponent<TextAudio>().audioClip;
-            //TextAudio txtAudio = text[i].GetComponent<TextAudio>(); --
+
             if (StoryBookStart.instance.selectedReadType == ReadType.ReadItToMe || StoryBookStart.instance.selectedReadType == ReadType.AutoRead)
             {
-                //play audio
-                //PlayAudio(clip);
-                //txtAudio.Play(); --
-                //time = txtAudio.clip.length; --
-                //while (audioSource.isPlaying) { 
-                //}
+
             }
 			if(text[i] != null)
 			{

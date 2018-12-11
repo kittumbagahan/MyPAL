@@ -22,9 +22,11 @@ public class StoryBookStart : MonoBehaviour
     bool downloadBook = true;
     [SerializeField]
     GameObject loadingObj;
-	[SerializeField]
-	float bgMusicVolume = 0.1f;
-	//float tempBgMusicVolume;
+    [SerializeField]
+    float bgMusicVolume = 0.1f;
+    //float tempBgMusicVolume;
+  
+    public Button btnAgain;
     void Start()
     {
         instance = this;
@@ -32,11 +34,13 @@ public class StoryBookStart : MonoBehaviour
         bundle = GetComponent<CachedAssetBundle>();
         btnNext.gameObject.SetActive(false);
         btnPrev.gameObject.SetActive(false);
-
-		//reset the bg volume to original from reading volume 0.1f
-		BG_Music.ins.SetVolume(0.5f);	
-		//BG_Music.ins.SetToReadingVolume();
-	}
+        btnAgain.gameObject.SetActive(false);
+       
+       
+        //reset the bg volume to original from reading volume 0.1f
+        BG_Music.ins.SetVolume(0.5f);
+        //BG_Music.ins.SetToReadingVolume();
+    }
 
 
     public void DisableButtons()
@@ -60,59 +64,43 @@ public class StoryBookStart : MonoBehaviour
             audSrc.PlayOneShot(audClipClick);
             StartCoroutine(IERead());
             
-            
-            //btnNext.gameObject.SetActive(true);
-            //btnPrev.gameObject.SetActive(true);
-            //btnRead.gameObject.SetActive(false);
-            //btnAct.gameObject.SetActive(false);
-            //btnBookShelf.gameObject.SetActive(false);
-            ////BG.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-            //BG.gameObject.SetActive(false);
-            ////transform.GetComponent<SceneSpawner>().enabled = true;
-            //Instantiate(book, new Vector3(0, 0, 0), Quaternion.identity);
-            //print(selectedReadType);
-            //print(gameObject);
-
 
         }
 
     }
     IEnumerator IERead()
     {
-		if(!BG_Music.ins.Audio.mute)
-		{
-			//print(BG_Music.ins.GetVolume() + " VOL");
-			//BG_Music.ins.SetToReadingVolume();
-		}
-		BG_Music.ins.SetVolume(bgMusicVolume);
+        if (!BG_Music.ins.Audio.mute)
+        {
+
+        }
+        BG_Music.ins.SetVolume(bgMusicVolume);
         if (!downloadBook)
         {
             yield return new WaitForSeconds(1f);
             Instantiate(book, new Vector3(0, 0, 0), Quaternion.identity);
         }
-        else {
+        else
+        {
             loadingObj.SetActive(true);
-            yield return StartCoroutine(bundle.IELoadAsset()); 
+            yield return StartCoroutine(bundle.IELoadAsset());
         }
-       
+
         btnNext.gameObject.SetActive(true);
         btnPrev.gameObject.SetActive(true);
         loadingObj.SetActive(false);
         BG.gameObject.SetActive(false);
-       
-        
+
+
 
     }
     public void ReStart()
     {
         btnNext.gameObject.SetActive(false);
         btnPrev.gameObject.SetActive(false);
-        //btnRead.gameObject.SetActive(true);
-        //btnAct.gameObject.SetActive(true);
-        //btnBookShelf.gameObject.SetActive(true);
-        //BG.GetComponent<RawImage>().color = new Color32(255, 255, 255, 255);
+
         BG.gameObject.SetActive(false);
-        //transform.GetComponent<SceneSpawner>().enabled = false;
+
         print("Restart");
     }
 
@@ -128,20 +116,9 @@ public class StoryBookStart : MonoBehaviour
     {
         AsyncOperation async = null;
         async = Application.LoadLevelAsync(s);
-        //val += 0.1f;
-        //print(val);
+
         yield return async;
 
     }
-    //public IEnumerator Load(string name)
-    //{
-    //    AsyncOperation async = null;
-    //    if (name != null)
-    //    {
-    //        loading.gameObject.SetActive(true);
-    //        async = Application.LoadLevelAsync(name);
 
-    //    }
-    //    yield return async;
-    //}
 }

@@ -6,18 +6,11 @@ public class SubtitleManager : MonoBehaviour {
     public StoryBookPlayer[] subtitle;
     [SerializeField]
     int recentSubs = -1;
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
     public void ShowSubs(int index)
     {
-        //print(index + " waaaaaaaaaaaaaaaaaaaaaaa");
+     
         HideRecent();
         recentSubs = index;
         //StoryBookPlayer player = null;

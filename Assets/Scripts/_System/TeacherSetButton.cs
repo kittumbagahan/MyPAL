@@ -11,6 +11,7 @@ public class TeacherSetButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
       controller = new TeacherDeviceController ();
+      
       if (controller.IsTeacherDevice ())
       {
          btnServer.gameObject.SetActive (true);
