@@ -44,16 +44,16 @@ public class ClientSendFile : MonoBehaviour
         // sync message
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
         {
-            Debug.Log ("Received file sync");
-            NetworkModel networkModel = NetworkModelToObject (frame.StreamData.CompressBytes ());
+            //Debug.Log ("Received file sync");
+            //NetworkModel networkModel = NetworkModelToObject (frame.StreamData.CompressBytes ());
 
-            Debug.Log ("activity model " + networkModel.lstActivityModel.Count);
-            Debug.Log ("book model " + networkModel.lstBookModel.Count);
-            Debug.Log ("device model " + networkModel.lstDeviceModel.Count);
-            Debug.Log ("section model " + networkModel.lstSectionModel.Count);
-            Debug.Log ("student activity model " + networkModel.lstStudentActivityModel.Count);
-            Debug.Log ("student book model " + networkModel.lstStudentBookModel.Count);
-            Debug.Log ("student model " + networkModel.lstStudentModel.Count);
+            //Debug.Log ("activity model " + networkModel.lstActivityModel.Count);
+            //Debug.Log ("book model " + networkModel.lstBookModel.Count);
+            //Debug.Log ("device model " + networkModel.lstDeviceModel.Count);
+            //Debug.Log ("section model " + networkModel.lstSectionModel.Count);
+            //Debug.Log ("student activity model " + networkModel.lstStudentActivityModel.Count);
+            //Debug.Log ("student book model " + networkModel.lstStudentBookModel.Count);
+            //Debug.Log ("student model " + networkModel.lstStudentModel.Count);
         }
         else
         {
@@ -319,69 +319,69 @@ public class ClientSendFile : MonoBehaviour
         //StringBuilder("sending file");
     }
 
-    public void SendSyncData(NetworkModel pNetworkModel)
-    {
-        Debug.Log ("Send sync data");
+    //public void SendSyncData(NetworkModel pNetworkModel)
+    //{
+    //    Debug.Log ("Send sync data");
 
-        // Throw an error if this is not the server
-        var networker = NetworkManager.Instance.Networker;
+    //    // Throw an error if this is not the server
+    //    var networker = NetworkManager.Instance.Networker;
 
-        // event when file is sent        
+    //    // event when file is sent        
 
-        if (!networker.IsServer)
-        {
-            Debug.LogError ("Only the client can send files in this example!");
-            return;
-        }
+    //    if (!networker.IsServer)
+    //    {
+    //        Debug.LogError ("Only the client can send files in this example!");
+    //        return;
+    //    }
 
-        //byte[] allData = { };
+    //    //byte[] allData = { };
 
-        byte[] byteData = { };
+    //    byte[] byteData = { };
 
-        // convert pData as byte[]
-        BinaryFormatter binFormatter = new BinaryFormatter ();
-        MemoryStream memStream = new MemoryStream ();
-        binFormatter.Serialize (memStream, pNetworkModel);
+    //    // convert pData as byte[]
+    //    BinaryFormatter binFormatter = new BinaryFormatter ();
+    //    MemoryStream memStream = new MemoryStream ();
+    //    binFormatter.Serialize (memStream, pNetworkModel);
 
-        byteData = memStream.ToArray ();
+    //    byteData = memStream.ToArray ();
 
-        // test
-        //NetworkModel n = new NetworkModel ();
-        //n = NetworkModelToObject (allData);
-        //Debug.Log ("section count " + n.lstSectionModel.Count);
+    //    // test
+    //    //NetworkModel n = new NetworkModel ();
+    //    //n = NetworkModelToObject (allData);
+    //    //Debug.Log ("section count " + n.lstSectionModel.Count);
 
-        // BMS byte
-        BMSByte allData = new BMSByte ();
-        allData.Append (byteData);
+    //    // BMS byte
+    //    BMSByte allData = new BMSByte ();
+    //    allData.Append (byteData);
 
-        //        // Prepare a byte array for sending
-        //        BMSByte allData = new BMSByte();        
-        //
-        //        // Add the file name to the start of the payload        
-        //        ObjectMapper.Instance.MapBytes(allData);        
+    //    //        // Prepare a byte array for sending
+    //    //        BMSByte allData = new BMSByte();        
+    //    //
+    //    //        // Add the file name to the start of the payload        
+    //    //        ObjectMapper.Instance.MapBytes(allData);        
 
-        // Send the file to all connected clients
-        Binary frame = new Binary (
-            networker.Time.Timestep,                    // The current timestep for this frame
-            false,                                      // We are server, no mask needed
-            allData,                                    // The file that is being sent
-            Receivers.Others,                           // Send to all clients
-            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
-            networker is TCPServer);
+    //    // Send the file to all connected clients
+    //    Binary frame = new Binary (
+    //        networker.Time.Timestep,                    // The current timestep for this frame
+    //        false,                                      // We are server, no mask needed
+    //        allData,                                    // The file that is being sent
+    //        Receivers.Others,                           // Send to all clients
+    //        MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
+    //        networker is TCPServer);
 
-        //        if (networker is UDPServer)
-        //            ((UDPServer)networker).Send(frame, true);
-        //        else
-        //            ((TCPServer)networker).SendAll(frame);
+    //    //        if (networker is UDPServer)
+    //    //            ((UDPServer)networker).Send(frame, true);
+    //    //        else
+    //    //            ((TCPServer)networker).SendAll(frame);
 
-        if (networker is UDPClient)
-            ((UDPClient)networker).Send (frame, true);
-        else
-            ((TCPClient)networker).Send (frame);
+    //    if (networker is UDPClient)
+    //        ((UDPClient)networker).Send (frame, true);
+    //    else
+    //        ((TCPClient)networker).Send (frame);
 
-        Debug.Log ("SendSyncData exit");
-        //StringBuilder("sending file");
-    }
+    //    Debug.Log ("SendSyncData exit");
+    //    //StringBuilder("sending file");
+    //}
 
     NetworkData ConvertToObject(byte[] byteData)
 	{
@@ -393,15 +393,15 @@ public class ClientSendFile : MonoBehaviour
 		return (NetworkData)bin.Deserialize (ms);
 	}
 
-    NetworkModel NetworkModelToObject(byte[] byteData)
-    {
-        BinaryFormatter bin = new BinaryFormatter ();
-        MemoryStream ms = new MemoryStream ();
-        ms.Write (byteData, 0, byteData.Length);
-        ms.Seek (0, SeekOrigin.Begin);
+    //NetworkModel NetworkModelToObject(byte[] byteData)
+    //{
+    //    BinaryFormatter bin = new BinaryFormatter ();
+    //    MemoryStream ms = new MemoryStream ();
+    //    ms.Write (byteData, 0, byteData.Length);
+    //    ms.Seek (0, SeekOrigin.Begin);
 
-        return (NetworkModel)bin.Deserialize (ms);
-    }
+    //    return (NetworkModel)bin.Deserialize (ms);
+    //}
 
     bool CreateStudentBookModel (NetworkData pNetworkData)
     {
