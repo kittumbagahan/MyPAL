@@ -186,11 +186,7 @@ public class LauncherNetworking : MonoBehaviour
         }
         else
         {
-            Debug.Log("Connected as client");
-            if(OnConnectedToServer != null)
-            {
-                OnConnectedToServer();
-            }
+          
         }
        
         mClientSendFile.enabled = true;
@@ -253,6 +249,11 @@ public class LauncherNetworking : MonoBehaviour
     private void Client_serverAccepted(NetWorker sender)
     {
         Debug.Log(string.Format("{0} is connected to server", "Huehue"));
+        Debug.Log("Connected as client");
+        if (OnConnectedToServer != null)
+        {
+            OnConnectedToServer();
+        }
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
 
     }

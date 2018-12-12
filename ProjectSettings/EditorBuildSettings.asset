@@ -245,3 +245,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/empty.unity
     guid: 5c3fb1cdff8874c3396a1e9d7a0c8b30
+  - enabled: 1
+    path: Assets/Scene/Launcher.unity
+    guid: 0f6ab64a7595d1349b459c64ebd97ae8

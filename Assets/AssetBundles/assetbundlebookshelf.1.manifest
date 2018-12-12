@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 1638195938
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 88e2763a9078257734e91aef0729a6fd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/BookShelf.unity
+Dependencies: []

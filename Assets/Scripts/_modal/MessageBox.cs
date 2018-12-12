@@ -25,13 +25,11 @@ public class MessageBox : MonoBehaviour {
 
     public enum MsgType { msgYesNo, msgOK, msgOkCancel };
     public enum MsgIcon { msgWarning, msgError, msgInformation };
-    
-   
-   
+
     void Awake()
     {
         ins = this;
-        if (canvas != null) { canvas = GetComponent<Canvas>(); }
+        //if (canvas != null) { canvas = GetComponent<Canvas>(); }
         //print("Messagebox object");
     }
 
@@ -43,7 +41,6 @@ public class MessageBox : MonoBehaviour {
 		btnCancel.onClick.RemoveAllListeners();
     }
 		
-
     protected void ChangeIcon(MsgIcon ic)
     {
         switch (ic)
@@ -85,9 +82,6 @@ public class MessageBox : MonoBehaviour {
         win.SetActive(true);
     }
 
-
-
-
     public void ShowOkCancel(string msg, MsgIcon icon, UnityAction uActionOk, UnityAction uActionCancel)
     {
         ChangeIcon(icon);
@@ -128,10 +122,8 @@ public class MessageBox : MonoBehaviour {
         btnOk.gameObject.SetActive(true);
 
         btnOk.onClick.AddListener(Close);
-        if(uActionOk != null) btnOk.onClick.AddListener(uActionOk);
+        if (uActionOk != null) btnOk.onClick.AddListener(uActionOk);
        
-
-        //print("LOSER");
         //transform.SetAsLastSibling();
         canvas.sortingOrder = 10;
         win.SetActive(true);
@@ -142,5 +134,6 @@ public class MessageBox : MonoBehaviour {
         //transform.SetAsFirstSibling();
         canvas.sortingOrder = -1;
         win.SetActive(false);
+    
     }
 }
