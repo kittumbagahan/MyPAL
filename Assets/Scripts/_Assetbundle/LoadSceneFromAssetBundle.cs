@@ -3,45 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneFromAssetBundle : MonoBehaviour
+public class LoadSceneFromAssetBundle
 {
 
     AssetBundle assetBundle;
-    [SerializeField]
+   
     string sceneURL;
-    [SerializeField]
-    int version = 1;
-    void Start()
+    int version = 0;
+
+    public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
     {
-        Caching.ClearCache();
-        StartCoroutine(IEDownload());
+        sceneURL = urlBundle;
+        version = versionBundle;
     }
 
-
-
-    IEnumerator IEDownload()
+   
+    
+    public IEnumerator IEStreamAssetBundle()
     {
         //Download asset bundle
-        WWW bundleWWW;
+      
         while (!Caching.ready)
         {
             yield return null;
         }
-        using (bundleWWW = WWW.LoadFromCacheOrDownload(sceneURL, version))
+        using (WWW www = WWW.LoadFromCacheOrDownload(sceneURL, version))
         {
-            while (!bundleWWW.isDone)
+            while (!www.isDone)
             {
                 yield return new WaitForFixedUpdate();
             }
+            Debug.Log(sceneURL + " " + version);
+            assetBundle = www.assetBundle;
         }
-
-        assetBundle = bundleWWW.assetBundle;
+       
+       
 
         if (assetBundle.isStreamedSceneAssetBundle)
         {
             string[] scenePaths = assetBundle.GetAllScenePaths();
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadSceneAsync(sceneName);
         }
     }
 }
