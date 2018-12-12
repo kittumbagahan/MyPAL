@@ -150,6 +150,12 @@ public class MainNetwork : MonoBehaviour {
     {
         Debug.Log(string.Format("{0} is connected to server", "Huehue"));
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
+        //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+    }
+
+    // kit, test
+    public void LoadSectionSelection()
+    {
         MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
     }
 
@@ -231,9 +237,16 @@ public class MainNetwork : MonoBehaviour {
         };
         //LobbyService.Instance.Initialize(server);
         server.playerConnected += Server_playerConnected;
-        server.disconnected += Server_disconnected;        
+        server.disconnected += Server_disconnected;
+        server.playerAccepted += Server_playerAccepted;
         // kit, event                      
         Connected(server);                
+    }
+
+    private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
+    {
+        Debug.Log("player is accepted");
+        //clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName());
     }
 
     private void Server_disconnected(NetWorker sender)
@@ -246,6 +259,8 @@ public class MainNetwork : MonoBehaviour {
     private void Server_playerConnected(NetworkingPlayer player, NetWorker sender)
     {
         Debug.Log("Player connected");
+        // send latest db to client
+        //clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName());
     }
 
     private void TestLocalServerFind(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)

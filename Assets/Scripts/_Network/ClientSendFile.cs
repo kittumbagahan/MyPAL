@@ -10,6 +10,9 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+using SQLite4Unity3d;
+using System;
+
 public class ClientSendFile : MonoBehaviour
 {
     // kit
@@ -41,19 +44,89 @@ public class ClientSendFile : MonoBehaviour
     
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)
     {
+        Debug.Log("frame group id:" + frame.GroupId);
+        Debug.Log("Message group id of sync, " + MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync);
+
+        if (frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
+            return;
+
         // sync message
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
         {
-            //Debug.Log ("Received file sync");
-            //NetworkModel networkModel = NetworkModelToObject (frame.StreamData.CompressBytes ());
+            #region sync
+            Debug.Log("Reading file! Sync");
 
-            //Debug.Log ("activity model " + networkModel.lstActivityModel.Count);
-            //Debug.Log ("book model " + networkModel.lstBookModel.Count);
-            //Debug.Log ("device model " + networkModel.lstDeviceModel.Count);
-            //Debug.Log ("section model " + networkModel.lstSectionModel.Count);
-            //Debug.Log ("student activity model " + networkModel.lstStudentActivityModel.Count);
-            //Debug.Log ("student book model " + networkModel.lstStudentBookModel.Count);
-            //Debug.Log ("student model " + networkModel.lstStudentModel.Count);
+            //StringBuilder("Reading file!");        
+
+            // Read the string from the beginning of the payload
+            string fileName = frame.StreamData.GetBasicType<string>();
+
+            Debug.Log("sync file name " + fileName);
+
+            MainThreadManager.Run(() => Debug.Log("File name is " + fileName + ", path: " + Application.persistentDataPath));
+
+            MainThreadManager.Run(() =>
+            {
+                try
+                {
+                    SQLiteConnection conn = new SQLiteConnection(Application.persistentDataPath + "/" + fileName);
+                    conn.Close();
+                    conn.Dispose();
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
+                    if (File.Exists(Application.persistentDataPath + "/" + fileName))
+                    {
+                        Debug.LogError("The file " + fileName + " already exists!");
+                        //StringBuilder("The file " + fileName + " already exists!"); 
+                        File.Move(Application.persistentDataPath + "/" + fileName, Application.persistentDataPath + "/backup.db");
+                        //return;
+                    }
+
+                    // Write the rest of the payload as the contents of the file and
+                    // use the file name that was extracted as the file's name 
+                    //File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes());
+                    // set the active db name
+                    //DataService.SetDbName(fileName);
+                    // load section selection
+                    //MainNetwork.Instance.LoadSectionSelection();
+
+                    // get active db change name to backup
+
+                    // delete backup.db
+                    //File.Delete(Application.persistentDataPath + "/backup.db");
+                }
+
+                catch (IOException ex)
+                {
+                    Debug.LogError("file exception! " + ex.Message);
+                }
+            }
+            );
+
+            // Write the rest of the payload as the contents of the file and
+            // use the file name that was extracted as the file's name    
+            //MainThreadManager.Run(() => File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes()));
+            // set the active db name
+            //MainThreadManager.Run(() => DataService.SetDbName(fileName));
+            // load section selection
+            //MainThreadManager.Run(MainNetwork.Instance.LoadSectionSelection);
+            #endregion
+
+            //MainThreadManager.Run(() =>
+            //{
+            //    Debug.Log("Sync enter");
+            //    NetworkModel networkModel = NetworkModelToObject(frame.StreamData.CompressBytes());
+
+            //    Debug.Log("Activity model, section count " + networkModel.lstActivityModel.Count);
+            //    Debug.Log("Student model, student count " + networkModel.lstStudentModel.Count);
+            //    Debug.Log("Sync exit");
+            //});
         }
         else
         {
@@ -262,7 +335,7 @@ public class ClientSendFile : MonoBehaviour
         //StringBuilder("sending file");
     }
 
-    public void SendDatabase(string pFilePath, string fileName)
+    public void SendDatabase(string pFilePath)
     {
         // test
         //MessageBox.ins.ShowOk (string.Format ("File path is {0}", pFilePath), MessageBox.MsgIcon.msgInformation, null);
@@ -314,14 +387,22 @@ public class ClientSendFile : MonoBehaviour
         if (networker is UDPServer)
             ((UDPServer)networker).Send (frame, true);
         else
-            ((TCPServer)networker).SendAll (frame);
-
-        //StringBuilder("sending file");
+            ((TCPServer)networker).SendAll (frame);        
     }
-
-    //public void SendSyncData(NetworkModel pNetworkModel)
+    NetworkModel networkModel;
+    //public void SendDatabase2()
     //{
-    //    Debug.Log ("Send sync data");
+    //    //NetworkModel networkModel = new NetworkModel();
+
+    //    DataService ds = new DataService();
+    //    SQLiteCommand command = ds._connection.CreateCommand("select * from ActivityModel");
+
+    //    networkModel.lstActivityModel = command.ExecuteQuery<ActivityModel>();
+
+    //    command = ds._connection.CreateCommand("select * from StudentModel");
+    //    networkModel.lstStudentModel = command.ExecuteQuery<StudentModel>();
+
+    //    ds._connection.Close();
 
     //    // Throw an error if this is not the server
     //    var networker = NetworkManager.Instance.Networker;
@@ -330,29 +411,21 @@ public class ClientSendFile : MonoBehaviour
 
     //    if (!networker.IsServer)
     //    {
-    //        Debug.LogError ("Only the client can send files in this example!");
+    //        Debug.LogError("Only the client can send files in this example!");
     //        return;
     //    }
 
-    //    //byte[] allData = { };
+    //    byte[] allData = { };
 
-    //    byte[] byteData = { };
 
     //    // convert pData as byte[]
-    //    BinaryFormatter binFormatter = new BinaryFormatter ();
-    //    MemoryStream memStream = new MemoryStream ();
-    //    binFormatter.Serialize (memStream, pNetworkModel);
+    //    BinaryFormatter binFormatter = new BinaryFormatter();
+    //    MemoryStream memStream = new MemoryStream();
+    //    binFormatter.Serialize(memStream, networkModel);
 
-    //    byteData = memStream.ToArray ();
+    //    allData = memStream.ToArray();
 
-    //    // test
-    //    //NetworkModel n = new NetworkModel ();
-    //    //n = NetworkModelToObject (allData);
-    //    //Debug.Log ("section count " + n.lstSectionModel.Count);
-
-    //    // BMS byte
-    //    BMSByte allData = new BMSByte ();
-    //    allData.Append (byteData);
+    //    Debug.Log("allData " + allData.Length);
 
     //    //        // Prepare a byte array for sending
     //    //        BMSByte allData = new BMSByte();        
@@ -361,7 +434,7 @@ public class ClientSendFile : MonoBehaviour
     //    //        ObjectMapper.Instance.MapBytes(allData);        
 
     //    // Send the file to all connected clients
-    //    Binary frame = new Binary (
+    //    Binary frame = new Binary(
     //        networker.Time.Timestep,                    // The current timestep for this frame
     //        false,                                      // We are server, no mask needed
     //        allData,                                    // The file that is being sent
@@ -375,12 +448,9 @@ public class ClientSendFile : MonoBehaviour
     //    //            ((TCPServer)networker).SendAll(frame);
 
     //    if (networker is UDPClient)
-    //        ((UDPClient)networker).Send (frame, true);
+    //        ((UDPClient)networker).Send(frame, true);
     //    else
-    //        ((TCPClient)networker).Send (frame);
-
-    //    Debug.Log ("SendSyncData exit");
-    //    //StringBuilder("sending file");
+    //        ((TCPClient)networker).Send(frame);
     //}
 
     NetworkData ConvertToObject(byte[] byteData)
@@ -391,16 +461,16 @@ public class ClientSendFile : MonoBehaviour
 		ms.Seek (0, SeekOrigin.Begin);
 
 		return (NetworkData)bin.Deserialize (ms);
-	}
+	}    
 
     //NetworkModel NetworkModelToObject(byte[] byteData)
     //{
-    //    BinaryFormatter bin = new BinaryFormatter ();
-    //    MemoryStream ms = new MemoryStream ();
-    //    ms.Write (byteData, 0, byteData.Length);
-    //    ms.Seek (0, SeekOrigin.Begin);
+    //    BinaryFormatter bin = new BinaryFormatter();
+    //    MemoryStream ms = new MemoryStream();
+    //    ms.Write(byteData, 0, byteData.Length);
+    //    ms.Seek(0, SeekOrigin.Begin);
 
-    //    return (NetworkModel)bin.Deserialize (ms);
+    //    return (NetworkModel)bin.Deserialize(ms);
     //}
 
     bool CreateStudentBookModel (NetworkData pNetworkData)

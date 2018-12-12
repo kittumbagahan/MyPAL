@@ -83,6 +83,11 @@ public class DataService
         }
     }
 
+    public static void SetDbName(string pDbName)
+    {
+        PlayerPrefs.SetString("activeDatabase", pDbName);
+    }
+
     public DataService(string DatabaseName)
    {
       string dbPath = Application.persistentDataPath + "/" + DatabaseName;
