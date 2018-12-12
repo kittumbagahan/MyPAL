@@ -4,9 +4,9 @@ using System;
 
 public abstract class CachedAssetBundleLoader : MonoBehaviour{
 
-    public string BundleURL;
+    public string bundleURL;
     public string AssetName;
-    public int version;
+    public int bundleVersion;
     private GameObject obj;
     //[SerializeField]
     //private ProgressBar pb;
@@ -30,15 +30,16 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour{
     }
 
 
-    public IEnumerator IEGetFromCache(string url)
+    public IEnumerator IEGetFromCacheOrDownload(string url, int version)
     {
-        BundleURL = url;
+        bundleURL = url;
+        bundleVersion = version;
         //DownloadProgress progress = new DownloadProgress();
         //yield return StartCoroutine(progress.IEGetAssetBundleSize(BundleURL));
         //print("Asset bundle size: " + progress.ContentLength);
         while (!Caching.ready)
             yield return null;
-        using (WWW www = WWW.LoadFromCacheOrDownload(BundleURL, version))
+        using (WWW www = WWW.LoadFromCacheOrDownload(bundleURL, version))
         {
             if (www.isDone) print("dowload finished");
             else print("downloading " + url);
@@ -73,6 +74,7 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour{
             else
             {
                 success = true;
+                bundle = www.assetBundle;
             }
             //else SetAssetBundle(www);
            

@@ -136,10 +136,10 @@ public class PatchManager : CachedAssetBundleLoader
 
     void CheckBundleVersion()
     {
-        if (PlayerPrefs.GetInt("bundleVersion") != version)
+        if (PlayerPrefs.GetInt("bundleVersion") != bundleVersion)
         {
             Caching.ClearCache();
-            PlayerPrefs.SetInt("bundleVersion", version);
+            PlayerPrefs.SetInt("bundleVersion", bundleVersion);
             PlayerPrefs.SetInt(productId_3 + "downloaded", 0);
             PlayerPrefs.SetInt(productId_2 + "downloaded", 0);
             PlayerPrefs.SetInt(productId_1 + "downloaded", 0);
@@ -152,7 +152,7 @@ public class PatchManager : CachedAssetBundleLoader
         for (int i = 0; i < bundle_URL.Length; i++)
         {
             pb.TextTitle.text = "Downloading your books " + " " + i + "/" + bundle_URL.Length;
-            yield return StartCoroutine(IEGetFromCache(bundle_URL[i]));
+            yield return StartCoroutine(IEGetFromCacheOrDownload(bundle_URL[i], 1));
 
         }
         if (success)
@@ -212,7 +212,7 @@ public class PatchManager : CachedAssetBundleLoader
         for (int i = 0; i < 4; i++)
         {
             pb.TextTitle.text = "Downloading your books " + " " + i + "/4";
-            yield return StartCoroutine(IEGetFromCache(bundle_URL[i]));
+            yield return StartCoroutine(IEGetFromCacheOrDownload(bundle_URL[i], 1));
 
         }
         if (success)
@@ -252,7 +252,7 @@ public class PatchManager : CachedAssetBundleLoader
         for (int i = 4; i < bundle_URL.Length; i++)
         {
             pb.TextTitle.text = "Downloading your books " + " " + i + "/" + bundle_URL.Length;
-            yield return StartCoroutine(IEGetFromCache(bundle_URL[i]));
+            yield return StartCoroutine(IEGetFromCacheOrDownload(bundle_URL[i], 1));
 
         }
         if (success)
