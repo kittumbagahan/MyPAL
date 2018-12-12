@@ -28,15 +28,15 @@ public sealed class Launcher : CachedAssetBundleLoader
         //if there is open network connect\
         lNet.Initialize();
 
-        //lNet.OnFindingServer += FindingServer;
-        //lNet.OnConnectedToServer += OnConnected;
-        //lNet.FindServer();
+        lNet.OnFindingServer += FindingServer;
+        lNet.OnConnectedToServer += OnConnected;
+        lNet.FindServer();
         OnDownload += pb.SetProgress;
 
         bundleURL = testUrl;
         bundleVersion = testVersion;
         Caching.ClearCache();
-        OnConnected();
+        //OnConnected();
     }
 
     private void OnConnected()
