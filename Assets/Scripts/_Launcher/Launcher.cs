@@ -83,24 +83,26 @@ public sealed class Launcher : CachedAssetBundleLoader
     private void OnConnected()
     {
         Debug.Log("I am connected");
+        MessageBox.ins.ShowOk ("HOla!" , MessageBox.MsgIcon.msgInformation, null);
         pb.TextTitle.text = "Connection success!";
         //wait for the server to send download url
         //automatically accept
         //check bundle version
-        if (CheckBundleVersion(testVersion))
-        {
-            //download assetbundle from url
-            StartCoroutine(IEDownload());
-            //on download completed load the bundle
-        }
-        else
-        {
-            pb.SetProgress(1);
-            MessageBox.ins.ShowOk("Version is up to date.", MessageBox.MsgIcon.msgInformation, 
-                () => {
-                    StartGame();
-                });
-        }
+
+        //if (CheckBundleVersion(testVersion))
+        //{
+        //    //download assetbundle from url
+        //    StartCoroutine(IEDownload());
+        //    //on download completed load the bundle
+        //}
+        //else
+        //{
+        //    pb.SetProgress(1);
+        //    MessageBox.ins.ShowOk("Version is up to date.", MessageBox.MsgIcon.msgInformation, 
+        //        () => {
+        //            StartGame();
+        //        });
+        //}
 
     }
 

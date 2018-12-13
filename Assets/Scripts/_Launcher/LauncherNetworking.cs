@@ -13,9 +13,9 @@ public class LauncherNetworking : MonoBehaviour
 
     public bool DontChangeSceneOnConnect = false;
     public string masterServerHost = string.Empty;
-    public ushort masterServerPort = 14940;
+    public ushort masterServerPort = 13940;
     public string natServerHost = string.Empty;
-    public ushort natServerPort = 14941;
+    public ushort natServerPort = 13941;
     public bool connectUsingMatchmaking = false;
     public bool useElo = false;
     public int myElo = 0;
@@ -335,7 +335,7 @@ public class LauncherNetworking : MonoBehaviour
         while (isServerFound == false)
         {
             NetWorker.RefreshLocalUdpListings(mPort);
-            Debug.Log("Finding Server");
+            Debug.Log("Finding Server " + mPort);
             //callback
             if(OnFindingServer != null)
             {

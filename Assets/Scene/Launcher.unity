@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2537,9 +2537,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DontChangeSceneOnConnect: 0
   masterServerHost: 
-  masterServerPort: 14940
+  masterServerPort: 13940
   natServerHost: 
-  natServerPort: 14941
+  natServerPort: 13941
   connectUsingMatchmaking: 0
   useElo: 0
   myElo: 0
@@ -2549,7 +2549,7 @@ MonoBehaviour:
   useInlineChat: 0
   getLocalNetworkConnections: 0
   useTCP: 0
-  mPort: 14937
+  mPort: 13937
 --- !u!4 &1946998339
 Transform:
   m_ObjectHideFlags: 0
