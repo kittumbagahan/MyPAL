@@ -15,10 +15,12 @@ public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
    NumberOfStudentsModel model = null;
    void OnEnable()
    {
-      DataService ds = new DataService ();
-      model = ds._connection.Table<NumberOfStudentsModel> ().Where (x => x.Id == 1).FirstOrDefault ();
-      maxStudentAllowed = model.MaxStudent;
-      txtNumOfStudentsAllowed.text = maxStudentAllowed.ToString ();
+        //DataService ds = new DataService ();
+        DataService.Open();
+        model = DataService._connection.Table<NumberOfStudentsModel> ().Where (x => x.Id == 1).FirstOrDefault ();
+        maxStudentAllowed = model.MaxStudent;
+        txtNumOfStudentsAllowed.text = maxStudentAllowed.ToString ();
+        DataService.Close();
    }
 
    public void UpdateNumberOfAllowedStudents()
@@ -47,11 +49,13 @@ public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
 
    void Yes()
    {
-      DataService ds = new DataService ();
+        //DataService ds = new DataService ();
+        DataService.Open();
       maxStudentAllowed = int.Parse (txtNumOfStudentsAllowed.text);
       model.MaxStudent = maxStudentAllowed;
-      ds._connection.Update (model);
+      DataService._connection.Update (model);
       //PlayerPrefs.SetInt ("maxNumberOfStudentsAllowed", maxStudentAllowed);
       MessageBox.ins.ShowOk ("Number of students per section updated!", MessageBox.MsgIcon.msgInformation, null);
+        DataService.Close();
    }
 }

@@ -8,7 +8,7 @@ public class UserBookSave : MonoBehaviour
     //REFERENCE FROM CarouItem.cs StoryBookSaveManager.instance.selectedBookName = sceneToLoad;
 
     //DataService ds = new DataService();
-    DataService ds;
+    //DataService ds;
 
     StudentBookModel model;
 
@@ -18,13 +18,14 @@ public class UserBookSave : MonoBehaviour
     void Start()
     {
         // kit
-        ds = new DataService();
+        //ds = new DataService();
+        DataService.Open();
 
         string bookname = StoryBookSaveManager.ins.selectedBook.ToString();
 
-        BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
+        BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
 
-        model = ds._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        model = DataService._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
         x.BookId == book.Id).FirstOrDefault();
 
@@ -48,8 +49,9 @@ public class UserBookSave : MonoBehaviour
             networkData.studentBook_readToMeCount = model.ReadToMeCount;
             networkData.studentBook_autoReadCount = model.AutoReadCount;
 
-            ds._connection.Insert(model);
+            DataService._connection.Insert(model);
         }
+        DataService.Close();
     }
 
     public void UpdateReadUsage()
@@ -59,8 +61,9 @@ public class UserBookSave : MonoBehaviour
         //  + StoryBookSaveManager.ins.selectedBook;
         ////print("Read Usage " + key);
         //PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
+        DataService.Open();
         int count = model.ReadCount + 1;
-        ds._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where Id='" + model.Id + "'");
+        DataService._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where Id='" + model.Id + "'");
 
         if (networkData != null)
         {
@@ -71,13 +74,14 @@ public class UserBookSave : MonoBehaviour
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
         }
-
+        DataService.Close();
     }
 
     public void UpdateReadItToMeUsage()
     {
         int count = model.ReadToMeCount + 1;
-        ds._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
+        DataService.Open();
+        DataService._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
 
         if (networkData != null)
         {
@@ -88,13 +92,14 @@ public class UserBookSave : MonoBehaviour
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
         }
-
+        DataService.Close();
     }
 
     public void UpdateAutoReadUsage()
     {
         int count = model.AutoReadCount + 1;
-        ds._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
+        DataService.Open();
+        DataService._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
         if (networkData != null)
         {
             // network data
@@ -104,7 +109,7 @@ public class UserBookSave : MonoBehaviour
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
         }
-
+        DataService.Close();
     }
 
 

@@ -17,8 +17,9 @@ public class MaintenanceLogIn : MonoBehaviour {
 
 	public void LogIn()
 	{
-        DataService ds = new DataService();
-        AdminPasswordModel model = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+        //DataService ds = new DataService();
+        DataService.Open();
+        AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
 		if(inputPWD.text.Equals(model.Password)){
 			print("Log In Success");
 			MaintenanceManager.ins.loggedInPassword = "admin";
@@ -40,6 +41,7 @@ public class MaintenanceLogIn : MonoBehaviour {
 		{
 			MessageBox.ins.ShowOk("Access denied.",MessageBox.MsgIcon.msgError, null);
 		}
+        DataService.Close();
 	}
 
 	public void ClearPWDField()

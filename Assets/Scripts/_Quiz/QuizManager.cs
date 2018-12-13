@@ -34,11 +34,12 @@ public class QuizManager : MonoBehaviour {
         //Test ();
 
         // Table Quiz surely exist
-        DataService ds = new DataService ();
+        //DataService ds = new DataService ();
+        DataService.Open();
 
         string strCommand = "select * from QuizModel";
 
-        SQLiteCommand command = ds._connection.CreateCommand (strCommand);
+        SQLiteCommand command = DataService._connection.CreateCommand (strCommand);
         List<QuizModel> m_lstQuizModel = command.ExecuteQuery<QuizModel> ();
         Debug.Log ("Count " + m_lstQuizModel.Count);
 
@@ -53,7 +54,7 @@ public class QuizManager : MonoBehaviour {
         GameObject quizObject = Instantiate (m_PrefabQuiz);
         quizObject.transform.parent = m_PrefabQuizParent.transform;
 
-        ds._connection.Close ();
+        DataService.Close();
     }
 
 
@@ -70,16 +71,18 @@ public class QuizManager : MonoBehaviour {
         //DataService ds = new DataService ();
         //ds._connection.DropTable<QuizModel> ();
 
-        DataService ds = new DataService ();
+        //DataService ds = new DataService ();
+        DataService.Open();
         // create object
         QuizModel quizModel = new QuizModel
         {
-            ID = DateTime.Now.ToString ("YYYY") + (ds._connection.Table<QuizModel> ().Count () + 1).ToString (),
+            ID = DateTime.Now.ToString ("YYYY") + (DataService._connection.Table<QuizModel> ().Count () + 1).ToString (),
             Title = "First Quiz",
             Subject = "English"
         };
         // insert object
-        ds._connection.Insert (quizModel);
+        DataService._connection.Insert (quizModel);
+        DataService.Close();
     }
 
     #endregion

@@ -54,24 +54,25 @@ public class ButtonActivity : MonoBehaviour {
             storyBook = StoryBookSaveManager.ins.selectedBook;
             index = Read.instance.SceneIndex(storyBook, module, buttonIndex);
             sceneToLoad = Read.instance.SceneName(storyBook, module, buttonIndex);
-			//2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
+            //2018 08 30//saveState = PlayerPrefs.GetString(StoryBookSaveManager.instance.oldUsername + storyBook.ToString() + sceneToLoad + module.ToString() + index);
 
             //print(sceneToLoad + " on start " + gameObject.name);
-            DataService ds = new DataService();
+            //DataService ds = new DataService();
+            DataService.Open();
             string bookname = storyBook.ToString();
             string modulename = module.ToString();
           
          
 
-            BookModel book = ds._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
+            BookModel book = DataService._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
 
-            ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(
+            ActivityModel activityModel = DataService._connection.Table<ActivityModel>().Where(
                  x => x.BookId == book.Id &&
                  x.Description == sceneToLoad &&
                  x.Module == modulename &&
                  x.Set == index).FirstOrDefault();
 
-            var studentActivityModel = ds._connection.Table<StudentActivityModel>().Where(x=>
+            var studentActivityModel = DataService._connection.Table<StudentActivityModel>().Where(x=>
                 x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
                 x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
                 x.BookId == book.Id &&
@@ -87,7 +88,7 @@ public class ButtonActivity : MonoBehaviour {
                 /*change mat*/
                 GetComponent<Image>().material = grayscale;
             }
-
+            DataService.Close();
             //print(StoryBookSaveManager.instance.oldUsername + storyBook + "_" + module + ", " + buttonIndex);
         }
         catch (Exception ex)
@@ -139,10 +140,11 @@ public class ButtonActivity : MonoBehaviour {
 
    void AddActivity()
    {
-      DataService ds = new DataService ();
+        //DataService ds = new DataService ();
+        DataService.Open();
       string _module = module.ToString ();
       string _book = storyBook.ToString ();
-      var dup = ds._connection.Table<ActivityModel> ().Where (x => x.Module == _module &&
+      var dup = DataService._connection.Table<ActivityModel> ().Where (x => x.Module == _module &&
          x.Description == sceneToLoad &&
          x.Set == index
       ).FirstOrDefault ();
@@ -151,13 +153,14 @@ public class ButtonActivity : MonoBehaviour {
       {
          var act = new ActivityModel
          {
-            BookId = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ().Id,
+            BookId = DataService._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ().Id,
             Description = sceneToLoad,
             Module = module.ToString (),
             Set = index
          };
-         ds._connection.Insert (act);
-         var a = ds._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ();
+            DataService._connection.Insert (act);
+         var a = DataService._connection.Table<BookModel> ().Where (x => x.Description == _book).FirstOrDefault ();
+            DataService.Close();
          Debug.Log (a.ToString ());
 
       }

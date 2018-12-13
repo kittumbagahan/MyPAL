@@ -10,9 +10,11 @@ public class MaintenanceDevManageAdminWindow : MonoBehaviour {
 
 	void OnEnable()
 	{
-        DataService ds = new DataService();
-        AdminPasswordModel model = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
-        txtAdminPwd.text = "Admin password: " + model.Password;	
+            //DataService ds = new DataService();
+        DataService.Open();
+        AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+        txtAdminPwd.text = "Admin password: " + model.Password;
+        DataService.Close();
     }
 
 	public void ChangeAdminPWD()
@@ -39,8 +41,9 @@ public class MaintenanceDevManageAdminWindow : MonoBehaviour {
 
 	void Save()
 	{
-        DataService ds = new DataService();
-        AdminPasswordModel model = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+            //DataService ds = new DataService();
+        DataService.Open();
+        AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
         if (inputText.text.Equals(model.Password))
         {
             MessageBox.ins.ShowOk("Old and new password must not be the same.", MessageBox.MsgIcon.msgError, null);
@@ -49,10 +52,10 @@ public class MaintenanceDevManageAdminWindow : MonoBehaviour {
         {
             model.Password = inputText.text;
             txtAdminPwd.text = "Admin password: " + model.Password;
-            ds._connection.Update(model);
+            DataService._connection.Update(model);
             //PlayerPrefs.SetString("admin", inputText.text);
             MessageBox.ins.ShowOk("Admin password changed!", MessageBox.MsgIcon.msgInformation, null);
         }
-     
+        DataService.Close();
 	}
 }

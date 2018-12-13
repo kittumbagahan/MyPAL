@@ -22,14 +22,15 @@ public class MaintenanceChangePWD : MonoBehaviour {
         }
 		else
 		{
-            DataService ds = new DataService();
-            AdminPasswordModel model = ds._connection.Table<AdminPasswordModel>().Where(x=>x.Id==1).FirstOrDefault();
+            //DataService ds = new DataService();
+            DataService.Open();
+            AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x=>x.Id==1).FirstOrDefault();
 			if(inputOld.text.Equals(model.Password) && !inputNew.text.Equals("tammytam"))
 			{
 				if(!inputOld.text.Equals(inputNew.text))
 				{
                     model.Password = inputNew.text;
-                    ds._connection.Update(model);
+                    DataService._connection.Update(model);
 					MessageBox.ins.ShowOk("Change password success!", MessageBox.MsgIcon.msgInformation, new UnityAction(CloseWindow));
 					inputNew.text = "";
 					inputOld.text = "";
@@ -44,6 +45,7 @@ public class MaintenanceChangePWD : MonoBehaviour {
 			{
 				MessageBox.ins.ShowOk("Wrong old password.", MessageBox.MsgIcon.msgError, null);
 			}
+            DataService.Close();
 		}
 
 	}

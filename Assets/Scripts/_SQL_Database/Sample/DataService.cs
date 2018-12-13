@@ -7,68 +7,94 @@ using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class DataService
+using System.Threading;
+
+public static class DataService
 {
 
-   public SQLiteConnection _connection { private set; get; }
+   public static SQLiteConnection _connection { private set; get; }
 
-   public DataService()
-   {
-      string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
-        DatabaseName = DbName ();
-      string dbPath = Application.persistentDataPath + "/" + DatabaseName;
-      Debug.Log (dbPath);
-      //#if UNITY_EDITOR
-      //        //var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
-      //#else
-      //        // check if file exists in Application.persistentDataPath
-      //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+   //public DataService()
+   //{        
+   //       string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
+   //         DatabaseName = DbName ();
+   //       string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+   //   Debug.Log (dbPath);
+   //   //#if UNITY_EDITOR
+   //   //        //var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
+   //   //#else
+   //   //        // check if file exists in Application.persistentDataPath
+   //   //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
 
-      //        if (!File.Exists(filepath))
-      //        {
-      //            Debug.Log("Database not in Persistent path");
-      //            // if it doesn't ->
-      //            // open StreamingAssets directory and load the db ->
+   //   //        if (!File.Exists(filepath))
+   //   //        {
+   //   //            Debug.Log("Database not in Persistent path");
+   //   //            // if it doesn't ->
+   //   //            // open StreamingAssets directory and load the db ->
 
-      //#if UNITY_ANDROID
-      //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
-      //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
-      //            // then save to Application.persistentDataPath
-      //            File.WriteAllBytes(filepath, loadDb.bytes);
-      //#elif UNITY_IOS
-      //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //                // then save to Application.persistentDataPath
-      //                File.Copy(loadDb, filepath);
-      //#elif UNITY_WP8
-      //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //                // then save to Application.persistentDataPath
-      //                File.Copy(loadDb, filepath);
+   //   //#if UNITY_ANDROID
+   //   //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+   //   //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
+   //   //            // then save to Application.persistentDataPath
+   //   //            File.WriteAllBytes(filepath, loadDb.bytes);
+   //   //#elif UNITY_IOS
+   //   //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //                // then save to Application.persistentDataPath
+   //   //                File.Copy(loadDb, filepath);
+   //   //#elif UNITY_WP8
+   //   //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //                // then save to Application.persistentDataPath
+   //   //                File.Copy(loadDb, filepath);
 
-      //#elif UNITY_WINRT
-      //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //		// then save to Application.persistentDataPath
-      //		File.Copy(loadDb, filepath);
+   //   //#elif UNITY_WINRT
+   //   //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //		// then save to Application.persistentDataPath
+   //   //		File.Copy(loadDb, filepath);
 
-      //#elif UNITY_STANDALONE_OSX
-      //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //		// then save to Application.persistentDataPath
-      //		File.Copy(loadDb, filepath);
-      //#else
-      //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //	// then save to Application.persistentDataPath
-      //	File.Copy(loadDb, filepath);
+   //   //#elif UNITY_STANDALONE_OSX
+   //   //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //		// then save to Application.persistentDataPath
+   //   //		File.Copy(loadDb, filepath);
+   //   //#else
+   //   //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //	// then save to Application.persistentDataPath
+   //   //	File.Copy(loadDb, filepath);
 
-      //#endif
+   //   //#endif
 
-      //            Debug.Log("Database written");
-      //        }
+   //   //            Debug.Log("Database written");
+   //   //        }
 
-      //        var dbPath = filepath;
-      //#endif
-      _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-      Debug.Log ("Final PATH: " + dbPath);
+   //   //        var dbPath = filepath;
+   //   //#endif
+   //       _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+   //       Debug.Log ("Final PATH: " + dbPath);        
+   //}    
 
-   }
+    public static void Open()
+    {
+        string DatabaseName; /* = PlayerPrefs.GetString("activeDatabase") == "" ? "tempDatabase.db" : PlayerPrefs.GetString("activeDatabase");*/
+        DatabaseName = DbName();
+        string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+
+        _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+        Debug.Log("Open Final PATH: " + dbPath);
+    }
+
+    public static void Open(string DatabaseName)
+    {
+        string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+        _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+        Debug.Log("Open Final PATH: " + dbPath);
+    }
+
+    public static void Close()
+    {
+        _connection.Close();
+        _connection.Dispose();
+        GC.Collect();
+        Debug.Log("Close connection");
+    }
 
     public static string DbName()
     {
@@ -88,62 +114,62 @@ public class DataService
         PlayerPrefs.SetString("activeDatabase", pDbName);
     }
 
-    public DataService(string DatabaseName)
-   {
-      string dbPath = Application.persistentDataPath + "/" + DatabaseName;
-      //#if UNITY_EDITOR
-      //      var dbPath = string.Format (@"Assets/StreamingAssets/{0}", DatabaseName);
-      //#else
-      //        // check if file exists in Application.persistentDataPath
-      //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+   // public DataService(string DatabaseName)
+   // {
+   //     string dbPath = Application.persistentDataPath + "/" + DatabaseName;
+   //   //#if UNITY_EDITOR
+   //   //      var dbPath = string.Format (@"Assets/StreamingAssets/{0}", DatabaseName);
+   //   //#else
+   //   //        // check if file exists in Application.persistentDataPath
+   //   //        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
 
-      //        if (!File.Exists(filepath))
-      //        {
-      //            Debug.Log("Database not in Persistent path");
-      //            // if it doesn't ->
-      //            // open StreamingAssets directory and load the db ->
+   //   //        if (!File.Exists(filepath))
+   //   //        {
+   //   //            Debug.Log("Database not in Persistent path");
+   //   //            // if it doesn't ->
+   //   //            // open StreamingAssets directory and load the db ->
 
-      //#if UNITY_ANDROID
-      //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
-      //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
-      //            // then save to Application.persistentDataPath
-      //            File.WriteAllBytes(filepath, loadDb.bytes);
-      //#elif UNITY_IOS
-      //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //                // then save to Application.persistentDataPath
-      //                File.Copy(loadDb, filepath);
-      //#elif UNITY_WP8
-      //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //                // then save to Application.persistentDataPath
-      //                File.Copy(loadDb, filepath);
+   //   //#if UNITY_ANDROID
+   //   //            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+   //   //            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
+   //   //            // then save to Application.persistentDataPath
+   //   //            File.WriteAllBytes(filepath, loadDb.bytes);
+   //   //#elif UNITY_IOS
+   //   //                 var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //                // then save to Application.persistentDataPath
+   //   //                File.Copy(loadDb, filepath);
+   //   //#elif UNITY_WP8
+   //   //                var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //                // then save to Application.persistentDataPath
+   //   //                File.Copy(loadDb, filepath);
 
-      //#elif UNITY_WINRT
-      //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //		// then save to Application.persistentDataPath
-      //		File.Copy(loadDb, filepath);
+   //   //#elif UNITY_WINRT
+   //   //		var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //		// then save to Application.persistentDataPath
+   //   //		File.Copy(loadDb, filepath);
 
-      //#elif UNITY_STANDALONE_OSX
-      //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //		// then save to Application.persistentDataPath
-      //		File.Copy(loadDb, filepath);
-      //#else
-      //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-      //	// then save to Application.persistentDataPath
-      //	File.Copy(loadDb, filepath);
+   //   //#elif UNITY_STANDALONE_OSX
+   //   //		var loadDb = Application.dataPath + "/Resources/Data/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //		// then save to Application.persistentDataPath
+   //   //		File.Copy(loadDb, filepath);
+   //   //#else
+   //   //	var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
+   //   //	// then save to Application.persistentDataPath
+   //   //	File.Copy(loadDb, filepath);
 
-      //#endif
+   //   //#endif
 
-      //            Debug.Log("Database written");
-      //        }
+   //   //            Debug.Log("Database written");
+   //   //        }
 
-      //        var dbPath = filepath;
-      //#endif
-      _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-      Debug.Log ("Final PATH: " + dbPath);
+   //   //        var dbPath = filepath;
+   //   //#endif
+   //       _connection = new SQLiteConnection (dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+   //       Debug.Log ("Final PATH: " + dbPath);
 
-   }
+   //}
 
-   public void CreateSubscriptionDB()
+   public static void CreateSubscriptionDB()
    {
       if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
       {
@@ -157,7 +183,7 @@ public class DataService
          PlayerPrefs.SetInt ("subscriptionTime_table", 1);
       }
    }
-   public void CreateDB()
+   public static void CreateDB()
    {
       Debug.Log (Application.persistentDataPath);
       if ("".Equals (PlayerPrefs.GetString ("deviceId_created")))
@@ -1412,51 +1438,51 @@ public class DataService
 
    }
 
-   public IEnumerable<SubscriptionTimeModel> GetSubscription()
+   public static IEnumerable<SubscriptionTimeModel> GetSubscription()
    {
       return _connection.Table<SubscriptionTimeModel> ();
    }
 
-   public IEnumerable<BookModel> GetBooks()
+   public static IEnumerable<BookModel> GetBooks()
    {
       return _connection.Table<BookModel> ();
    }
 
-   public IEnumerable<ActivityModel> GetActivities()
+   public static IEnumerable<ActivityModel> GetActivities()
    {
       return _connection.Table<ActivityModel> ();
    }
 
-   public IEnumerable<SectionModel> GetSections()
+   public static IEnumerable<SectionModel> GetSections()
    {
       return _connection.Table<SectionModel> ();
    }
 
-   public IEnumerable<StudentModel> GetStudents()
+   public static IEnumerable<StudentModel> GetStudents()
    {
       return _connection.Table<StudentModel> ();
    }
 
-   public IEnumerable<StudentActivityModel> GetStudentActivities()
+   public static IEnumerable<StudentActivityModel> GetStudentActivities()
    {
       return _connection.Table<StudentActivityModel> ();
    }
 
-   public IEnumerable<StudentBookModel> GetStudentBooks()
+   public static IEnumerable<StudentBookModel> GetStudentBooks()
    {
       return _connection.Table<StudentBookModel> ();
    }
-   public IEnumerable<Person> GetPersonsNamedRoberto()
+   public static IEnumerable<Person> GetPersonsNamedRoberto()
    {
       return _connection.Table<Person> ().Where (x => x.Name == "Roberto");
    }
 
-   public Person GetJohnny()
+   public static Person GetJohnny()
    {
       return _connection.Table<Person> ().Where (x => x.Name == "Johnny").FirstOrDefault ();
    }
 
-   public Person CreatePerson()
+   public static Person CreatePerson()
    {
       var p = new Person
       {

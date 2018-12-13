@@ -12,7 +12,7 @@ public class TimeUsageCounter : MonoBehaviour
    [SerializeField]
    int timeInSecondsUsage;
   
-   DataService ds;
+   //DataService ds;
    SubscriptionTimeModel model = null;
 
    void Start()
@@ -25,8 +25,12 @@ public class TimeUsageCounter : MonoBehaviour
       else
       {
          ins = this;
-         ds = new DataService ("system/subscription.db");
-         model = ds._connection.Table<SubscriptionTimeModel> ().Where (x => x.Id == 1).FirstOrDefault ();
+            // db
+            DataService.Close();
+            DataService.Open("system/subscription.db");
+         //ds = new DataService ("system/subscription.db");
+         model = DataService._connection.Table<SubscriptionTimeModel> ().Where (x => x.Id == 1).FirstOrDefault ();
+            DataService.Close();
       }
 
 
@@ -68,7 +72,9 @@ public class TimeUsageCounter : MonoBehaviour
    public void Save()
    {
       model.Timer = timeInSecondsUsage;
-      ds._connection.Update (model);
+        DataService.Open("system/subscription.db");
+      DataService._connection.Update (model);
+        DataService.Close();
       
       //PlayerPrefs.SetInt ("TimeUsage", timeInSecondsUsage);
    }

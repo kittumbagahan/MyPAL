@@ -45,9 +45,11 @@ public class UserBooksManager : MonoBehaviour
     public void Show(int key)
     {
         userId = key;
-        DataService ds = new DataService();
-        sm = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        //DataService ds = new DataService();
+        DataService.Open();
+        sm = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.Id == userId).FirstOrDefault();
+        DataService.Close();
         gameObject.SetActive(true);
 
         utxtBookHeader.text = sm.Nickname + "'s" + " favorite books";
@@ -59,21 +61,25 @@ public class UserBooksManager : MonoBehaviour
 
     int GetReadCount(string bookname)
     {
-        DataService ds = new DataService();
-        BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
-        StudentBookModel sbm = ds._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        //DataService ds = new DataService();
+        DataService.Open();
+        BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
+        StudentBookModel sbm = DataService._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == userId && x.BookId == book.Id).FirstOrDefault();
+        DataService.Close();
         if (sbm == null) return 0;
         return sbm.ReadCount + sbm.ReadToMeCount + sbm.AutoReadCount;
     }
   
     int GetPlayCount(string bookname)
     {
-        DataService ds = new DataService();
-        BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
-        var activity = ds._connection.Table<ActivityModel>().Where(x => x.BookId == book.Id);
-        var studentActivity = ds._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        //DataService ds = new DataService();
+        DataService.Open();
+        BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
+        var activity = DataService._connection.Table<ActivityModel>().Where(x => x.BookId == book.Id);
+        var studentActivity = DataService._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == userId && x.BookId == book.Id);
+        DataService.Close();
         //ToConsole(activity);
         if (studentActivity == null) return 0;
         return studentActivity.Sum(x => x.PlayCount);

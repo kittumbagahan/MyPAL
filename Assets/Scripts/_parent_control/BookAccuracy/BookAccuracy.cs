@@ -77,26 +77,26 @@ public class BookAccuracy : MonoBehaviour {
     }
     public string GetGrade(string bookDesc, string activityDesc, string module, int set)
     {
-        DataService ds = new DataService();
+        //DataService ds = new DataService();
+        DataService.Open();
+        BookModel bm = DataService._connection.Table<BookModel>().Where(x=>x.Description == bookDesc).FirstOrDefault();
 
-        BookModel bm = ds._connection.Table<BookModel>().Where(x=>x.Description == bookDesc).FirstOrDefault();
-
-        ActivityModel am = ds._connection.Table<ActivityModel>().Where(x=>x.BookId == bm.Id &&
+        ActivityModel am = DataService._connection.Table<ActivityModel>().Where(x=>x.BookId == bm.Id &&
         x.Description == activityDesc && x.Module == module && x.Set == set).FirstOrDefault();
         //In this case this activity is have not yet taken by the user. ActivityModel table is created when user played the activity for the first time.
         if (am != null)
         {
-            StudentActivityModel sam = ds._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+            StudentActivityModel sam = DataService._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
              x.StudentId == UserAccountManager.ins.SelectedSlot.UserId && x.ActivityId == am.Id).FirstOrDefault();
 
+            DataService.Close();
             return sam == null ? "" : sam.Grade;
         }
         else
         {
+            DataService.Close();
             return "";
         }
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "0")));
-       
-       
+        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "0")));        
     }
 }

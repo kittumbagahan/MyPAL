@@ -31,7 +31,7 @@ public class ClientSendFile : MonoBehaviour
 
     Queue<NetworkData> networkQueue;
 
-    DataService dataService;
+    //DataService dataService;
 
     private void Start()
     {        
@@ -39,7 +39,7 @@ public class ClientSendFile : MonoBehaviour
         networkQueue = new Queue<NetworkData>();
 
         // create database connection
-        dataService = new DataService();
+        //dataService = new DataService();
     }
     
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)
@@ -74,11 +74,8 @@ public class ClientSendFile : MonoBehaviour
             {
                 try
                 {
-                    SQLiteConnection conn = new SQLiteConnection(Application.persistentDataPath + "/" + fileName);
-                    conn.Close();
-                    conn.Dispose();
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
+                    // close any open database
+                    DataService.Close();
 
                     if (File.Exists(Application.persistentDataPath + "/" + fileName))
                     {
@@ -90,16 +87,15 @@ public class ClientSendFile : MonoBehaviour
 
                     // Write the rest of the payload as the contents of the file and
                     // use the file name that was extracted as the file's name 
-                    //File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes());
+                    File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes());
                     // set the active db name
-                    //DataService.SetDbName(fileName);
-                    // load section selection
-                    //MainNetwork.Instance.LoadSectionSelection();
-
-                    // get active db change name to backup
-
+                    DataService.SetDbName(fileName);
                     // delete backup.db
-                    //File.Delete(Application.persistentDataPath + "/backup.db");
+                    File.Delete(Application.persistentDataPath + "/backup.db");
+                    // load section selection
+                    MainNetwork.Instance.LoadSectionSelection();
+                    // get active db change name to backup
+                    
                 }
 
                 catch (IOException ex)
@@ -165,7 +161,8 @@ public class ClientSendFile : MonoBehaviour
                     int set = networkQueue.Peek ().activity_set;
                     string book_description = networkQueue.Peek ().book_description;
 
-                    var activity = dataService._connection.Table<ActivityModel> ().Where (x => x.Module == module &&
+                    DataService.Open();
+                    var activity = DataService._connection.Table<ActivityModel> ().Where (x => x.Module == module &&
                                                                                           x.Description == description &&
                                                                                           x.Set == set).FirstOrDefault ();
 
@@ -173,13 +170,14 @@ public class ClientSendFile : MonoBehaviour
                     {
                         var _activity = new ActivityModel
                         {
-                            BookId = dataService._connection.Table<BookModel> ().Where (x => x.Description == book_description).FirstOrDefault ().Id,
+                            BookId = DataService._connection.Table<BookModel> ().Where (x => x.Description == book_description).FirstOrDefault ().Id,
                             Description = networkQueue.Peek ().activity_description,
                             Module = networkQueue.Peek ().activity_module,
                             Set = networkQueue.Peek ().activity_set
                         };
-                        dataService._connection.Insert (_activity);
+                        DataService._connection.Insert (_activity);
                     }
+                    DataService.Close();
                 }
 
                 // if message is insert
@@ -210,7 +208,9 @@ public class ClientSendFile : MonoBehaviour
                         studentActivityModel.Grade,
                         studentActivityModel.PlayCount));
 
-                    dataService._connection.Insert (studentActivityModel);
+                    DataService.Open();
+                    DataService._connection.Insert (studentActivityModel);
+                    DataService.Close();
                     networkQueue.Dequeue ();
 
                 }
@@ -232,7 +232,9 @@ public class ClientSendFile : MonoBehaviour
                                 networkData.studentBook_readCount,
                                 networkData.studentBook_Id);
 
-                            dataService._connection.Execute (command);
+                            DataService.Open();
+                            DataService._connection.Execute (command);
+                            DataService.Close();
                         }
                     }
                     else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount)
@@ -244,7 +246,9 @@ public class ClientSendFile : MonoBehaviour
                             networkData.studentBook_readToMeCount,
                             networkData.studentBook_Id);
 
-                            dataService._connection.Execute (command);
+                            DataService.Open();
+                            DataService._connection.Execute (command);
+                            DataService.Close();
                         }
                     }
                     else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount)
@@ -256,7 +260,9 @@ public class ClientSendFile : MonoBehaviour
                             networkData.studentBook_autoReadCount,
                             networkData.studentBook_Id);
 
-                            dataService._connection.Execute (command);
+                            DataService.Open();
+                            DataService._connection.Execute (command);
+                            DataService.Close();
                         }
                     }
 
@@ -476,7 +482,8 @@ public class ClientSendFile : MonoBehaviour
     bool CreateStudentBookModel (NetworkData pNetworkData)
     {
         // check student book model
-        StudentBookModel studentModel = dataService._connection.Table<StudentBookModel> ().Where
+        DataService.Open();
+        StudentBookModel studentModel = DataService._connection.Table<StudentBookModel> ().Where
         (
            x => x.SectionId == pNetworkData.studentBook_SectionId &&
            x.StudentId == pNetworkData.studentBook_StudentId &&
@@ -495,13 +502,15 @@ public class ClientSendFile : MonoBehaviour
                 ReadToMeCount = pNetworkData.studentBook_readToMeCount,
                 AutoReadCount = pNetworkData.studentBook_autoReadCount
             };
-            dataService._connection.Insert (studentBookModel);
+            DataService._connection.Insert (studentBookModel);
 
             return true;
+            DataService.Close();
         }
         else
         {
             Debug.Log ("Create student book model update");
+            DataService.Close();
             return true;
         }
     }

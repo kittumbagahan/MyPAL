@@ -18,27 +18,35 @@ public class CreateDBScript : MonoBehaviour
 
    private void StartSync()
    {
-      //set the active database for the app for the firstime
-      //if ("".Equals(PlayerPrefs.GetString("activeDatabase")))
-      //{
-      //    PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
-      //}
-     
-      var ds = new DataService ();
-      ds.CreateDB ();
-      var books = ds.GetBooks ();
-      var acts = ds.GetActivities ();
-      var sections = ds.GetSections ();
-      var st = ds.GetStudents ();
-      var studentActivities = ds.GetStudentActivities ();
-      var studentBooks = ds.GetStudentBooks ();
+        //set the active database for the app for the firstime
+        //if ("".Equals(PlayerPrefs.GetString("activeDatabase")))
+        //{
+        //    PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
+        //}
+
+        //var ds = new DataService ();
+        DataService.Open();
+      DataService.CreateDB ();
+      var books = DataService.GetBooks ();
+      var acts = DataService.GetActivities ();
+      var sections = DataService.GetSections ();
+      var st = DataService.GetStudents ();
+      var studentActivities = DataService.GetStudentActivities ();
+      var studentBooks = DataService.GetStudentBooks ();
+
+        DataService.Close();
 
       DatabaseController dc = new DatabaseController ();
       dc.CreateDB ("subscription.db");
-      var ds2 = new DataService ("system/subscription.db");
-      ds2.CreateSubscriptionDB ();
-      var subs = ds2.GetSubscription ();
+      //var ds2 = new DataService ("system/subscription.db");
+
+        DataService.Open("system/subscription.db");
+
+        DataService.CreateSubscriptionDB ();
+      var subs = DataService.GetSubscription ();
       ToConsole (subs);
+
+        DataService.Close();
    }
 
    private void ToConsole(IEnumerable<SubscriptionTimeModel> model)

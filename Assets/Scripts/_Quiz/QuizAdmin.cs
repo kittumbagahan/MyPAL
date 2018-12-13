@@ -6,7 +6,7 @@ using SQLite4Unity3d;
 
 public class QuizAdmin : MonoBehaviour {
 
-    DataService dataService;
+    //DataService dataService;
 
     QuizModel quizModel;
     QuizItemModel quizItemModel;
@@ -28,7 +28,7 @@ public class QuizAdmin : MonoBehaviour {
 
     public void Init()
     {
-        dataService = new DataService ();
+        //dataService = new DataService ();
 
         // check models
         CheckQuizModel ();
@@ -41,12 +41,16 @@ public class QuizAdmin : MonoBehaviour {
     {
         try
         {
-            dataService._connection.Table<QuizModel> ().Count();
+            DataService.Open();
+            DataService._connection.Table<QuizModel> ().Count();
+            DataService.Close();
             Debug.Log ("Quiz Model Exist");
         }
         catch(SQLiteException ex)
         {
-            dataService._connection.CreateTable<QuizModel> ();
+            DataService.Open();
+            DataService._connection.CreateTable<QuizModel> ();
+            DataService.Close();
         }
     }
 
@@ -54,12 +58,16 @@ public class QuizAdmin : MonoBehaviour {
     {
         try
         {
-            dataService._connection.Table<QuizItemModel> ().Count ();
+            DataService.Open();
+            DataService._connection.Table<QuizItemModel> ().Count ();
+            DataService.Close();
             Debug.Log ("Quiz Item Model Exist");
         }
         catch (SQLiteException ex)
         {
-            dataService._connection.CreateTable<QuizItemModel> ();
+            DataService.Open();
+            DataService._connection.CreateTable<QuizItemModel> ();
+            DataService.Close();
         }
     }
 
@@ -67,12 +75,16 @@ public class QuizAdmin : MonoBehaviour {
     {
         try
         {
-            dataService._connection.Table<QuizItemChoicesModel> ().Count ();
+            DataService.Open();
+            DataService._connection.Table<QuizItemChoicesModel> ().Count ();
+            DataService.Close();
             Debug.Log ("Quiz Item Choices Model Exist");
         }
         catch (SQLiteException ex)
         {
-            dataService._connection.CreateTable<QuizItemChoicesModel> ();
+            DataService.Open();
+            DataService._connection.CreateTable<QuizItemChoicesModel> ();
+            DataService.Close();
         }
     }
 
@@ -80,11 +92,14 @@ public class QuizAdmin : MonoBehaviour {
     {
         try
         {
-            dataService._connection.Table<SubjectModel> ().Count ();
+            DataService.Open();
+            DataService._connection.Table<SubjectModel> ().Count ();
+            DataService.Close();
         }
         catch(SQLiteException ex)
         {
-            dataService._connection.CreateTable<SubjectModel> ();
+            DataService.Open();
+            DataService._connection.CreateTable<SubjectModel> ();
             SubjectModel subjectModel1 = new SubjectModel
             {
                 Name = "MATH"
@@ -95,8 +110,10 @@ public class QuizAdmin : MonoBehaviour {
                 Name = "ENGLISH"
             };
 
-            dataService._connection.Insert (subjectModel1);
-            dataService._connection.Insert (subjectModel2);
+            DataService._connection.Insert (subjectModel1);
+            DataService._connection.Insert (subjectModel2);
+
+            DataService.Close();
         }
     }
     #endregion

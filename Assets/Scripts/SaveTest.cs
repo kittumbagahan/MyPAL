@@ -23,8 +23,9 @@ public class SaveTest : MonoBehaviour
      
         print("SAVED " + ScoreManager.ins.GetGrade());
         print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
-      
-        DataService ds = new DataService();
+
+        //DataService ds = new DataService();
+        DataService.Open();
 
         print(storyBook.ToString());
         string bookname = storyBook.ToString();
@@ -32,15 +33,15 @@ public class SaveTest : MonoBehaviour
         string scenename = SceneManager.GetActiveScene().name;
         string grade = ScoreManager.ins.GetGrade();
 
-        BookModel book = ds._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
+        BookModel book = DataService._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
        
-        ActivityModel activityModel = ds._connection.Table<ActivityModel>().Where(
+        ActivityModel activityModel = DataService._connection.Table<ActivityModel>().Where(
              x => x.BookId == book.Id &&
              x.Description == scenename &&
              x.Module == modulename &&
              x.Set == set).FirstOrDefault();
 
-        StudentActivityModel studentActivityModel = ds._connection.Table<StudentActivityModel>().Where(x =>
+        StudentActivityModel studentActivityModel = DataService._connection.Table<StudentActivityModel>().Where(x =>
             x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
             x.StudentId == StoryBookSaveManager.ins.activeUser_id &&
             x.BookId == activityModel.BookId &&
@@ -80,7 +81,7 @@ public class SaveTest : MonoBehaviour
             networkData.studentActivity_grade = model.Grade;
             networkData.studentActivity_playCount = model.PlayCount;
 
-            ds._connection.Insert(model);
+            DataService._connection.Insert(model);
 
             // send data to server for insert
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
@@ -94,7 +95,7 @@ public class SaveTest : MonoBehaviour
             string command = "Update StudentActivityModel set Grade='" + grade
                 + "', PlayCount='" + playN + "' where Id='" + studentActivityModel.Id + "'";
 
-            ds._connection.Execute(command);
+            DataService._connection.Execute(command);
 
             // network data
             networkData.studentActivity_grade = grade;

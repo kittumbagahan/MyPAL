@@ -20,8 +20,9 @@ public class TeacherLogIn : MonoBehaviour {
 	public void LogIn()
 	{
         ResetPasswordModel m = null;
-        DataService ds = new DataService();
-        AdminPasswordModel admin = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+        //DataService ds = new DataService();
+        DataService.Open();
+        AdminPasswordModel admin = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();        
 
         if (inputPWD.text.Equals(admin.Password)){
             UserRestrictionController.ins.Restrict(0);
@@ -43,23 +44,27 @@ public class TeacherLogIn : MonoBehaviour {
 		{
 			MessageBox.ins.ShowOk("Access denied!", MessageBox.MsgIcon.msgError, null);
 		}
-	}
+
+        DataService.Close();
+    }
 
     private ResetPasswordModel SystemPassword(string input)
     {
-        DataService ds = new DataService();
-
-        ResetPasswordModel model = ds._connection.Table<ResetPasswordModel>().Where(x => x.Used == false && x.SystemPasscode == input).FirstOrDefault();
+        //DataService ds = new DataService();
+        DataService.Open();
+        ResetPasswordModel model = DataService._connection.Table<ResetPasswordModel>().Where(x => x.Used == false && x.SystemPasscode == input).FirstOrDefault();
         if (model != null)
             model.Used = true;
         else
         return null;
 
-        AdminPasswordModel admin = ds._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
+        AdminPasswordModel admin = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
         admin.Password = "1234";
-        ds._connection.Update(model);
-        ds._connection.Update(admin);
-       
+        DataService._connection.Update(model);
+        DataService._connection.Update(admin);
+
+        DataService.Close();
+
         return model;
     }
 }

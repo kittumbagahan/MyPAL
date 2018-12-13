@@ -77,8 +77,10 @@ public class UserAccountManager : MonoBehaviour
     {
         int n = 0;
         maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
-        DataService ds = new DataService();
-        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+        //DataService ds = new DataService();
+        DataService.Open();
+        var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+        DataService.Close();
 
         foreach(StudentModel student in students)
         {

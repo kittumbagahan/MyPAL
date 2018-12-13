@@ -62,15 +62,16 @@ public class StudentController : MonoBehaviour
     {
         //maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
         currentMaxStudent = 0;
-        DataService ds = new DataService();
-        maxStudentAllowed = ds._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
+        //DataService ds = new DataService();
+        DataService.Open();
+        maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;        
         //load all students from their section in all devices
 
 
         //var students = UserRestrictionController.ins.restriction == 0? 
         //    ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id) : 
         //    ds._connection.Table<StudentModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier && x.SectionId == StoryBookSaveManager.ins.activeSection_id);
-        var students = ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
+        var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
         
         for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
         {
@@ -101,7 +102,7 @@ public class StudentController : MonoBehaviour
             }
 
         }
-
+        DataService.Close();
     }
     public void CreateNewStudent()
     {
@@ -113,12 +114,13 @@ public class StudentController : MonoBehaviour
         {
             if (currentMaxStudent < maxStudentAllowed)
             {
-                DataService ds = new DataService();
+                //DataService ds = new DataService();
+                DataService.Open();
                 string studentName = txtGivenName.text + " " + txtMiddleName.text + " " + txtSurname.text + " " + txtNickName.text;
                 
                 //check duplicate entry in all devices and sections
                 //assuming there can be no same names in a school
-                StudentModel sm = ds._connection.Table<StudentModel>().Where(
+                StudentModel sm = DataService._connection.Table<StudentModel>().Where(
                    a => a.Lastname == txtSurname.text &&
                    a.Middlename == txtMiddleName.text &&
                    a.Givenname == txtGivenName.text &&
@@ -134,14 +136,14 @@ public class StudentController : MonoBehaviour
                         Lastname = txtSurname.text,
                         Nickname = txtNickName.text
                     };
-                    ds._connection.Insert(model);
+                    DataService._connection.Insert(model);
                     //ds._connection.Execute ("Insert into StudentModel(SectionId, Givenname, Middlename, Lastname, Nickname)" +
                     //   "Values('" + StoryBookSaveManager.ins.activeSection_id + "','" + model.Givenname + "','" + model.Middlename + "','" + model.Lastname + "','" + model.Nickname + "')");
 
 
                     GameObject _obj = Instantiate(btnStudentPrefab);
                     Student _student = _obj.GetComponent<Student>();
-                    StudentModel s = ds._connection.Table<StudentModel>().Where(
+                    StudentModel s = DataService._connection.Table<StudentModel>().Where(
                      a => a.Lastname == txtSurname.text &&
                      a.Middlename == txtMiddleName.text &&
                      a.Givenname == txtGivenName.text &&
@@ -163,6 +165,8 @@ public class StudentController : MonoBehaviour
                 {
                     MessageBox.ins.ShowOk("Name already exist.", MessageBox.MsgIcon.msgError, null);
                 }
+
+                DataService.Close();
             }
             else
             {
@@ -263,7 +267,8 @@ class UpdateStudent
         }
         else
         {
-            DataService ds = new DataService();
+            //DataService ds = new DataService();
+            DataService.Open();
             StudentModel model = new StudentModel
             {
                 Id = s.id,
@@ -274,13 +279,15 @@ class UpdateStudent
                 Nickname = view.txtNickname.text
             };
 
-            ds._connection.Execute("Update StudentModel set Givenname='" + model.Givenname + "', Middlename='" + model.Middlename + "', " +
+            DataService._connection.Execute("Update StudentModel set Givenname='" + model.Givenname + "', Middlename='" + model.Middlename + "', " +
                "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "'");
 
             StudentController.ins.LoadStudentsSQL();
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
             StudentController.ins.editMode = false;
             view.btnOK.onClick.RemoveAllListeners();
+
+            DataService.Close();
         }
     }
 }

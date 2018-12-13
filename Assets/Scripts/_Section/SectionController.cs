@@ -53,9 +53,10 @@ public class SectionController : MonoBehaviour
 
     public void LoadSectionsSQL()
     {
-        DataService ds = new DataService();
-   
-        var sections = ds.GetSections();
+        //DataService ds = new DataService();
+        DataService.Open();
+
+        var sections = DataService.GetSections();        
 
         for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
         {
@@ -90,6 +91,8 @@ public class SectionController : MonoBehaviour
             }
 
         }
+
+        DataService.Close();
     }
 
     public void CreateNewSection(Text newSection)
@@ -103,19 +106,21 @@ public class SectionController : MonoBehaviour
         {
             if (currentMaxSection < maxSectionAllowed)
             {
-                DataService ds = new DataService();
-             
-                if (ds._connection.Table<SectionModel>().Where(x => x.Description == newSection.text).FirstOrDefault() == null)
+                //DataService ds = new DataService();
+
+                DataService.Open();
+
+                if (DataService._connection.Table<SectionModel>().Where(x => x.Description == newSection.text).FirstOrDefault() == null)
                 {
 
                     SectionModel model = new SectionModel { DeviceId = SystemInfo.deviceUniqueIdentifier, Description = newSection.text };
-                    ds._connection.Insert(model);
+                    DataService._connection.Insert(model);
 
                     //int newId = SetSectionId ();
                     //PlayerPrefs.SetString ("section_id" + newId, newSection.text);
                     GameObject _obj = Instantiate(btnSectionPrefab);
                     Section _section = _obj.GetComponent<Section>();
-                    SectionModel s = ds._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
+                    SectionModel s = DataService._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
                     _section.id = s.Id;
                     _section.name = newSection.text;
                     _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
@@ -129,6 +134,8 @@ public class SectionController : MonoBehaviour
                 {
                     MessageBox.ins.ShowOk(newSection.text + " already exist.", MessageBox.MsgIcon.msgError, null);
                 }
+
+                DataService.Close();
             }
             else
             {
@@ -225,18 +232,21 @@ class UpdateSection
         }
         else
         {
-            DataService ds = new DataService();
+            //DataService ds = new DataService();
+            DataService.Open();
             SectionModel model = new SectionModel {
                 Id = s.id,
                 Description = view.txtSectionName.text
             };
             //_connection.Execute ("Update UserTable set currentCar=" + currnetCarNumb + " where
             //ID = "+userID);
-            ds._connection.Execute("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "'");
+            DataService._connection.Execute("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "'");
             MessageBox.ins.ShowOk("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
             SectionController.ins.editMode = false;
             SectionController.ins.LoadSectionsSQL();
             view.btnOK.onClick.RemoveAllListeners();
+
+            DataService.Close();
 
             //view.btnClose.onClick.RemoveAllListeners ();
         }

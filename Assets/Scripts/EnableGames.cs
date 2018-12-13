@@ -31,14 +31,15 @@ public class EnableGames : MonoBehaviour {
 
     int IsAvailable()
     {
-        DataService ds = new DataService();
+        //DataService ds = new DataService();
+        DataService.Open();
         string bookname = StoryBookSaveManager.ins.selectedBook.ToString();
-        BookModel book = ds._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
-        var model = ds._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
+        BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
+        var model = DataService._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == StoryBookSaveManager.ins.activeUser_id && x.BookId == book.Id).FirstOrDefault();
 
         if (model == null) return 0;
-
+        DataService.Close();
         return model.ReadCount + model.ReadToMeCount + model.AutoReadCount;
     }
 }
