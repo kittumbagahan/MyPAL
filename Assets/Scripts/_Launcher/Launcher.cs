@@ -4,9 +4,19 @@ using UnityEngine;
 using BeardedManStudios.Forge.Networking;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public sealed class Launcher : CachedAssetBundleLoader
 {
+    [SerializeField]
+    Button btnUpdate;
+    [SerializeField]
+    Button btnStart;
+    [SerializeField]
+    Button btnCancel;
+    [SerializeField]
+    Text txtAppVersion;
+
 
     [SerializeField]
     LauncherNetworking lNet;
@@ -20,38 +30,91 @@ public sealed class Launcher : CachedAssetBundleLoader
     [SerializeField]
     string testUrl; //include extension name
     [SerializeField]
-    int testVersion; //version not yet tested.. later..
+    int testVersion; 
 
     void Start()
     {
-        //check for open network
-        //if there is open network connect\
         lNet.Initialize();
-
         lNet.OnFindingServer += FindingServer;
         lNet.OnConnectedToServer += OnConnected;
-        lNet.FindServer();
-        OnDownload += pb.SetProgress;
 
-        bundleURL = testUrl;
-        bundleVersion = testVersion;
-        Caching.ClearCache();
-        //OnConnected();
+        txtAppVersion.text = "version " + PlayerPrefs.GetInt("productVersion") + "." + PlayerPrefs.GetInt("releaseVersion") + "." + PlayerPrefs.GetInt("bundleVersion");
+        btnCancel.gameObject.SetActive(false);
+    }
+
+    public void CheckForUpdate()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MessageBox.ins.ShowOk("No connection.", MessageBox.MsgIcon.msgError, null);
+        }
+        else
+        {
+            pb.gameObject.SetActive(true);
+            btnUpdate.interactable = false;
+            btnStart.interactable = false;
+            btnCancel.gameObject.SetActive(true);
+            //check for open network
+            //if there is open network connect
+            lNet.FindServer();
+            OnDownload += pb.SetProgress;
+
+            bundleURL = testUrl;
+            bundleVersion = testVersion;
+            //Caching.ClearCache();
+            //PlayerPrefs.SetInt("bundleVersion", 0);
+            
+            //this code shouldn't be here
+            //OnConnected();
+        }
+    }
+
+    public void CancelCheckUpdate()
+    {
+        //cancel will be disabled once the client succesfully connected to the server
+        Debug.Log("Check for update cancelled.");
+        btnCancel.gameObject.SetActive(false);
+        btnUpdate.interactable = true;
+        btnStart.interactable = true;
+        pb.gameObject.SetActive(false);
+
     }
 
     private void OnConnected()
     {
         Debug.Log("I am connected");
+        pb.TextTitle.text = "Connection success!";
         //wait for the server to send download url
         //automatically accept
-        //download assetbundle from url
-        StartCoroutine(IEDownload());
-        //on download completed load the bundle
+        //check bundle version
+        if (CheckBundleVersion(testVersion))
+        {
+            //download assetbundle from url
+            StartCoroutine(IEDownload());
+            //on download completed load the bundle
+        }
+        else
+        {
+            pb.SetProgress(1);
+            MessageBox.ins.ShowOk("Version is up to date.", MessageBox.MsgIcon.msgInformation, 
+                () => {
+                    StartGame();
+                });
+        }
+
+    }
+
+    public void StartGame()
+    {
+        LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(bundleURL, PlayerPrefs.GetInt("bundleVersion"));
+        StartCoroutine(loader.IEStreamAssetBundle());
     }
 
     IEnumerator IEDownload()
     {
-        yield return StartCoroutine(IEGetFromCacheOrDownload(bundleURL, 1));
+        //*NOTE when we have downloaded versions bundle you can switch to previous version by setting the bundleVersion without changing bundleURL
+        //*always download assetbundle with together with its url and version number
+        yield return StartCoroutine(IEGetFromCacheOrDownload(bundleURL, bundleVersion));
         if (success)
         {
             PlayerPrefs.SetInt("bundleVersion", bundleVersion); // reference importanteu
@@ -83,17 +146,29 @@ public sealed class Launcher : CachedAssetBundleLoader
     }
 
 
-
     private void FindingServer()
     {
-
+        //Debug.Log(string.Format("finding server counting={0}", findingServerTime));
+        pb.TextTitle.text = "Finding server " + findingServerTime.ToString() +"s";
         findingServerTime += 1;
-        Debug.Log(string.Format("finding server counting={0}", findingServerTime));
-
         if (findingServerTime >= 60)
         {
             Debug.Log("What to do?");
         }
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MessageBox.ins.ShowOk("No connection. Do something here.", MessageBox.MsgIcon.msgError, null);
+            //stop lNet.FindServer();
+        }
+    }
+
+    bool CheckBundleVersion(int serverBundleVersion)
+    {
+        if (serverBundleVersion > PlayerPrefs.GetInt("bundleVersion"))
+        {
+            return true;
+        }
+        return false;
     }
 
     #region Messages

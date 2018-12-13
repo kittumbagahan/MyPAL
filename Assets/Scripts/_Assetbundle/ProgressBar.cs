@@ -26,13 +26,13 @@ public class ProgressBar : MonoBehaviour {
         bg_Max_Width = backgroundProgess.GetWidth();
         //StartCoroutine(test());
     }
-    float n = 0;
-    void FixedUpdate()
-    {
-        
-        //n++;
-        //SetProgress(n/100);
-    }
+    //float n = 0;
+    //void FixedUpdate()
+    //{
+
+    //    n++;
+    //    SetProgress(n / 100);
+    //}
 
 
     public void SetTitle(string s)
@@ -69,10 +69,7 @@ public class ProgressBar : MonoBehaviour {
 
     //800 = 100%
     //
-    void Update()
-    { 
-        
-    }
+   
 
    
 
