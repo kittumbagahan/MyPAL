@@ -1,12 +1,17 @@
-﻿using BeardedManStudios.Forge.Networking;
+﻿using BeardedManStudios;
+using BeardedManStudios.Forge.Networking;
+using BeardedManStudios.Forge.Networking.Frame;
 using BeardedManStudios.Forge.Networking.Unity;
-using BeardedManStudios.Forge.Networking.Lobby;
 using BeardedManStudios.SimpleJSON;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using SQLite4Unity3d;
+using System;
 
 public class LauncherNetworking : MonoBehaviour
 {
@@ -129,7 +134,7 @@ public class LauncherNetworking : MonoBehaviour
             // I just make it randomly pick a server... you can do whatever you please!
             if (response != null && response.serverResponse.Count > 0)
             {
-                MasterServerResponse.Server server = response.serverResponse[Random.Range(0, response.serverResponse.Count)];
+                MasterServerResponse.Server server = response.serverResponse[UnityEngine.Random.Range(0, response.serverResponse.Count)];
                 //TCPClient client = new TCPClient();
                 UDPClient client = new UDPClient();
                 client.Connect(server.Address, server.Port);
@@ -188,8 +193,9 @@ public class LauncherNetworking : MonoBehaviour
         {
           
         }
-       
-        mClientSendFile.enabled = true;
+
+        //mClientSendFile.enabled = true;
+        NetworkManager.Instance.Networker.binaryMessageReceived += ReceivedFile;
     }
 
     private void Server_disconnected(NetWorker sender)
@@ -349,7 +355,35 @@ public class LauncherNetworking : MonoBehaviour
 
     }
 
-   
+
 
     #endregion
+
+    void ReceivedFile (NetworkingPlayer player, Binary frame, NetWorker sender)
+    {
+        Debug.Log ("frame group id:" + frame.GroupId);
+        Debug.Log ("Message group id of sync, " + MessageGroupIds.START_OF_GENERIC_IDS + 8);
+
+        if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + 8)
+        {
+            Debug.Log ("Asset bundle");
+            AssetBundleData assetBundleData = ConvertToObject (frame.StreamData.CompressBytes ());
+            Debug.Log ("version" + assetBundleData.version);
+            Debug.Log ("url " + assetBundleData.url);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    AssetBundleData ConvertToObject (byte[] byteData)
+    {
+        BinaryFormatter bin = new BinaryFormatter ();
+        MemoryStream ms = new MemoryStream ();
+        ms.Write (byteData, 0, byteData.Length);
+        ms.Seek (0, SeekOrigin.Begin);
+
+        return (AssetBundleData)bin.Deserialize (ms);
+    }
 }

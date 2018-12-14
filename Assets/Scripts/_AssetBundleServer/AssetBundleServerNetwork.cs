@@ -1,6 +1,7 @@
-﻿using BeardedManStudios.Forge.Networking;
+﻿using BeardedManStudios;
+using BeardedManStudios.Forge.Networking;
+using BeardedManStudios.Forge.Networking.Frame;
 using BeardedManStudios.Forge.Networking.Unity;
-using BeardedManStudios.Forge.Networking.Lobby;
 using BeardedManStudios.SimpleJSON;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,9 +45,9 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
    // kit
    public static AssetBundleServerNetwork Instance;
-   NetworkingPlayer player;
+   NetworkingPlayer player;   
 
-   private void Start()
+    private void Start()
    {
       //ipAddress.text = "127.0.0.1";
       //portNumber.text = "15937";          
@@ -237,7 +238,8 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
    private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
    {
-      Debug.Log ("player is accepted");      
+      Debug.Log ("player is accepted");
+            
    }
 
    private void Server_disconnected(NetWorker sender)
@@ -267,6 +269,7 @@ public class AssetBundleServerNetwork : MonoBehaviour {
       //StopCoroutine(_FindServer());
    }
 
+    AssetBundleData assetBundleData;
    public void Connected(NetWorker networker)
    {
       if (!networker.IsBound)
@@ -310,14 +313,20 @@ public class AssetBundleServerNetwork : MonoBehaviour {
             NetworkObject.Flush (networker); //Called because we are already in the correct scene!                
 
          // kit, is server
-         btnServer.GetComponentInChildren<Text> ().text = "Stop";
+         btnServer.GetComponentInChildren<UnityEngine.UI.Text> ().text = "Stop";
          btnServer.onClick.RemoveAllListeners ();
          btnServer.onClick.AddListener (Quit);
          MessageBox.ins.ShowOk ("Connected as server", MessageBox.MsgIcon.msgInformation, null);
          Debug.Log ("Connected as server");
-      }
+
+            Debug.Log ("Create asset bundle data");
+            assetBundleData = new AssetBundleData ();
+            assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager> ().fieldVersion.text);
+            assetBundleData.url = GetComponent<AssetBundleServerManager> ().fieldURL.text;
+        }
 
      // mClientSendFile.enabled = true;
+
    }
 
    private void CreateInlineChat(Scene arg0, LoadSceneMode arg1)
@@ -346,10 +355,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    public ClientSendFile clientSendFile
    {
       get { return mClientSendFile; }
-   }
+   }   
 
-   #region ADDITIONAL LOGIC
-   bool isServerFound = false;
+    #region ADDITIONAL LOGIC
+    bool isServerFound = false;
    private void Reset()
    {
       isServerFound = false;
@@ -366,8 +375,8 @@ public class AssetBundleServerNetwork : MonoBehaviour {
       }
 
 
-      if (btnServer.GetComponentInChildren<Text> () != null)
-         btnServer.GetComponentInChildren<Text> ().text = "Start Server";
+      if (btnServer.GetComponentInChildren<UnityEngine.UI.Text> () != null)
+         btnServer.GetComponentInChildren<UnityEngine.UI.Text> ().text = "Start Server";
    }
 
    private void OnEnable()

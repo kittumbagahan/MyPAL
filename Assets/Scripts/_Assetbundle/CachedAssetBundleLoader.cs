@@ -47,9 +47,10 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour{
             {
                 
                 //progress.Progress = www.progress;
-                //print("download progress " + www.progress*100);
+                print("download progress " + www.progress*100);
                 //if (pb != null){pb.SetProgress(www.progress);}
                 if(OnDownload != null){ OnDownload(www.progress);}
+
                 if (Application.internetReachability == NetworkReachability.NotReachable)
                 {
                     // 'downloadInterrupted' is a member variable of this very class and made 'false' in start.
@@ -69,7 +70,7 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour{
             {
                 //throw new Exception("WWW download had an error:" + www.error);
                 success = false;
-                //MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, null);
+                MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.\n" + www.error, MessageBox.MsgIcon.msgError, null);
             }
             else
             {

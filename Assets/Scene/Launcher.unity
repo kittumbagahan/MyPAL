@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2585,8 +2585,8 @@ MonoBehaviour:
   txtAppVersion: {fileID: 2059327138}
   lNet: {fileID: 1946998338}
   pb: {fileID: 1436731709}
-  testUrl: C:\Users\Tiffany\Desktop\ass\assetbundlebookshelf.2
-  testVersion: 2
+  testUrl: "192.168.64.2\x13/unity/assetbundlebookshelf.1"
+  testVersion: 1
 --- !u!1 &1989658951
 GameObject:
   m_ObjectHideFlags: 0

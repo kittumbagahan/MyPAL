@@ -6,6 +6,11 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using BeardedManStudios;
+using BeardedManStudios.Forge.Networking;
+using BeardedManStudios.Forge.Networking.Frame;
+using BeardedManStudios.Forge.Networking.Unity;
+
 public sealed class Launcher : CachedAssetBundleLoader
 {
     [SerializeField]
@@ -15,7 +20,7 @@ public sealed class Launcher : CachedAssetBundleLoader
     [SerializeField]
     Button btnCancel;
     [SerializeField]
-    Text txtAppVersion;
+    UnityEngine.UI.Text txtAppVersion;
 
 
     [SerializeField]
@@ -61,8 +66,8 @@ public sealed class Launcher : CachedAssetBundleLoader
 
             bundleURL = testUrl;
             bundleVersion = testVersion;
-            //Caching.ClearCache();
-            //PlayerPrefs.SetInt("bundleVersion", 0);
+            Caching.ClearCache();
+            PlayerPrefs.SetInt("bundleVersion", 0);
             
             //this code shouldn't be here
             //OnConnected();
@@ -83,26 +88,31 @@ public sealed class Launcher : CachedAssetBundleLoader
     private void OnConnected()
     {
         Debug.Log("I am connected");
-        MessageBox.ins.ShowOk ("HOla!" , MessageBox.MsgIcon.msgInformation, null);
-        pb.TextTitle.text = "Connection success!";
-        //wait for the server to send download url
-        //automatically accept
-        //check bundle version
 
-        //if (CheckBundleVersion(testVersion))
-        //{
-        //    //download assetbundle from url
-        //    StartCoroutine(IEDownload());
-        //    //on download completed load the bundle
-        //}
-        //else
-        //{
-        //    pb.SetProgress(1);
-        //    MessageBox.ins.ShowOk("Version is up to date.", MessageBox.MsgIcon.msgInformation, 
-        //        () => {
-        //            StartGame();
-        //        });
-        //}
+        MainThreadManager.Run (() =>
+         {
+            
+             pb.TextTitle.text = "Connection success!";
+             //wait for the server to send download url
+             //automatically accept
+             //check bundle version
+
+             if (CheckBundleVersion(testVersion))
+             {
+                 //download assetbundle from url
+                 StartCoroutine(IEDownload());
+                 //on download completed load the bundle
+             }
+             else
+             {
+                 pb.SetProgress(1);
+                 MessageBox.ins.ShowOk("Version is up to date.", MessageBox.MsgIcon.msgInformation, 
+                     () => {
+                         StartGame();
+                     });
+             }
+         });         
+       
 
     }
 
@@ -130,21 +140,21 @@ public sealed class Launcher : CachedAssetBundleLoader
                 SceneManager.LoadScene(sceneName);
             }
         }
-        else
-        {
-            if (retryCount < 20)
-            {
-                pb.TextTitle.text = "Connection error... Retrying download...";
-                yield return new WaitForSeconds(1f);
-                //stop exisiting download coroutine here
-                retryCount++;
-                StartCoroutine(IEDownload());
-            }
-            else
-            {
-                MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, new UnityAction(ConnectionErrMsgRetry));
-            }
-        }
+        //else
+        //{
+        //    if (retryCount < 20)
+        //    {
+        //        pb.TextTitle.text = "Connection error... Retrying download...";
+        //        yield return new WaitForSeconds(1f);
+        //        //stop exisiting download coroutine here
+        //        retryCount++;
+        //        StartCoroutine(IEDownload());
+        //    }
+        //    else
+        //    {
+        //        MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, new UnityAction(ConnectionErrMsgRetry));
+        //    }
+        //}
     }
 
 
