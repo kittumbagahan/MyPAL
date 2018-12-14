@@ -41,7 +41,7 @@ public sealed class Launcher : CachedAssetBundleLoader
     {
         lNet.Initialize();
         lNet.OnFindingServer += FindingServer;
-        lNet.OnConnectedToServer += OnConnected;
+        //lNet.OnConnectedToServer += OnConnected;
 
         txtAppVersion.text = "version " + PlayerPrefs.GetInt("productVersion") + "." + PlayerPrefs.GetInt("releaseVersion") + "." + PlayerPrefs.GetInt("bundleVersion");
         btnCancel.gameObject.SetActive(false);

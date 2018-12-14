@@ -370,9 +370,12 @@ public class LauncherNetworking : MonoBehaviour
             AssetBundleData assetBundleData = ConvertToObject (frame.StreamData.CompressBytes ());
             Debug.Log ("version" + assetBundleData.version);
             Debug.Log ("url " + assetBundleData.url);
+
+            MessageBox.ins.ShowOk ("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
         }
         else
         {
+            Debug.Log ("asset bundle return");
             return;
         }
     }

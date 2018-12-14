@@ -1,13 +1,14 @@
-﻿using BeardedManStudios;
-using BeardedManStudios.Forge.Networking;
+﻿using BeardedManStudios.Forge.Networking;
 using BeardedManStudios.Forge.Networking.Frame;
 using BeardedManStudios.Forge.Networking.Unity;
 using BeardedManStudios.SimpleJSON;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+using System.IO;
 
 public class AssetBundleServerNetwork : MonoBehaviour {
 
@@ -147,9 +148,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    private void Client_serverAccepted(NetWorker sender)
    {
       Debug.Log (string.Format ("{0} is connected to server", "Huehue"));
-      //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
-      //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+        //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
+        //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
    }
+    // send data
 
 
    public void ConnectToMatchmaking()
@@ -177,7 +179,7 @@ public class AssetBundleServerNetwork : MonoBehaviour {
          // I just make it randomly pick a server... you can do whatever you please!
          if (response != null && response.serverResponse.Count > 0)
          {
-            MasterServerResponse.Server server = response.serverResponse[Random.Range (0, response.serverResponse.Count)];
+            MasterServerResponse.Server server = response.serverResponse[UnityEngine.Random.Range (0, response.serverResponse.Count)];
             //TCPClient client = new TCPClient();
             UDPClient client = new UDPClient ();
             client.Connect (server.Address, server.Port);
@@ -239,10 +241,64 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
    {
       Debug.Log ("player is accepted");
-            
-   }
 
-   private void Server_disconnected(NetWorker sender)
+        // send asset bundle data
+        // Throw an error if this is not the server
+        var networker = NetworkManager.Instance.Networker;
+
+        // event when file is sent        
+
+        if (!networker.IsServer)
+        {
+            Debug.LogError ("Only the client can send files in this example!");
+            return;
+        }
+
+        byte[] allData = { };
+
+        assetBundleData = new AssetBundleData ();
+        assetBundleData.url = "huehue";
+        assetBundleData.version = 13;
+
+        // convert pData as byte[]
+        BinaryFormatter binFormatter = new BinaryFormatter ();
+        MemoryStream memStream = new MemoryStream ();
+        binFormatter.Serialize (memStream, assetBundleData);
+
+        allData = memStream.ToArray ();
+
+        Debug.Log ("allData " + allData.Length);
+
+        //        // Prepare a byte array for sending
+        //        BMSByte allData = new BMSByte();        
+        //
+        //        // Add the file name to the start of the payload        
+        //        ObjectMapper.Instance.MapBytes(allData);        
+
+        // Send the file to all connected clients
+        Binary frame = new Binary (
+            networker.Time.Timestep,                    // The current timestep for this frame
+            false,                                      // We are server, no mask needed
+            allData,                                    // The file that is being sent
+            Receivers.Others,                           // Send to all clients
+            MessageGroupIds.START_OF_GENERIC_IDS + 8,   // Some random fake number
+            networker is TCPServer);
+
+        //        if (networker is UDPServer)
+        //            ((UDPServer)networker).Send(frame, true);
+        //        else
+        //            ((TCPServer)networker).SendAll(frame);
+
+        if (networker is UDPClient)
+            ((UDPClient)networker).Send (frame, true);
+        else
+            ((TCPClient)networker).Send (frame);
+
+
+        //StringBuilder("sending file");
+    }
+
+    private void Server_disconnected(NetWorker sender)
    {
       Debug.Log ("Server disconnected");
       ResetNetwork ();
@@ -319,10 +375,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
          MessageBox.ins.ShowOk ("Connected as server", MessageBox.MsgIcon.msgInformation, null);
          Debug.Log ("Connected as server");
 
-            Debug.Log ("Create asset bundle data");
-            assetBundleData = new AssetBundleData ();
-            assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager> ().fieldVersion.text);
-            assetBundleData.url = GetComponent<AssetBundleServerManager> ().fieldURL.text;
+            //Debug.Log ("Create asset bundle data");
+            //assetBundleData = new AssetBundleData ();
+            //assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager> ().fieldVersion.text);
+            //assetBundleData.url = GetComponent<AssetBundleServerManager> ().fieldURL.text;
         }
 
      // mClientSendFile.enabled = true;
