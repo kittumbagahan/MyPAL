@@ -366,12 +366,15 @@ public class LauncherNetworking : MonoBehaviour
 
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + 8)
         {
-            Debug.Log ("Asset bundle");
-            AssetBundleData assetBundleData = ConvertToObject (frame.StreamData.CompressBytes ());
-            Debug.Log ("version" + assetBundleData.version);
-            Debug.Log ("url " + assetBundleData.url);
+            Debug.Log("Asset bundle");
+            AssetBundleData assetBundleData = ConvertToObject(frame.StreamData.CompressBytes());
+            Debug.Log("version" + assetBundleData.version);
+            Debug.Log("url " + assetBundleData.url);
 
-            MessageBox.ins.ShowOk ("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
+            MainThreadManager.Run(() =>
+            {
+                MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
+            });            
         }
         else
         {

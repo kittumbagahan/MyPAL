@@ -242,60 +242,63 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    {
       Debug.Log ("player is accepted");
 
-        // send asset bundle data
-        // Throw an error if this is not the server
-        var networker = NetworkManager.Instance.Networker;
-
-        // event when file is sent        
-
-        if (!networker.IsServer)
+        MainThreadManager.Run(() =>
         {
-            Debug.LogError ("Only the client can send files in this example!");
-            return;
-        }
+            // send asset bundle data
+            // Throw an error if this is not the server
+            var networker = NetworkManager.Instance.Networker;
 
-        byte[] allData = { };
+            // event when file is sent        
 
-        assetBundleData = new AssetBundleData ();
-        assetBundleData.url = "huehue";
-        assetBundleData.version = 13;
+            if (!networker.IsServer)
+            {
+                Debug.LogError("Only the client can send files in this example!");
+                return;
+            }
 
-        // convert pData as byte[]
-        BinaryFormatter binFormatter = new BinaryFormatter ();
-        MemoryStream memStream = new MemoryStream ();
-        binFormatter.Serialize (memStream, assetBundleData);
+            byte[] allData = { };
 
-        allData = memStream.ToArray ();
+            assetBundleData = new AssetBundleData();
+            assetBundleData.url = GetComponent<AssetBundleServerManager>().fieldURL.text;
+            assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager>().fieldVersion.text);
 
-        Debug.Log ("allData " + allData.Length);
+            // convert pData as byte[]
+            BinaryFormatter binFormatter = new BinaryFormatter();
+            MemoryStream memStream = new MemoryStream();
+            binFormatter.Serialize(memStream, assetBundleData);
 
-        //        // Prepare a byte array for sending
-        //        BMSByte allData = new BMSByte();        
-        //
-        //        // Add the file name to the start of the payload        
-        //        ObjectMapper.Instance.MapBytes(allData);        
+            allData = memStream.ToArray();
 
-        // Send the file to all connected clients
-        Binary frame = new Binary (
-            networker.Time.Timestep,                    // The current timestep for this frame
-            false,                                      // We are server, no mask needed
-            allData,                                    // The file that is being sent
-            Receivers.Others,                           // Send to all clients
-            MessageGroupIds.START_OF_GENERIC_IDS + 8,   // Some random fake number
-            networker is TCPServer);
+            Debug.Log("allData " + allData.Length);
 
-        //        if (networker is UDPServer)
-        //            ((UDPServer)networker).Send(frame, true);
-        //        else
-        //            ((TCPServer)networker).SendAll(frame);
+            //        // Prepare a byte array for sending
+            //        BMSByte allData = new BMSByte();        
+            //
+            //        // Add the file name to the start of the payload        
+            //        ObjectMapper.Instance.MapBytes(allData);        
 
-        if (networker is UDPClient)
-            ((UDPClient)networker).Send (frame, true);
-        else
-            ((TCPClient)networker).Send (frame);
+            // Send the file to all connected clients
+            Binary frame = new Binary(
+                networker.Time.Timestep,                    // The current timestep for this frame
+                false,                                      // We are server, no mask needed
+                allData,                                    // The file that is being sent
+                Receivers.Others,                           // Send to all clients
+                MessageGroupIds.START_OF_GENERIC_IDS + 8,   // Some random fake number
+                networker is TCPServer);
+
+            //        if (networker is UDPServer)
+            //            ((UDPServer)networker).Send(frame, true);
+            //        else
+            //            ((TCPServer)networker).SendAll(frame);
+
+            if (networker is UDPServer)
+                ((UDPServer)networker).Send(frame, true);
+            else
+                ((TCPServer)networker).SendAll(frame);
 
 
-        //StringBuilder("sending file");
+            //StringBuilder("sending file");
+        });        
     }
 
     private void Server_disconnected(NetWorker sender)
