@@ -46,7 +46,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
    // kit
    public static AssetBundleServerNetwork Instance;
-   NetworkingPlayer player;   
+   NetworkingPlayer player;
+
+    public delegate void ClientAccepted();
+    public ClientAccepted OnClientAccepted;
 
     private void Start()
    {
@@ -233,7 +236,7 @@ public class AssetBundleServerNetwork : MonoBehaviour {
       //LobbyService.Instance.Initialize(server);
       server.playerConnected += Server_playerConnected;
       server.disconnected += Server_disconnected;
-      server.playerAccepted += Server_playerAccepted;
+      server.playerAccepted += Server_playerAccepted; //if will be put on a button add flag playeraccepted in this callback
       // kit, event                      
       Connected (server);
    }
@@ -241,7 +244,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
    {
       Debug.Log ("player is accepted");
-
+        if (OnClientAccepted != null)
+        {
+            OnClientAccepted();
+        }
         MainThreadManager.Run(() =>
         {
             // send asset bundle data
