@@ -70,11 +70,10 @@ public sealed class Launcher : CachedAssetBundleLoader
 
             bundleURL = testUrl;
             bundleVersion = testVersion;
-            Caching.ClearCache();
-            PlayerPrefs.SetInt("bundleVersion", 0);
+            //Caching.ClearCache();
+            //PlayerPrefs.SetInt("bundleVersion", 0);
             
-            //this code shouldn't be here
-            //OnConnected();
+           
         }
     }
 
