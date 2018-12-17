@@ -66,11 +66,17 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour{
                 downloadInterrupted = false;
             }
 
-            if (www.error != null || downloadInterrupted)
+            if (www.error != null)
             {
                 //throw new Exception("WWW download had an error:" + www.error);
                 success = false;
-                MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.\n" + www.error, MessageBox.MsgIcon.msgError, null);
+                //causes: not valid url, and and ???
+                MessageBox.ins.ShowOk("error:9001" + www.error, MessageBox.MsgIcon.msgError, null);
+            }
+            else if (downloadInterrupted)
+            {
+                success = false;
+                MessageBox.ins.ShowOk ("error:9000\nINTERNET CONNECTION FAILED.\n", MessageBox.MsgIcon.msgError, null);
             }
             else
             {

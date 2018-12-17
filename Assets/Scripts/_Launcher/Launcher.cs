@@ -178,7 +178,7 @@ public sealed class Launcher : CachedAssetBundleLoader
             }
             else
             {
-                MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, ()=> { ConnectionErrMsgRetry (assetBundleData); });
+                MessageBox.ins.ShowOk("error:9000\nINTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, ()=> { ConnectionErrMsgRetry (assetBundleData); });
             }
         }
     }
