@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scene/initialization.unity
     guid: 9af0c6a0750ba184baaa2f4d447a34c5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/others/BookShelf.unity
     guid: 2bec84230aaa8452e8970deb23c6b47d
   - enabled: 0

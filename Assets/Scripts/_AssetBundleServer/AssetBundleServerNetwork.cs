@@ -50,6 +50,8 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
     public delegate void ClientAccepted();
     public ClientAccepted OnClientAccepted;
+    public delegate void ClientDisconnected ();
+    public ClientDisconnected OnClientDisconnected;
 
     private void Start()
    {
@@ -145,7 +147,11 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    private void Client_disconnected(NetWorker sender)
    {
       Debug.Log (string.Format ("{0} is disconnected from server", "Huehue"));
-      MainThreadManager.Run (ResetNetwork);
+        if(OnClientDisconnected != null)
+        {
+            OnClientDisconnected ();
+        }
+        MainThreadManager.Run (ResetNetwork);
    }
 
    private void Client_serverAccepted(NetWorker sender)
@@ -244,12 +250,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
    {
       Debug.Log ("player is accepted");
-        if (OnClientAccepted != null)
-        {
-            OnClientAccepted();
-        }
+
         MainThreadManager.Run(() =>
         {
+
             // send asset bundle data
             // Throw an error if this is not the server
             var networker = NetworkManager.Instance.Networker;
@@ -304,13 +308,21 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
 
             //StringBuilder("sending file");
+            if (OnClientAccepted != null)
+            {
+                OnClientAccepted ();
+            }
         });        
     }
 
     private void Server_disconnected(NetWorker sender)
    {
       Debug.Log ("Server disconnected");
-      ResetNetwork ();
+        if (OnClientDisconnected != null)
+        {
+            OnClientDisconnected ();
+        }
+        ResetNetwork ();
       Reset ();
    }
 

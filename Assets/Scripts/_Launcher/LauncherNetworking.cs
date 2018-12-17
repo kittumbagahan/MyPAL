@@ -54,6 +54,9 @@ public class LauncherNetworking : MonoBehaviour
     public FindingServer OnFindingServer;
     public delegate void ConnectedToServer();
     public ConnectedToServer OnConnectedToServer;
+    public delegate void AssetBundleDataReceived (AssetBundleData assetBundleData);
+    public AssetBundleDataReceived OnAssetBundleDataReceived;
+
 
     public void Initialize()
     {
@@ -280,30 +283,13 @@ public class LauncherNetworking : MonoBehaviour
 
     private void ResetNetwork()
     {
-        //if (btnStudent != null)
-        //{
-        //    btnStudent.onClick.RemoveAllListeners();
-        //    btnStudent.onClick.AddListener(AsStudent);
-        //}
-
-        //if (btnStudent.GetComponentInChildren<Text>() != null)
-        //    btnStudent.GetComponentInChildren<Text>().text = "I'm a Student";
 
     }
 
     private void OnEnable()
     {
-        // find teacher and student button
-        //if (btnStudent == null)
-        //    btnStudent = GameObject.FindGameObjectWithTag("btnStudent").GetComponent<Button>();
-
-        //btnStudent.onClick.RemoveAllListeners();
-
-        //btnStudent.onClick.AddListener(AsStudent);
-
         NetWorker.localServerLocated += TestLocalServerFind;
 
-        //Debug.Log(btnStudent);
     }
 
     private void OnDisable()
@@ -321,15 +307,6 @@ public class LauncherNetworking : MonoBehaviour
 
     public void AsStudent()
     {
-        //btnStudent.GetComponentInChildren<Text>().text = "Stop";
-
-        //btnStudent.onClick.RemoveAllListeners();
-        //btnStudent.onClick.AddListener(() =>
-        //{
-        //    StopCoroutine("_FindServer");
-        //    ResetNetwork();
-        //    //            StopCoroutine("_FindServerLoading");            
-        //});
 
         StartCoroutine("_FindServer");
     }
@@ -374,6 +351,10 @@ public class LauncherNetworking : MonoBehaviour
             MainThreadManager.Run(() =>
             {
                 MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
+                if(OnAssetBundleDataReceived != null)
+                {
+                    OnAssetBundleDataReceived (assetBundleData);
+                }
             });            
         }
         else

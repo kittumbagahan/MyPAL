@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class LoadSceneFromAssetBundle
 {
@@ -10,6 +11,10 @@ public class LoadSceneFromAssetBundle
    
     string sceneURL;
     int version = 0;
+    public delegate void LoadSceneFail ();
+    public LoadSceneFail OnLoadSceneFail;
+    public delegate void LoadSceneSuccess ();
+    public LoadSceneSuccess OnLoadSceneSuccess;
 
     public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
     {
@@ -27,23 +32,38 @@ public class LoadSceneFromAssetBundle
         {
             yield return null;
         }
-        using (WWW www = WWW.LoadFromCacheOrDownload(sceneURL, version))
+        if("".Equals(sceneURL) || 0.Equals (version))
         {
-            while (!www.isDone)
+            if(OnLoadSceneFail != null)
             {
-                yield return new WaitForFixedUpdate();
+                OnLoadSceneFail ();
             }
-            Debug.Log(sceneURL + " " + version);
-            assetBundle = www.assetBundle;
         }
-       
-       
-
-        if (assetBundle.isStreamedSceneAssetBundle)
+        else
         {
-            string[] scenePaths = assetBundle.GetAllScenePaths();
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
-            SceneManager.LoadSceneAsync(sceneName);
+            using (WWW www = WWW.LoadFromCacheOrDownload (sceneURL, version))
+            {
+                while (!www.isDone)
+                {
+                    yield return new WaitForFixedUpdate ();
+                }
+                Debug.Log (sceneURL + " " + version);
+                assetBundle = www.assetBundle;
+            }
+
+
+
+            if (assetBundle.isStreamedSceneAssetBundle)
+            {
+                string[] scenePaths = assetBundle.GetAllScenePaths ();
+                string sceneName = System.IO.Path.GetFileNameWithoutExtension (scenePaths[0]);
+                if(OnLoadSceneSuccess != null)
+                {
+                    OnLoadSceneSuccess ();
+                }
+                SceneManager.LoadSceneAsync (sceneName);
+            }
         }
+       
     }
 }

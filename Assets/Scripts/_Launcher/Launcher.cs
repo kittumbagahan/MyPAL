@@ -10,6 +10,7 @@ using BeardedManStudios;
 using BeardedManStudios.Forge.Networking;
 using BeardedManStudios.Forge.Networking.Frame;
 using BeardedManStudios.Forge.Networking.Unity;
+using System;
 
 public sealed class Launcher : CachedAssetBundleLoader
 {
@@ -21,7 +22,8 @@ public sealed class Launcher : CachedAssetBundleLoader
     Button btnCancel;
     [SerializeField]
     UnityEngine.UI.Text txtAppVersion;
-
+    [SerializeField]
+    GameObject pnlLoading;
 
     [SerializeField]
     LauncherNetworking lNet;
@@ -41,10 +43,12 @@ public sealed class Launcher : CachedAssetBundleLoader
     {
         lNet.Initialize();
         lNet.OnFindingServer += FindingServer;
-        //lNet.OnConnectedToServer += OnConnected;
+        lNet.OnAssetBundleDataReceived += DownloadAssetBundle;
 
         txtAppVersion.text = "version " + PlayerPrefs.GetInt("productVersion") + "." + PlayerPrefs.GetInt("releaseVersion") + "." + PlayerPrefs.GetInt("bundleVersion");
         btnCancel.gameObject.SetActive(false);
+        pnlLoading.SetActive (false);
+
     }
 
     public void CheckForUpdate()
@@ -85,7 +89,7 @@ public sealed class Launcher : CachedAssetBundleLoader
 
     }
 
-    private void OnConnected()
+    private void DownloadAssetBundle(AssetBundleData assetBundleData)
     {
         Debug.Log("I am connected");
 
@@ -97,10 +101,10 @@ public sealed class Launcher : CachedAssetBundleLoader
              //automatically accept
              //check bundle version
 
-             if (CheckBundleVersion(testVersion))
+             if (CheckBundleVersion(assetBundleData.version))
              {
                  //download assetbundle from url
-                 StartCoroutine(IEDownload());
+                 StartCoroutine(IEDownload(assetBundleData));
                  //on download completed load the bundle
              }
              else
@@ -118,18 +122,40 @@ public sealed class Launcher : CachedAssetBundleLoader
 
     public void StartGame()
     {
-        LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(bundleURL, PlayerPrefs.GetInt("bundleVersion"));
-        StartCoroutine(loader.IEStreamAssetBundle());
+     
+        //PlayerPrefs.SetString ("bundleUrl", "https://www.dropbox.com/s/9inhox6owsspn40/assetbundlebookshelf.1?dl=1");
+        //PlayerPrefs.SetInt ("bundleVersion", 1);
+        //PlayerPrefs.SetString ("bundleUrl", "");
+        //PlayerPrefs.SetInt ("bundleVersion", 0);
+        LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("bundleUrl"), PlayerPrefs.GetInt ("bundleVersion"));
+        loader.OnLoadSceneFail += FailLoadBookShelf;
+        loader.OnLoadSceneSuccess += SuccessLoadBookShelf;
+        print (PlayerPrefs.GetString ("bundleUrl"));
+        StartCoroutine (loader.IEStreamAssetBundle ());
+   
+     
     }
 
-    IEnumerator IEDownload()
+    void FailLoadBookShelf ()
+    {
+        pnlLoading.SetActive(true);
+        SceneManager.LoadSceneAsync ("BookShelf");
+    }
+    void SuccessLoadBookShelf ()
+    {
+        pnlLoading.SetActive (true);
+
+    }
+
+    IEnumerator IEDownload(AssetBundleData assetBundleData)
     {
         //*NOTE when we have downloaded versions bundle you can switch to previous version by setting the bundleVersion without changing bundleURL
         //*always download assetbundle with together with its url and version number
-        yield return StartCoroutine(IEGetFromCacheOrDownload(bundleURL, bundleVersion));
+        yield return StartCoroutine(IEGetFromCacheOrDownload(assetBundleData.url, assetBundleData.version));
         if (success)
         {
-            PlayerPrefs.SetInt("bundleVersion", bundleVersion); // reference importanteu
+            PlayerPrefs.SetInt("bundleVersion", assetBundleData.version); // reference importanteu for loading the bundle from cache this serves as its key
+            PlayerPrefs.SetString("bundleUrl", assetBundleData.url); // reference importanteu for loading the bundle from cache this serves as its key
             pb.TextTitle.text = "Download Complete";
             OnDownload -= pb.SetProgress;
             print("Complete download");
@@ -137,24 +163,25 @@ public sealed class Launcher : CachedAssetBundleLoader
             {
                 string[] scenePaths = bundle.GetAllScenePaths();
                 string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
-                SceneManager.LoadScene(sceneName);
+                pnlLoading.SetActive (true);
+                SceneManager.LoadSceneAsync(sceneName);
             }
         }
-        //else
-        //{
-        //    if (retryCount < 20)
-        //    {
-        //        pb.TextTitle.text = "Connection error... Retrying download...";
-        //        yield return new WaitForSeconds(1f);
-        //        //stop exisiting download coroutine here
-        //        retryCount++;
-        //        StartCoroutine(IEDownload());
-        //    }
-        //    else
-        //    {
-        //        MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, new UnityAction(ConnectionErrMsgRetry));
-        //    }
-        //}
+       
+        {
+            if (retryCount < 20)
+            {
+                pb.TextTitle.text = "Connection error... Retrying download...";
+                yield return new WaitForSeconds(1f);
+                //stop exisiting download coroutine here
+                retryCount++;
+                StartCoroutine(IEDownload(assetBundleData));
+            }
+            else
+            {
+                MessageBox.ins.ShowOk("INTERNET CONNECTION FAILED.", MessageBox.MsgIcon.msgError, ()=> { ConnectionErrMsgRetry (assetBundleData); });
+            }
+        }
     }
 
 
@@ -185,15 +212,15 @@ public sealed class Launcher : CachedAssetBundleLoader
 
     #region Messages
 
-    void ConnectionErrMsgRetry()
+    void ConnectionErrMsgRetry(AssetBundleData assetBundleData)
     {
-        MessageBox.ins.ShowQuestion("Retry download?", MessageBox.MsgIcon.msgInformation, new UnityAction(RetryDownload), new UnityAction(BeforeCloseMsg));
+        MessageBox.ins.ShowQuestion("Retry download?", MessageBox.MsgIcon.msgInformation, ()=>{ RetryDownload (assetBundleData); }, new UnityAction(BeforeCloseMsg));
     }
 
-    void RetryDownload()
+    void RetryDownload(AssetBundleData assetBundleData)
     {
         retryCount = 0;
-        StartCoroutine(IEDownload());
+        StartCoroutine(IEDownload(assetBundleData));
     }
 
     void BeforeCloseMsg()

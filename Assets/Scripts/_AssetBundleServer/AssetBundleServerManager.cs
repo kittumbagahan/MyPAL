@@ -16,18 +16,31 @@ public class AssetBundleServerManager : MonoBehaviour {
     [SerializeField]
     Text txtConnectionInfo;
 
+    [SerializeField]
+    Button btnOK, btnStart;
+
     int numberOfConnectedClients;
 
     private void Start()
     {
         serverNet.OnClientAccepted += IncNumberConnectedClients;
+        serverNet.OnClientDisconnected += DecNumberConnectedClients; //currently not working
         InvokeRepeating("NetworkState", 1f, 1f);
+        btnStart.interactable = false;
+        btnOK.onClick.AddListener (AssetBundleInfoReady);
     }
 
-    public void StartServer()
+    private void AssetBundleInfoReady()
     {
-        MessageBox.ins.ShowQuestion("Are you sure?\nURL " + fieldURL.text + "\nVersion " + fieldVersion.text, MessageBox.MsgIcon.msgInformation,
-            new UnityAction(StartServerYes), new UnityAction(StartServerNo));
+        if("".Equals(fieldURL.text) || "".Equals (fieldVersion.text))
+        {
+            MessageBox.ins.ShowOk ("All fields are required.", MessageBox.MsgIcon.msgError, null);
+        }
+        else
+        {
+            MessageBox.ins.ShowQuestion ("Are you sure?\nURL " + fieldURL.text + "\nVersion " + fieldVersion.text, MessageBox.MsgIcon.msgInformation,
+            new UnityAction (StartServerYes), new UnityAction (StartServerNo));
+        }
     }
 
 
@@ -35,11 +48,19 @@ public class AssetBundleServerManager : MonoBehaviour {
     {
         numberOfConnectedClients++;
         txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
-    } 
-
-    void StartServerYes()
+    }
+    void DecNumberConnectedClients ()
     {
-        serverNet.Host();
+        numberOfConnectedClients--;
+        txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
+    }
+
+    void StartServerYes ()
+    {
+        btnStart.interactable = true;
+        fieldURL.interactable = false;
+        fieldVersion.interactable = false;
+        btnOK.interactable = false;
     }
     void StartServerNo()
     {
