@@ -49,11 +49,11 @@ public class UserBooksManager : MonoBehaviour
         DataService.Open();
         sm = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.Id == userId).FirstOrDefault();
-        DataService.Close();
+        
         gameObject.SetActive(true);
 
         utxtBookHeader.text = sm.Nickname + "'s" + " favorite books";
-
+        DataService.Close();
         LoadUsage();
 
         Invoke("Sort", 1f);
@@ -66,9 +66,11 @@ public class UserBooksManager : MonoBehaviour
         BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();
         StudentBookModel sbm = DataService._connection.Table<StudentBookModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == userId && x.BookId == book.Id).FirstOrDefault();
-        DataService.Close();
+        
         if (sbm == null) return 0;
-        return sbm.ReadCount + sbm.ReadToMeCount + sbm.AutoReadCount;
+        int cnt = sbm.ReadCount + sbm.ReadToMeCount + sbm.AutoReadCount;
+        DataService.Close();
+        return cnt;
     }
   
     int GetPlayCount(string bookname)
@@ -79,10 +81,13 @@ public class UserBooksManager : MonoBehaviour
         var activity = DataService._connection.Table<ActivityModel>().Where(x => x.BookId == book.Id);
         var studentActivity = DataService._connection.Table<StudentActivityModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id &&
         x.StudentId == userId && x.BookId == book.Id);
-        DataService.Close();
+        
         //ToConsole(activity);
         if (studentActivity == null) return 0;
-        return studentActivity.Sum(x => x.PlayCount);
+        int sum = studentActivity.Sum(x => x.PlayCount);
+
+        DataService.Close();
+        return sum;
     }
     void LoadUsage()
     {

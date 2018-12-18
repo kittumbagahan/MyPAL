@@ -80,7 +80,7 @@ public class UserAccountManager : MonoBehaviour
         //DataService ds = new DataService();
         DataService.Open();
         var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
-        DataService.Close();
+      
 
         foreach(StudentModel student in students)
         {
@@ -93,24 +93,8 @@ public class UserAccountManager : MonoBehaviour
             n++;
         }
 
-        //for (int i = 0; i < maxStudentAllowed; i++)
-        //{
-        //    if (PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-        //    "student_id" + i) != "")
-        //    {
-        //        GameObject _obj = Instantiate(btnUserSavePrefab);
-        //        UserAccount _student = _obj.GetComponent<UserAccount>();
-        //        _student.UserId = i;
-        //        _student.Username = PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-        //        "student_id" + i);
-        //        _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.Username;
-        //        _obj.transform.SetParent(btnStudentContainer.transform);
-        //        n++;
-        //    }
-
-        //}
         currentMaxStudent = n;
-
+        DataService.Close();
     }
 
     #region old
