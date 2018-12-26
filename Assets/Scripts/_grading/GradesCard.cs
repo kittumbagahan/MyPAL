@@ -4,6 +4,10 @@ using UnityEngine;
 using SQLite4Unity3d;
 using UnityEngine.UI;
 
+using System.IO;
+using System.Text;
+using System;
+
 public class GradesCard : MonoBehaviour
 {
 
@@ -24,7 +28,20 @@ public class GradesCard : MonoBehaviour
     GameObject txtprefab;
     [SerializeField]
     Transform parent;
+
+    [SerializeField]
+    Button btnExportData;
     // Use this for initialization
+
+    // data export
+    string columns = "Fullname,Word,Observation,Total";
+    string data;
+    string textExport;
+
+    private void Start()
+    {
+        btnExportData.onClick.AddListener(ExportData);
+    }
 
     private void OnEnable()
     {
@@ -43,6 +60,8 @@ public class GradesCard : MonoBehaviour
             accuracyYummyShapes = new AccuracyYummyShapes();
         }
 
+        // data        
+        columns += Environment.NewLine + "," + Environment.NewLine;               
 
         DataService.Open();
 
@@ -66,6 +85,11 @@ public class GradesCard : MonoBehaviour
             GameObject obj = Instantiate(txtprefab);
             obj.GetComponent<Text>().text = s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
                 wordTotalGrade + ", " + observationTotalGrade + ", " + (wordTotalGrade + observationTotalGrade).ToString();
+
+            //data: Fullname, Word, Observation, Total
+            data += string.Format("\"{0}, {1} {2}.\"", s.Lastname, s.Givenname, s.Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
+                "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
+
             obj.transform.SetParent(parent);
             obj.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -94,5 +118,13 @@ public class GradesCard : MonoBehaviour
         return string.Format("{0}", accuracyFavoriteBox.GetAccuracy(1).ToString());
     }
 
-
+    #region DATA
+    void ExportData()
+    {
+        textExport = columns + data;
+        File.WriteAllText(Application.persistentDataPath + "/studentData.csv", textExport);
+        Debug.Log("Check File at " + Application.persistentDataPath);
+        MessageBox.ins.ShowOk("Data export successful!", MessageBox.MsgIcon.msgInformation, null);
+    }
+    #endregion
 }
