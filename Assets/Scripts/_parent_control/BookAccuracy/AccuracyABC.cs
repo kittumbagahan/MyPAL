@@ -28,17 +28,35 @@ public class AccuracyABC : BookAccuracy
         lstGrade.Add(GetGrade(StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 9));
         lstGrade.Add(GetGrade(StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 12));
 
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "6")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "12")));
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
 
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act1" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act1" + Module.OBSERVATION + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act1" + Module.OBSERVATION + "6")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act1" + Module.OBSERVATION + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act1" + Module.OBSERVATION + "12")));
+    public double GetAccuracyWord(int id)
+    {
+        //string _userId = "section_id" + StoryBookSaveManager.ins.activeSection_id.ToString() + "student_id" + UserAccountManager.ins.SelectedSlot.UserId;
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act2", Module.WORD.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act2", Module.WORD.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act2", Module.WORD.ToString(), 6));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act2", Module.WORD.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act2", Module.WORD.ToString(), 12));
+
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+
+    public double GetAccuracyObservation(int id)
+    {
+        //string _userId = "section_id" + StoryBookSaveManager.ins.activeSection_id.ToString() + "student_id" + UserAccountManager.ins.SelectedSlot.UserId;
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 6));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.ABC_CIRCUS.ToString(), "ABCCircus_Act1", Module.OBSERVATION.ToString(), 12));
 
         SetList(lstGrade);
         return base.GetAccuracy();

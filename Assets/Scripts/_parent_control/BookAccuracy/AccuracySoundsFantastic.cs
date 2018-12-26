@@ -11,7 +11,7 @@ public class AccuracySoundsFantastic : BookAccuracy
     }
     public override double GetAccuracy()
     {
-        //string _userId = "section_id" + StoryBookSaveManager.ins.activeSection_id.ToString() + "student_id" + UserAccountManager.ins.SelectedSlot.UserId;
+
         lstGrade = new List<string>();
 
         lstGrade.Add(GetGrade(StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 0));
@@ -26,19 +26,40 @@ public class AccuracySoundsFantastic : BookAccuracy
         lstGrade.Add(GetGrade(StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act8", Module.OBSERVATION.ToString(), -1));
         lstGrade.Add(GetGrade(StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act8", Module.OBSERVATION.ToString(), 2));
 
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act4" + Module.WORD + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act4" + Module.WORD + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act4" + Module.WORD + "6")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act4" + Module.WORD + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act4" + Module.WORD + "12")));
-
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act3" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act6" + Module.OBSERVATION + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act7" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act8" + Module.OBSERVATION + "-1")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.SOUNDS_FANTASTIC.ToString() + "SoundsFantastic_Act8" + Module.OBSERVATION + "2")));
 
         SetList(lstGrade);
         return base.GetAccuracy();
     }
+
+    public double GetAccuracyWord(int id)
+    {
+
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 6));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act4", Module.WORD.ToString(), 12));
+
+
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+    public double GetAccuracyObservation(int id)
+    {
+
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act3", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act6", Module.OBSERVATION.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act7", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act8", Module.OBSERVATION.ToString(), -1));
+        lstGrade.Add(GetGrade(id, StoryBook.SOUNDS_FANTASTIC.ToString(), "SoundsFantastic_Act8", Module.OBSERVATION.ToString(), 2));
+
+
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+
 }

@@ -158,51 +158,6 @@ public class UserBooksManager : MonoBehaviour
             }
         }
 
-        //userBookLst[0].readCount += GetReadCount(StoryBook.FAVORITE_BOX.ToString()); //PlayerPrefs.GetInt("read" + userId + StoryBook.FAVORITE_BOX);
-
-        /*serBookLst[1].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());*/
-
-        //userBookLst[2].readCount += GetReadCount(StoryBook.AFTER_THE_RAIN.ToString());
-
-        //userBookLst[3].readCount += GetReadCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
-
-        //userBookLst[4].readCount += GetReadCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
-
-        //userBookLst[5].readCount += GetReadCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
-
-        //userBookLst[6].readCount += GetReadCount(StoryBook.SOUNDS_FANTASTIC.ToString());
-
-        //userBookLst[7].readCount += GetReadCount(StoryBook.TINA_AND_JUN.ToString());
-
-        //userBookLst[8].readCount += GetReadCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
-
-        //userBookLst[9].readCount += GetReadCount(StoryBook.YUMMY_SHAPES.ToString());
-
-
-        //MODULES
-
-        //userBookLst[0].playedCount += GetPlayCount(StoryBook.FAVORITE_BOX.ToString());
-
-        //userBookLst[1].playedCount += GetPlayCount(StoryBook.AFTER_THE_RAIN.ToString());
-
-        //userBookLst[2].playedCount += GetPlayCount(StoryBook.ABC_CIRCUS.ToString());
-
-        //userBookLst[3].playedCount += GetPlayCount(StoryBook.CHAT_WITH_MY_CAT.ToString());
-
-        //userBookLst[4].playedCount += GetPlayCount(StoryBook.COLORS_ALL_MIXED_UP.ToString());
-
-        //userBookLst[5].playedCount += GetPlayCount(StoryBook.JOEY_GO_TO_SCHOOL.ToString());
-
-        //userBookLst[6].playedCount += GetPlayCount(StoryBook.SOUNDS_FANTASTIC.ToString());
-
-        //userBookLst[7].playedCount += GetPlayCount(StoryBook.TINA_AND_JUN.ToString());
-
-        //userBookLst[8].playedCount += GetPlayCount(StoryBook.WHAT_DID_YOU_SEE.ToString());
-
-        //userBookLst[9].playedCount += GetPlayCount(StoryBook.YUMMY_SHAPES.ToString());
-
-
-
     }
 
     void Sort()
@@ -219,16 +174,6 @@ public class UserBooksManager : MonoBehaviour
 
                 if ((userBookLst[j].readCount + userBookLst[j].playedCount) < (userBookLst[j+1].readCount + userBookLst[j+1].playedCount))
                 {
-                    //Transform parent = userBookLst[j].transform.parent;
-                    //userBookLst[j].transform.SetParent(userBookLst[j + 1].transform.parent);
-                    //userBookLst[j+1].transform.SetParent(parent);
-
-
-                    //userBookLst[j+1].transform.localPosition = new Vector2(0, 0);
-                    //userBookLst[j].transform.localPosition = new Vector2(0, 0);
-                    //print("SWAPPPSSS");
-                    //swapped = true;
-                    //userBookLst[j].transform.localPosition = new Vector2(0, 0);
                     tempCover = userBookLst[j + 1].Cover.sprite;
                     tempCount = userBookLst[j + 1].readCount;
                     // tempBookAcc = userBookLst[j + 1].bookAccuracy;
@@ -244,8 +189,6 @@ public class UserBooksManager : MonoBehaviour
                     userBookLst[j + 1].Cover.sprite = userBookLst[j].Cover.sprite;
                     userBookLst[j].Cover.sprite = tempCover;
 
-                    // userBookLst[j + 1].bookAccuracy = userBookLst[j].bookAccuracy;
-                    // userBookLst[j].bookAccuracy = tempBookAcc;
 
                 }
                 //if (!swapped) break;

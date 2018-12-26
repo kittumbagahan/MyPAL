@@ -11,7 +11,6 @@ public class AccuracyColorsAllMixedUp : BookAccuracy {
     }
     public override double GetAccuracy()
     {
-        string _userId = "section_id" + StoryBookSaveManager.ins.activeSection_id.ToString() + "student_id" + UserAccountManager.ins.SelectedSlot.UserId;
         lstGrade = new List<string>();
 
         lstGrade.Add(GetGrade(StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 0));
@@ -26,17 +25,37 @@ public class AccuracyColorsAllMixedUp : BookAccuracy {
         lstGrade.Add(GetGrade(StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 3));
         lstGrade.Add(GetGrade(StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 4));
 
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_7" + Module.WORD + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_7" + Module.WORD + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_7" + Module.WORD + "6")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_7" + Module.WORD + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_7" + Module.WORD + "12")));
+      
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
 
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_1" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_1" + Module.OBSERVATION + "1")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_1" + Module.OBSERVATION + "2")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_1" + Module.OBSERVATION + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.COLORS_ALL_MIXED_UP.ToString() + "colorsAllMixedUp_Act_1" + Module.OBSERVATION + "4")));
+    public double GetAccuracyWord(int id)
+    {
+      
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 6));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_7", Module.WORD.ToString(), 12));
+
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+
+    public double GetAccuracyObservation(int id)
+    {
+     
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 1));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 2));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.COLORS_ALL_MIXED_UP.ToString(), "colorsAllMixedUp_Act_1", Module.OBSERVATION.ToString(), 4));
+
 
         SetList(lstGrade);
         return base.GetAccuracy();

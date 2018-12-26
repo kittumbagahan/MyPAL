@@ -78,7 +78,7 @@ public static class DataService
         string dbPath = Application.persistentDataPath + "/" + DatabaseName;
 
         _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
-        Debug.Log("Open Final PATH: " + dbPath);
+        //Debug.Log("Open Final PATH: " + dbPath);
     }
 
     public static void Open(string DatabaseName)
@@ -93,7 +93,7 @@ public static class DataService
         _connection.Close();
         _connection.Dispose();
         GC.Collect();
-        Debug.Log("Close connection");
+        //Debug.Log("Close connection");
     }
 
     public static string DbName()

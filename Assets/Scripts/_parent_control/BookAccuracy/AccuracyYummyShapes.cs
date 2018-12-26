@@ -26,19 +26,38 @@ public class AccuracyYummyShapes : BookAccuracy
         lstGrade.Add(GetGrade(StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_3", Module.OBSERVATION.ToString(), 4));
         lstGrade.Add(GetGrade(StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_3", Module.OBSERVATION.ToString(), 8));
 
-
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_1" + Module.WORD + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_1" + Module.WORD + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_1" + Module.WORD + "6")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_1" + Module.WORD + "9")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_1" + Module.WORD + "12")));
-
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_2" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_2" + Module.OBSERVATION + "3")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION + "0")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION + "4")));
-        //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.YUMMY_SHAPES.ToString() + "yummyShapes_Act_3" + Module.OBSERVATION + "8")));
         
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+
+    public double GetAccuracyWord(int id)
+    {
+      
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_1", Module.WORD.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_1", Module.WORD.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_1", Module.WORD.ToString(), 6));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_1", Module.WORD.ToString(), 9));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_1", Module.WORD.ToString(), 12));
+
+        SetList(lstGrade);
+        return base.GetAccuracy();
+    }
+
+    public double GetAccuracyObservation(int id)
+    {
+      
+        lstGrade = new List<string>();
+
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_2", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_2", Module.OBSERVATION.ToString(), 3));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_3", Module.OBSERVATION.ToString(), 0));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_3", Module.OBSERVATION.ToString(), 4));
+        lstGrade.Add(GetGrade(id, StoryBook.YUMMY_SHAPES.ToString(), "yummyShapes_Act_3", Module.OBSERVATION.ToString(), 8));
+
+
         SetList(lstGrade);
         return base.GetAccuracy();
     }
