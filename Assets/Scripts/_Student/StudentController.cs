@@ -30,6 +30,9 @@ public class StudentController : MonoBehaviour
    int maxStudentAllowed;
    [SerializeField]
    GameObject btnEdit;
+   [SerializeField]
+   Toggle toggleGender;
+
    public bool editMode = false;
 
    void Start()
@@ -46,16 +49,7 @@ public class StudentController : MonoBehaviour
       {
          gameObject.SetActive (false);
       }
-      //if (PlayerPrefs.GetInt("maxNumberOfStudentsAllowed") == 0)
-      //{
-      //    PlayerPrefs.SetInt("maxNumberOfStudentsAllowed", 10);
-      //}
-      //LoadStudents();
-      // for (int i=0; i<10; i++)
-      // {
-      //     print(PlayerPrefs.GetString("section_id" + StoryBookSaveManager.ins.activeSection_id +
-      //     "student_id" + i));
-      // }
+     
 
    }
    public void ShowStudentsSQL(string letter)
@@ -80,6 +74,7 @@ public class StudentController : MonoBehaviour
          _student.UID = student.DeviceId;
          _student.id = student.Id;
          _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
+         _student.gender = student.Gender;
          _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _student.name + _student.id;
          _obj.transform.SetParent (btnStudentContainer.transform);
          currentMaxStudent++;
@@ -97,9 +92,6 @@ public class StudentController : MonoBehaviour
       //load all students from their section in all devices
 
 
-      //var students = UserRestrictionController.ins.restriction == 0? 
-      //    ds._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id) : 
-      //    ds._connection.Table<StudentModel>().Where(x => x.DeviceId == SystemInfo.deviceUniqueIdentifier && x.SectionId == StoryBookSaveManager.ins.activeSection_id);
       var students = DataService._connection.Table<StudentModel> ().Where (x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
 
       for (int i = 0; i < btnStudentContainer.transform.childCount; i++)
@@ -114,6 +106,7 @@ public class StudentController : MonoBehaviour
          _student.UID = student.DeviceId;
          _student.id = student.Id;
          _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
+         _student.gender = student.Gender;
          _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _student.name + _student.id;
          _obj.transform.SetParent (btnStudentContainer.transform);
          currentMaxStudent++;
@@ -133,6 +126,7 @@ public class StudentController : MonoBehaviour
       }
       DataService.Close ();
    }
+
    public void CreateNewStudent()
    {
       if ("".Equals (txtGivenName.text) || "".Equals (txtMiddleName.text) || "".Equals (txtSurname.text) || "".Equals (txtNickName.text))
@@ -163,7 +157,8 @@ public class StudentController : MonoBehaviour
                   Givenname = txtGivenName.text,
                   Middlename = txtMiddleName.text,
                   Lastname = txtSurname.text,
-                  Nickname = txtNickName.text
+                  Nickname = txtNickName.text,
+                  Gender = toggleGender.isOn == true ? "Male" : "Female"
                };
                DataService._connection.Insert (model);
                //ds._connection.Execute ("Insert into StudentModel(SectionId, Givenname, Middlename, Lastname, Nickname)" +
@@ -259,7 +254,17 @@ public class StudentController : MonoBehaviour
       view.txtMiddleName.text = student.name.Split (' ')[1];
       view.txtSurname.text = student.name.Split (' ')[2];
       view.txtNickname.text = student.name.Split (' ')[3];
-
+     
+      if ("Male".Equals (student.gender))
+      {
+         view.toggleMale.isOn = true;
+         view.toggleFemale.isOn = false;
+      }
+      else
+      {
+         view.toggleMale.isOn = false;
+         view.toggleFemale.isOn = true;
+      }
       UpdateStudent updateStudent = new UpdateStudent (view, student);
       print ("checking update " + student.name);
       view.btnOK.onClick.AddListener (updateStudent.UpdateStudentName);
@@ -281,19 +286,20 @@ class UpdateStudent
    }
    public void UpdateStudentName()
    {
+      
       if ("".Equals (view.txtGivenName.text) || "".Equals (view.txtMiddleName.text) || "".Equals (view.txtSurname.text) || "".Equals (view.txtNickname.text))
       {
          MessageBox.ins.ShowOk ("All fields are required.", MessageBox.MsgIcon.msgError, null);
       }
 
-      else if (view.txtGivenName.text.Equals (s.name.Split (' ')[0]) && view.txtMiddleName.text.Equals (s.name.Split (' ')[1]) && view.txtSurname.text.Equals (s.name.Split (' ')[2])
-          && view.txtNickname.text.Equals (s.name.Split (' ')[3]))
-      {
-         //nothing to update just say updated!
-         MessageBox.ins.ShowOk ("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
-         StudentController.ins.editMode = false;
-         view.btnOK.onClick.RemoveAllListeners ();
-      }
+      //else if (view.txtGivenName.text.Equals (s.name.Split (' ')[0]) && view.txtMiddleName.text.Equals (s.name.Split (' ')[1]) && view.txtSurname.text.Equals (s.name.Split (' ')[2])
+      //    && view.txtNickname.text.Equals (s.name.Split (' ')[3]))
+      //{
+      //   //nothing to update just say updated!
+      //   MessageBox.ins.ShowOk ("Student updated!", MessageBox.MsgIcon.msgInformation, null);
+      //   StudentController.ins.editMode = false;
+      //   view.btnOK.onClick.RemoveAllListeners ();
+      //}
       else
       {
          //DataService ds = new DataService();
@@ -305,11 +311,12 @@ class UpdateStudent
             Givenname = view.txtGivenName.text,
             Middlename = view.txtMiddleName.text,
             Lastname = view.txtSurname.text,
-            Nickname = view.txtNickname.text
+            Nickname = view.txtNickname.text,
+            Gender = view.toggleMale.isOn == true ? "Male" : "Female"
          };
 
          DataService._connection.Execute ("Update StudentModel set Givenname='" + model.Givenname + "', Middlename='" + model.Middlename + "', " +
-            "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "'");
+            "Lastname='" + model.Lastname + "', Nickname='" + model.Nickname + "', Gender='" + model.Gender + "' where Id='" + model.Id + "' and SectionId='" + model.SectionId + "'");
 
          StudentController.ins.LoadStudentsSQL ();
          MessageBox.ins.ShowOk ("Student name updated!", MessageBox.MsgIcon.msgInformation, null);

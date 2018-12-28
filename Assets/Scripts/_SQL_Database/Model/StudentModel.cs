@@ -11,9 +11,10 @@ public class StudentModel {
     public string Middlename { get; set; }
     public string Lastname { get; set; }
     public string Nickname { get; set; }
+    public string Gender { get; set; }
 
     public override string ToString()
     {
-        return string.Format("[Student: Id={0}, Name={2}", Id, Givenname);
+        return string.Format("[Student: Id={0}, Name={1}", Id, Givenname);
     }
 }
