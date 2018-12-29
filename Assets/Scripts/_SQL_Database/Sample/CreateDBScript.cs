@@ -17,8 +17,12 @@ public class CreateDBScript : MonoBehaviour
         //timeUsageCounter.Init(); //NOT A CREATE
         //PlayerPrefs.SetInt("subscriptionTime_table", 0);
         //PlayerPrefs.SetInt("adminDatabaseCreate", 0);
+
+        //THE time here is a problem, the file creation is time/availability time is random
+       
         if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
         {
+            SqlLoadingPanel.ins.Show(22);
             StartCoroutine(IECreate(new UnityAction[] {
                 () =>
                 {
@@ -67,7 +71,7 @@ public class CreateDBScript : MonoBehaviour
                     timeUsageCounter.Init();
                 }
             },
-           new float[] { 1, 5, 6 }));
+           new float[] { 1, 10, 11 }));
         }
         else
         {
