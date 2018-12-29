@@ -57,8 +57,10 @@ public class StudentController : MonoBehaviour
 
         currentMaxStudent = 0;
 
-        DataService.Open();
+        DataService.Open("admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
+        DataService.Close();
+        DataService.Open();
         string query = "select * from StudentModel where SectionId='" + StoryBookSaveManager.ins.activeSection_id + "' and Givenname LIKE '" + letter + "%'";
         //var students = DataService._connection.Table<StudentModel> ().Where (x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
         var students = DataService._connection.Query<StudentModel>(query);

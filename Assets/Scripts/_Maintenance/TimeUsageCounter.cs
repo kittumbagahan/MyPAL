@@ -15,9 +15,9 @@ public class TimeUsageCounter : MonoBehaviour
     //DataService ds;
     SubscriptionTimeModel model = null;
 
-    void Start()
-    {
 
+    public void Init()
+    {
         if (ins != null)
         {
             Destroy(gameObject);
@@ -27,7 +27,7 @@ public class TimeUsageCounter : MonoBehaviour
             //CREATE A STARTUP USE OF DATASERVICE
             ins = this;
             // db
-            DataService.Close();
+          
             DataService.Open("system/subscription.db");
             //ds = new DataService ("system/subscription.db");
             model = DataService._connection.Table<SubscriptionTimeModel>().Where(x => x.Id == 1).FirstOrDefault();
@@ -88,7 +88,7 @@ public class TimeUsageCounter : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        //Save();
-        print("time NOT saved");
+        Save();
+       
     }
 }

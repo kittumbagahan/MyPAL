@@ -71,7 +71,7 @@ public class SectionController : MonoBehaviour
             GameObject _obj = Instantiate(btnSectionPrefab);
             Section _section = _obj.GetComponent<Section>();
             _section.UID = section.DeviceId;
-            _section.id = section.Id;
+            _section.id = section.SectionId;
             _section.name = section.Description;
             if (_obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>() == null)
             {
@@ -107,11 +107,11 @@ public class SectionController : MonoBehaviour
     //    }
     //}
 
-    IEnumerator IECreate(UnityAction[] actions)
+    IEnumerator IECreate(UnityAction[] actions, float[] time)
     {
         for (int i = 0; i < actions.Length; i++)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(time[i]);
             if (actions[i] != null)
             {
                 actions[i]();
@@ -147,17 +147,19 @@ public class SectionController : MonoBehaviour
                 if (!dup)
                 {
                     DatabaseSectionController dsc = new DatabaseSectionController();
-                    
+
                     //PlayerPrefs.SetString("activeDatabase", newSection.text + ".db");
                     StartCoroutine(IECreate(new UnityAction[]{
                         ()=>{
                             //create the section database
                             dsc.CreateSectionDb(newSection.text + ".db");
+                            Debug.Log("section db file created!");
                         },
                         () =>
                         {
                             //create the section database tables
                             dsc.CreateSectionTables(newSection.text + ".db");
+                            Debug.Log("section db tables created!");
                         },
                         ()=>{
                               //insert new section in admin database
@@ -170,6 +172,7 @@ public class SectionController : MonoBehaviour
                         };
                         DataService._connection.Insert(asm);
                         DataService.Close();
+                            Debug.Log("section added into admin sections");
                         },
                         ()=> {
                              //create section in section databse
@@ -190,8 +193,9 @@ public class SectionController : MonoBehaviour
                         currentMaxSection++;
 
                         DataService.Close();
+                            Debug.Log("section created into section db!");
                         }
-                    }));
+                    }, new float[] { 1, 10, 1, 1 }));
 
                 }
                 else

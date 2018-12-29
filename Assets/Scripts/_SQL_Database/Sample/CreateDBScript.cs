@@ -1,110 +1,105 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
-using UnityEngine;
+using UnityEngine.Events;
+
 public class CreateDBScript : MonoBehaviour
 {
-
+    [SerializeField]
+    TimeUsageCounter timeUsageCounter;
     public Text DebugText;
 
     // Use this for initialization
     void Start()
     {
-     
-        //DatabaseSectionController dsc = new DatabaseSectionController();
-    
-        //StartCoroutine(dsc.IECreateFile("diamond.db"));
-        StartSync();
-        DatabaseAdminController dac = new DatabaseAdminController();
-        StartCoroutine(dac.IECreate());
+
+        //timeUsageCounter.Init(); //NOT A CREATE
+        //PlayerPrefs.SetInt("subscriptionTime_table", 0);
+        //PlayerPrefs.SetInt("adminDatabaseCreate", 0);
+        if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
+        {
+            StartCoroutine(IECreate(new UnityAction[] {
+                () =>
+                {
+                    if (PlayerPrefs.GetInt("adminDatabaseCreate").Equals(0))
+                    {
+                        DatabaseAdminController dac = new DatabaseAdminController();
+                        StartCoroutine(dac.IECreate());
+                        PlayerPrefs.SetInt("adminDatabaseCreate", 1);
+                        
+                    }
+                },
+                () =>
+                {
+                    if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
+                    {
+                        DatabaseController dc = new DatabaseController();
+                        dc.CreateSystemDB("subscription.db");
+                        Debug.Log("subs created");
+                        StartCoroutine(IECreate(new UnityAction[]{
+                                () =>
+                                {
+                                     Debug.Log("subs opened");
+                                    DataService.Open("system/subscription.db");
+
+                                    DataService._connection.CreateTable<SubscriptionTimeModel>();
+                                    SubscriptionTimeModel model = new SubscriptionTimeModel
+                                    {
+                                        SettedTime = 1080000, //300hrs to seconds
+                                        Timer = 1080000
+                                    };
+                                    DataService._connection.Insert(model);
+                                    var subs = DataService.GetSubscription();
+                                    ToConsole(subs);
+
+                                    DataService.Close();
+                                    PlayerPrefs.SetInt("subscriptionTime_table", 1);
+                                }
+                            },
+                            new float[]{5}));
+
+
+                    }
+                },
+                ()=>{
+                      Debug.Log("subs closed");
+                    timeUsageCounter.Init();
+                }
+            },
+           new float[] { 1, 5, 6 }));
+        }
+        else
+        {
+            timeUsageCounter.Init();
+        }
+
+
+
+
 
 
     }
 
-    private void StartSync()
+    IEnumerator IECreate(UnityAction[] actions, float[] time)
     {
+        for (int i = 0; i < actions.Length; i++)
+        {
+            yield return new WaitForSeconds(time[i]);
+            if (actions[i] != null)
+            {
+                Debug.Log(time[i]);
+                actions[i]();
 
-        //DataService.Open();
-        //DataService.CreateDB();
-        //var books = DataService.GetBooks();
-        //var acts = DataService.GetActivities();
-        //var sections = DataService.GetSections();
-        //var st = DataService.GetStudents();
-        //var studentActivities = DataService.GetStudentActivities();
-        //var studentBooks = DataService.GetStudentBooks();
+            }
 
-        //DataService.Close();
-
-        DatabaseController dc = new DatabaseController();
-        dc.CreateSystemDB("subscription.db");
-      
-        DataService.Open("system/subscription.db");
-
-        DataService.CreateSubscriptionDB();
-        var subs = DataService.GetSubscription();
-        ToConsole(subs);
-
-        DataService.Close();
+        }
     }
 
     private void ToConsole(IEnumerable<SubscriptionTimeModel> model)
     {
         foreach (var person in model)
         {
-
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-
-    private void ToConsole(IEnumerable<BookModel> model)
-    {
-        foreach (var person in model)
-        {
-
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-    private void ToConsole(IEnumerable<ActivityModel> model)
-    {
-        foreach (var person in model)
-        {
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-    private void ToConsole(IEnumerable<SectionModel> model)
-    {
-        foreach (var person in model)
-        {
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-
-    private void ToConsole(IEnumerable<StudentModel> model)
-    {
-        foreach (var person in model)
-        {
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-
-    private void ToConsole(IEnumerable<StudentActivityModel> model)
-    {
-        foreach (var person in model)
-        {
-            //ToConsole(person.ToString());
-            Debug.Log(person.ToString());
-        }
-    }
-    private void ToConsole(IEnumerable<StudentBookModel> model)
-    {
-        foreach (var person in model)
-        {
-            //ToConsole(person.ToString());
             Debug.Log(person.ToString());
         }
     }

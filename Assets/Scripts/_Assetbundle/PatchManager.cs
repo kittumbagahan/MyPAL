@@ -39,8 +39,8 @@ public class PatchManager : CachedAssetBundleLoader
     void Start()
     {
         PlayerPrefs.DeleteAll();
-        DataService.Open();
-            //DataService ds = new DataService();
+        //DataService.Open("admin");
+        //DataService ds = new DataService();
         //ds._connection.DeleteAll<BookModel> ();
         //ds._connection.DeleteAll<StudentModel> ();
         //ds._connection.DeleteAll<ActivityModel> ();
@@ -48,24 +48,25 @@ public class PatchManager : CachedAssetBundleLoader
         //ds._connection.DeleteAll<StudentActivityModel> ();
         //ds._connection.DeleteAll<StudentBookModel> ();
         //drop tables to update fields on creation if model members have change
-        DataService._connection.Execute("drop table StudentActivityModel");
-        DataService._connection.Execute("drop table StudentBookModel");
-        DataService._connection.Execute("drop table BookModel");
-        DataService._connection.Execute("drop table StudentModel");
-        DataService._connection.Execute("drop table ActivityModel");
-        DataService._connection.Execute("drop table SectionModel");
+        //DataService._connection.Execute("drop table StudentActivityModel");
+        //DataService._connection.Execute("drop table StudentBookModel");
+        //DataService._connection.Execute("drop table BookModel");
+        //DataService._connection.Execute("drop table StudentModel");
+        //DataService._connection.Execute("drop table ActivityModel");
+        //DataService._connection.Execute("drop table SectionModel");
 
-        DataService._connection.Execute("drop table ResetPasswordModel");
+        //DataService._connection.Execute("drop table ResetPasswordModel");
 
-        DataService._connection.Execute("drop table ResetPasswordTimesModel");
-        DataService._connection.Execute("drop table NumberOfStudentsModel");
-        DataService._connection.Execute("drop table AdminPasswordModel");
+        //DataService._connection.Execute("drop table ResetPasswordTimesModel");
+        //DataService._connection.Execute("drop table NumberOfStudentsModel");
+        //DataService._connection.Execute("drop table AdminPasswordModel");
 
-        DataService._connection.Execute("drop table TeacherDeviceModel");
+        //DataService._connection.Execute("drop table TeacherDeviceModel");
 
-        DataService.Close();
+        //DataService.Close();
 
-            //DataService ds2 = new DataService("system/subscription.db");
+        //DataService ds2 = new DataService("system/subscription.db");
+        Debug.Log("CREATE a synchronous sql creation for this");
         DataService.Open("system/subscription.db");
         DataService._connection.Execute("drop table SubscriptionTimeModel");
         DataService.Close();
