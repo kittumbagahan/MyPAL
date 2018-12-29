@@ -20,8 +20,8 @@ public class ExistingDBScript : MonoBehaviour {
 
 		DataService.CreatePerson ();
 		ToConsole("New person has been created");
-		var p = DataService.GetJohnny ();
-		ToConsole(p.ToString());
+		
+		
         DataService.Close();
 	}
 	

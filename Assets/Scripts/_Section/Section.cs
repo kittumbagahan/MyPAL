@@ -25,6 +25,8 @@ public class Section : MonoBehaviour {
     {
         StoryBookSaveManager.ins.activeSection = name;
         StoryBookSaveManager.ins.activeSection_id = id;
+        //SET ACTIVE DATABASE to section as dataservice default
+        DatabaseController.SetDatabase(name + ".db");
         SectionController.ins.Close();
         StudentController.ins.LoadStudentsSQL();
     }

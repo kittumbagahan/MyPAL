@@ -94,7 +94,7 @@ public class BackUpSaves : MonoBehaviour {
 	{
         if (!dropDownFiles.captionText.ToString().Equals(""))
         {
-            dc.SetDatabase(dropDownFiles.captionText.text.ToString());
+            DatabaseController.SetDatabase(dropDownFiles.captionText.text.ToString());
             MessageBox.ins.ShowOk(dropDownFiles.captionText.text.ToString() + "Loaded!", MessageBox.MsgIcon.msgInformation, null);
         }
 	

@@ -5,115 +5,113 @@ using UnityEngine;
 public class CreateDBScript : MonoBehaviour
 {
 
-   public Text DebugText;
+    public Text DebugText;
 
-   // Use this for initialization
-   void Start()
-   {
+    // Use this for initialization
+    void Start()
+    {
+     
+        //DatabaseSectionController dsc = new DatabaseSectionController();
+    
+        //StartCoroutine(dsc.IECreateFile("diamond.db"));
+        StartSync();
+        DatabaseAdminController dac = new DatabaseAdminController();
+        StartCoroutine(dac.IECreate());
 
-      StartSync ();
 
+    }
 
-   }
+    private void StartSync()
+    {
 
-   private void StartSync()
-   {
-        //set the active database for the app for the firstime
-        //if ("".Equals(PlayerPrefs.GetString("activeDatabase")))
-        //{
-        //    PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
-        //}
+        //DataService.Open();
+        //DataService.CreateDB();
+        //var books = DataService.GetBooks();
+        //var acts = DataService.GetActivities();
+        //var sections = DataService.GetSections();
+        //var st = DataService.GetStudents();
+        //var studentActivities = DataService.GetStudentActivities();
+        //var studentBooks = DataService.GetStudentBooks();
 
-        //var ds = new DataService ();
-        DataService.Open();
-      DataService.CreateDB ();
-      var books = DataService.GetBooks ();
-      var acts = DataService.GetActivities ();
-      var sections = DataService.GetSections ();
-      var st = DataService.GetStudents ();
-      var studentActivities = DataService.GetStudentActivities ();
-      var studentBooks = DataService.GetStudentBooks ();
+        //DataService.Close();
 
-        DataService.Close();
-
-      DatabaseController dc = new DatabaseController ();
-      dc.CreateDB ("subscription.db");
-      //var ds2 = new DataService ("system/subscription.db");
-
+        DatabaseController dc = new DatabaseController();
+        dc.CreateSystemDB("subscription.db");
+      
         DataService.Open("system/subscription.db");
 
-        DataService.CreateSubscriptionDB ();
-      var subs = DataService.GetSubscription ();
-      ToConsole (subs);
+        DataService.CreateSubscriptionDB();
+        var subs = DataService.GetSubscription();
+        ToConsole(subs);
 
         DataService.Close();
-   }
+    }
 
-   private void ToConsole(IEnumerable<SubscriptionTimeModel> model)
-   {
-      foreach (var person in model)
-      {
+    private void ToConsole(IEnumerable<SubscriptionTimeModel> model)
+    {
+        foreach (var person in model)
+        {
 
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
 
-   private void ToConsole(IEnumerable<BookModel> model)
-   {
-      foreach (var person in model)
-      {
+    private void ToConsole(IEnumerable<BookModel> model)
+    {
+        foreach (var person in model)
+        {
 
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
-   private void ToConsole(IEnumerable<ActivityModel> model)
-   {
-      foreach (var person in model)
-      {
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
-   private void ToConsole(IEnumerable<SectionModel> model)
-   {
-      foreach (var person in model)
-      {
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
+    private void ToConsole(IEnumerable<ActivityModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
+    private void ToConsole(IEnumerable<SectionModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
 
-   private void ToConsole(IEnumerable<StudentModel> model)
-   {
-      foreach (var person in model)
-      {
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
+    private void ToConsole(IEnumerable<StudentModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
 
-   private void ToConsole(IEnumerable<StudentActivityModel> model)
-   {
-      foreach (var person in model)
-      {
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
-   private void ToConsole(IEnumerable<StudentBookModel> model)
-   {
-      foreach (var person in model)
-      {
-         //ToConsole(person.ToString());
-         Debug.Log (person.ToString ());
-      }
-   }
+    private void ToConsole(IEnumerable<StudentActivityModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
+    private void ToConsole(IEnumerable<StudentBookModel> model)
+    {
+        foreach (var person in model)
+        {
+            //ToConsole(person.ToString());
+            Debug.Log(person.ToString());
+        }
+    }
 
-   private void ToConsole(string msg)
-   {
-      DebugText.text += System.Environment.NewLine + msg;
-      Debug.Log (msg);
-   }
+    private void ToConsole(string msg)
+    {
+        DebugText.text += System.Environment.NewLine + msg;
+        Debug.Log(msg);
+    }
 }

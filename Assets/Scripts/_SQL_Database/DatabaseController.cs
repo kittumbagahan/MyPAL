@@ -12,7 +12,7 @@ using System.IO;
 public class DatabaseController
 {
 
-    string DatabaseDirectory;// = "Assets/StreamingAssets/";
+    protected string DatabaseDirectory;// = "Assets/StreamingAssets/";
 
     string schoolName = "default";
     string date;
@@ -31,7 +31,7 @@ public class DatabaseController
 
     }
 
-    public void SetDatabase(string databaseName)
+    public static void SetDatabase(string databaseName)
     {
         PlayerPrefs.SetString("activeDatabase", databaseName);
         MessageBox.ins.ShowOk("Db is set to " + databaseName, MessageBox.MsgIcon.msgInformation, null);
@@ -82,7 +82,7 @@ public class DatabaseController
         return false;
     }
 
-    public void CreateDB(string dbName)
+    public void CreateSystemDB(string dbName)
     {
         Directory.CreateDirectory(DatabaseDirectory + "/system");
         if (!File.Exists(DatabaseDirectory + "/system/" + dbName))

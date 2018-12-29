@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 public class SectionController : MonoBehaviour
 {
     public static SectionController ins;
@@ -41,22 +43,23 @@ public class SectionController : MonoBehaviour
         }
         maxSectionAllowed = PlayerPrefs.GetInt("maxNumberOfSectionsAllowed");
         //PlayerPrefs.SetInt("maxNumberOfSectionsAllowed", 10);
-     
+
         //LoadSections ();
 
     }
 
     void OnEnable()
     {
+        //Debug.Log("SECCTIONS NOT LOADed");
         LoadSectionsSQL();
     }
 
     public void LoadSectionsSQL()
     {
         //DataService ds = new DataService();
-        DataService.Open();
+        DataService.Open("admin.db");
 
-        var sections = DataService.GetSections();        
+        var sections = DataService._connection.Table<AdminSectionsModel>();
 
         for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
         {
@@ -95,6 +98,29 @@ public class SectionController : MonoBehaviour
         DataService.Close();
     }
 
+    //IEnumerator IECreate(IEnumerator[] IES)
+    //{
+    //    for (int i=0; i<IES.Length; i++)
+    //    {
+    //        IEnumerator ie = IES[i];
+    //        yield return StartCoroutine(ie);
+    //    }
+    //}
+
+    IEnumerator IECreate(UnityAction[] actions)
+    {
+        for (int i = 0; i < actions.Length; i++)
+        {
+            yield return new WaitForSeconds(5f);
+            if (actions[i] != null)
+            {
+                actions[i]();
+
+            }
+
+        }
+    }
+
     public void CreateNewSection(Text newSection)
     {
         //create section for this device
@@ -104,10 +130,76 @@ public class SectionController : MonoBehaviour
         }
         else
         {
+
             if (currentMaxSection < maxSectionAllowed)
             {
-                //DataService ds = new DataService();
+                bool dup = false;
+                for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
+                {
+                    Debug.Log(btnSectionContainer.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text);
+                    if (newSection.text.Equals(btnSectionContainer.transform.GetChild(i)
+                       .gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text))
+                    {
+                        dup = true;
+                    }
 
+                }
+                if (!dup)
+                {
+                    DatabaseSectionController dsc = new DatabaseSectionController();
+                    
+                    //PlayerPrefs.SetString("activeDatabase", newSection.text + ".db");
+                    StartCoroutine(IECreate(new UnityAction[]{
+                        ()=>{
+                            //create the section database
+                            dsc.CreateSectionDb(newSection.text + ".db");
+                        },
+                        () =>
+                        {
+                            //create the section database tables
+                            dsc.CreateSectionTables(newSection.text + ".db");
+                        },
+                        ()=>{
+                              //insert new section in admin database
+                             DataService.Open("admin.db");
+                        AdminSectionsModel asm = new AdminSectionsModel
+                        {
+                            DeviceId = SystemInfo.deviceUniqueIdentifier,
+                            SectionId = 1,
+                            Description = newSection.text
+                        };
+                        DataService._connection.Insert(asm);
+                        DataService.Close();
+                        },
+                        ()=> {
+                             //create section in section databse
+                        DataService.Open(newSection.text + ".db");
+
+                        SectionModel model = new SectionModel { DeviceId = SystemInfo.deviceUniqueIdentifier, Description = newSection.text };
+                        DataService._connection.Insert(model);
+
+                        GameObject _obj = Instantiate(btnSectionPrefab);
+                        Section _section = _obj.GetComponent<Section>();
+                        SectionModel s = DataService._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
+                        _section.id = s.Id;
+                        _section.name = newSection.text;
+                        _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
+                        _obj.transform.SetParent(btnSectionContainer.transform);
+
+                        panelSectionInput.gameObject.SetActive(false);
+                        currentMaxSection++;
+
+                        DataService.Close();
+                        }
+                    }));
+
+                }
+                else
+                {
+                    MessageBox.ins.ShowOk(newSection.text + " already exist.", MessageBox.MsgIcon.msgError, null);
+                }
+
+                /** OLD
                 DataService.Open();
 
                 if (DataService._connection.Table<SectionModel>().Where(x => x.Description == newSection.text).FirstOrDefault() == null)
@@ -136,6 +228,7 @@ public class SectionController : MonoBehaviour
                 }
 
                 DataService.Close();
+                */
             }
             else
             {
@@ -234,7 +327,8 @@ class UpdateSection
         {
             //DataService ds = new DataService();
             DataService.Open();
-            SectionModel model = new SectionModel {
+            SectionModel model = new SectionModel
+            {
                 Id = s.id,
                 Description = view.txtSectionName.text
             };
