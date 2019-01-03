@@ -125,7 +125,10 @@ public class GradesCard : MonoBehaviour
 
     bool IsIncomplete()
     {
-        if (accuracyFavoriteBox.lstGrade.Contains(""))
+        if (accuracyFavoriteBox.lstGrade.Contains("") || accuracyABC.lstGrade.Contains("") || accuracyAfterTheRain.lstGrade.Contains("") ||
+            accuracyChatWithCat.lstGrade.Contains("") || accuracyColorsAllMixedUp.lstGrade.Contains("") || accuracyJoeyGoesToSchool.lstGrade.Contains("") ||
+            accuracySoundsFantastic.lstGrade.Contains("") || accuracyTinaAndJun.lstGrade.Contains("") || accuracyWhatDidYouSee.lstGrade.Contains("") ||
+            accuracyYummyShapes.lstGrade.Contains(""))
         {
             return true;
         }
