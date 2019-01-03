@@ -34,7 +34,7 @@ public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
             }
             else if (input < maxStudentAllowed)
             {
-                MessageBox.ins.ShowOk("Minimum number of student is 10.", MessageBox.MsgIcon.msgError, null);
+                MessageBox.ins.ShowOk("Minimum number of student is 250.", MessageBox.MsgIcon.msgError, null);
             }
             else
             {
