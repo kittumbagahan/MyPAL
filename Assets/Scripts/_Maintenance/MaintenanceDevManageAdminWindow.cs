@@ -11,7 +11,7 @@ public class MaintenanceDevManageAdminWindow : MonoBehaviour {
 	void OnEnable()
 	{
             //DataService ds = new DataService();
-        DataService.Open();
+        DataService.Open("admin.db");
         AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
         txtAdminPwd.text = "Admin password: " + model.Password;
         DataService.Close();
@@ -42,7 +42,7 @@ public class MaintenanceDevManageAdminWindow : MonoBehaviour {
 	void Save()
 	{
             //DataService ds = new DataService();
-        DataService.Open();
+        DataService.Open("admin.db");
         AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
         if (inputText.text.Equals(model.Password))
         {

@@ -18,7 +18,7 @@ public class MaintenanceLogIn : MonoBehaviour {
 	public void LogIn()
 	{
         //DataService ds = new DataService();
-        DataService.Open();
+        DataService.Open("admin.db");
         AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();
 		if(inputPWD.text.Equals(model.Password)){
 			print("Log In Success");
