@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 using SQLite4Unity3d;
 using System;
+using System.Text;
 
 public class ClientSendFile : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class ClientSendFile : MonoBehaviour
         Book_UpdateReadCount = 4,
         Book_UpdateReadToMeCount = 5,
         Book_UpdateAutoReadCount = 6,
-        Sync = 7
+        Sync = 7,
+        CSV = 9
     }
 
     Queue<NetworkData> networkQueue;
@@ -123,7 +125,7 @@ public class ClientSendFile : MonoBehaviour
             //    Debug.Log("Student model, student count " + networkModel.lstStudentModel.Count);
             //    Debug.Log("Sync exit");
             //});
-        }
+        }        
         else
         {
 
@@ -338,6 +340,54 @@ public class ClientSendFile : MonoBehaviour
 			((TCPClient)networker).Send (frame);
 		
 						
+        //StringBuilder("sending file");
+    }
+
+    public void SendCSV(string pCSV)
+    {
+        // Throw an error if this is not the server
+        var networker = NetworkManager.Instance.Networker;
+
+        // event when file is sent        
+
+        if (networker.IsServer)
+        {
+            Debug.LogError("Only the client can send files in this example!");
+            return;
+        }
+
+        byte[] allData = { };        
+
+        allData = Encoding.UTF8.GetBytes(pCSV);        
+        Debug.Log("string length " + pCSV.Length);
+        Debug.Log("allData " + allData.Length);
+
+        //        // Prepare a byte array for sending
+        //        BMSByte allData = new BMSByte();        
+        //
+        //        // Add the file name to the start of the payload        
+        //        ObjectMapper.Instance.MapBytes(allData);        
+
+        // Send the file to all connected clients
+        Binary frame = new Binary(
+            networker.Time.Timestep,                    // The current timestep for this frame
+            false,                                      // We are server, no mask needed
+            allData,                                    // The file that is being sent
+            Receivers.Others,                           // Send to all clients
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.CSV,   // Some random fake number
+            networker is TCPServer);
+
+        //        if (networker is UDPServer)
+        //            ((UDPServer)networker).Send(frame, true);
+        //        else
+        //            ((TCPServer)networker).SendAll(frame);
+
+        if (networker is UDPClient)
+            ((UDPClient)networker).Send(frame, true);
+        else
+            ((TCPClient)networker).Send(frame);
+
+        Debug.Log("CSV done");
         //StringBuilder("sending file");
     }
 

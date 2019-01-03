@@ -8,6 +8,8 @@ using System.IO;
 using System.Text;
 using System;
 
+using UnityEngine.SceneManagement;
+
 public class GradesCard : MonoBehaviour
 {
 
@@ -34,13 +36,13 @@ public class GradesCard : MonoBehaviour
     // Use this for initialization
 
     // data export
-    string columns = "Fullname,Word,Observation,Total";
-    string data;
-    string textExport;
+    protected string columns = "Fullname,Word,Observation,Total";
+    protected string data;
+    protected string textExport;
 
     private void Start()
     {
-        btnExportData.onClick.AddListener(ExportData);
+        
     }
 
     private void OnEnable()
@@ -74,13 +76,12 @@ public class GradesCard : MonoBehaviour
         }
 
 
-        var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);
-
+        var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id);        
         foreach (var s in students)
         {
             double wordTotalGrade = TotalWordGrade(s.Id);
             double observationTotalGrade = TotalObservationGrade(s.Id);
-
+            Debug.Log("ID " + s.Id);
             //sgc.Add(new StudentGradeCard(s.SectionId, s.Id, s.Lastname + " " + s.Givenname + " " + s.Middlename, wordTotalGrade, observationTotalGrade));
             GameObject obj = Instantiate(txtprefab);
             obj.GetComponent<Text>().text = s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
@@ -118,13 +119,14 @@ public class GradesCard : MonoBehaviour
         return string.Format("{0}", accuracyFavoriteBox.GetAccuracy(1).ToString());
     }
 
+    // test
     #region DATA
-    void ExportData()
+    public void ExportData()
     {
-        textExport = columns + data;
-        File.WriteAllText(Application.persistentDataPath + "/studentData.csv", textExport);
-        Debug.Log("Check File at " + Application.persistentDataPath);
-        MessageBox.ins.ShowOk("Data export successful!", MessageBox.MsgIcon.msgInformation, null);
+        SceneManager.LoadScene("DataImporter");
+        //File.WriteAllText(Application.persistentDataPath + "/studentData.csv", textExport);
+        //Debug.Log("Check File at " + Application.persistentDataPath);
+        //MessageBox.ins.ShowOk("Data export successful!", MessageBox.MsgIcon.msgInformation, null);
     }
     #endregion
 }

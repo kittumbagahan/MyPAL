@@ -105,7 +105,7 @@ public static class DataService
         }
         else
         {
-            Debug.Log("HOY! " + PlayerPrefs.GetString("activeDatabase"));
+            //Debug.Log("HOY! " + PlayerPrefs.GetString("activeDatabase"));
             return PlayerPrefs.GetString("activeDatabase");
         }
     }

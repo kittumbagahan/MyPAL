@@ -10,6 +10,8 @@ using System.Collections;
 using TMPro;
 
 using System.Net.Sockets;
+using SQLite4Unity3d;
+using System;
 
 public class DataImportNetwork : MonoBehaviour
 {
@@ -18,9 +20,9 @@ public class DataImportNetwork : MonoBehaviour
     //public InputField portNumber = null;
     public bool DontChangeSceneOnConnect = false;
     public string masterServerHost = string.Empty;
-    public ushort masterServerPort = 14940;
+    public ushort masterServerPort = 12940;
     public string natServerHost = string.Empty;
-    public ushort natServerPort = 14941;
+    public ushort natServerPort = 12941;
     public bool connectUsingMatchmaking = false;
     public bool useElo = false;
     public int myElo = 0;
@@ -41,7 +43,7 @@ public class DataImportNetwork : MonoBehaviour
 
     // kit
     [SerializeField]
-    private ushort mPort = 14937;
+    private ushort mPort = 12937;
     private string mIpAddress = "127.0.0.1";
     [SerializeField] Button btnReceiver, btnSender;
     ClientSendFile mClientSendFile;
@@ -49,6 +51,9 @@ public class DataImportNetwork : MonoBehaviour
     // kit
     public static DataImportNetwork Instance;
     NetworkingPlayer player;
+
+    [SerializeField]
+    Dropdown dropdownSection;
 
     private void Start ()
     {
@@ -90,6 +95,8 @@ public class DataImportNetwork : MonoBehaviour
             //NetWorker.RefreshLocalUdpListings(ushort.Parse(portNumber.text));
             NetWorker.RefreshLocalUdpListings (mPort);
         }
+
+        RetrieveData();
     }
 
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
@@ -144,9 +151,20 @@ public class DataImportNetwork : MonoBehaviour
 
     private void Client_serverAccepted (NetWorker sender)
     {
-        Debug.Log (string.Format ("{0} is connected to server", "Huehue"));
+        Debug.Log (string.Format ("{0} is connected to server", "Huehue"));        
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
         //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+    }
+
+    public void SendData()
+    {
+        MainThreadManager.Run(() =>
+        {
+            if (textExport == null || textExport == "")
+                return;
+
+            clientSendFile.SendCSV(textExport);
+        });
     }
 
     public void Host ()
@@ -202,7 +220,7 @@ public class DataImportNetwork : MonoBehaviour
     private void Server_playerAccepted (NetworkingPlayer player, NetWorker sender)
     {
         Debug.Log ("player is accepted");
-        clientSendFile.SendDatabase (Application.persistentDataPath + "/" + DataService.DbName ());
+        //clientSendFile.SendDatabase (Application.persistentDataPath + "/" + DataService.DbName ());
     }
 
     private void Server_disconnected (NetWorker sender)
@@ -331,9 +349,9 @@ public class DataImportNetwork : MonoBehaviour
         }
 
         if (btnSender != null)
-            btnSender.GetComponentInChildren<TextMeshProUGUI> ().text = "Send";
+            btnSender.GetComponentInChildren<Text> ().text = "Send";
         if (btnReceiver != null)
-            btnReceiver.GetComponentInChildren<TextMeshProUGUI> ().text = "Receive";
+            btnReceiver.GetComponentInChildren<Text> ().text = "Receive";
     }
 
     private void OnEnable ()
@@ -372,18 +390,20 @@ public class DataImportNetwork : MonoBehaviour
 
     public void AsSender ()
     {
-        btnReceiver.GetComponent<Button> ().interactable = false;
-        btnSender.GetComponentInChildren<Text> ().text = "Stop";
+        if(btnReceiver != null)
+            btnReceiver.GetComponent<Button>().interactable = false;
+        if(btnSender != null)
+            btnSender.GetComponentInChildren<Text>().text = "Stop";
 
-        btnSender.onClick.RemoveAllListeners ();
-        btnSender.onClick.AddListener (() =>
+        btnSender.onClick.RemoveAllListeners();
+        btnSender.onClick.AddListener(() =>
         {
-            StopCoroutine ("_FindServer");
-            ResetNetwork ();
+            StopCoroutine("_FindServer");
+            ResetNetwork();
             //            StopCoroutine("_FindServerLoading");            
         });
 
-        StartCoroutine ("_FindServer");
+        StartCoroutine("_FindServer");
     }
 
     WaitForSeconds wfs = new WaitForSeconds (1.5f);
@@ -430,4 +450,131 @@ public class DataImportNetwork : MonoBehaviour
     }
 
     #endregion
+
+    AccuracyABC accuracyABC;
+    AccuracyAfterTheRain accuracyAfterTheRain;
+    AccuracyChatWithCat accuracyChatWithCat;
+    AccuracyColorsAllMixedUp accuracyColorsAllMixedUp;
+    AccuracyFavoriteBox accuracyFavoriteBox;
+    AccuracyJoeyGoesToSchool accuracyJoeyGoesToSchool;
+    AccuracySoundsFantastic accuracySoundsFantastic;
+    AccuracyTinaAndJun accuracyTinaAndJun;
+    AccuracyWhatDidYouSee accuracyWhatDidYouSee;
+    AccuracyYummyShapes accuracyYummyShapes;
+
+    string columns = "Fullname,Word,Observation,Total";
+    string data;
+    string textExport;
+
+    void RetrieveData()
+    {
+        Debug.Log("Retrieve sections");
+        DataService.Open("admin.db");
+        SQLiteCommand command = DataService._connection.CreateCommand("select * from AdminSectionsModel");
+        List<AdminSectionsModel> lstSections = new List<AdminSectionsModel>();
+        lstSections = command.ExecuteQuery<AdminSectionsModel>();
+        DataService.Close();
+
+        dropdownSection.interactable = lstSections.Count > 0 ? true : false;
+
+        if (lstSections.Count <= 0)
+            return;
+
+        List<string> options = new List<string>();
+
+        for (int i = 0; i < lstSections.Count; i++)
+        {
+            Debug.Log(string.Format("Section {0}", lstSections[i].Description));
+            options.Add(lstSections[i].Description);
+        }
+
+        dropdownSection.AddOptions(options);
+
+        dropdownSection.onValueChanged.AddListener(ShowData);
+
+        ShowData(0);
+    }
+
+    // test
+    public void ShowData(int value)
+    {
+        textExport = "";
+        columns = "Fullname,Word,Observation,Total";
+        data = "";
+
+        dropdownSection.interactable = false;
+        if (btnSender != null)
+            btnSender.interactable = false;
+
+        string selectedSection = dropdownSection.options[value].text;
+
+        if (selectedSection == "" || selectedSection == null)
+            return;
+
+        if (accuracyABC == null)
+        {            
+            accuracyABC = new AccuracyABC();
+            accuracyAfterTheRain = new AccuracyAfterTheRain();
+            accuracyChatWithCat = new AccuracyChatWithCat();
+            accuracyColorsAllMixedUp = new AccuracyColorsAllMixedUp();
+            accuracyFavoriteBox = new AccuracyFavoriteBox();
+            accuracyJoeyGoesToSchool = new AccuracyJoeyGoesToSchool();
+            accuracySoundsFantastic = new AccuracySoundsFantastic();
+            accuracyTinaAndJun = new AccuracyTinaAndJun();
+            accuracyWhatDidYouSee = new AccuracyWhatDidYouSee();
+            accuracyYummyShapes = new AccuracyYummyShapes();
+        }
+
+        // data        
+        columns += Environment.NewLine + "," + Environment.NewLine;
+
+        Debug.Log("Test");
+        Debug.Log(dropdownSection.options[dropdownSection.value].text);
+
+        DataService.Open(selectedSection + ".db");
+
+        SQLiteCommand command = DataService._connection.CreateCommand("select * from StudentModel");
+        List<StudentModel> studentModel = command.ExecuteQuery<StudentModel>();
+
+        DataService.Close();                
+       
+        for (int i = 0; i < studentModel.Count; i++)
+        {
+            double wordTotalGrade = TotalWordGrade(studentModel[i].Id);
+            double observationTotalGrade = TotalObservationGrade(studentModel[i].Id);
+
+            Debug.Log("name " + studentModel[i].Lastname + ", id " + studentModel[i].Id);
+
+            if (studentModel.Count - 1 == i)
+                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
+                "," + (wordTotalGrade + observationTotalGrade);
+            else
+                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
+                "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
+        }
+
+        Debug.Log("Huehue");
+        textExport = columns + data;
+        Debug.Log(textExport);
+
+        dropdownSection.interactable = true;
+        if (btnSender != null)
+            btnSender.interactable = true;
+    }
+
+    double TotalWordGrade(int id)
+    {
+        return accuracyFavoriteBox.GetAccuracyWord(id) + accuracyABC.GetAccuracyWord(id) + accuracyAfterTheRain.GetAccuracyWord(id) +
+            accuracyChatWithCat.GetAccuracyWord(id) + accuracyColorsAllMixedUp.GetAccuracyWord(id) + accuracyJoeyGoesToSchool.GetAccuracyWord(id) +
+            accuracySoundsFantastic.GetAccuracyWord(id) + accuracyTinaAndJun.GetAccuracyWord(id) + accuracyWhatDidYouSee.GetAccuracyWord(id) +
+            accuracyYummyShapes.GetAccuracyWord(id);
+    }
+
+    double TotalObservationGrade(int id)
+    {
+        return accuracyFavoriteBox.GetAccuracyObservation(id) + accuracyABC.GetAccuracyObservation(id) + accuracyAfterTheRain.GetAccuracyObservation(id) +
+            accuracyChatWithCat.GetAccuracyObservation(id) + accuracyColorsAllMixedUp.GetAccuracyObservation(id) + accuracyJoeyGoesToSchool.GetAccuracyObservation(id) +
+            accuracySoundsFantastic.GetAccuracyObservation(id) + accuracyTinaAndJun.GetAccuracyObservation(id) + accuracyWhatDidYouSee.GetAccuracyObservation(id) +
+            accuracyYummyShapes.GetAccuracyObservation(id);
+    }
 }
