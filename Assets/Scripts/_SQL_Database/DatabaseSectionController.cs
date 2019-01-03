@@ -34,6 +34,11 @@ public sealed class DatabaseSectionController : DatabaseController
 
     }
 
+    public void RenameDb(string oldName, string newName)
+    {
+        File.Move(DatabaseDirectory + "/" + oldName, DatabaseDirectory + "/" + newName);
+    }
+
     public void CreateSectionTables(string dbName)
     {
         DataService.Open(dbName);

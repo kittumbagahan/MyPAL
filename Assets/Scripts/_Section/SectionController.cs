@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.IO;
 
 public class SectionController : MonoBehaviour
 {
@@ -297,8 +298,18 @@ class UpdateSection
         }
         else
         {
-            //DataService ds = new DataService();
-            DataService.Open();
+            //Rename section database
+            DatabaseSectionController dsc = new DatabaseSectionController();
+            dsc.RenameDb(s.name + ".db", view.txtSectionName.text + ".db");
+
+            //update section in admin database
+            DataService.Open("admin.db");
+            AdminSectionsModel asm = DataService._connection.Table<AdminSectionsModel>().Where(x=>x.Description == s.name).FirstOrDefault();
+            asm.Description = view.txtSectionName.text;
+            DataService._connection.Update(asm);
+            DataService.Close();
+
+            DataService.Open(view.txtSectionName.text + ".db");
             SectionModel model = new SectionModel
             {
                 Id = s.id,

@@ -20,7 +20,7 @@ public class CreateDBScript : MonoBehaviour
 
         if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
         {
-            SqlLoadingPanel.ins.Show(1);
+           
             if (PlayerPrefs.GetInt("adminDatabaseCreate").Equals(0))
             {
                 DatabaseAdminController dac = new DatabaseAdminController();
