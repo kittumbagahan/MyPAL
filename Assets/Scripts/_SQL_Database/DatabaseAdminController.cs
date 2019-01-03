@@ -10,7 +10,7 @@ public sealed class DatabaseAdminController : DatabaseController
     {
         if (!File.Exists(DatabaseDirectory + "/" + "admin.db"))
         {
-            File.Create(DatabaseDirectory + "/" + "admin.db");
+            File.Create(DatabaseDirectory + "/" + "admin.db").Close();
 
         }
         else
@@ -22,13 +22,13 @@ public sealed class DatabaseAdminController : DatabaseController
         
     }
 
-    public IEnumerator IECreate()
+    public void CreateAdminDb()
     {
         Debug.Log(Application.persistentDataPath);
 
         #region MAINTENANCE
 
-        yield return new WaitForSeconds(5f);
+       
         DataService.Open("admin.db");
 
         DataService._connection.CreateTable<AdminSectionsModel>();
@@ -40,6 +40,14 @@ public sealed class DatabaseAdminController : DatabaseController
             ResetCount = 0
         };
         DataService._connection.Insert(resetPasswordTimesModel);
+
+
+        DataService._connection.CreateTable<NumberOfSectionsModel>();
+        NumberOfSectionsModel numberOfSectionsModel = new NumberOfSectionsModel
+        {
+            MaxSection = 3
+        };
+        DataService._connection.Insert(numberOfSectionsModel);
 
         DataService._connection.CreateTable<NumberOfStudentsModel>();
         NumberOfStudentsModel numberOfStudentsModel = new NumberOfStudentsModel

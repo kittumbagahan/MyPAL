@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 public class StudentController : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class StudentController : MonoBehaviour
     {
         if (ins != null)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         else
         {
@@ -49,13 +50,31 @@ public class StudentController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+      
+        
 
+    }
 
+    void UpdateNumberOfStudents()
+    {
+        DataService.Open("admin.db");
+        var sections = DataService._connection.Table<AdminSectionsModel>();
+        string[] sectionNames = sections.ToArray().Select(x => x.Description).ToArray();
+        DataService.Close();
+
+        currentMaxStudent = 0;
+        foreach (string name in sectionNames)
+        {
+            DataService.Open(name + ".db");
+            currentMaxStudent += DataService._connection.Table<StudentModel>().Count();
+            DataService.Close();
+        }
+        
     }
     public void ShowStudentsSQL(string letter)
     {
 
-        currentMaxStudent = 0;
+        UpdateNumberOfStudents();
 
         DataService.Open("admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
@@ -79,7 +98,7 @@ public class StudentController : MonoBehaviour
             _student.gender = student.Gender;
             _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
             _obj.transform.SetParent(btnStudentContainer.transform);
-            currentMaxStudent++;
+        
         }
 
         DataService.Close();
@@ -87,7 +106,7 @@ public class StudentController : MonoBehaviour
     public void LoadStudentsSQL()
     {
         //maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
-        currentMaxStudent = 0;
+        UpdateNumberOfStudents();
         //DataService ds = new DataService();
         DataService.Open("admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
@@ -112,7 +131,7 @@ public class StudentController : MonoBehaviour
             _student.gender = student.Gender;
             _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
             _obj.transform.SetParent(btnStudentContainer.transform);
-            currentMaxStudent++;
+          
         }
 
         if (btnStudentContainer.transform.childCount == 0)
@@ -184,7 +203,7 @@ public class StudentController : MonoBehaviour
                     _obj.transform.SetParent(btnStudentContainer.transform);
 
                     panelCreateStudentInput.gameObject.SetActive(false);
-                    currentMaxStudent++;
+                    UpdateNumberOfStudents();
                     btnEdit.gameObject.SetActive(true);
 
                 }

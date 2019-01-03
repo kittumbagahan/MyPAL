@@ -87,7 +87,7 @@ public class DatabaseController
         Directory.CreateDirectory(DatabaseDirectory + "/system");
         if (!File.Exists(DatabaseDirectory + "/system/" + dbName))
         {
-            File.Create(DatabaseDirectory + "/system/" + dbName);
+            File.Create(DatabaseDirectory + "/system/" + dbName).Close();
         }
        
 

@@ -24,7 +24,7 @@ public sealed class DatabaseSectionController : DatabaseController
         Debug.Log(Application.persistentDataPath);
         if (!File.Exists(DatabaseDirectory + "/" + dbName))
         {
-            File.Create(DatabaseDirectory + "/" + dbName);
+            File.Create(DatabaseDirectory + "/" + dbName).Close();
 
         }
         else

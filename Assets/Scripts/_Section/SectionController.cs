@@ -31,21 +31,21 @@ public class SectionController : MonoBehaviour
     {
         if (ins != null)
         {
-            Destroy(gameObject);
+          
         }
         else
         {
             ins = this;
         }
-        if (PlayerPrefs.GetInt("maxNumberOfSectionsAllowed") == 0)
-        {
-            PlayerPrefs.SetInt("maxNumberOfSectionsAllowed", 3);
-        }
-        maxSectionAllowed = PlayerPrefs.GetInt("maxNumberOfSectionsAllowed");
-        //PlayerPrefs.SetInt("maxNumberOfSectionsAllowed", 10);
+        //if (PlayerPrefs.GetInt("maxNumberOfSectionsAllowed") == 0)
+        //{
+        //    PlayerPrefs.SetInt("maxNumberOfSectionsAllowed", 3);
+        //}
+        //maxSectionAllowed = PlayerPrefs.GetInt("maxNumberOfSectionsAllowed");
 
-        //LoadSections ();
-
+        DataService.Open("admin.db");
+        maxSectionAllowed = DataService._connection.Table<NumberOfSectionsModel>().FirstOrDefault().MaxSection;
+        DataService.Close();
     }
 
     void OnEnable()
@@ -98,29 +98,6 @@ public class SectionController : MonoBehaviour
         DataService.Close();
     }
 
-    //IEnumerator IECreate(IEnumerator[] IES)
-    //{
-    //    for (int i=0; i<IES.Length; i++)
-    //    {
-    //        IEnumerator ie = IES[i];
-    //        yield return StartCoroutine(ie);
-    //    }
-    //}
-
-    IEnumerator IECreate(UnityAction[] actions, float[] time)
-    {
-        for (int i = 0; i < actions.Length; i++)
-        {
-            yield return new WaitForSeconds(time[i]);
-            if (actions[i] != null)
-            {
-                actions[i]();
-
-            }
-
-        }
-    }
-
     public void CreateNewSection(Text newSection)
     {
         //create section for this device
@@ -149,54 +126,45 @@ public class SectionController : MonoBehaviour
                     DatabaseSectionController dsc = new DatabaseSectionController();
 
                     //PlayerPrefs.SetString("activeDatabase", newSection.text + ".db");
-                    StartCoroutine(IECreate(new UnityAction[]{
-                        ()=>{
-                            //create the section database
-                            dsc.CreateSectionDb(newSection.text + ".db");
-                            Debug.Log("section db file created!");
-                        },
-                        () =>
-                        {
-                            //create the section database tables
-                            dsc.CreateSectionTables(newSection.text + ".db");
-                            Debug.Log("section db tables created!");
-                        },
-                        ()=>{
-                              //insert new section in admin database
-                             DataService.Open("admin.db");
-                        AdminSectionsModel asm = new AdminSectionsModel
-                        {
-                            DeviceId = SystemInfo.deviceUniqueIdentifier,
-                            SectionId = 1,
-                            Description = newSection.text
-                        };
-                        DataService._connection.Insert(asm);
-                        DataService.Close();
-                            Debug.Log("section added into admin sections");
-                        },
-                        ()=> {
-                             //create section in section databse
-                        DataService.Open(newSection.text + ".db");
+                    //create the section database
+                    dsc.CreateSectionDb(newSection.text + ".db");
+                    Debug.Log("section db file created!");
+                    //create the section database tables
+                    dsc.CreateSectionTables(newSection.text + ".db");
+                    Debug.Log("section db tables created!");
 
-                        SectionModel model = new SectionModel { DeviceId = SystemInfo.deviceUniqueIdentifier, Description = newSection.text };
-                        DataService._connection.Insert(model);
+                    //insert new section in admin database
+                    DataService.Open("admin.db");
+                    AdminSectionsModel asm = new AdminSectionsModel
+                    {
+                        DeviceId = SystemInfo.deviceUniqueIdentifier,
+                        SectionId = 1,
+                        Description = newSection.text
+                    };
+                    DataService._connection.Insert(asm);
+                    DataService.Close();
+                    Debug.Log("section added into admin sections");
 
-                        GameObject _obj = Instantiate(btnSectionPrefab);
-                        Section _section = _obj.GetComponent<Section>();
-                        SectionModel s = DataService._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
-                        _section.id = s.Id;
-                        _section.name = newSection.text;
-                        _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
-                        _obj.transform.SetParent(btnSectionContainer.transform);
+                    //create section in section databse
+                    DataService.Open(newSection.text + ".db");
 
-                        panelSectionInput.gameObject.SetActive(false);
-                        currentMaxSection++;
+                    SectionModel model = new SectionModel { DeviceId = SystemInfo.deviceUniqueIdentifier, Description = newSection.text };
+                    DataService._connection.Insert(model);
 
-                        DataService.Close();
-                            Debug.Log("section created into section db!");
-                        }
-                    }, new float[] { 1, 10, 1, 1 }));
+                    GameObject _obj = Instantiate(btnSectionPrefab);
+                    Section _section = _obj.GetComponent<Section>();
+                    SectionModel s = DataService._connection.Table<SectionModel>().Where(x => x.Description == model.Description).FirstOrDefault();
+                    _section.id = s.Id;
+                    _section.name = newSection.text;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
+                    _obj.transform.SetParent(btnSectionContainer.transform);
 
+                    panelSectionInput.gameObject.SetActive(false);
+                    currentMaxSection++;
+
+                    DataService.Close();
+                    Debug.Log("section created into section db!");
+                   
                 }
                 else
                 {

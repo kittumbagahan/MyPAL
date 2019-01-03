@@ -18,60 +18,40 @@ public class CreateDBScript : MonoBehaviour
         //PlayerPrefs.SetInt("subscriptionTime_table", 0);
         //PlayerPrefs.SetInt("adminDatabaseCreate", 0);
 
-        //THE time here is a problem, the file creation is time/availability time is random
-       
         if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
         {
-            SqlLoadingPanel.ins.Show(22);
-            StartCoroutine(IECreate(new UnityAction[] {
-                () =>
+            SqlLoadingPanel.ins.Show(1);
+            if (PlayerPrefs.GetInt("adminDatabaseCreate").Equals(0))
+            {
+                DatabaseAdminController dac = new DatabaseAdminController();
+                dac.CreateAdminDb();
+                PlayerPrefs.SetInt("adminDatabaseCreate", 1);
+
+            }
+            if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
+            {
+                DatabaseController dc = new DatabaseController();
+                dc.CreateSystemDB("subscription.db");
+                Debug.Log("subs created");
+              
+                DataService.Open("system/subscription.db");
+                Debug.Log("subs opened");
+
+                DataService._connection.CreateTable<SubscriptionTimeModel>();
+                SubscriptionTimeModel model = new SubscriptionTimeModel
                 {
-                    if (PlayerPrefs.GetInt("adminDatabaseCreate").Equals(0))
-                    {
-                        DatabaseAdminController dac = new DatabaseAdminController();
-                        StartCoroutine(dac.IECreate());
-                        PlayerPrefs.SetInt("adminDatabaseCreate", 1);
-                        
-                    }
-                },
-                () =>
-                {
-                    if (0.Equals(PlayerPrefs.GetInt("subscriptionTime_table")))
-                    {
-                        DatabaseController dc = new DatabaseController();
-                        dc.CreateSystemDB("subscription.db");
-                        Debug.Log("subs created");
-                        StartCoroutine(IECreate(new UnityAction[]{
-                                () =>
-                                {
-                                     Debug.Log("subs opened");
-                                    DataService.Open("system/subscription.db");
+                    SettedTime = 1080000, //300hrs to seconds
+                    Timer = 1080000
+                };
+                DataService._connection.Insert(model);
+                var subs = DataService.GetSubscription();
+                ToConsole(subs);
 
-                                    DataService._connection.CreateTable<SubscriptionTimeModel>();
-                                    SubscriptionTimeModel model = new SubscriptionTimeModel
-                                    {
-                                        SettedTime = 1080000, //300hrs to seconds
-                                        Timer = 1080000
-                                    };
-                                    DataService._connection.Insert(model);
-                                    var subs = DataService.GetSubscription();
-                                    ToConsole(subs);
+                DataService.Close();
+                PlayerPrefs.SetInt("subscriptionTime_table", 1);
 
-                                    DataService.Close();
-                                    PlayerPrefs.SetInt("subscriptionTime_table", 1);
-                                }
-                            },
-                            new float[]{5}));
-
-
-                    }
-                },
-                ()=>{
-                      Debug.Log("subs closed");
-                    timeUsageCounter.Init();
-                }
-            },
-           new float[] { 1, 10, 11 }));
+                timeUsageCounter.Init();
+            }
         }
         else
         {
