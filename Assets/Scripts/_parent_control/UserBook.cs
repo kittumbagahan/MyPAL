@@ -38,7 +38,8 @@ public class UserBook : MonoBehaviour {
     {
         get
         {
-            return PlayedCount == 0 ? 0 : (bookAccuracy.total / bookAccuracy.max) * 100;
+            Debug.Log(string.Format("{0},{1}", bookAccuracy.total, bookAccuracy.max));
+            return PlayedCount == 0 ? 0 : bookAccuracy.total;
         }
     }
 

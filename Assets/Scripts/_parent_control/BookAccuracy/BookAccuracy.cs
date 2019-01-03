@@ -65,7 +65,7 @@ public class BookAccuracy : MonoBehaviour
             }
         }
         max = lstGrade.Count * 100;
-        return totalScore;
+        return (totalScore / max) * 100;
     }
     public virtual double GetAccuracy(int id)
     {
