@@ -57,7 +57,7 @@ public class StudentController : MonoBehaviour
 
     void UpdateNumberOfStudents()
     {
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         var sections = DataService._connection.Table<AdminSectionsModel>();
         string[] sectionNames = sections.ToArray().Select(x => x.Description).ToArray();
         DataService.Close();
