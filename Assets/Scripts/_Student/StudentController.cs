@@ -96,7 +96,7 @@ public class StudentController : MonoBehaviour
             _student.id = student.Id;
             _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
             _student.gender = student.Gender;
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
             _obj.transform.SetParent(btnStudentContainer.transform);
         
         }
@@ -129,7 +129,7 @@ public class StudentController : MonoBehaviour
             _student.id = student.Id;
             _student.name = student.Givenname + " " + student.Middlename + " " + student.Lastname + " " + student.Nickname;
             _student.gender = student.Gender;
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + _student.id;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
             _obj.transform.SetParent(btnStudentContainer.transform);
           
         }
