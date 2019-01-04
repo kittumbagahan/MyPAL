@@ -98,16 +98,18 @@ public static class DataService
 
     public static string DbName()
     {
-        if (PlayerPrefs.GetString("activeDatabase") == "")
-        {
-            PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
-            return "tempDatabase.db";
-        }
-        else
-        {
-            //Debug.Log("HOY! " + PlayerPrefs.GetString("activeDatabase"));
-            return PlayerPrefs.GetString("activeDatabase");
-        }
+        return PlayerPrefs.GetString ("activeDatabase", "");
+
+        //if (PlayerPrefs.GetString("activeDatabase") == "")
+        //{
+        //    PlayerPrefs.SetString("activeDatabase", "tempDatabase.db");
+        //    return "tempDatabase.db";
+        //}
+        //else
+        //{
+        //    //Debug.Log("HOY! " + PlayerPrefs.GetString("activeDatabase"));
+        //    return PlayerPrefs.GetString("activeDatabase");
+        //}
     }
 
     public static void SetDbName(string pDbName)

@@ -77,26 +77,29 @@ public class ClientSendFile : MonoBehaviour
                 try
                 {
                     // close any open database
-                    DataService.Close();
+                    //DataService.Close();
 
                     if (File.Exists(Application.persistentDataPath + "/" + fileName))
                     {
-                        Debug.LogError("The file " + fileName + " already exists!");
-                        //StringBuilder("The file " + fileName + " already exists!"); 
-                        File.Move(Application.persistentDataPath + "/" + fileName, Application.persistentDataPath + "/backup.db");
-                        //return;
+                        //Debug.LogError("The file " + fileName + " already exists!");
+                        ////StringBuilder("The file " + fileName + " already exists!"); 
+                        //File.Move(Application.persistentDataPath + "/" + fileName, Application.persistentDataPath + "/backup.db");
+                        ////return;
+                        File.Delete (Application.persistentDataPath + "/" + fileName);
                     }
 
                     // Write the rest of the payload as the contents of the file and
                     // use the file name that was extracted as the file's name 
                     File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes());
-                    // set the active db name
-                    DataService.SetDbName(fileName);
-                    // delete backup.db
-                    File.Delete(Application.persistentDataPath + "/backup.db");
-                    // load section selection
+
+                        //// set the active db name
+                        //DataService.SetDbName(fileName);
+
+                        //// delete backup.db
+                        //File.Delete(Application.persistentDataPath + "/backup.db");
+                        //// load section selection
                     MainNetwork.Instance.LoadSectionSelection();
-                    // get active db change name to backup
+                        //// get active db change name to backup
                     
                 }
 
