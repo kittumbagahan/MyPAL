@@ -78,7 +78,7 @@ public class SectionController : MonoBehaviour
             {
                 _obj.transform.GetChild(0).gameObject.AddComponent<TextMeshProUGUI>();
             }
-            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name + _section.id;
+            _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _section.name;
             _obj.transform.SetParent(btnSectionContainer.transform);
             currentMaxSection++;
         }
