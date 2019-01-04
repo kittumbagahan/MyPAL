@@ -21,7 +21,7 @@ public class TeacherLogIn : MonoBehaviour {
 	{
         ResetPasswordModel m = null;
         //DataService ds = new DataService();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         AdminPasswordModel admin = DataService._connection.Table<AdminPasswordModel>().Where(x => x.Id == 1).FirstOrDefault();        
 
         if (inputPWD.text.Equals(admin.Password)){
@@ -51,7 +51,7 @@ public class TeacherLogIn : MonoBehaviour {
     private ResetPasswordModel SystemPassword(string input)
     {
         //DataService ds = new DataService();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         ResetPasswordModel model = DataService._connection.Table<ResetPasswordModel>().Where(x => x.Used == false && x.SystemPasscode == input).FirstOrDefault();
         if (model != null)
             model.Used = true;

@@ -13,7 +13,7 @@ public class MaintenanceNumberOfSectionsAllowed : MonoBehaviour {
     void OnEnable()
     {
        
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         model = DataService._connection.Table<NumberOfSectionsModel>().Where(x => x.Id == 1).FirstOrDefault();
         maxSectionAllowed = model.MaxSection;
         txtNumOfSectionsAllowed.text = maxSectionAllowed.ToString();
@@ -47,7 +47,7 @@ public class MaintenanceNumberOfSectionsAllowed : MonoBehaviour {
     void Yes()
     {
         //DataService ds = new DataService ();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         maxSectionAllowed = int.Parse(txtNumOfSectionsAllowed.text);
         model.MaxSection = maxSectionAllowed;
         DataService._connection.Update(model);

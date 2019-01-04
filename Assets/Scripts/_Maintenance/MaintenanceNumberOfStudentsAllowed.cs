@@ -16,7 +16,7 @@ public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
     void OnEnable()
     {
         //DataService ds = new DataService ();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         model = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault();
         maxStudentAllowed = model.MaxStudent;
         txtNumOfStudentsAllowed.text = maxStudentAllowed.ToString();
@@ -50,7 +50,7 @@ public class MaintenanceNumberOfStudentsAllowed : MonoBehaviour
     void Yes()
     {
         //DataService ds = new DataService ();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         maxStudentAllowed = int.Parse(txtNumOfStudentsAllowed.text);
         model.MaxStudent = maxStudentAllowed;
         DataService._connection.Update(model);

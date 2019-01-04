@@ -44,7 +44,7 @@ public class SectionController : MonoBehaviour
         //}
         //maxSectionAllowed = PlayerPrefs.GetInt("maxNumberOfSectionsAllowed");
 
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         maxSectionAllowed = DataService._connection.Table<NumberOfSectionsModel>().FirstOrDefault().MaxSection;
         DataService.Close();
     }
@@ -58,7 +58,7 @@ public class SectionController : MonoBehaviour
     public void LoadSectionsSQL()
     {
         //DataService ds = new DataService();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
 
         var sections = DataService._connection.Table<AdminSectionsModel>();
 
@@ -135,7 +135,7 @@ public class SectionController : MonoBehaviour
                     Debug.Log("section db tables created!");
 
                     //insert new section in admin database
-                    DataService.Open("admin.db");
+                    DataService.Open("system/admin.db");
                     AdminSectionsModel asm = new AdminSectionsModel
                     {
                         DeviceId = SystemInfo.deviceUniqueIdentifier,
@@ -303,7 +303,7 @@ class UpdateSection
             dsc.RenameDb(s.name + ".db", view.txtSectionName.text + ".db");
 
             //update section in admin database
-            DataService.Open("admin.db");
+            DataService.Open("system/admin.db");
             AdminSectionsModel asm = DataService._connection.Table<AdminSectionsModel>().Where(x=>x.Description == s.name).FirstOrDefault();
             asm.Description = view.txtSectionName.text;
             DataService._connection.Update(asm);

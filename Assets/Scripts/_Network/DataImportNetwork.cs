@@ -469,7 +469,7 @@ public class DataImportNetwork : MonoBehaviour
     void RetrieveData()
     {
         Debug.Log("Retrieve sections");
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         SQLiteCommand command = DataService._connection.CreateCommand("select * from AdminSectionsModel");
         List<AdminSectionsModel> lstSections = new List<AdminSectionsModel>();
         lstSections = command.ExecuteQuery<AdminSectionsModel>();

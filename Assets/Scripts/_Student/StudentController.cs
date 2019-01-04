@@ -76,7 +76,7 @@ public class StudentController : MonoBehaviour
 
         UpdateNumberOfStudents();
 
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
         DataService.Close();
         DataService.Open();
@@ -108,7 +108,7 @@ public class StudentController : MonoBehaviour
         //maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
         UpdateNumberOfStudents();
         //DataService ds = new DataService();
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;
         DataService.Close();
         //load all students from their section in all devices

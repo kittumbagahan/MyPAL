@@ -8,9 +8,9 @@ public sealed class DatabaseAdminController : DatabaseController
    
     public DatabaseAdminController() : base()
     {
-        if (!File.Exists(DatabaseDirectory + "/" + "admin.db"))
+        if (!File.Exists(DatabaseDirectory + "/system/" + "admin.db"))
         {
-            File.Create(DatabaseDirectory + "/" + "admin.db").Close();
+            File.Create(DatabaseDirectory + "/system/" + "admin.db").Close();
 
         }
         else
@@ -29,7 +29,7 @@ public sealed class DatabaseAdminController : DatabaseController
         #region MAINTENANCE
 
        
-        DataService.Open("admin.db");
+        DataService.Open("system/admin.db");
 
         DataService._connection.CreateTable<AdminSectionsModel>();
 

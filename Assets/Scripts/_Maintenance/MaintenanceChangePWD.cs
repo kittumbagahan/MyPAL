@@ -23,7 +23,7 @@ public class MaintenanceChangePWD : MonoBehaviour {
 		else
 		{
             //DataService ds = new DataService();
-            DataService.Open("admin.db");
+            DataService.Open("system/admin.db");
             AdminPasswordModel model = DataService._connection.Table<AdminPasswordModel>().Where(x=>x.Id==1).FirstOrDefault();
 			if(inputOld.text.Equals(model.Password) && !inputNew.text.Equals("tammytam"))
 			{
