@@ -247,8 +247,14 @@ public class MainNetwork : MonoBehaviour {
 
     private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
     {
-        Debug.Log("player is accepted");
-        //clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName());
+        MainThreadManager.Run(() =>
+        {
+            Debug.Log("player is accepted");
+            // send DB
+            clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName());
+            // send admin
+            clientSendFile.SendDatabase(Application.persistentDataPath + "/system/admin.db");
+        });        
     }
 
     private void Server_disconnected(NetWorker sender)

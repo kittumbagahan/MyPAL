@@ -106,7 +106,9 @@ public class StudentController : MonoBehaviour
     public void LoadStudentsSQL()
     {
         //maxStudentAllowed = PlayerPrefs.GetInt("maxNumberOfStudentsAllowed");
+
         UpdateNumberOfStudents();
+        
         //DataService ds = new DataService();
         DataService.Open("system/admin.db");
         maxStudentAllowed = DataService._connection.Table<NumberOfStudentsModel>().Where(x => x.Id == 1).FirstOrDefault().MaxStudent;

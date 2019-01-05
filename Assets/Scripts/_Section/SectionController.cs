@@ -52,6 +52,7 @@ public class SectionController : MonoBehaviour
     void OnEnable()
     {
         //Debug.Log("SECCTIONS NOT LOADed");
+        Debug.Log("Load Sections!");
         LoadSectionsSQL();
     }
 

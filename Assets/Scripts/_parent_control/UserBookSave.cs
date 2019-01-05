@@ -73,6 +73,8 @@ public class UserBookSave : MonoBehaviour
 
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
+
+            Debug.Log("Send Data, update read count");
         }
         DataService.Close();
     }
@@ -91,6 +93,8 @@ public class UserBookSave : MonoBehaviour
 
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
+
+            Debug.Log("Send Data, update read to me count");
         }
         DataService.Close();
     }
@@ -108,6 +112,8 @@ public class UserBookSave : MonoBehaviour
 
             if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
                 MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
+
+            Debug.Log("Send Data, update auto read count");
         }
         DataService.Close();
     }
