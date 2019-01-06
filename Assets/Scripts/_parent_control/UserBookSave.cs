@@ -39,15 +39,7 @@ public class UserBookSave : MonoBehaviour
                 ReadCount = 0,
                 ReadToMeCount = 0,
                 AutoReadCount = 0
-            };
-
-            networkData = new NetworkData();
-            networkData.studentBook_SectionId = model.SectionId;
-            networkData.studentBook_StudentId = model.StudentId;
-            networkData.studentBook_bookId = model.BookId;
-            networkData.studentBook_readCount = model.ReadCount;
-            networkData.studentBook_readToMeCount = model.ReadToMeCount;
-            networkData.studentBook_autoReadCount = model.AutoReadCount;
+            };            
 
             DataService._connection.Insert(model);
         }
@@ -64,18 +56,20 @@ public class UserBookSave : MonoBehaviour
         DataService.Open();
         int count = model.ReadCount + 1;
         DataService._connection.Execute("Update StudentBookModel set ReadCount='" + count + "' where Id='" + model.Id + "'");
+        Debug.Log("Update Read Usage");
+        BookData(count, ClientSendFile.MessageGroup.Book_UpdateReadCount);
 
-        if (networkData != null)
-        {
-            // network data
-            networkData.studentBook_Id = model.Id;
-            networkData.studentBook_readCount = count;
+        //if (networkData != null)
+        //{
+        //    // network data
+        //    networkData.studentBook_Id = model.Id;
+        //    networkData.studentBook_readCount = count;
 
-            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
-                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
+        //    if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+        //        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadCount);
 
-            Debug.Log("Send Data, update read count");
-        }
+        //    Debug.Log("Send Data, update read count");
+        //}
         DataService.Close();
     }
 
@@ -84,18 +78,20 @@ public class UserBookSave : MonoBehaviour
         int count = model.ReadToMeCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
+        Debug.Log("Update Read To Me Count");
+        BookData(count, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
 
-        if (networkData != null)
-        {
-            // network data
-            networkData.studentBook_Id = model.Id;
-            networkData.studentBook_readCount = count;
+        //if (networkData != null)
+        //{
+        //    // network data
+        //    networkData.studentBook_Id = model.Id;
+        //    networkData.studentBook_readCount = count;
 
-            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
-                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
+        //    if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+        //        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateReadToMeCount);
 
-            Debug.Log("Send Data, update read to me count");
-        }
+        //    Debug.Log("Send Data, update read to me count");
+        //}
         DataService.Close();
     }
 
@@ -104,21 +100,50 @@ public class UserBookSave : MonoBehaviour
         int count = model.AutoReadCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
-        if (networkData != null)
-        {
-            // network data
-            networkData.studentBook_Id = model.Id;
-            networkData.studentBook_readCount = count;
+        Debug.Log("Update Auto Read Count");
+        BookData(count, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
 
-            if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
-                MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
+        //if (networkData != null)
+        //{
+        //    // network data
+        //    networkData.studentBook_Id = model.Id;
+        //    networkData.studentBook_readCount = count;
 
-            Debug.Log("Send Data, update auto read count");
-        }
+        //    if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+        //        MainNetwork.Instance.clientSendFile.SendData(networkData, ClientSendFile.MessageGroup.Book_UpdateAutoReadCount);
+
+        //    Debug.Log("Send Data, update auto read count");
+        //}
         DataService.Close();
     }
 
+    // BookData
+    void BookData(int pCount, ClientSendFile.MessageGroup pMessageGroup)
+    {
+        networkData = new NetworkData();
 
+        networkData.studentBook_Id = model.Id;
+        networkData.studentBook_readCount = pCount;
+
+        networkData.studentBook_SectionId = model.SectionId;
+        networkData.studentBook_StudentId = model.StudentId;
+        networkData.studentBook_bookId = model.BookId;
+        networkData.studentBook_readCount = model.ReadCount;
+        networkData.studentBook_readToMeCount = model.ReadToMeCount;
+        networkData.studentBook_autoReadCount = model.AutoReadCount;
+
+        Debug.Log(string.Format("ID {0}, Count {1}, Section {2}, Student ID {3}, Book ID {4}, Read Count {5}, Read to me Count {6}, Auto Read Count {7}", 
+            networkData.studentBook_Id,
+            networkData.studentBook_readCount,
+            networkData.studentBook_SectionId,
+            networkData.studentBook_StudentId,
+            networkData.studentBook_bookId,
+            networkData.studentBook_readCount,
+            networkData.studentBook_readToMeCount,
+            networkData.studentBook_autoReadCount));
+
+        MainNetwork.Instance.clientSendFile.SendData(networkData, pMessageGroup);
+    }
 
 
 }

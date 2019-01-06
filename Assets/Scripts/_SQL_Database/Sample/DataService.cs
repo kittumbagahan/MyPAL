@@ -12,7 +12,7 @@ using System.Threading;
 public static class DataService
 {
 
-    public static SQLiteConnection _connection { private set; get; }
+    public static SQLiteConnection _connection { private set; get; }    
 
     //public DataService()
     //{        
