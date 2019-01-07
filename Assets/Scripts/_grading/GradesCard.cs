@@ -64,24 +64,19 @@ public class GradesCard : MonoBehaviour
 
       DataService.Open ();
 
-      if (parent.childCount > 1)
-      {
-         for (int i = 1; i < parent.childCount; i++)
-         {
-            Destroy (parent.GetChild (i).gameObject);
-         }
-      }
+    
 
-
-      var students = DataService._connection.Table<StudentModel>().Where (x => x.SectionId == StoryBookSaveManager.ins.activeSection_id && x.Gender == "Male");
+      var students = DataService._connection.Table<StudentModel>().Where (x => x.SectionId == StoryBookSaveManager.ins.activeSection_id).OrderBy(x => x.Gender);
+      txtData.text = "<b>Fullname, Word, Observation, Total</b>\n";
+      
+      
       foreach (var s in students)
       {
          double wordTotalGrade = TotalWordGrade (s.Id);
          double observationTotalGrade = TotalObservationGrade (s.Id);
-         Debug.Log ("ID " + s.Id);
-         //sgc.Add(new StudentGradeCard(s.SectionId, s.Id, s.Lastname + " " + s.Givenname + " " + s.Middlename, wordTotalGrade, observationTotalGrade));
-         //GameObject obj = Instantiate (txtprefab);
-         txtData.text = "<b>Fullname, Word, Observation, Total</b>\n";
+      
+         if (s.Gender.Equals ("Male")) txtData.text += "<color=#0000a0ff>";
+         else txtData.text += "<color=#ff00ffff>";
          if (IsIncomplete ())
          {
             txtData.text += "\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
@@ -89,18 +84,16 @@ public class GradesCard : MonoBehaviour
          }
          else
          {
-            txtData.text += "\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
+            txtData.text += "\n>" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
            wordTotalGrade + ", " + observationTotalGrade + ", " + ((wordTotalGrade + observationTotalGrade) / 2).ToString ();
          }
+         txtData.text += "</color>";
 
-
-         //data: Fullname, Word, Observation, Total
          data += string.Format ("\"{0}, {1} {2}.\"", s.Lastname, s.Givenname, s.Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
              "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
 
-         //obj.transform.SetParent (parent);
-         //obj.transform.localScale = new Vector3 (1, 1, 1);
       }
+    
       DataService.Close ();
 
    }
