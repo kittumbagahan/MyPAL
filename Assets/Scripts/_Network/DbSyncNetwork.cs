@@ -13,7 +13,7 @@ using System.Net.Sockets;
 using SQLite4Unity3d;
 using System;
 
-public class DataImportNetwork : MonoBehaviour
+public class DbSyncNetwork : MonoBehaviour
 {
 
     //public InputField ipAddress = null;
@@ -45,15 +45,12 @@ public class DataImportNetwork : MonoBehaviour
     [SerializeField]
     private ushort mPort = 12937;
     private string mIpAddress = "127.0.0.1";
-    [SerializeField] Button btnReceiver, btnSender;
+    public Button btnReceiver, btnSender;
     ClientSendFile mClientSendFile;
 
     // kit
-    public static DataImportNetwork Instance;
+    public static DbSyncNetwork Instance;
     NetworkingPlayer player;
-
-    [SerializeField]
-    Dropdown dropdownSection;
 
     private void Start ()
     {
@@ -94,8 +91,6 @@ public class DataImportNetwork : MonoBehaviour
             //NetWorker.RefreshLocalUdpListings(ushort.Parse(portNumber.text));
             NetWorker.RefreshLocalUdpListings (mPort);
         }
-
-        RetrieveData();
     }
 
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
@@ -150,19 +145,20 @@ public class DataImportNetwork : MonoBehaviour
 
     private void Client_serverAccepted (NetWorker sender)
     {
-        Debug.Log (string.Format ("{0} is connected to server", "Huehue"));        
+        Debug.Log ("Client is connected to server");
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
         //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+        //MainThreadManager.Run (() =>
+        //{
+        //    btnReceiver.GetComponent<Text> ().text = "Disconnect";
+        //});
     }
 
-    public void SendData()
+    public void SendData ()
     {
-        MainThreadManager.Run(() =>
+        MainThreadManager.Run (() =>
         {
-            if (textExport == null || textExport == "")
-                return;
 
-            clientSendFile.SendCSV(textExport);
         });
     }
 
@@ -218,8 +214,33 @@ public class DataImportNetwork : MonoBehaviour
 
     private void Server_playerAccepted (NetworkingPlayer player, NetWorker sender)
     {
-        Debug.Log ("player is accepted");
+        Debug.Log ("player is accepted\nSend admin.db");
+
+        MainThreadManager.Run (() =>
+         {
+             StartCoroutine ("_SendDB");
+         });
+
         //clientSendFile.SendDatabase (Application.persistentDataPath + "/" + DataService.DbName ());
+    }
+
+    IEnumerator _SendDB()
+    {
+        Debug.Log ("COUNT " + lstAdminSectionsModel.Count);
+        clientSendFile.SendDatabase (Application.persistentDataPath + "/system/admin.db", ClientSendFile.MessageGroup.FullSync);
+        if(lstAdminSectionsModel.Count > 0)
+        {
+            yield return new WaitForSeconds (1);
+            for (int i = 0; i < lstAdminSectionsModel.Count; i++)
+            {
+                clientSendFile.SendDatabase (Application.persistentDataPath + "/"  + lstAdminSectionsModel[i].Description + ".db", ClientSendFile.MessageGroup.FullSync);
+                Debug.Log ("server sent: " + lstAdminSectionsModel[i].Description);
+            }
+        }
+        else
+        {
+            yield return null; 
+        }
     }
 
     private void Server_disconnected (NetWorker sender)
@@ -287,13 +308,31 @@ public class DataImportNetwork : MonoBehaviour
         if (networker is IServer)
         {
             // kit, is server
-            btnReceiver.GetComponentInChildren<TextMeshProUGUI> ().text = "Stop";
-            btnReceiver.onClick.RemoveAllListeners ();
-            btnReceiver.onClick.AddListener (Quit);
+            btnSender.GetComponentInChildren<Text> ().text = "Disconnect";
+            btnSender.onClick.RemoveAllListeners ();
+            btnSender.onClick.AddListener (Quit);
             Debug.Log ("Connected as server");
+            GetDB ();
         }
 
         mClientSendFile.enabled = true;
+    }
+
+    List<AdminSectionsModel> lstAdminSectionsModel;
+    private void GetDB()
+    {
+        MainThreadManager.Run (() =>
+         {
+             DataService.Open ("system/admin.db");
+             SQLiteCommand command = DataService._connection.CreateCommand ("select * from AdminSectionsModel");
+             lstAdminSectionsModel = command.ExecuteQuery<AdminSectionsModel> ();
+             Debug.Log ("Section Count: " + lstAdminSectionsModel.Count);
+             for (int i = 0; i < lstAdminSectionsModel.Count; i++)
+             {
+                 Debug.Log ("Section: " + lstAdminSectionsModel[i].Description);
+             }
+             DataService.Close ();
+         });
     }
 
     private void CreateInlineChat (Scene arg0, LoadSceneMode arg1)
@@ -348,9 +387,9 @@ public class DataImportNetwork : MonoBehaviour
         }
 
         if (btnSender != null)
-            btnSender.GetComponentInChildren<Text> ().text = "Send";
+            btnSender.GetComponentInChildren<Text> ().text = "Connect";
         if (btnReceiver != null)
-            btnReceiver.GetComponentInChildren<Text> ().text = "Receive";
+            btnReceiver.GetComponentInChildren<Text> ().text = "Connect";
     }
 
     private void OnEnable ()
@@ -381,28 +420,29 @@ public class DataImportNetwork : MonoBehaviour
         NetWorker.localServerLocated -= TestLocalServerFind;
     }
 
-    public void AsReceiver ()
+    public void AsSender ()
     {
         // the one who will send the data        
         Host ();
     }
 
-    public void AsSender ()
+    public void AsReceiver ()
     {
-        if(btnReceiver != null)
-            btnReceiver.GetComponent<Button>().interactable = false;
-        if(btnSender != null)
-            btnSender.GetComponentInChildren<Text>().text = "Stop";
+        //if (btnReceiver != null)
+            //btnReceiver.GetComponent<Button> ().interactable = false;
 
-        btnSender.onClick.RemoveAllListeners();
-        btnSender.onClick.AddListener(() =>
+        if (btnReceiver != null)
+            btnReceiver.GetComponentInChildren<Text> ().text = "Disconnect";
+
+        btnReceiver.onClick.RemoveAllListeners ();
+        btnReceiver.onClick.AddListener (() =>
         {
-            StopCoroutine("_FindServer");
-            ResetNetwork();
+            StopCoroutine ("_FindServer");
+            ResetNetwork ();
             //            StopCoroutine("_FindServerLoading");            
         });
 
-        StartCoroutine("_FindServer");
+        StartCoroutine ("_FindServer");
     }
 
     WaitForSeconds wfs = new WaitForSeconds (1.5f);
@@ -449,131 +489,4 @@ public class DataImportNetwork : MonoBehaviour
     }
 
     #endregion
-
-    AccuracyABC accuracyABC;
-    AccuracyAfterTheRain accuracyAfterTheRain;
-    AccuracyChatWithCat accuracyChatWithCat;
-    AccuracyColorsAllMixedUp accuracyColorsAllMixedUp;
-    AccuracyFavoriteBox accuracyFavoriteBox;
-    AccuracyJoeyGoesToSchool accuracyJoeyGoesToSchool;
-    AccuracySoundsFantastic accuracySoundsFantastic;
-    AccuracyTinaAndJun accuracyTinaAndJun;
-    AccuracyWhatDidYouSee accuracyWhatDidYouSee;
-    AccuracyYummyShapes accuracyYummyShapes;
-
-    string columns = "Fullname,Word,Observation,Total";
-    string data;
-    string textExport;
-
-    void RetrieveData()
-    {
-        Debug.Log("Retrieve sections");
-        DataService.Open("system/admin.db");
-        SQLiteCommand command = DataService._connection.CreateCommand("select * from AdminSectionsModel");
-        List<AdminSectionsModel> lstSections = new List<AdminSectionsModel>();
-        lstSections = command.ExecuteQuery<AdminSectionsModel>();
-        DataService.Close();
-
-        dropdownSection.interactable = lstSections.Count > 0 ? true : false;
-
-        if (lstSections.Count <= 0)
-            return;
-
-        List<string> options = new List<string>();
-
-        for (int i = 0; i < lstSections.Count; i++)
-        {
-            Debug.Log(string.Format("Section {0}", lstSections[i].Description));
-            options.Add(lstSections[i].Description);
-        }
-
-        dropdownSection.AddOptions(options);
-
-        dropdownSection.onValueChanged.AddListener(ShowData);
-
-        ShowData(0);
-    }
-
-    // test
-    public void ShowData(int value)
-    {
-        textExport = "";
-        columns = "Fullname,Word,Observation,Total";
-        data = "";
-
-        dropdownSection.interactable = false;
-        if (btnSender != null)
-            btnSender.interactable = false;
-
-        string selectedSection = dropdownSection.options[value].text;
-
-        if (selectedSection == "" || selectedSection == null)
-            return;
-
-        if (accuracyABC == null)
-        {            
-            accuracyABC = new AccuracyABC();
-            accuracyAfterTheRain = new AccuracyAfterTheRain();
-            accuracyChatWithCat = new AccuracyChatWithCat();
-            accuracyColorsAllMixedUp = new AccuracyColorsAllMixedUp();
-            accuracyFavoriteBox = new AccuracyFavoriteBox();
-            accuracyJoeyGoesToSchool = new AccuracyJoeyGoesToSchool();
-            accuracySoundsFantastic = new AccuracySoundsFantastic();
-            accuracyTinaAndJun = new AccuracyTinaAndJun();
-            accuracyWhatDidYouSee = new AccuracyWhatDidYouSee();
-            accuracyYummyShapes = new AccuracyYummyShapes();
-        }
-
-        // data        
-        columns += Environment.NewLine + "," + Environment.NewLine;
-
-        Debug.Log("Test");
-        Debug.Log(dropdownSection.options[dropdownSection.value].text);
-
-        DataService.Open(selectedSection + ".db");
-
-        SQLiteCommand command = DataService._connection.CreateCommand("select * from StudentModel");
-        List<StudentModel> studentModel = command.ExecuteQuery<StudentModel>();
-
-        DataService.Close();                
-       
-        for (int i = 0; i < studentModel.Count; i++)
-        {
-            double wordTotalGrade = TotalWordGrade(studentModel[i].Id);
-            double observationTotalGrade = TotalObservationGrade(studentModel[i].Id);
-
-            Debug.Log("name " + studentModel[i].Lastname + ", id " + studentModel[i].Id);
-
-            if (studentModel.Count - 1 == i)
-                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
-                "," + (wordTotalGrade + observationTotalGrade);
-            else
-                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
-                "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
-        }
-
-        Debug.Log("Huehue");
-        textExport = columns + data;
-        Debug.Log(textExport);
-
-        dropdownSection.interactable = true;
-        if (btnSender != null)
-            btnSender.interactable = true;
-    }
-
-    double TotalWordGrade(int id)
-    {
-        return accuracyFavoriteBox.GetAccuracyWord(id) + accuracyABC.GetAccuracyWord(id) + accuracyAfterTheRain.GetAccuracyWord(id) +
-            accuracyChatWithCat.GetAccuracyWord(id) + accuracyColorsAllMixedUp.GetAccuracyWord(id) + accuracyJoeyGoesToSchool.GetAccuracyWord(id) +
-            accuracySoundsFantastic.GetAccuracyWord(id) + accuracyTinaAndJun.GetAccuracyWord(id) + accuracyWhatDidYouSee.GetAccuracyWord(id) +
-            accuracyYummyShapes.GetAccuracyWord(id);
-    }
-
-    double TotalObservationGrade(int id)
-    {
-        return accuracyFavoriteBox.GetAccuracyObservation(id) + accuracyABC.GetAccuracyObservation(id) + accuracyAfterTheRain.GetAccuracyObservation(id) +
-            accuracyChatWithCat.GetAccuracyObservation(id) + accuracyColorsAllMixedUp.GetAccuracyObservation(id) + accuracyJoeyGoesToSchool.GetAccuracyObservation(id) +
-            accuracySoundsFantastic.GetAccuracyObservation(id) + accuracyTinaAndJun.GetAccuracyObservation(id) + accuracyWhatDidYouSee.GetAccuracyObservation(id) +
-            accuracyYummyShapes.GetAccuracyObservation(id);
-    }
 }

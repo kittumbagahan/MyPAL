@@ -28,10 +28,12 @@ public class ClientSendFile : MonoBehaviour
         Book_UpdateReadToMeCount = 5,
         Book_UpdateAutoReadCount = 6,
         Sync = 7,
-        CSV = 9
+        CSV = 9,
+        FullSync = 10
     }
 
     int sentCount = 0; // should only be 2, for section and admin
+    int currentCount = 0;
 
     Queue<NetworkData> networkQueue;
 
@@ -56,7 +58,8 @@ public class ClientSendFile : MonoBehaviour
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update &&
-        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync)
             return;
 
         // sync message
@@ -142,7 +145,71 @@ public class ClientSendFile : MonoBehaviour
             //    Debug.Log("Student model, student count " + networkModel.lstStudentModel.Count);
             //    Debug.Log("Sync exit");
             //});
-        }        
+        } 
+        else if(frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync)
+        {
+            Debug.LogError ("Reading file! Full Sync");
+
+            //StringBuilder("Reading file!");        
+
+            // Read the string from the beginning of the payload
+            string fileName = frame.StreamData.GetBasicType<string> ();
+
+            Debug.LogError ("sync file name " + fileName);
+
+            MainThreadManager.Run (() => Debug.Log ("File name is " + fileName + ", path: " + Application.persistentDataPath));
+
+            MainThreadManager.Run (() =>
+            {
+                try
+                {
+                    // close any open database
+                    //DataService.Close();
+
+                    // check if sent db is admin.db
+                    if (fileName == "admin.db")
+                    {
+                        if (File.Exists (Application.persistentDataPath + "/system/" + fileName))
+                        {
+                            File.Delete (Application.persistentDataPath + "/system/" + fileName);
+                        }
+
+                        // Write the rest of the payload as the contents of the file and
+                        // use the file name that was extracted as the file's name 
+                        File.WriteAllBytes (string.Format ("{0}/{1}", Application.persistentDataPath + "/system", fileName), frame.StreamData.CompressBytes ());
+
+                        DataService.Open ("system/admin.db");
+                        sentCount = DataService._connection.Table<AdminSectionsModel> ().Count();
+                        Debug.Log ("Client section count: " + sentCount + ", current count: " + currentCount);
+                        DataService.Close ();
+                    }
+                    // section db
+                    else
+                    {
+                        if (File.Exists (Application.persistentDataPath + "/" + fileName))
+                        {
+                            File.Delete (Application.persistentDataPath + "/" + fileName);
+                        }
+
+                        // Write the rest of the payload as the contents of the file and
+                        // use the file name that was extracted as the file's name 
+                        File.WriteAllBytes (string.Format ("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes ());
+                        currentCount++;
+                    }   
+
+                    if(sentCount == currentCount)
+                    {
+                        Debug.Log ("All DB sent!");
+                    }
+                }
+
+                catch (IOException ex)
+                {
+                    Debug.LogError ("file exception! " + ex.Message);
+                }
+            }
+            );
+        }
         else
         {
             MainThreadManager.Run(() =>
@@ -407,7 +474,7 @@ public class ClientSendFile : MonoBehaviour
         //StringBuilder("sending file");
     }
 
-    public void SendDatabase(string pFilePath)
+    public void SendDatabase(string pFilePath, ClientSendFile.MessageGroup pMessageGroup)
     {
         // test
         //MessageBox.ins.ShowOk (string.Format ("File path is {0}", pFilePath), MessageBox.MsgIcon.msgInformation, null);
@@ -453,7 +520,7 @@ public class ClientSendFile : MonoBehaviour
             false,                                      // We are server, no mask needed
             allData,                                    // The file that is being sent
             Receivers.Others,                           // Send to all clients
-            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)pMessageGroup,   // Some random fake number
             networker is TCPServer);
 
         if (networker is UDPServer)

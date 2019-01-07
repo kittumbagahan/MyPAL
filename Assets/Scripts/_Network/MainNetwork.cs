@@ -251,9 +251,9 @@ public class MainNetwork : MonoBehaviour {
         {
             Debug.Log("player is accepted");
             // send DB
-            clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName());
+            clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.DbName(), ClientSendFile.MessageGroup.Sync);
             // send admin
-            clientSendFile.SendDatabase(Application.persistentDataPath + "/system/admin.db");
+            clientSendFile.SendDatabase(Application.persistentDataPath + "/system/admin.db", ClientSendFile.MessageGroup.Sync);
         });        
     }
 
