@@ -1,6 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+
+class State
+{
+   public object obj = "";
+}
 
 public class BookAccuracy : MonoBehaviour
 {
@@ -87,10 +93,20 @@ public class BookAccuracy : MonoBehaviour
             return "0";
         return s;
     }
+
+
     public string GetGrade(string bookDesc, string activityDesc, string module, int set)
     {
         //DataService ds = new DataService();
         DataService.Open();
+        State s = new State();
+        //Thread t = new Thread(() => {
+
+
+        //    Thread.Sleep(100);
+        //});
+        //t.Start();
+        //t.Join();
         BookModel bm = DataService._connection.Table<BookModel>().Where(x => x.Description == bookDesc).FirstOrDefault();
 
         ActivityModel am = DataService._connection.Table<ActivityModel>().Where(x => x.BookId == bm.Id &&
@@ -102,15 +118,16 @@ public class BookAccuracy : MonoBehaviour
              x.StudentId == UserAccountManager.ins.SelectedSlot.UserId && x.ActivityId == am.Id).FirstOrDefault();
 
             DataService.Close();
-            return sam == null ? "" : sam.Grade;
+            s.obj = sam == null ? "" : sam.Grade;
+            //return sam == null ? "" : sam.Grade;
         }
         else
         {
             DataService.Close();
-            return "";
+            //return "";
         }
 
-
+        return s.obj as string;
         //lstGrade.Add(Get(PlayerPrefs.GetString(_userId + StoryBook.ABC_CIRCUS.ToString() + "ABCCircus_Act2" + Module.WORD + "0")));        
     }
     public string GetGrade(int studentId, string bookDesc, string activityDesc, string module, int set)

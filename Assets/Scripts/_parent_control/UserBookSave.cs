@@ -142,7 +142,8 @@ public class UserBookSave : MonoBehaviour
             networkData.studentBook_readToMeCount,
             networkData.studentBook_autoReadCount));
 
-        MainNetwork.Instance.clientSendFile.SendData(networkData, pMessageGroup);
+        if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
+            MainNetwork.Instance.clientSendFile.SendData(networkData, pMessageGroup);
     }
 
 
