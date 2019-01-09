@@ -54,8 +54,10 @@ public class LauncherNetworking : MonoBehaviour
     public FindingServer OnFindingServer;
     public delegate void ConnectedToServer();
     public ConnectedToServer OnConnectedToServer;
-    public delegate void AssetBundleDataReceived (AssetBundleData assetBundleData);
+    public delegate void AssetBundleDataReceived(AssetBundleData assetBundleData);
     public AssetBundleDataReceived OnAssetBundleDataReceived;
+    public Coroutine coFind;
+    public bool stopSearch;
 
 
     public void Initialize()
@@ -79,7 +81,8 @@ public class LauncherNetworking : MonoBehaviour
     }
     public void FindServer()
     {
-        StartCoroutine("_FindServer");
+       StartCoroutine(_FindServer());
+
     }
 
     public void ClientConnect()
@@ -194,7 +197,7 @@ public class LauncherNetworking : MonoBehaviour
         }
         else
         {
-          
+
         }
 
         //mClientSendFile.enabled = true;
@@ -299,16 +302,12 @@ public class LauncherNetworking : MonoBehaviour
         NetWorker.localServerLocated -= TestLocalServerFind;
     }
 
-    public void AsTeacher()
-    {
-        // the one who will send the data        
-
-    }
-
     public void AsStudent()
     {
+       
+       
+        //StartCoroutine(_FindServer());
 
-        StartCoroutine("_FindServer");
     }
 
     WaitForSeconds wfs = new WaitForSeconds(1.5f);
@@ -317,10 +316,14 @@ public class LauncherNetworking : MonoBehaviour
     {
         while (isServerFound == false)
         {
+            if (stopSearch)
+            {
+                StopAllCoroutines();
+            }
             NetWorker.RefreshLocalUdpListings(mPort);
             Debug.Log("Finding Server " + mPort);
             //callback
-            if(OnFindingServer != null)
+            if (OnFindingServer != null)
             {
                 OnFindingServer();
             }
@@ -336,10 +339,10 @@ public class LauncherNetworking : MonoBehaviour
 
     #endregion
 
-    void ReceivedFile (NetworkingPlayer player, Binary frame, NetWorker sender)
+    void ReceivedFile(NetworkingPlayer player, Binary frame, NetWorker sender)
     {
-        Debug.Log ("frame group id:" + frame.GroupId);
-        Debug.Log ("Message group id of sync, " + MessageGroupIds.START_OF_GENERIC_IDS + 8);
+        Debug.Log("frame group id:" + frame.GroupId);
+        Debug.Log("Message group id of sync, " + MessageGroupIds.START_OF_GENERIC_IDS + 8);
 
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + 8)
         {
@@ -351,26 +354,26 @@ public class LauncherNetworking : MonoBehaviour
             MainThreadManager.Run(() =>
             {
                 MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
-                if(OnAssetBundleDataReceived != null)
+                if (OnAssetBundleDataReceived != null)
                 {
-                    OnAssetBundleDataReceived (assetBundleData);
+                    OnAssetBundleDataReceived(assetBundleData);
                 }
-            });            
+            });
         }
         else
         {
-            Debug.Log ("asset bundle return");
+            Debug.Log("asset bundle return");
             return;
         }
     }
 
-    AssetBundleData ConvertToObject (byte[] byteData)
+    AssetBundleData ConvertToObject(byte[] byteData)
     {
-        BinaryFormatter bin = new BinaryFormatter ();
-        MemoryStream ms = new MemoryStream ();
-        ms.Write (byteData, 0, byteData.Length);
-        ms.Seek (0, SeekOrigin.Begin);
+        BinaryFormatter bin = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        ms.Write(byteData, 0, byteData.Length);
+        ms.Seek(0, SeekOrigin.Begin);
 
-        return (AssetBundleData)bin.Deserialize (ms);
+        return (AssetBundleData)bin.Deserialize(ms);
     }
 }

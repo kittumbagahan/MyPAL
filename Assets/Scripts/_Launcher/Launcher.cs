@@ -63,6 +63,8 @@ public sealed class Launcher : CachedAssetBundleLoader
             btnUpdate.interactable = false;
             btnStart.interactable = false;
             btnCancel.gameObject.SetActive(true);
+            lNet.stopSearch = false;
+            findingServerTime = 0;
             //check for open network
             //if there is open network connect
             lNet.FindServer();
@@ -85,6 +87,8 @@ public sealed class Launcher : CachedAssetBundleLoader
         btnUpdate.interactable = true;
         btnStart.interactable = true;
         pb.gameObject.SetActive(false);
+        lNet.stopSearch = true;
+        //StopCoroutine(lNet.coFind);
 
     }
 
