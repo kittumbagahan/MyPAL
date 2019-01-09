@@ -45,7 +45,7 @@ public class DataImportNetwork : MonoBehaviour
     [SerializeField]
     private ushort mPort = 12937;
     private string mIpAddress = "127.0.0.1";
-    [SerializeField] Button btnReceiver, btnSender;
+    [SerializeField] Button btnReceiver, btnSender, btnSendData;
     ClientSendFile mClientSendFile;
 
     // kit
@@ -287,7 +287,7 @@ public class DataImportNetwork : MonoBehaviour
         if (networker is IServer)
         {
             // kit, is server
-            btnReceiver.GetComponentInChildren<TextMeshProUGUI> ().text = "Stop";
+            btnReceiver.GetComponentInChildren<TextMeshProUGUI> ().text = "Disconnect";
             btnReceiver.onClick.RemoveAllListeners ();
             btnReceiver.onClick.AddListener (Quit);
             Debug.Log ("Connected as server");
@@ -348,9 +348,9 @@ public class DataImportNetwork : MonoBehaviour
         }
 
         if (btnSender != null)
-            btnSender.GetComponentInChildren<Text> ().text = "Send";
+            btnSender.GetComponentInChildren<Text> ().text = "Connect";
         if (btnReceiver != null)
-            btnReceiver.GetComponentInChildren<Text> ().text = "Receive";
+            btnReceiver.GetComponentInChildren<Text> ().text = "Connect";
     }
 
     private void OnEnable ()
@@ -392,7 +392,7 @@ public class DataImportNetwork : MonoBehaviour
         if(btnReceiver != null)
             btnReceiver.GetComponent<Button>().interactable = false;
         if(btnSender != null)
-            btnSender.GetComponentInChildren<Text>().text = "Stop";
+            btnSender.GetComponentInChildren<Text>().text = "Disconnect";
 
         btnSender.onClick.RemoveAllListeners();
         btnSender.onClick.AddListener(() =>
