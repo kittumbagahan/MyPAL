@@ -3,6 +3,9 @@ using System.Collections;
 using System;
 using UnityEngine.Analytics;
 using System.Collections.Generic;
+
+using UnityEngine.SceneManagement;
+
 public class BookshelfManager : MonoBehaviour {
     public static BookshelfManager ins;
     [SerializeField]
@@ -64,5 +67,10 @@ public class BookshelfManager : MonoBehaviour {
         audSrc.PlayOneShot(audClipBookHighlight);
         //audSrc.clip = audClipBookHighlight;
         //audSrc.Play();
+    }
+
+    public void LoadAdminDB()
+    {
+        SceneManager.LoadScene ("Admin");
     }
 }

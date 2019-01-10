@@ -489,4 +489,11 @@ public class DbSyncNetwork : MonoBehaviour
     }
 
     #endregion
+
+    #region UI
+    public void LoadBookShelf()
+    {
+        SceneManager.LoadScene ("BookShelf");
+    }
+    #endregion
 }
