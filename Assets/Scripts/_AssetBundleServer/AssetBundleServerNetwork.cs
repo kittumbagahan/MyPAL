@@ -49,10 +49,10 @@ public class AssetBundleServerNetwork : MonoBehaviour {
    NetworkingPlayer player;
 
     public delegate void ClientAccepted();
-    public ClientAccepted OnClientAccepted;
+    public event ClientAccepted OnClientAccepted;
     public delegate void ClientDisconnected ();
-    public ClientDisconnected OnClientDisconnected;
-
+    public event ClientDisconnected OnClientDisconnected;
+    
     private void Start()
    {
       //ipAddress.text = "127.0.0.1";
@@ -308,6 +308,7 @@ public class AssetBundleServerNetwork : MonoBehaviour {
 
 
             //StringBuilder("sending file");
+
             if (OnClientAccepted != null)
             {
                 OnClientAccepted ();

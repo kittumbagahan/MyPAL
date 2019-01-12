@@ -46,6 +46,7 @@ public class AccuracyJoeyGoesToSchool : BookAccuracy
 
     public double GetAccuracyObservation(int id)
     {
+        
         lstGrade = new List<string>();
 
         lstGrade.Add(GetGrade(id, StoryBook.JOEY_GO_TO_SCHOOL.ToString(), "JoeyGoesToSchool_Act3", Module.OBSERVATION.ToString(), 0));

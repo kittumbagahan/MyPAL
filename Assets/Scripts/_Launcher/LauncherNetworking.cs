@@ -51,11 +51,11 @@ public class LauncherNetworking : MonoBehaviour
     NetworkingPlayer player;
 
     public delegate void FindingServer();
-    public FindingServer OnFindingServer;
+    public event FindingServer OnFindingServer;
     public delegate void ConnectedToServer();
-    public ConnectedToServer OnConnectedToServer;
+    public event ConnectedToServer OnConnectedToServer;
     public delegate void AssetBundleDataReceived(AssetBundleData assetBundleData);
-    public AssetBundleDataReceived OnAssetBundleDataReceived;
+    public event AssetBundleDataReceived OnAssetBundleDataReceived;
     public Coroutine coFind;
     public bool stopSearch;
 
