@@ -36,7 +36,15 @@ public sealed class DatabaseSectionController : DatabaseController
 
     public void RenameDb(string oldName, string newName)
     {
-        File.Move(DatabaseDirectory + "/" + oldName, DatabaseDirectory + "/" + newName);
+    
+      try
+      {
+         File.Move (DatabaseDirectory + "/" + oldName, DatabaseDirectory + "/" + newName);
+      }
+        catch(IOException ex)
+      {
+         throw new IOException ("What happened? " + ex.Message);
+      }
     }
 
     public void CreateSectionTables(string dbName)

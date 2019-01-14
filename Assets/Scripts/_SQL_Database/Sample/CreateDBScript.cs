@@ -16,11 +16,11 @@ public class CreateDBScript : MonoBehaviour
    void Start()
    {
 
-        //timeUsageCounter.Init(); //NOT A CREATE
-        //PlayerPrefs.SetInt("subscriptionTime_table", 0);
-        //PlayerPrefs.SetInt("adminDatabaseCreate", 0);
+      //timeUsageCounter.Init(); //NOT A CREATE
+      PlayerPrefs.SetInt ("subscriptionTime_table", 0);
+      PlayerPrefs.SetInt ("adminDatabaseCreate", 0);
 
-        if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
+      if (0.Equals (PlayerPrefs.GetInt ("subscriptionTime_table")))
       {
          string path = Application.persistentDataPath + "/system";
 
@@ -40,7 +40,7 @@ public class CreateDBScript : MonoBehaviour
          }
          catch (Exception e)
          {
-          
+            
          }
          finally { }
 
@@ -81,11 +81,6 @@ public class CreateDBScript : MonoBehaviour
       {
          timeUsageCounter.Init ();
       }
-
-
-
-
-
 
    }
 

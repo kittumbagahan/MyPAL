@@ -11,8 +11,9 @@ public class AdminSectionsModel{
     public string DeviceId { get; set; }
     public int SectionId { get; set; }
     public string Description { get; set; }
+    public string GradeLevel { get; set; }
     public override string ToString()
     {
-        return string.Format("[Section: Id={0}, DeviceId={1}, Description={2}", Id, DeviceId, Description);
+        return string.Format("[Section: Id={0}, DeviceId={1}, Description={2}", "GradeLevel={3}", Id, DeviceId, Description, GradeLevel);
     }
 }
