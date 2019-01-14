@@ -45,14 +45,14 @@ public sealed class DatabaseAdminController : DatabaseController
         DataService._connection.CreateTable<NumberOfSectionsModel>();
         NumberOfSectionsModel numberOfSectionsModel = new NumberOfSectionsModel
         {
-            MaxSection = 3
+            MaxSection = 10
         };
         DataService._connection.Insert(numberOfSectionsModel);
 
         DataService._connection.CreateTable<NumberOfStudentsModel>();
         NumberOfStudentsModel numberOfStudentsModel = new NumberOfStudentsModel
         {
-            MaxStudent = 250
+            MaxStudent = 600
         };
         DataService._connection.Insert(numberOfStudentsModel);
 

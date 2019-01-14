@@ -164,7 +164,7 @@ public class SectionController : MonoBehaviour
                _section.id = s.Id;
                _section.name = view.txtSectionName.text;
                _section.gradeLevel = view.GradeLevel;
-               _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _section.name;
+               _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _section.gradeLevel + " " +  _section.name;
                _obj.transform.SetParent (btnSectionContainer.transform);
 
                panelSectionInput.gameObject.SetActive (false);
