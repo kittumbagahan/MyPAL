@@ -46,11 +46,14 @@ public class DbSyncNetwork : MonoBehaviour
     private ushort mPort = 12937;
     private string mIpAddress = "127.0.0.1";
     public Button btnReceiver, btnSender;
-    ClientSendFile mClientSendFile;
+    [SerializeField]
+    Text txtClientStat;
+    ClientSendFile mClientSendFile;    
 
     // kit
     public static DbSyncNetwork Instance;
     NetworkingPlayer player;
+    
 
     private void Start ()
     {
@@ -314,8 +317,13 @@ public class DbSyncNetwork : MonoBehaviour
             Debug.Log ("Connected as server");
             GetDB ();
         }
+        else
+        {
+            // stat
+            txtClientStat.text = "connected";
+        }
 
-        mClientSendFile.enabled = true;
+        mClientSendFile.enabled = true;                
     }
 
     List<AdminSectionsModel> lstAdminSectionsModel;
@@ -390,6 +398,9 @@ public class DbSyncNetwork : MonoBehaviour
             btnSender.GetComponentInChildren<Text> ().text = "Connect";
         if (btnReceiver != null)
             btnReceiver.GetComponentInChildren<Text> ().text = "Connect";
+
+        if (txtClientStat != null)
+            txtClientStat.text = "";
     }
 
     private void OnEnable ()
@@ -439,10 +450,11 @@ public class DbSyncNetwork : MonoBehaviour
         {
             StopCoroutine ("_FindServer");
             ResetNetwork ();
-            //            StopCoroutine("_FindServerLoading");            
+            StopCoroutine("_FindServerLoading");
         });
 
         StartCoroutine ("_FindServer");
+        StartCoroutine("_FindServerLoading");
     }
 
     WaitForSeconds wfs = new WaitForSeconds (1.5f);
@@ -484,8 +496,16 @@ public class DbSyncNetwork : MonoBehaviour
             else
                 counter++;
 
+            // stat
+            txtClientStat.text = status;
+
             yield return new WaitForSeconds (1);
         }
+    }
+
+    public void UpdateClientDB()
+    {
+        txtClientStat.text = "All Database sent!";
     }
 
     #endregion
