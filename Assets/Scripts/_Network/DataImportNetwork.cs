@@ -46,6 +46,9 @@ public class DataImportNetwork : MonoBehaviour
     private ushort mPort = 12937;
     private string mIpAddress = "127.0.0.1";
     [SerializeField] Button btnReceiver, btnSender, btnSendData;
+    [SerializeField]
+    Text txtStat;
+
     ClientSendFile mClientSendFile;
 
     // kit
@@ -150,7 +153,12 @@ public class DataImportNetwork : MonoBehaviour
 
     private void Client_serverAccepted (NetWorker sender)
     {
-        Debug.Log (string.Format ("{0} is connected to server", "Huehue"));        
+        Debug.Log (string.Format ("{0} is connected to server", "Huehue"));
+        MainThreadManager.Run(() =>
+        {
+            txtStat.text = "connected";
+            btnSendData.interactable = true;
+        });
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
         //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
     }
@@ -351,6 +359,12 @@ public class DataImportNetwork : MonoBehaviour
             btnSender.GetComponentInChildren<Text> ().text = "Connect";
         if (btnReceiver != null)
             btnReceiver.GetComponentInChildren<Text> ().text = "Connect";
+
+        if (txtStat != null)
+            txtStat.text = "";
+
+        if (btnSendData != null)
+            btnSendData.interactable = false;
     }
 
     private void OnEnable ()
@@ -399,10 +413,11 @@ public class DataImportNetwork : MonoBehaviour
         {
             StopCoroutine("_FindServer");
             ResetNetwork();
-            //            StopCoroutine("_FindServerLoading");            
+            StopCoroutine("_FindServerLoading");
         });
 
         StartCoroutine("_FindServer");
+        StartCoroutine("_FindServerLoading");
     }
 
     WaitForSeconds wfs = new WaitForSeconds (1.5f);
@@ -429,13 +444,13 @@ public class DataImportNetwork : MonoBehaviour
             switch (counter)
             {
                 case 0:
-                status = "Finding Server.";
+                status = "Connecting.";
                 break;
                 case 1:
-                status = "Finding Server..";
+                status = "Connecting..";
                 break;
                 case 2:
-                status = "Finding Server...";
+                status = "Connecting...";
                 break;
             }
 
@@ -443,6 +458,9 @@ public class DataImportNetwork : MonoBehaviour
                 counter = 0;
             else
                 counter++;
+
+            // stat
+            txtStat.text = status;
 
             yield return new WaitForSeconds (1);
         }
@@ -575,5 +593,16 @@ public class DataImportNetwork : MonoBehaviour
             accuracyChatWithCat.GetAccuracyObservation(id) + accuracyColorsAllMixedUp.GetAccuracyObservation(id) + accuracyJoeyGoesToSchool.GetAccuracyObservation(id) +
             accuracySoundsFantastic.GetAccuracyObservation(id) + accuracyTinaAndJun.GetAccuracyObservation(id) + accuracyWhatDidYouSee.GetAccuracyObservation(id) +
             accuracyYummyShapes.GetAccuracyObservation(id);
+    }
+
+    // UI
+    public void LoadBookShelf()
+    {
+        SceneManager.LoadScene("BookShelf");
+    }
+
+    public void DataSent()
+    {
+        txtStat.text = "Data sent";
     }
 }

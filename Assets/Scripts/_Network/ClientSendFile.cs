@@ -473,6 +473,7 @@ public class ClientSendFile : MonoBehaviour
             ((TCPClient)networker).Send(frame);
 
         Debug.Log("CSV done");
+        GetComponent<DataImportNetwork>().DataSent();
         //StringBuilder("sending file");
     }
 

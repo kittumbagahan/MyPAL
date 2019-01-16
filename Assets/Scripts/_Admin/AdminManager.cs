@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class AdminManager : MonoBehaviour {
 
     [SerializeField]
-    Button btnHome, btnSendDB, btnReceiveDB;
+    Button btnHome, btnDataImport, btnSendDB, btnReceiveDB;
 
 	// Use this for initialization
 	void Start () {
         btnHome.onClick.AddListener (Home);
+        btnDataImport.onClick.AddListener (DataImport);
         btnSendDB.onClick.AddListener (SendDB);
         btnReceiveDB.onClick.AddListener (ReceiveDB);
 	}
@@ -19,6 +20,11 @@ public class AdminManager : MonoBehaviour {
     void Home()
     {
         SceneManager.LoadScene ("BookShelf");
+    }
+
+    void DataImport()
+    {
+        SceneManager.LoadScene("DataImporter");
     }
 
     void SendDB()
