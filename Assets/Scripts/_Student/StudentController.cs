@@ -345,6 +345,7 @@ class UpdateStudent
             StudentController.ins.LoadStudentsSQL();
             MessageBox.ins.ShowOk("Student name updated!", MessageBox.MsgIcon.msgInformation, null);
             StudentController.ins.editMode = false;
+            view.gameObject.SetActive(false);
             view.btnOK.onClick.RemoveAllListeners();
 
             DataService.Close();
