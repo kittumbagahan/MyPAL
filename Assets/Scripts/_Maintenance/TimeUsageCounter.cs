@@ -45,6 +45,7 @@ public class TimeUsageCounter : MonoBehaviour
 
     public bool IsTimeOver()
     {
+        
         if (timeInSecondsUsage <= 1) return true;
         else return false;
     }

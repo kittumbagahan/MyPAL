@@ -135,20 +135,28 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler{
         {
             if (sceneToLoad != "")// && locked == 1)
             {
-				if(TimeUsageCounter.ins.IsTimeOver())
-				{
-					MessageBox.ins.ShowOk("Subscription expired. \nPlease email us at \npalabaydev@gmail.com", MessageBox.MsgIcon.msgError, null);
-				}
-				else
-				{
-					//print("print " + sceneToLoad);
-					StoryBookSaveManager.ins.selectedBook = selectedStoryBook;
-					//StoryBookSaveManager.instance. = sceneToLoad;
-					Singleton.SelectedBook = selectedStoryBook;
-					StartCoroutine(IEClick());
-					clicked = true;
-					isClickable = false;
-				}
+                try {
+                    if (TimeUsageCounter.ins == null)
+                        throw new TimeUsageException("TimeUsageCounter is not initialized.", TimeUsageException.ErrorCode.NullReference);
+                    if (TimeUsageCounter.ins.IsTimeOver())
+                    {
+                        MessageBox.ins.ShowOk("Subscription expired. \nPlease email us at \npalabaydev@gmail.com", MessageBox.MsgIcon.msgError, null);
+                    }
+                    else
+                    {
+                        //print("print " + sceneToLoad);
+                        StoryBookSaveManager.ins.selectedBook = selectedStoryBook;
+                        //StoryBookSaveManager.instance. = sceneToLoad;
+                        Singleton.SelectedBook = selectedStoryBook;
+                        StartCoroutine(IEClick());
+                        clicked = true;
+                        isClickable = false;
+                    }
+                }
+                catch (TimeUsageException timeUsageException)
+                {
+                    MessageBox.ins.ShowOk(timeUsageException.Message, MessageBox.MsgIcon.msgError, null);
+                }
                
             }
             else
