@@ -46,6 +46,17 @@ public class GradesCard : MonoBehaviour
    protected string textExport;
 
 
+   StringBuilder SetStringLen(string s, int len = 50)
+   {
+      StringBuilder sb = new StringBuilder (s);
+      while (sb.Length < len)
+      {
+         sb.Append (" ");
+      }
+
+      return sb;
+   }
+
    IEnumerator IEComputeGrades()
    {
       float progress = 0;
@@ -55,7 +66,7 @@ public class GradesCard : MonoBehaviour
       DataService.Open ();
 
       var students = DataService._connection.Table<StudentModel> ().Where (x => x.SectionId == StoryBookSaveManager.ins.activeSection_id).OrderBy (x => x.Gender);
-      txtData.text = "<b>Fullname, Word, Observation, Total</b>\n";
+      txtData.text = "<b>" + SetStringLen ("Fullname,") + SetStringLen ("Word,", 10) + SetStringLen ("Observation,", 15) + SetStringLen ("Total,", 10) + "</b>\n";
 
       foreach (var s in students)
       {
@@ -67,15 +78,14 @@ public class GradesCard : MonoBehaviour
          else txtData.text += "<color=#ff00ffff>";
          if (IsIncomplete ())
          {
-            //  txtData.text += "\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
-            //"INC" + ", " + "INC" + ", " + "INC";
-            txtData.text += "\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
-         wordTotalGrade + ", " + observationTotalGrade + ", " + ((wordTotalGrade + observationTotalGrade) / 2).ToString ();
+
+            txtData.text += SetStringLen ("\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", ").ToString () +
+         SetStringLen (wordTotalGrade.ToString () + ",", 10) + SetStringLen (observationTotalGrade.ToString () + ",", 24) + SetStringLen (((wordTotalGrade + observationTotalGrade) / 2).ToString (), 10);
          }
          else
          {
-            txtData.text += "\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", " +
-           wordTotalGrade + ", " + observationTotalGrade + ", " + ((wordTotalGrade + observationTotalGrade) / 2).ToString ();
+            txtData.text += SetStringLen ("\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", ").ToString () +
+         SetStringLen (wordTotalGrade.ToString () + ",", 10) + SetStringLen (observationTotalGrade.ToString () + ",", 24) + SetStringLen (((wordTotalGrade + observationTotalGrade) / 2).ToString (), 10);
          }
          txtData.text += "</color>";
 
