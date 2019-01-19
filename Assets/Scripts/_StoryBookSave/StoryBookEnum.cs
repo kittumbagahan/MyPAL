@@ -1,10 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StoryBookEnum : MonoBehaviour {
+public abstract class StoryBookEnum  {
 
 	
 }
+
+public enum AssetBundleCategory
+{
+    BOOKSHELF,
+    BOOK,
+    ACTIVITY_SELECTION,
+    ACTIVITY,
+    SECTION_BOOK_DB_DATA_FILE,
+    STORYBOOK_ACTIVITY_SECLECTION_FILE
+};
 
 public enum StoryBook { NULL, FAVORITE_BOX, AFTER_THE_RAIN, CHAT_WITH_MY_CAT, COLORS_ALL_MIXED_UP, WHAT_DID_YOU_SEE, 
     ABC_CIRCUS, JOEY_GO_TO_SCHOOL, SOUNDS_FANTASTIC, YUMMY_SHAPES, TINA_AND_JUN, BOOK_TEST_1 };
