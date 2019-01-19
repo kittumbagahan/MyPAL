@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class BookAndActivityData {
 
-    public List<BookModelJson> lstBooks = new List<BookModelJson>();
+    public BookModelJson book;
     public List<ActivityModelJson> lstActivity = new List<ActivityModelJson>();
 
 }
