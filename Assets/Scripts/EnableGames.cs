@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
+
 public class EnableGames : MonoBehaviour {
 
     public static EnableGames ins;
@@ -31,7 +33,6 @@ public class EnableGames : MonoBehaviour {
 
     int IsAvailable()
     {
-        //DataService ds = new DataService();
         DataService.Open();
         string bookname = StoryBookSaveManager.ins.selectedBook.ToString();
         BookModel book = DataService._connection.Table<BookModel>().Where(x => x.Description == bookname).FirstOrDefault();

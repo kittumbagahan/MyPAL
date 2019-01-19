@@ -260,3 +260,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/DBSyncReceive.unity
     guid: a16779795a93e4eb188d9d7b9b83878b
+  - enabled: 1
+    path: Assets/Scene/others/book_test_1_scene.unity
+    guid: 498887d53e24ea84985661e8764e3c3c
+  - enabled: 1
+    path: Assets/Scene/activities/test/book_test_1_Act1.unity
+    guid: 7d2e3178205d3164a937ab4d041bed3f

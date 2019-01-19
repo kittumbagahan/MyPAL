@@ -22,11 +22,6 @@ public class Book : MonoBehaviour {
 		instance = this;
 		rawImage = GetComponent<RawImage>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void	BookCover(int index)
 	{
