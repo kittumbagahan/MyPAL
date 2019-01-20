@@ -347,17 +347,21 @@ public class LauncherNetworking : MonoBehaviour
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + 8)
         {
             Debug.Log("Asset bundle");
-            AssetBundleData assetBundleData = ConvertToObject(frame.StreamData.CompressBytes());
-            Debug.Log("version" + assetBundleData.version);
-            Debug.Log("url " + assetBundleData.url);
+            //AssetBundleData assetBundleData = ConvertToObject(frame.StreamData.CompressBytes());
+            //Debug.Log("version" + assetBundleData.version);
+            //Debug.Log("url " + assetBundleData.url);
+
+            AssetBundleDataCollection assetBundleDataCollection = ConvertToObject2(frame.StreamData.CompressBytes());
 
             MainThreadManager.Run(() =>
             {
-                MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
-                if (OnAssetBundleDataReceived != null)
-                {
-                    OnAssetBundleDataReceived(assetBundleData);
-                }
+                //MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
+                //if (OnAssetBundleDataReceived != null)
+                //{
+                //    OnAssetBundleDataReceived(assetBundleData);
+                //}
+
+                Debug.Log("AssetBundleDataCollection Count " + assetBundleDataCollection.lstAssetBundleData.Count);
             });
         }
         else
@@ -375,5 +379,15 @@ public class LauncherNetworking : MonoBehaviour
         ms.Seek(0, SeekOrigin.Begin);
 
         return (AssetBundleData)bin.Deserialize(ms);
+    }
+
+    AssetBundleDataCollection ConvertToObject2(byte[] byteData)
+    {
+        BinaryFormatter bin = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        ms.Write(byteData, 0, byteData.Length);
+        ms.Seek(0, SeekOrigin.Begin);
+
+        return (AssetBundleDataCollection)bin.Deserialize(ms);
     }
 }

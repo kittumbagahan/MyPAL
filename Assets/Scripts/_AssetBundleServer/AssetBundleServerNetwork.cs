@@ -9,6 +9,7 @@ using System.Collections;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 public class AssetBundleServerNetwork : MonoBehaviour
 {
@@ -248,6 +249,8 @@ public class AssetBundleServerNetwork : MonoBehaviour
         Connected(server);
     }
 
+    //AssetBundleDataCollection assetBundleDataCollections;
+    //AssetBundleData assetBundleData;
     private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
     {
         Debug.Log("player is accepted");
@@ -269,14 +272,30 @@ public class AssetBundleServerNetwork : MonoBehaviour
 
             byte[] allData = { };
 
-            assetBundleData = new AssetBundleData();
-            assetBundleData.url = GetComponent<AssetBundleServerManager>().fieldURL.text;
-            assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager>().fieldVersion.text);
+            // TEST!!!
+            AssetBundleDataCollection assetBundleDataCollections = new AssetBundleDataCollection();
+            for (int i = 1; i <= 20; i++)
+            {
+                AssetBundleData assetBundleData = new AssetBundleData();
+                assetBundleData.url = "url " + i;
+                assetBundleData.version = i;
+                assetBundleData.assetCategory = "category " + i;
+                assetBundleData.patchBatchNumber = i;
+                Debug.LogError("asset bundle data version" + i);
+                Debug.LogError("url: " + assetBundleData.url);
+                assetBundleDataCollections.lstAssetBundleData.Add(assetBundleData);
+            }            
+            // TEST!!! END
+
+            //assetBundleData = new AssetBundleData();
+            //assetBundleData.url = GetComponent<AssetBundleServerManager>().fieldURL.text;
+            //assetBundleData.version = int.Parse(GetComponent<AssetBundleServerManager>().fieldVersion.text);
 
             // convert pData as byte[]
             BinaryFormatter binFormatter = new BinaryFormatter();
             MemoryStream memStream = new MemoryStream();
-            binFormatter.Serialize(memStream, assetBundleData);
+            //binFormatter.Serialize(memStream, assetBundleData);
+            binFormatter.Serialize(memStream, assetBundleDataCollections);
 
             allData = memStream.ToArray();
 
@@ -347,8 +366,7 @@ public class AssetBundleServerNetwork : MonoBehaviour
         // stop coroutine for finding a server
         //StopCoroutine(_FindServer());
     }
-
-    AssetBundleData assetBundleData;
+    
     public void Connected(NetWorker networker)
     {
         if (!networker.IsBound)
