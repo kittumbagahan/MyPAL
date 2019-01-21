@@ -76,7 +76,7 @@ public class UserBookSave : MonoBehaviour
 
     public void UpdateReadItToMeUsage()
     {
-        int count = model.ReadToMeCount + 1;
+        int count = model.ReadCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
         Debug.Log("Update Read To Me Count");
@@ -99,7 +99,7 @@ public class UserBookSave : MonoBehaviour
 
     public void UpdateAutoReadUsage()
     {
-        int count = model.AutoReadCount + 1;
+        int count = model.ReadCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
         Debug.Log("Update Auto Read Count");
@@ -131,19 +131,13 @@ public class UserBookSave : MonoBehaviour
         networkData.studentBook_SectionId = model.SectionId;
         networkData.studentBook_StudentId = model.StudentId;
         networkData.studentBook_bookId = model.BookId;
-        networkData.studentBook_readCount = model.ReadCount;
-        networkData.studentBook_readToMeCount = model.ReadToMeCount;
-        networkData.studentBook_autoReadCount = model.AutoReadCount;
 
-        Debug.Log(string.Format("ID {0}, Count {1}, Section {2}, Student ID {3}, Book ID {4}, Read Count {5}, Read to me Count {6}, Auto Read Count {7}", 
+        Debug.Log(string.Format("ID {0}, Count {1}, Section {2}, Student ID {3}, Book ID {4}", 
             networkData.studentBook_Id,
             networkData.studentBook_readCount,
             networkData.studentBook_SectionId,
             networkData.studentBook_StudentId,
-            networkData.studentBook_bookId,
-            networkData.studentBook_readCount,
-            networkData.studentBook_readToMeCount,
-            networkData.studentBook_autoReadCount));
+            networkData.studentBook_bookId));
 
         if (MainNetwork.Instance.clientSendFile.isActiveAndEnabled)
             MainNetwork.Instance.clientSendFile.SendData(networkData, pMessageGroup);

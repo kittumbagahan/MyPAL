@@ -30,7 +30,7 @@ public class MainNetwork : MonoBehaviour {
 
     public GameObject networkManager = null;
     private NetworkManager mgr = null;
-    private NetWorker server, client;
+    private NetWorker server, client, currentNetworker;
 
     //private List<Button> _uiButtons = new List<Button>();
     private bool _matchmaking = false;
@@ -302,6 +302,9 @@ public class MainNetwork : MonoBehaviour {
             return;
         }
 
+        // current networker
+        currentNetworker = networker;
+
         if (mgr == null && networkManager == null)
         {
             Debug.LogWarning("A network manager was not provided, generating a new one instead");
@@ -433,19 +436,14 @@ public class MainNetwork : MonoBehaviour {
     // called by SectionController
     public void Teacher()
     {
-        if (btnTeacher == null)
+        Debug.Log (GameObject.FindGameObjectWithTag ("Teacher"));
+
+        if(GameObject.FindGameObjectWithTag ("Teacher") != null)
         {
-         try
-         {
             btnTeacher = GameObject.FindGameObjectWithTag ("Teacher").GetComponent<Button> ();
             btnTeacher.onClick.RemoveAllListeners ();
             btnTeacher.onClick.AddListener (AsTeacher);
             Debug.Log (btnTeacher);
-         }
-           catch(NullReferenceException ex)
-         {
-            Debug.LogError("Hindi makita (Teacher)" + ex);
-         }
         }
     }
 
@@ -458,7 +456,8 @@ public class MainNetwork : MonoBehaviour {
 
     public void AsTeacher()
     {
-        // the one who will send the data        
+        // the one who will send the data 
+        Debug.Log ("As teacher");       
         Host();
     }
 
