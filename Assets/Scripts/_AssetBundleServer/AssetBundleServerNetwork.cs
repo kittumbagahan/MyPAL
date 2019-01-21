@@ -279,7 +279,7 @@ public class AssetBundleServerNetwork : MonoBehaviour
                 AssetBundleData assetBundleData = new AssetBundleData();
                 assetBundleData.url = "url " + i;
                 assetBundleData.version = i;
-                assetBundleData.assetCategory = "category " + i;
+                assetBundleData.assetCategory = assetBundleDataCollections.lstAssetBundleData[i].assetCategory;
                 assetBundleData.patchBatchNumber = i;
                 Debug.LogError("asset bundle data version" + i);
                 Debug.LogError("url: " + assetBundleData.url);

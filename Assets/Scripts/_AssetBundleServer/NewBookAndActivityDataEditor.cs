@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEditor;
 using SQLite4Unity3d;
 
 public class NewBookAndActivityDataEditor : MonoBehaviour

@@ -1,7 +1,19 @@
 ManifestFileVersion: 0
-CRC: 386334808
+CRC: 3589489686
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: assetbundlebookshelf.1
+      Name: bookshelf_scene
+      Dependencies: {}
+    Info_1:
+      Name: launcher_scene
+      Dependencies: {}
+    Info_2:
+      Name: book_test_1_act1_activity
+      Dependencies: {}
+    Info_3:
+      Name: book_test_1_scene
+      Dependencies: {}
+    Info_4:
+      Name: storybook_activity_scenes_data_file
       Dependencies: {}

@@ -54,8 +54,8 @@ public class LauncherNetworking : MonoBehaviour
     public event FindingServer OnFindingServer;
     public delegate void ConnectedToServer();
     public event ConnectedToServer OnConnectedToServer;
-    public delegate void AssetBundleDataReceived(AssetBundleData assetBundleData);
-    public event AssetBundleDataReceived OnAssetBundleDataReceived;
+    public delegate void AssetBundleDataCollectionReceived(AssetBundleDataCollection assetBundleData);
+    public event AssetBundleDataCollectionReceived OnAssetBundleDataReceived;
     public Coroutine coFind;
     public bool stopSearch;
 
@@ -355,13 +355,13 @@ public class LauncherNetworking : MonoBehaviour
 
             MainThreadManager.Run(() =>
             {
-                //MessageBox.ins.ShowOk("version " + assetBundleData.version + ", url " + assetBundleData.url, MessageBox.MsgIcon.msgInformation, null);
-                //if (OnAssetBundleDataReceived != null)
-                //{
-                //    OnAssetBundleDataReceived(assetBundleData);
-                //}
+               MessageBox.ins.ShowOk ("batchId " + assetBundleDataCollection.batchId, MessageBox.MsgIcon.msgInformation, null);
+               if (OnAssetBundleDataReceived != null)
+               {
+                  OnAssetBundleDataReceived (assetBundleDataCollection);
+               }
 
-                Debug.Log("AssetBundleDataCollection Count " + assetBundleDataCollection.lstAssetBundleData.Count);
+               Debug.Log("AssetBundleDataCollection Count " + assetBundleDataCollection.lstAssetBundleData.Count);
             });
         }
         else
