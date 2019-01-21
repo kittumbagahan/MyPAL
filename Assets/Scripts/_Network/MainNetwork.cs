@@ -12,6 +12,7 @@ using TMPro;
 
 
 using System.Net.Sockets;
+using System;
 
 public class MainNetwork : MonoBehaviour {
 
@@ -63,6 +64,8 @@ public class MainNetwork : MonoBehaviour {
         //		_uiButtons.Add(btn);
         //}		                                               
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
 		mClientSendFile = GetComponent<ClientSendFile> ();
 
         if(Instance == null)
@@ -91,9 +94,16 @@ public class MainNetwork : MonoBehaviour {
             //NetWorker.RefreshLocalUdpListings(ushort.Parse(portNumber.text));
             NetWorker.RefreshLocalUdpListings(mPort);
         }        
+    }      
+
+    // Scene Loaded
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "BookShelf")
+            OnEnable ();
     }
 
-    private void LocalServerLocated(NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
+    private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
     {
         Debug.Log("Found endpoint: " + endpoint.Address + ":" + endpoint.Port);
     }
@@ -186,7 +196,7 @@ public class MainNetwork : MonoBehaviour {
             // I just make it randomly pick a server... you can do whatever you please!
             if (response != null && response.serverResponse.Count > 0)
             {
-                MasterServerResponse.Server server = response.serverResponse[Random.Range(0, response.serverResponse.Count)];
+                MasterServerResponse.Server server = response.serverResponse[UnityEngine.Random.Range(0, response.serverResponse.Count)];
                 //TCPClient client = new TCPClient();
                 UDPClient client = new UDPClient();
                 client.Connect(server.Address, server.Port);
@@ -379,38 +389,57 @@ public class MainNetwork : MonoBehaviour {
             btnTeacher.interactable = true;
             btnTeacher.onClick.RemoveAllListeners();
             btnTeacher.onClick.AddListener(AsTeacher);
+            btnTeacher.GetComponentInChildren<TextMeshProUGUI> ().text = "Start Server";
         }        
 
         if(btnStudent != null)
         {
             btnStudent.onClick.RemoveAllListeners();
             btnStudent.onClick.AddListener(AsStudent);
+            btnStudent.GetComponentInChildren<Text> ().text = "I'm a Student";
         }						                       
-
-        if(btnStudent.GetComponentInChildren<Text>() != null)
-            btnStudent.GetComponentInChildren<Text>().text = "I'm a Student";
-        if(btnTeacher.GetComponentInChildren<TextMeshProUGUI>() != null)
-            btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Start Server";
 	}
 
     private void OnEnable()
     {
-		// find teacher and student button
-		if(btnTeacher == null)
-			btnTeacher = GameObject.FindGameObjectWithTag("btnTeacher").GetComponent<Button>();
-		if(btnStudent == null)
-			btnStudent = GameObject.FindGameObjectWithTag("btnStudent").GetComponent<Button>();
+        // find teacher and student button
+        Debug.Log ("On enable");
+        //btnTeacher = GameObject.FindGameObjectWithTag ("Teacher").GetComponent<Button> ();
+        //Debug.Log ("Find teacher button");
 
-		btnTeacher.onClick.RemoveAllListeners ();
-		btnStudent.onClick.RemoveAllListeners ();
+        //btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
+        //Debug.Log ("Find student button");
 
-		btnTeacher.onClick.AddListener (AsTeacher);
-		btnStudent.onClick.AddListener (AsStudent);
+        //if (btnStudent == null)
+        //{
+        //    Debug.Log ("Find student button");
+        //    btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
+        //    btnStudent.onClick.RemoveAllListeners ();
+        //    btnStudent.onClick.AddListener (AsStudent);
+        //    Debug.Log (btnStudent);
+        //}
+
+        Debug.Log ("Find student button");
+        btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
+        btnStudent.onClick.RemoveAllListeners ();
+        btnStudent.onClick.AddListener (AsStudent);
+        Debug.Log (btnStudent);
 
         NetWorker.localServerLocated += TestLocalServerFind;
+        	
+    }
 
-		Debug.Log (btnTeacher);
-		Debug.Log (btnStudent);
+
+    // called by SectionController
+    public void Teacher()
+    {
+        if (btnTeacher == null)
+        {
+            btnTeacher = GameObject.FindGameObjectWithTag ("Teacher").GetComponent<Button> ();
+            btnTeacher.onClick.RemoveAllListeners ();
+            btnTeacher.onClick.AddListener (AsTeacher);
+            Debug.Log (btnTeacher);
+        }
     }
 
     private void OnDisable()
@@ -428,7 +457,10 @@ public class MainNetwork : MonoBehaviour {
 
     public void AsStudent()
     {
-        btnTeacher.GetComponent<Button>().interactable = false;
+        Debug.Log ("As Student");
+        if(btnTeacher != null)
+            btnTeacher.GetComponent<Button>().interactable = false;
+
         btnStudent.GetComponentInChildren<Text>().text = "Stop";
 
         btnStudent.onClick.RemoveAllListeners();

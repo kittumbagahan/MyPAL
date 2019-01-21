@@ -53,6 +53,11 @@ public class SectionController : MonoBehaviour
 
    void OnEnable()
    {
+
+        // set teacher button
+        if (MainNetwork.Instance != null)
+            MainNetwork.Instance.Teacher ();
+
       //Debug.Log("SECCTIONS NOT LOADed");
       Debug.Log ("Load Sections!");
       LoadSectionsSQL ();
