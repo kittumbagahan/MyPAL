@@ -182,6 +182,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: FavoriteBox
   isClickable: 0
   selectedStoryBook: 1
@@ -1042,6 +1045,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: SoundsFantastic
   isClickable: 0
   selectedStoryBook: 8
@@ -3195,6 +3201,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: TinaAndJun
   isClickable: 0
   selectedStoryBook: 10
@@ -3362,6 +3371,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: TinaAndJun
   isClickable: 0
   selectedStoryBook: 10
@@ -3823,6 +3835,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: Colors All Mixed Up
   isClickable: 0
   selectedStoryBook: 4
@@ -8494,6 +8509,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: WhatDidYouSee
   isClickable: 0
   selectedStoryBook: 5
@@ -10191,6 +10209,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: WhatDidYouSee
   isClickable: 0
   selectedStoryBook: 5
@@ -10495,6 +10516,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: JoeyGoesToSchool
   isClickable: 0
   selectedStoryBook: 7
@@ -11537,6 +11561,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: YummyShapes
   isClickable: 0
   selectedStoryBook: 9
@@ -12906,6 +12933,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: ChatWithMyCat
   isClickable: 0
   selectedStoryBook: 3
@@ -15826,6 +15856,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: YummyShapes
   isClickable: 0
   selectedStoryBook: 9
@@ -16217,6 +16250,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 1
   sceneToLoad: book_test_1_scene
   isClickable: 0
   selectedStoryBook: 11
@@ -19365,6 +19401,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: SoundsFantastic
   isClickable: 0
   selectedStoryBook: 8
@@ -20723,6 +20762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680fd53120f5efb41a1446e24f56adfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pnlLoading: {fileID: 2069078431}
 --- !u!1 &1415154733
 GameObject:
   m_ObjectHideFlags: 0
@@ -22983,6 +23023,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: ABC_Circus
   isClickable: 0
   selectedStoryBook: 6
@@ -23883,6 +23926,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: Colors All Mixed Up
   isClickable: 0
   selectedStoryBook: 4
@@ -26437,6 +26483,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: JoeyGoesToSchool
   isClickable: 0
   selectedStoryBook: 7
@@ -26584,6 +26633,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: ChatWithMyCat
   isClickable: 0
   selectedStoryBook: 3
@@ -30032,6 +30084,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: FavoriteBox
   isClickable: 0
   selectedStoryBook: 1
@@ -30443,6 +30498,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: AfterTheRain
   isClickable: 0
   selectedStoryBook: 2
@@ -32114,6 +32172,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: ABC_Circus
   isClickable: 0
   selectedStoryBook: 6
@@ -32617,6 +32678,9 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
+  isAssetBundle: 0
   sceneToLoad: AfterTheRain
   isClickable: 0
   selectedStoryBook: 2

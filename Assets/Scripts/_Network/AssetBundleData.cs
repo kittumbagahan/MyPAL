@@ -10,5 +10,5 @@ public class AssetBundleData
    public int version;
    public AssetBundleCategory assetCategory;
    public int patchBatchNumber; //patch batch
-   public string description = "optional";
+   public string description; //if is a book or activity fill this out with the book name case sensitive
 }

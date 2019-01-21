@@ -435,10 +435,17 @@ public class MainNetwork : MonoBehaviour {
     {
         if (btnTeacher == null)
         {
+         try
+         {
             btnTeacher = GameObject.FindGameObjectWithTag ("Teacher").GetComponent<Button> ();
             btnTeacher.onClick.RemoveAllListeners ();
             btnTeacher.onClick.AddListener (AsTeacher);
             Debug.Log (btnTeacher);
+         }
+           catch(NullReferenceException ex)
+         {
+            Debug.LogError("Hindi makita (Teacher)" + ex);
+         }
         }
     }
 

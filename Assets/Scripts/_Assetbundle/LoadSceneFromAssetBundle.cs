@@ -7,63 +7,69 @@ using System;
 public class LoadSceneFromAssetBundle
 {
 
-    AssetBundle assetBundle;
-   
-    string sceneURL;
-    int version = 0;
-    public delegate void LoadSceneFail ();
-    public LoadSceneFail OnLoadSceneFail;
-    public delegate void LoadSceneSuccess ();
-    public LoadSceneSuccess OnLoadSceneSuccess;
+   AssetBundle assetBundle;
 
-    public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
-    {
-        sceneURL = urlBundle;
-        version = versionBundle;
-    }
+   string sceneURL;
+   int version = 0;
+   public delegate void LoadSceneFail();
+   public event LoadSceneFail OnLoadSceneFail;
+   public delegate void LoadSceneSuccess();
+   public event LoadSceneSuccess OnLoadSceneSuccess;
 
-   
-    
-    public IEnumerator IEStreamAssetBundle()
-    {
-        //Download asset bundle
-      
-        while (!Caching.ready)
-        {
-            yield return null;
-        }
-        if("".Equals(sceneURL) || 0.Equals (version))
-        {
-            if(OnLoadSceneFail != null)
+   public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
+   {
+      sceneURL = urlBundle;
+      version = versionBundle;
+   }
+
+
+
+   public IEnumerator IEStreamAssetBundle()
+   {
+      //Download asset bundle
+      if (sceneURL.Equals (""))
+      {
+
+         MessageBox.ins.ShowOk("scene asset bundle url key is empty!", MessageBox.MsgIcon.msgError, null);
+         throw new LoadSceneFromAssetBundleException ("Scene URL is null", LoadSceneFromAssetBundleException.ErrorCode.MissingKey);
+      }
+      Debug.LogError("BOOO");
+      while (!Caching.ready)
+      {
+         yield return null;
+      }
+      if ("".Equals (sceneURL) || 0.Equals (version))
+      {
+         if (OnLoadSceneFail != null)
+         {
+            OnLoadSceneFail ();
+         }
+      }
+      else
+      {
+         using (WWW www = WWW.LoadFromCacheOrDownload (sceneURL, version))
+         {
+            while (!www.isDone)
             {
-                OnLoadSceneFail ();
+               yield return new WaitForFixedUpdate ();
             }
-        }
-        else
-        {
-            using (WWW www = WWW.LoadFromCacheOrDownload (sceneURL, version))
+            Debug.Log (sceneURL + " " + version);
+            assetBundle = www.assetBundle;
+         }
+
+
+
+         if (assetBundle.isStreamedSceneAssetBundle)
+         {
+            string[] scenePaths = assetBundle.GetAllScenePaths ();
+            string sceneName = System.IO.Path.GetFileNameWithoutExtension (scenePaths[0]);
+            if (OnLoadSceneSuccess != null)
             {
-                while (!www.isDone)
-                {
-                    yield return new WaitForFixedUpdate ();
-                }
-                Debug.Log (sceneURL + " " + version);
-                assetBundle = www.assetBundle;
+               OnLoadSceneSuccess ();
             }
+            SceneManager.LoadSceneAsync (sceneName);
+         }
+      }
 
-
-
-            if (assetBundle.isStreamedSceneAssetBundle)
-            {
-                string[] scenePaths = assetBundle.GetAllScenePaths ();
-                string sceneName = System.IO.Path.GetFileNameWithoutExtension (scenePaths[0]);
-                if(OnLoadSceneSuccess != null)
-                {
-                    OnLoadSceneSuccess ();
-                }
-                SceneManager.LoadSceneAsync (sceneName);
-            }
-        }
-       
-    }
+   }
 }

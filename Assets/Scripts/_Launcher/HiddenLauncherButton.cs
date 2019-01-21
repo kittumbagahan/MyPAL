@@ -11,6 +11,9 @@ public class HiddenLauncherButton : MonoBehaviour, IPointerClickHandler
 
     bool clickActive = false;
 
+   [SerializeField]
+   GameObject pnlLoading;
+
     void ResetClicks()
     {
         clicks = 0;
@@ -28,7 +31,24 @@ public class HiddenLauncherButton : MonoBehaviour, IPointerClickHandler
         print("hidden clicks " + clicks.ToString());
         if (clicks >= 5)
         {
-            SceneManager.LoadScene("Launcher");
+         LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("Launcher_url_key"), PlayerPrefs.GetInt("Launcher_version_key"));
+         loader.OnLoadSceneFail += FailLoad;
+         loader.OnLoadSceneSuccess += SuccessLoad;
+         StartCoroutine (loader.IEStreamAssetBundle ());
+         //SceneManager.LoadScene("Launcher");
         }
     }
+
+   void FailLoad()
+   {
+      pnlLoading.SetActive (true);
+      Debug.Log ("Launcher loaded default");
+      SceneManager.LoadSceneAsync ("Launcher");
+   }
+   void SuccessLoad()
+   {
+      Debug.Log ("Launcher loaded assetbundle");
+      pnlLoading.SetActive (true);
+
+   }
 }

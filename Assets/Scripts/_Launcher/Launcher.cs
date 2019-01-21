@@ -143,10 +143,10 @@ public sealed class Launcher : CachedAssetBundleLoader
       //PlayerPrefs.SetInt ("bundleVersion", 1);
       //PlayerPrefs.SetString ("bundleUrl", "");
       //PlayerPrefs.SetInt ("bundleVersion", 0);
-      LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("bundleUrl"), PlayerPrefs.GetInt ("bundleVersion"));
+      LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("BookShelf_url_key"), PlayerPrefs.GetInt ("BookShelf_version_key"));
       loader.OnLoadSceneFail += FailLoadBookShelf;
       loader.OnLoadSceneSuccess += SuccessLoadBookShelf;
-      print (PlayerPrefs.GetString ("bundleUrl"));
+     
       StartCoroutine (loader.IEStreamAssetBundle ());
 
 
@@ -155,10 +155,12 @@ public sealed class Launcher : CachedAssetBundleLoader
    void FailLoadBookShelf()
    {
       pnlLoading.SetActive (true);
+      Debug.Log ("bookshelf loaded default");
       SceneManager.LoadSceneAsync ("BookShelf");
    }
    void SuccessLoadBookShelf()
    {
+      Debug.Log ("bookshelf loaded assetbundle");
       pnlLoading.SetActive (true);
 
    }
@@ -206,14 +208,24 @@ public sealed class Launcher : CachedAssetBundleLoader
       switch (assetBundleData.assetCategory)
       {
          case AssetBundleCategory.BOOKSHELF_SCENE:
+            PlayerPrefs.SetString ("BookShelf_url_key", assetBundleData.url);
+            PlayerPrefs.SetInt ("BookShelf_version_key", assetBundleData.version);
             break;
          case AssetBundleCategory.ACTIVITY_SELECTION_SCENE:
+            PlayerPrefs.SetString ("ActivitySelection_url_key", assetBundleData.url);
+            PlayerPrefs.SetInt ("ActivitySelection_version_key", assetBundleData.version);
             break;
          case AssetBundleCategory.BOOK_SCENE:
+            PlayerPrefs.SetString (assetBundleData.description + "_url_key", assetBundleData.url);
+            PlayerPrefs.SetInt (assetBundleData.description + "_version_key", assetBundleData.version);
             break;
          case AssetBundleCategory.ACTIVITY_SCENE:
+            PlayerPrefs.SetString (assetBundleData.description + "_url_key", assetBundleData.url);
+            PlayerPrefs.SetInt (assetBundleData.description + "_version_key", assetBundleData.version);
             break;
          case AssetBundleCategory.LAUNCHER_SCENE:
+            PlayerPrefs.SetString ("Launcher_url_key", assetBundleData.url);
+            PlayerPrefs.SetInt ("Launcher_version_key", assetBundleData.version);
             break;
          case AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE:
             //save to database
