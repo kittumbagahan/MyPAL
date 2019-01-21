@@ -143,11 +143,20 @@ public sealed class Launcher : CachedAssetBundleLoader
       //PlayerPrefs.SetInt ("bundleVersion", 1);
       //PlayerPrefs.SetString ("bundleUrl", "");
       //PlayerPrefs.SetInt ("bundleVersion", 0);
-      LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("BookShelf_url_key"), PlayerPrefs.GetInt ("BookShelf_version_key"));
-      loader.OnLoadSceneFail += FailLoadBookShelf;
-      loader.OnLoadSceneSuccess += SuccessLoadBookShelf;
-     
-      StartCoroutine (loader.IEStreamAssetBundle ());
+
+      if (PlayerPrefs.GetString ("BookShelf_url_key") == "")
+      {
+         SceneManager.LoadSceneAsync ("BookShelf");
+      }
+      else
+      {
+         LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("BookShelf_url_key"), PlayerPrefs.GetInt ("BookShelf_version_key"));
+         loader.OnLoadSceneFail += FailLoadBookShelf;
+         loader.OnLoadSceneSuccess += SuccessLoadBookShelf;
+
+         StartCoroutine (loader.IEStreamAssetBundle ());
+      }
+   
 
 
    }

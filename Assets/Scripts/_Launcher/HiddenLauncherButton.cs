@@ -31,12 +31,20 @@ public class HiddenLauncherButton : MonoBehaviour, IPointerClickHandler
         print("hidden clicks " + clicks.ToString());
         if (clicks >= 5)
         {
-         LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("Launcher_url_key"), PlayerPrefs.GetInt("Launcher_version_key"));
-         loader.OnLoadSceneFail += FailLoad;
-         loader.OnLoadSceneSuccess += SuccessLoad;
-         StartCoroutine (loader.IEStreamAssetBundle ());
-         //SceneManager.LoadScene("Launcher");
-        }
+         if(PlayerPrefs.GetString ("Launcher_url_key") == "")
+         {
+            SceneManager.LoadSceneAsync ("Launcher");
+         }
+         else
+         {
+            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("Launcher_url_key"), PlayerPrefs.GetInt ("Launcher_version_key"));
+            loader.OnLoadSceneFail += FailLoad;
+            loader.OnLoadSceneSuccess += SuccessLoad;
+            StartCoroutine (loader.IEStreamAssetBundle ());
+            //SceneManager.LoadScene("Launcher");
+         }
+
+      }
     }
 
    void FailLoad()

@@ -187,8 +187,16 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
       yield return new WaitForSeconds (1f);
       if (isAssetBundle)
       {
-         LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
-         StartCoroutine (loader.IEStreamAssetBundle ());
+         try
+         {
+            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString (assetBunldeUrlKey), PlayerPrefs.GetInt (assetBundleUrlVersionKey));
+            StartCoroutine (loader.IEStreamAssetBundle ());
+         }
+         catch (LoadSceneFromAssetBundleException ex)
+         {
+            Debug.LogError ("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
+         }
+        
       }
       else
       {
