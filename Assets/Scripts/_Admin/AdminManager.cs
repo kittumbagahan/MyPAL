@@ -24,6 +24,7 @@ public class AdminManager : MonoBehaviour {
 
     void DataImport()
     {
+        Debug.Log("Loading from ADmin Manager " + gameObject.name );
         SceneManager.LoadScene("DataImporter");
     }
 

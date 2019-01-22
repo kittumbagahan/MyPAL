@@ -161,6 +161,7 @@ public class GradesCard : MonoBehaviour
    #region DATA
    public void ExportData()
    {
+        Debug.Log("Loading from GradesCard " + gameObject.name);
       SceneManager.LoadScene ("DataImporter");
       //File.WriteAllText(Application.persistentDataPath + "/studentData.csv", textExport);
       //Debug.Log("Check File at " + Application.persistentDataPath);
