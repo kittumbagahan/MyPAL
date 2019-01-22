@@ -49,7 +49,7 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour
          {
 
             //progress.Progress = www.progress;
-            print ("download progress " + www.progress * 100);
+            //print ("download progress " + www.progress * 100);
             //if (pb != null){pb.SetProgress(www.progress);}
             if (OnDownload != null) { OnDownload (www.progress); }
 
@@ -85,7 +85,7 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour
          {
             success = true;
             downloadCnt++;
-            bundle = www.assetBundle;
+            //bundle = www.assetBundle;
          }
          //else SetAssetBundle(www);
 

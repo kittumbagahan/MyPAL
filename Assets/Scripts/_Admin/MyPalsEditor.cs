@@ -11,7 +11,8 @@ public class MyPalsEditor {
     [MenuItem("Assets/Reset MyPals data")]
     static void ResetMyPalsData()
     {
-      
+        Caching.ClearCache();
+        PlayerPrefs.DeleteAll();
         string[] dbFiles = Directory.GetFiles(Application.persistentDataPath, "*.db");
       
         PlayerPrefs.SetInt("subscriptionTime_table", 0);

@@ -33,12 +33,12 @@ public class LoadSceneFromAssetBundle
          MessageBox.ins.ShowOk("scene asset bundle url key is empty!", MessageBox.MsgIcon.msgError, null);
          throw new LoadSceneFromAssetBundleException ("Scene URL is null", LoadSceneFromAssetBundleException.ErrorCode.MissingKey);
       }
-      Debug.LogError("BOOO");
+      //Debug.LogError("BOOO");
       while (!Caching.ready)
       {
          yield return null;
       }
-      if ("".Equals (sceneURL) || 0.Equals (version))
+      if ("".Equals (sceneURL))
       {
          if (OnLoadSceneFail != null)
          {
