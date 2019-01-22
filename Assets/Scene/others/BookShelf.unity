@@ -16250,8 +16250,8 @@ MonoBehaviour:
   destination: {fileID: 1073182623}
   min: 0
   max: 90
-  assetBunldeUrlKey: book_test_1_scene_url_key
-  assetBundleUrlVersionKey: book_test_1_scene_version_key
+  assetBunldeUrlKey: book_test_1_url_key
+  assetBundleUrlVersionKey: book_test_1_version_key
   isAssetBundle: 1
   sceneToLoad: book_test_1_scene
   isClickable: 0

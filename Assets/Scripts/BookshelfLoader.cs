@@ -8,7 +8,7 @@ public sealed class BookshelfLoader : MonoBehaviour
 
     void Start()
     {
-        
+        Debug.Log(PlayerPrefs.GetString("book_test_1_url_key"));
         //on first run
         if (PlayerPrefs.GetString("BookShelf_url_key").Equals(""))
         {
