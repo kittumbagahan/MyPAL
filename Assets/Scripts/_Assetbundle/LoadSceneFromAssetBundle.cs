@@ -64,7 +64,15 @@ public class LoadSceneFromAssetBundle
                     yield return new WaitForFixedUpdate();
                 }
                 Debug.Log(sceneURL + " " + version);
-                assetBundle = www.assetBundle;
+                try
+                {
+                    assetBundle = www.assetBundle;
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(ex);
+                }
+               
             }
 
 
@@ -78,6 +86,7 @@ public class LoadSceneFromAssetBundle
                     OnLoadSceneSuccess();
                     OnLoadSceneSuccess = delegate { };
                 }
+             
                 SceneManager.LoadSceneAsync(sceneName);
             }
         }
