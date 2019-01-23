@@ -52,17 +52,12 @@ public sealed class Launcher : CachedAssetBundleLoader
         pnlLoading.SetActive(false);
 
         AssetBundleDataCollection abd = new AssetBundleDataCollection();
-        //https://www.dropbox.com/s/atrm46spk43w7ax/assetbundlebookshelf?dl=1
-        //https://www.dropbox.com/s/y23n8l6bq187bv8/book_test_1_act1_activity?dl=1
-        //https://www.dropbox.com/s/xk75yvygktz96mh/book_test_1_dataset.txt?dl=1
-        //https://www.dropbox.com/s/pcfd6movomjr5vy/book_test_1_scene?dl=1
-        //https://www.dropbox.com/s/clbtoe2lg7hija0/launcher_scene?dl=1
-        //https://www.dropbox.com/s/mwom3k2dn5zcotv/storybook_activity_scenes_data_file?dl=1
+     
         abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/atrm46spk43w7ax/assetbundlebookshelf?dl=1", 0, AssetBundleCategory.BOOKSHELF_SCENE, 1, ""));
         abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/pcfd6movomjr5vy/book_test_1_scene?dl=1", 0, AssetBundleCategory.BOOK_SCENE, 1, "book_test_1"));
         abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/y23n8l6bq187bv8/book_test_1_act1_activity?dl=1", 0, AssetBundleCategory.ACTIVITY_SCENE, 1, "book_test_1_Act1"));
         abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/clbtoe2lg7hija0/launcher_scene?dl=1", 0, AssetBundleCategory.LAUNCHER_SCENE, 1, ""));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/xk75yvygktz96mh/book_test_1_dataset.txt?dl=1", 0, AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/nn5cxr6w9b8ee7o/book_test_1_dataset.txt?dl=1", 0, AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE, 1, ""));
         abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/mwom3k2dn5zcotv/storybook_activity_scenes_data_file?dl=1", 0, AssetBundleCategory.STORYBOOK_ACTIVITY_SECLECTION_DATA_FILE, 1, ""));
         OnDownload += pb.SetProgress;
         DownloadAssetBundle(abd);

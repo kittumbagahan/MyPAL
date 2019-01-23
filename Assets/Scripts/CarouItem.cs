@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class CarouItem : MonoBehaviour, IPointerClickHandler
 {
 
@@ -201,8 +203,9 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
-            SceneLoader.instance.AsyncLoadStr("empty");
+            //EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
+            //SceneLoader.instance.AsyncLoadStr("empty");
+            SceneManager.LoadSceneAsync(sceneToLoad);
         }
 
     }

@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public sealed class BookshelfLoader : MonoBehaviour
 {
+    [SerializeField]
+    GameObject loading;
 
     void Start()
     {
         Debug.Log(PlayerPrefs.GetString("book_test_1_url_key"));
+        loading.gameObject.SetActive(true);
         //on first run
         if (PlayerPrefs.GetString("BookShelf_url_key").Equals(""))
         {

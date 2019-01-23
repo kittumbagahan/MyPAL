@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 interface IGrow { 
   void Grow();
@@ -111,6 +112,7 @@ public class BookCategory : MonoBehaviour, IPointerClickHandler, IGrow, IShrink 
 	IEnumerator SceneLoadWait()
 	{
 		yield return new WaitForSeconds(1f);
-		StartCoroutine(SceneLoader.instance.Load(sceneName));
+        SceneManager.LoadSceneAsync(sceneName);
+		
 	}
 }

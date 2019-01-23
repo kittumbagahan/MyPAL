@@ -365,8 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e245e0ff460446daaab8de9bf46da3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToload: 
+  sceneToload: BookShelf
   loading: {fileID: 754416608}
+  isAssetBundle: 1
+  assetBunldeUrlKey: BookShelf_url_key
+  assetBundleUrlVersionKey: BookShelf_version_key
 --- !u!1 &131881236
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2231,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToload: 
   loading: {fileID: 0}
+  isAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!114 &1080563304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,7 +2600,6 @@ GameObject:
   - component: {fileID: 1294872007}
   - component: {fileID: 1294872006}
   - component: {fileID: 1294872003}
-  - component: {fileID: 1294872010}
   m_Layer: 5
   m_Name: btnBack
   m_TagString: Untagged
@@ -2643,7 +2648,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 76267312}
-        m_MethodName: LoadStr
+        m_MethodName: AsyncLoadStr
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2664,17 +2669,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1294872010}
-        m_MethodName: Click
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 0
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1294872003
@@ -2771,18 +2765,6 @@ RectTransform:
   m_AnchoredPosition: {x: 371, y: 264.60004}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1294872010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1294872001}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8afd85b81f54b689840dc300b85106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: BookShelf
 --- !u!1001 &1540935970
 Prefab:
   m_ObjectHideFlags: 0

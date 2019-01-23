@@ -1524,7 +1524,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToload: BookShelf
-  loading: {fileID: 0}
+  loading: {fileID: 2057952448}
+  isAssetBundle: 1
+  assetBunldeUrlKey: BookShelf_url_key
+  assetBundleUrlVersionKey: BookShelf_version_key
 --- !u!114 &508121301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,7 +1569,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 508121300}
-        m_MethodName: LoadStr
+        m_MethodName: AsyncLoadStr
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3226,6 +3229,7 @@ GameObject:
   - component: {fileID: 1627747125}
   - component: {fileID: 1627747127}
   - component: {fileID: 1627747129}
+  - component: {fileID: 1627747133}
   m_Layer: 5
   m_Name: Canvas_UI_SceneLoader
   m_TagString: Untagged
@@ -3481,6 +3485,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1627747133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1627747122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c75d7b7cc3af884dac145aa1c131c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAssetBundle: 1
+  urlKey: adasdasd
+  versionKey: adasdasd
+  name: AfterTheRain
+  bookId: 0
 --- !u!21 &1658342501
 Material:
   serializedVersion: 6
@@ -3940,6 +3960,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToload: 
   loading: {fileID: 0}
+  isAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!114 &1707042931
 MonoBehaviour:
   m_ObjectHideFlags: 0

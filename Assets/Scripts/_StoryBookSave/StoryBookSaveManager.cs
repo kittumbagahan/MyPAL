@@ -48,6 +48,8 @@ public class StoryBookSaveManager : MonoBehaviour {
                 return "YummyShapes";
             case StoryBook.TINA_AND_JUN:
                 return "TinaAndJun";
+            case StoryBook.BOOK_TEST_1:
+                return "book_test_1";
             default:
                 return "";
         }

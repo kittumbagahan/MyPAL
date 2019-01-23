@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StoryBookStart : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class StoryBookStart : MonoBehaviour
     [SerializeField]
     float bgMusicVolume = 0.1f;
     //float tempBgMusicVolume;
-  
+
     public Button btnAgain;
     void Start()
     {
@@ -35,8 +36,8 @@ public class StoryBookStart : MonoBehaviour
         btnNext.gameObject.SetActive(false);
         btnPrev.gameObject.SetActive(false);
         btnAgain.gameObject.SetActive(false);
-       
-       
+
+
         //reset the bg volume to original from reading volume 0.1f
         BG_Music.ins.SetVolume(0.5f);
         //BG_Music.ins.SetToReadingVolume();
@@ -63,7 +64,7 @@ public class StoryBookStart : MonoBehaviour
             selectedReadType = readType;
             audSrc.PlayOneShot(audClipClick);
             StartCoroutine(IERead());
-            
+
 
         }
 
@@ -106,19 +107,28 @@ public class StoryBookStart : MonoBehaviour
 
     public void Activity(string name)
     {
+        
+        try
+        {
 
+            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("ActivitySelection_url_key"), PlayerPrefs.GetInt("ActivitySelection_version_key"));
+            loader.OnLoadSceneFail += ()=>{ SceneManager.LoadSceneAsync(name); };
+            loader.OnLoadSceneSuccess += Success;
+            StartCoroutine(loader.IEStreamAssetBundle());
+        }
+        catch (LoadSceneFromAssetBundleException ex)
+        {
+            Debug.LogError("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
+        }
         //Application.LoadLevel(name);
         audSrc.PlayOneShot(audClipClick);
-        StartCoroutine(IELoad(name));
+        
+
     }
-    //float val = 0;
-    IEnumerator IELoad(string s)
+
+    void Success()
     {
-        AsyncOperation async = null;
-        async = Application.LoadLevelAsync(s);
-
-        yield return async;
-
+        Debug.Log("Loading scene success");
     }
 
 }

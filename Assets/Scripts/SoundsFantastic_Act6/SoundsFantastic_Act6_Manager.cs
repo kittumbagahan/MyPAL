@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 public class SoundsFantastic_Act6_Manager : MonoBehaviour {
 
     public static SoundsFantastic_Act6_Manager ins;
@@ -83,9 +85,11 @@ public class SoundsFantastic_Act6_Manager : MonoBehaviour {
 	{
 		
 
-		EmptySceneLoader.ins.sceneToLoad = "SoundsFantastic_Act6";
-		SceneLoader.instance.SceneToLoad = "empty";
-		SceneLoader.instance.AsyncLoadStr("empty");
+		//EmptySceneLoader.ins.sceneToLoad = "SoundsFantastic_Act6";
+		//SceneLoader.instance.SceneToLoad = "empty";
+		//SceneLoader.instance.AsyncLoadStr("empty");
+
+        SceneManager.LoadSceneAsync("SoundsFantastic_Act6");
 	}
 
     public void TurnLeft(){

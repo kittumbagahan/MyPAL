@@ -835,6 +835,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToload: 
   loading: {fileID: 0}
+  isAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!114 &329768482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3764,7 +3767,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2138106453}
-        m_MethodName: LoadStr
+        m_MethodName: AsyncLoadStr
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3811,7 +3814,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToload: BookShelf
-  loading: {fileID: 0}
+  loading: {fileID: 1733533253}
+  isAssetBundle: 1
+  assetBunldeUrlKey: BookShelf_url_key
+  assetBundleUrlVersionKey: BookShelf_version_key
 --- !u!114 &2138106454
 MonoBehaviour:
   m_ObjectHideFlags: 0

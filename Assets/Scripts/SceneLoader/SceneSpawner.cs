@@ -18,8 +18,13 @@ public class SceneSpawner : MonoBehaviour
     [SerializeField]
     float bookH = 1f, bookW = 1f;
     SubtitleManager subsMan;
+
     [SerializeField]
-    
+    bool isAssetBundle;
+    [SerializeField]
+    string assetBunldeUrlKey; //Beware of this. why? You'll find out soon.
+    [SerializeField]
+    string assetBundleUrlVersionKey;
 
     void Start()
     {
@@ -71,7 +76,7 @@ public class SceneSpawner : MonoBehaviour
         curr.SetActive(true);
         subsMan.ShowSubs(0);
         //play text animation
-        
+
         Trace();
     }
 
@@ -85,7 +90,7 @@ public class SceneSpawner : MonoBehaviour
     {
         if (UIBtnPrev.interactable)
         {
-   
+
             if (prev != null)
             {
                 sceneIndex--;
@@ -108,7 +113,7 @@ public class SceneSpawner : MonoBehaviour
                 {
                     //print("MUST PLAY");
                     curr.SetActive(true); /* play text animation */ //curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
-                    subsMan.ShowSubs(sceneIndex-1);
+                    subsMan.ShowSubs(sceneIndex - 1);
                 }
                 UI_SoundFX.ins.PlayUITurnPage();
                 //print("pressed prev " + sceneIndex);
@@ -117,7 +122,7 @@ public class SceneSpawner : MonoBehaviour
                 UIBtnNext.interactable = true;
             }
 
-          
+
         }
 
     }
@@ -131,9 +136,33 @@ public class SceneSpawner : MonoBehaviour
             sceneIndex++; //for the "next" object
             if (curr == null)
             {
-				print("END");
-				EmptySceneLoader.ins.sceneToLoad = SceneManager.GetActiveScene().name;
-				SceneLoader.instance.AsyncLoadStr("empty");
+                print("END");
+                //EmptySceneLoader.ins.sceneToLoad = SceneManager.GetActiveScene().name;
+                //SceneLoader.instance.AsyncLoadStr("empty");
+                if (isAssetBundle)
+                {
+                    try
+                    {
+
+                        LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
+                        loader.OnLoadSceneFail += () =>
+                        {
+                            Debug.Log("Failed: Loading default");
+                            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+                        };
+                        loader.OnLoadSceneSuccess += () => { Debug.Log("Loading success!"); };
+                        StartCoroutine(loader.IEStreamAssetBundle());
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.LogError("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
+                    }
+                }
+                else
+                {
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+                }
+
             }
             else
             {
@@ -178,12 +207,12 @@ public class SceneSpawner : MonoBehaviour
                     print(ex);
                     //Application.LoadLevel(Application.loadedLevelName);
                 }
-         
+
                 UIBtnPrev.interactable = true;
-            
+
             }
-           
-           
+
+
         }
 
     }
@@ -195,9 +224,9 @@ public class SceneSpawner : MonoBehaviour
 
     void Trace()
     {
-		if (prev != null) {}//print("prev " + prev.gameObject.name);
-		if (curr != null) {}//print("curr " + curr.gameObject.name);
-		if (next != null) {}//print("next " + next.gameObject.name);
+        if (prev != null) { }//print("prev " + prev.gameObject.name);
+        if (curr != null) { }//print("curr " + curr.gameObject.name);
+        if (next != null) { }//print("next " + next.gameObject.name);
     }
 
     bool HasDuplicate(GameObject obj)

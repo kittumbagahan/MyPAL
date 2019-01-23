@@ -822,7 +822,6 @@ GameObject:
   - component: {fileID: 356001539}
   - component: {fileID: 356001538}
   - component: {fileID: 356001535}
-  - component: {fileID: 356001536}
   m_Layer: 5
   m_Name: btnBack
   m_TagString: Untagged
@@ -870,17 +869,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 356001536}
-        m_MethodName: Click
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: BookShelf
-          m_BoolArgument: 0
-        m_CallState: 0
       - m_Target: {fileID: 2057952448}
         m_MethodName: SetActive
         m_Mode: 6
@@ -893,7 +881,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1627747133}
-        m_MethodName: LoadStr
+        m_MethodName: AsyncLoadStr
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -916,18 +904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1e52a04dba4b448a7d7daa62eb974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &356001536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 356001533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8afd85b81f54b689840dc300b85106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: BookShelf
 --- !u!114 &356001537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3436,8 +3412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e245e0ff460446daaab8de9bf46da3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToload: 
+  sceneToload: BookShelf
   loading: {fileID: 2057952448}
+  isAssetBundle: 1
+  assetBunldeUrlKey: BookShelf_url_key
+  assetBundleUrlVersionKey: BookShelf_version_key
 --- !u!21 &1658342501
 Material:
   serializedVersion: 6
