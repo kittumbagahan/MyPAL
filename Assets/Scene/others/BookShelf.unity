@@ -9415,6 +9415,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
+  isAssetBundle: 0
+  unloadUrl: 
+  unloadVersion: 0
+  unloadAll: 0
+  loadUrl: 
+  loadVersion: 0
 --- !u!114 &670454534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19963,7 +19969,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1625650321}
   m_HandleRect: {fileID: 1625650320}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

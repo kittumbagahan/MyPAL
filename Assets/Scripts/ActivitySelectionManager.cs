@@ -17,6 +17,12 @@ public class ActivitySelectionManager : MonoBehaviour {
         sl.VersionKey = AssetBundleInfo.BookScene.versionKey;
         sl.UrlKey = AssetBundleInfo.BookScene.urlKey;
 
+        EmptySceneLoader.ins.isAssetBundle = true;
+        EmptySceneLoader.ins.unloadAll = false;
+        EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString("ActivitySelection_url_key");
+        EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt("ActivitySelection_version_key");
+        
+
         Debug.Log("CHECK OUT FOR THIS");
 		BG_Music.ins.SetVolume(0.5f);
 

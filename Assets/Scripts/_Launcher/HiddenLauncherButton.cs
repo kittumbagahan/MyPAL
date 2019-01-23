@@ -11,8 +11,8 @@ public class HiddenLauncherButton : MonoBehaviour, IPointerClickHandler
 
     bool clickActive = false;
 
-   [SerializeField]
-   GameObject pnlLoading;
+    [SerializeField]
+    GameObject pnlLoading;
 
     void ResetClicks()
     {
@@ -31,32 +31,48 @@ public class HiddenLauncherButton : MonoBehaviour, IPointerClickHandler
         print("hidden clicks " + clicks.ToString());
         if (clicks >= 5)
         {
-         if(PlayerPrefs.GetString ("Launcher_url_key") == "")
-         {
-            SceneManager.LoadSceneAsync ("Launcher");
-         }
-         else
-         {
-            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle (PlayerPrefs.GetString ("Launcher_url_key"), PlayerPrefs.GetInt ("Launcher_version_key"));
-            loader.OnLoadSceneFail += FailLoad;
-            loader.OnLoadSceneSuccess += SuccessLoad;
-            StartCoroutine (loader.IEStreamAssetBundle ());
-            //SceneManager.LoadScene("Launcher");
-         }
+            if (PlayerPrefs.GetString("Launcher_url_key").Equals(""))
+            {
+                SceneManager.LoadSceneAsync("Launcher");
+            }
+            else
+            {
 
-      }
+                string url = PlayerPrefs.GetString("Launcher_url_key");
+                int version = PlayerPrefs.GetInt("Launcher_version_key");
+
+                EmptySceneLoader.ins.loadUrl = url;
+                EmptySceneLoader.ins.loadVersion = version;
+                EmptySceneLoader.ins.sceneToLoad = "Launcher";
+                EmptySceneLoader.ins.isAssetBundle = true;
+
+                //this is from bookshelf so
+                EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString("BookShelf_url_key");
+                EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt("BookShelf_version_key");
+                EmptySceneLoader.ins.unloadAll = false;
+
+                SceneManager.LoadSceneAsync("empty");
+
+                //LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("Launcher_url_key"), PlayerPrefs.GetInt("Launcher_version_key"));
+                //loader.OnLoadSceneFail += FailLoad;
+                //loader.OnLoadSceneSuccess += SuccessLoad;
+                //StartCoroutine(loader.IEStreamAssetBundle());
+                //SceneManager.LoadScene("Launcher");
+            }
+
+        }
     }
 
-   void FailLoad()
-   {
-      pnlLoading.SetActive (true);
-      Debug.Log ("Launcher loaded default");
-      SceneManager.LoadSceneAsync ("Launcher");
-   }
-   void SuccessLoad()
-   {
-      Debug.Log ("Launcher loaded assetbundle");
-      pnlLoading.SetActive (true);
+    void FailLoad()
+    {
+        pnlLoading.SetActive(true);
+        Debug.Log("Launcher loaded default");
+        SceneManager.LoadSceneAsync("Launcher");
+    }
+    void SuccessLoad()
+    {
+        Debug.Log("Launcher loaded assetbundle");
+        pnlLoading.SetActive(true);
 
-   }
+    }
 }

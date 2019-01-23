@@ -141,22 +141,36 @@ public class SceneSpawner : MonoBehaviour
                 //SceneLoader.instance.AsyncLoadStr("empty");
                 if (isAssetBundle)
                 {
-                    try
-                    {
+                    string url = PlayerPrefs.GetString(assetBunldeUrlKey);
+                    int version = PlayerPrefs.GetInt(assetBundleUrlVersionKey);
 
-                        LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
-                        loader.OnLoadSceneFail += () =>
-                        {
-                            Debug.Log("Failed: Loading default");
-                            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
-                        };
-                        loader.OnLoadSceneSuccess += () => { Debug.Log("Loading success!"); };
-                        StartCoroutine(loader.IEStreamAssetBundle());
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogError("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
-                    }
+                    EmptySceneLoader.ins.loadUrl = url;
+                    EmptySceneLoader.ins.loadVersion = version;
+                    EmptySceneLoader.ins.sceneToLoad = StoryBookSaveManager.ins.GetBookScene();
+                    EmptySceneLoader.ins.isAssetBundle = true;
+
+                    //from itself
+                    EmptySceneLoader.ins.unloadUrl = url;
+                    EmptySceneLoader.ins.unloadVersion = version;
+                    EmptySceneLoader.ins.unloadAll = false;
+
+                    SceneManager.LoadSceneAsync("empty");
+                    //try
+                    //{
+
+                    //    LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
+                    //    loader.OnLoadSceneFail += () =>
+                    //    {
+                    //        Debug.Log("Failed: Loading default");
+                    //        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+                    //    };
+                    //    loader.OnLoadSceneSuccess += () => { Debug.Log("Loading success!"); };
+                    //    StartCoroutine(loader.IEStreamAssetBundle());
+                    //}
+                    //catch (System.Exception ex)
+                    //{
+                    //    Debug.LogError("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
+                    //}
                 }
                 else
                 {

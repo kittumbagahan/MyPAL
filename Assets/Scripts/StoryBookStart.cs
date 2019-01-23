@@ -76,21 +76,48 @@ public class StoryBookStart : MonoBehaviour
 
         }
         BG_Music.ins.SetVolume(bgMusicVolume);
-        if (!downloadBook)
-        {
-            yield return new WaitForSeconds(1f);
-            Instantiate(book, new Vector3(0, 0, 0), Quaternion.identity);
-        }
-        else
-        {
-            loadingObj.SetActive(true);
-            yield return StartCoroutine(bundle.IELoadAsset());
-        }
+        //if (!downloadBook)
+        //{
+        //    yield return new WaitForSeconds(1f);
+        //    Instantiate(book, new Vector3(0, 0, 0), Quaternion.identity);
+        //}
+        //else
+        //{
+        //    loadingObj.SetActive(true);
+        //    yield return StartCoroutine(bundle.IELoadAsset());
+        //}
+
+        yield return new WaitForSeconds(1f);
+        Instantiate(book, new Vector3(0, 0, 0), Quaternion.identity);
 
         btnNext.gameObject.SetActive(true);
         btnPrev.gameObject.SetActive(true);
         loadingObj.SetActive(false);
         BG.gameObject.SetActive(false);
+
+        if (EmptySceneLoader.ins.isAssetBundle)
+        {
+            SceneLoader sl = GetComponent<SceneLoader>();
+
+            string url = PlayerPrefs.GetString(AssetBundleInfo.BookScene.urlKey);
+            int version = PlayerPrefs.GetInt(AssetBundleInfo.BookScene.versionKey);
+            EmptySceneLoader.ins.loadUrl = url;
+            EmptySceneLoader.ins.loadVersion = version;
+            EmptySceneLoader.ins.sceneToLoad = AssetBundleInfo.BookScene.name;
+
+            EmptySceneLoader.ins.unloadUrl = url;
+            EmptySceneLoader.ins.unloadVersion = version;
+            EmptySceneLoader.ins.unloadAll = false;
+
+            EmptySceneLoader.ins.isAssetBundle = true;
+
+            sl.SceneToLoad = EmptySceneLoader.ins.sceneToLoad;
+            sl.UrlKey = AssetBundleInfo.BookScene.urlKey;
+            sl.VersionKey = AssetBundleInfo.BookScene.versionKey;
+            sl.IsAssetBundle = true;
+        }
+
+        Debug.Log("info " + AssetBundleInfo.BookScene.name);
 
 
 
@@ -107,16 +134,37 @@ public class StoryBookStart : MonoBehaviour
 
     public void Activity(string name)
     {
-        
+       
         try
         {
+            string url = PlayerPrefs.GetString("ActivitySelection_url_key");
+            int version = PlayerPrefs.GetInt("ActivitySelection_version_key");
 
-            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("ActivitySelection_url_key"), PlayerPrefs.GetInt("ActivitySelection_version_key"));
-            loader.OnLoadSceneFail += ()=>{ SceneManager.LoadSceneAsync(name); };
-            loader.OnLoadSceneSuccess += Success;
-            StartCoroutine(loader.IEStreamAssetBundle());
+            if ("".Equals(url))
+            {
+                Debug.Log("WOW");
+                SceneManager.LoadSceneAsync(name);
+                return;
+            }
+
+            EmptySceneLoader.ins.loadUrl = url;
+            EmptySceneLoader.ins.loadVersion = version;
+            EmptySceneLoader.ins.sceneToLoad = "ActivitySelection";
+            EmptySceneLoader.ins.isAssetBundle = true;
+
+            //this is from book so
+            EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString(AssetBundleInfo.BookScene.urlKey);
+            EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt(AssetBundleInfo.BookScene.versionKey);
+            EmptySceneLoader.ins.unloadAll = false;
+
+            SceneManager.LoadSceneAsync("empty");
+
+            //LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("ActivitySelection_url_key"), PlayerPrefs.GetInt("ActivitySelection_version_key"));
+            //loader.OnLoadSceneFail += ()=>{ SceneManager.LoadSceneAsync(name); };
+            //loader.OnLoadSceneSuccess += Success;
+            //StartCoroutine(loader.IEStreamAssetBundle());
         }
-        catch (LoadSceneFromAssetBundleException ex)
+        catch (System.Exception ex)
         {
             Debug.LogError("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
         }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
 
-    public static SceneLoader instance;
+  
     [SerializeField]
     private string sceneToload;
     [SerializeField]
@@ -17,12 +17,7 @@ public class SceneLoader : MonoBehaviour
     string assetBunldeUrlKey; //Beware of this. why? You'll find out soon.
     [SerializeField]
     string assetBundleUrlVersionKey;
-    void Start()
-    {
-        instance = this;
-
-    }
-
+   
     public bool IsAssetBundle
     {
         set
@@ -58,8 +53,10 @@ public class SceneLoader : MonoBehaviour
     public void AsyncLoadStr(string name)
     {
         if (loading != null) loading.gameObject.SetActive(true);
+
         if (isAssetBundle)
         {
+
             AssetBundleInfo.ActivityScene.urlKey = assetBunldeUrlKey;
             AssetBundleInfo.ActivityScene.versionKey = assetBundleUrlVersionKey;
             AssetBundleInfo.ActivityScene.isAssetBundle = isAssetBundle;
@@ -68,10 +65,25 @@ public class SceneLoader : MonoBehaviour
             try
             {
 
-                LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
-                loader.OnLoadSceneFail += Fail;
-                loader.OnLoadSceneSuccess += Success;
-                StartCoroutine(loader.IEStreamAssetBundle());
+                string url = PlayerPrefs.GetString(assetBunldeUrlKey);
+                int version = PlayerPrefs.GetInt(assetBundleUrlVersionKey);
+
+                EmptySceneLoader.ins.loadUrl = url;
+                EmptySceneLoader.ins.loadVersion = version;
+                EmptySceneLoader.ins.sceneToLoad = sceneToload;
+                EmptySceneLoader.ins.isAssetBundle = true;
+
+                //this is from book so get reference from AssetBundleInfo where it has the recent loaded scene
+                EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString(AssetBundleInfo.BookScene.urlKey);
+                EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt(AssetBundleInfo.BookScene.versionKey);
+                EmptySceneLoader.ins.unloadAll = false;
+
+                SceneManager.LoadSceneAsync("empty");
+
+                //LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
+                //loader.OnLoadSceneFail += Fail;
+                //loader.OnLoadSceneSuccess += Success;
+                //StartCoroutine(loader.IEStreamAssetBundle());
             }
             catch (LoadSceneFromAssetBundleException ex)
             {
@@ -86,6 +98,8 @@ public class SceneLoader : MonoBehaviour
             {
                 name = sceneToload;
             }
+            EmptySceneLoader.ins.isAssetBundle = false;
+            AssetBundleInfo.ActivityScene.isAssetBundle = false;
             SceneManager.LoadSceneAsync(name);
 
         }

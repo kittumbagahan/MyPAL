@@ -53,12 +53,13 @@ public sealed class Launcher : CachedAssetBundleLoader
 
         AssetBundleDataCollection abd = new AssetBundleDataCollection();
      
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/kmocuj3xzjqme1b/assetbundlebookshelf?dl=1", 0, AssetBundleCategory.BOOKSHELF_SCENE, 1, ""));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/7wi6xq3sj37emrm/book_test_1_scene?dl=1", 0, AssetBundleCategory.BOOK_SCENE, 1, "book_test_1"));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/4rgylcp95kufijl/book_test_1_act1_activity?dl=1", 0, AssetBundleCategory.ACTIVITY_SCENE, 1, "book_test_1_Act1"));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/43533u5c98t3hyp/launcher_scene?dl=1", 0, AssetBundleCategory.LAUNCHER_SCENE, 1, ""));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/9yoleh2tq5thqfd/book_test_1_dataset.txt?dl=1", 0, AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE, 1, ""));
-        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/rvisa9bfd25c662/storybook_activity_scenes_data_file?dl=1", 0, AssetBundleCategory.STORYBOOK_ACTIVITY_SECLECTION_DATA_FILE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/z6dxww1vd12iopu/assetbundlebookshelf?dl=1", 0, AssetBundleCategory.BOOKSHELF_SCENE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/bdhdfyiukvq5zl0/book_test_1_scene?dl=1", 0, AssetBundleCategory.BOOK_SCENE, 1, "book_test_1"));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/yw7ienmrtu55dn6/book_test_1_act1_activity?dl=1", 0, AssetBundleCategory.ACTIVITY_SCENE, 1, "book_test_1_Act1"));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/jqo1kksgugyn2bl/launcher_scene?dl=1", 0, AssetBundleCategory.LAUNCHER_SCENE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/izr8yprhnvxl7hz/activity_selection_scene?dl=1", 0, AssetBundleCategory.ACTIVITY_SELECTION_SCENE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/231if2qc2s0tdtz/book_test_1_dataset.txt?dl=1", 0, AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE, 1, ""));
+        abd.lstAssetBundleData.Add(new AssetBundleData("https://www.dropbox.com/s/2hwvww2cz0azo43/storybook_activity_scenes_data_file?dl=1", 0, AssetBundleCategory.STORYBOOK_ACTIVITY_SECLECTION_DATA_FILE, 1, ""));
         OnDownload += pb.SetProgress;
         DownloadAssetBundle(abd);
     }
@@ -125,8 +126,6 @@ public sealed class Launcher : CachedAssetBundleLoader
 
     public void StartGame()
     {
-
-
         if (PlayerPrefs.GetString("BookShelf_url_key") == "")
         {
             SceneManager.LoadSceneAsync("BookShelf");
@@ -139,9 +138,6 @@ public sealed class Launcher : CachedAssetBundleLoader
 
             StartCoroutine(loader.IEStreamAssetBundle());
         }
-
-
-
     }
 
     void FailLoadBookShelf()
@@ -266,8 +262,25 @@ public sealed class Launcher : CachedAssetBundleLoader
             pb.TextTitle.text = "Download Complete";
             OnDownload -= pb.SetProgress;
             print("Complete download");
-            LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("BookShelf_url_key"), PlayerPrefs.GetInt("BookShelf_version_key"));
-            StartCoroutine(loader.IEStreamAssetBundle());
+
+            string url = PlayerPrefs.GetString("BookShelf_url_key");
+            int version = PlayerPrefs.GetInt("BookShelf_version_key");
+
+            EmptySceneLoader.ins.loadUrl = url;
+            EmptySceneLoader.ins.loadVersion = version;
+            EmptySceneLoader.ins.sceneToLoad = "BookShelf";
+            EmptySceneLoader.ins.isAssetBundle = true;
+            
+                
+            //this is from launcher so
+            EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString("Launcher_url_key");
+            EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt("Launcher_version_key");
+            EmptySceneLoader.ins.unloadAll = false;
+
+            SceneManager.LoadSceneAsync("empty");
+
+            //LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString("BookShelf_url_key"), PlayerPrefs.GetInt("BookShelf_version_key"));
+            //StartCoroutine(loader.IEStreamAssetBundle());
          
         }
 

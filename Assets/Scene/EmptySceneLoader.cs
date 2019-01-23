@@ -8,6 +8,15 @@ public class EmptySceneLoader : MonoBehaviour {
 
 	public string sceneToLoad;
 
+    public bool isAssetBundle;
+
+    public string unloadUrl;
+    public int unloadVersion;
+    public bool unloadAll;
+
+    public string loadUrl;
+    public int loadVersion;
+
 	void Awake()
 	{
 		if(ins == null)

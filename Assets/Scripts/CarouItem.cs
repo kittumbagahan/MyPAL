@@ -46,15 +46,6 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
         origScale -= 0.1f;
         _img = GetComponent<Image>();
 
-        //if (locked == 0)
-        //{
-        //    //print("tts");
-        //    _img.color = new Color32(135,135,135,255); //new Color(135, 135, 135, 255);
-        //}
-        //else
-        //    _img.color = new Color32(255, 255, 255, 255);
-
-
     }
 
     void Update()
@@ -73,13 +64,8 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
                 BookshelfManager.ins.aBookIsActive = true;
             }
 
-            //imgHighlight.transform.SetParent(transform);
-            //imgHighlight.transform.SetLocalXPos(0);
-            //imgHighlight.transform.SetLocalYPos(0);
             if (!BookshelfManager.ins.AudioSrc.isPlaying && isClickable == false && !highlightPlayed)
             {
-
-                //print("1");
                 if (!clicked)
                 {
                     //transform.parent.GetComponent<AudioSource>().PlayOneShot(BookshelfManager.ins.AudClipBookHighlight); 
@@ -187,13 +173,27 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
         imgClickEffect.transform.SetLocalXPos(0);
         imgClickEffect.transform.SetLocalYPos(0);
         yield return new WaitForSeconds(1f);
+
         if (isAssetBundle)
         {
             try
             {
-                print("Meron dapat to eK" + PlayerPrefs.GetString(assetBunldeUrlKey));
-                LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(PlayerPrefs.GetString(assetBunldeUrlKey), PlayerPrefs.GetInt(assetBundleUrlVersionKey));
-                StartCoroutine(loader.IEStreamAssetBundle());
+                string url = PlayerPrefs.GetString(assetBunldeUrlKey);
+                int version = PlayerPrefs.GetInt(assetBundleUrlVersionKey);
+
+                EmptySceneLoader.ins.loadUrl = url;
+                EmptySceneLoader.ins.loadVersion = version;
+                EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
+                EmptySceneLoader.ins.isAssetBundle = true;
+
+                //this is from bookshelf so
+                EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString("BookShelf_url_key");
+                EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt("BookShelf_version_key");
+                EmptySceneLoader.ins.unloadAll = false;
+
+                SceneManager.LoadSceneAsync("empty");
+                //LoadSceneFromAssetBundle loader = new LoadSceneFromAssetBundle(url, version);
+                //StartCoroutine(loader.IEStreamAssetBundle());
             }
             catch (LoadSceneFromAssetBundleException ex)
             {
@@ -203,9 +203,9 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            //EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
-            //SceneLoader.instance.AsyncLoadStr("empty");
-            SceneManager.LoadSceneAsync(sceneToLoad);
+            EmptySceneLoader.ins.isAssetBundle = false;
+            EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
+            SceneManager.LoadSceneAsync("empty");
         }
 
     }

@@ -24,11 +24,6 @@ public class UI_SoundFX : MonoBehaviour {
         }
     }
 
-
-	void Start () {
-      
-	}
-
     public bool IsPlaying()
     {
         if (audSrc.isPlaying) return true;
