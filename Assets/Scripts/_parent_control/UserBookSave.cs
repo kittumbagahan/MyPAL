@@ -76,7 +76,7 @@ public class UserBookSave : MonoBehaviour
 
     public void UpdateReadItToMeUsage()
     {
-        int count = model.ReadCount + 1;
+        int count = model.ReadToMeCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set ReadToMeCount='" + count + "' where Id='" + model.Id + "'");
         Debug.Log("Update Read To Me Count");
@@ -99,7 +99,7 @@ public class UserBookSave : MonoBehaviour
 
     public void UpdateAutoReadUsage()
     {
-        int count = model.ReadCount + 1;
+        int count = model.AutoReadCount + 1;
         DataService.Open();
         DataService._connection.Execute("Update StudentBookModel set AutoReadCount='" + count + "' where Id='" + model.Id + "'");
         Debug.Log("Update Auto Read Count");
@@ -126,11 +126,25 @@ public class UserBookSave : MonoBehaviour
         networkData = new NetworkData();
 
         networkData.studentBook_Id = model.Id;
-        networkData.studentBook_readCount = pCount;
+        //networkData.studentBook_readCount = pCount;
 
         networkData.studentBook_SectionId = model.SectionId;
         networkData.studentBook_StudentId = model.StudentId;
         networkData.studentBook_bookId = model.BookId;
+
+        // read count update
+        switch (pMessageGroup)
+        {
+            case ClientSendFile.MessageGroup.Book_UpdateReadCount:
+            networkData.studentBook_readCount = pCount;
+            break;
+            case ClientSendFile.MessageGroup.Book_UpdateAutoReadCount:
+            networkData.studentBook_autoReadCount = pCount;
+            break;
+            case ClientSendFile.MessageGroup.Book_UpdateReadToMeCount:
+            networkData.studentBook_readToMeCount = pCount;
+            break;
+        }
 
         Debug.Log(string.Format("ID {0}, Count {1}, Section {2}, Student ID {3}, Book ID {4}", 
             networkData.studentBook_Id,

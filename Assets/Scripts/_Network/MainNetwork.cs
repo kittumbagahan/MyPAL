@@ -162,7 +162,7 @@ public class MainNetwork : MonoBehaviour {
     {
         Debug.Log(string.Format("{0} is connected to server", "Huehue"));
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
-        //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+        MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
     }
 
     // kit, test
