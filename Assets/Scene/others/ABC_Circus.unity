@@ -537,8 +537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e245e0ff460446daaab8de9bf46da3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToload: 
-  loading: {fileID: 0}
+  sceneToload: ABC_Circus
+  loading: {fileID: 2057952448}
   isAssetBundle: 0
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
@@ -3599,6 +3599,7 @@ GameObject:
   - component: {fileID: 1627747125}
   - component: {fileID: 1627747127}
   - component: {fileID: 1627747129}
+  - component: {fileID: 1627747133}
   m_Layer: 5
   m_Name: Canvas_UI_SceneLoader
   m_TagString: Untagged
@@ -3855,6 +3856,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1627747133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1627747122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e245e0ff460446daaab8de9bf46da3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToload: 
+  loading: {fileID: 2057952448}
+  isAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!21 &1658342501
 Material:
   serializedVersion: 6

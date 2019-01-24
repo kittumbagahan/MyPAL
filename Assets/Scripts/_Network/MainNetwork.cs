@@ -423,10 +423,10 @@ public class MainNetwork : MonoBehaviour {
         //}
 
         Debug.Log ("Find student button");
-        btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
-        btnStudent.onClick.RemoveAllListeners ();
-        btnStudent.onClick.AddListener (AsStudent);
-        Debug.Log (btnStudent);
+        //btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
+        //btnStudent.onClick.RemoveAllListeners ();
+        //btnStudent.onClick.AddListener (AsStudent);
+        //Debug.Log (btnStudent);
 
         NetWorker.localServerLocated += TestLocalServerFind;
         	
