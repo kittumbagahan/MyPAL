@@ -15,11 +15,21 @@ public class Read : MonoBehaviour {
 	void Awake () {
 		instance = this;
 
-		//FileInfo fileInfo = new FileInfo(Application.dataPath + "/Resources/StoryBookActivityScene.json");
-		string fileInfo = Resources.Load<TextAsset>("StoryBookActivityScene").text;
-		//jsonString = File.ReadAllText(Application.dataPath + "/Resources/StoryBookActivityScene.json");
-		data = JsonMapper.ToObject(fileInfo);
+
+      //string fileInfo = Resources.Load<TextAsset>("StoryBookActivityScene").text;
+      string fileInfo = PlayerPrefs.GetString ("StoryBookActivityScene");
+
+      if ("".Equals (fileInfo))
+      {
+         fileInfo = Resources.Load<TextAsset> ("StoryBookActivityScene").text;
+      }
+     
+      Debug.Log ("file info " + fileInfo);
+
+      data = JsonMapper.ToObject(fileInfo);
 		print(jsonString + "\n" + "READ SCRIPT " + gameObject.name);
+
+      Debug.Log (data);
 	}
 
     //"BUTTON INDEX" IS USE TO DIVIDE ONE ACTIVITY TO MANY

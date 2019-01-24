@@ -12,7 +12,7 @@ public class DownloadFile
     public event Download OnDownload;
 
     bool downloadInterrupted;
-    byte[] bytes = new byte[2000];
+    byte[] bytes = new byte[20000];
 
     public DownloadFile(string url)
     {
