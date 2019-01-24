@@ -28,9 +28,9 @@ GameObject:
   - component: {fileID: 22242162}
   - component: {fileID: 11464644}
   - component: {fileID: 11496668}
-  - component: {fileID: 11482592}
   - component: {fileID: 114154597161765370}
   - component: {fileID: 114527266079878878}
+  - component: {fileID: 114262213508179844}
   m_Layer: 5
   m_Name: btnBack
   m_TagString: Untagged
@@ -92,19 +92,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11482592
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e245e0ff460446daaab8de9bf46da3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToload: ActivitySelection
-  loading: {fileID: 0}
 --- !u!114 &11496668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,9 +131,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11482592}
-        m_MethodName: LoadStr
-        m_Mode: 5
+      - m_Target: {fileID: 114262213508179844}
+        m_MethodName: BackToLauncher
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -232,6 +219,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1e52a04dba4b448a7d7daa62eb974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114262213508179844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2fd53b38f2768479637a81f67d071c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActivityAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!114 &114527266079878878
 MonoBehaviour:
   m_ObjectHideFlags: 1

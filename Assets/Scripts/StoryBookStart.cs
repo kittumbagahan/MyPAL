@@ -158,7 +158,8 @@ public class StoryBookStart : MonoBehaviour
          EmptySceneLoader.ins.unloadAll = false;
 
          SceneManager.LoadSceneAsync ("empty");
-
+         Debug.Log ("unload url " + EmptySceneLoader.ins.unloadUrl);
+         Debug.Log ("load url " + url);
          Debug.Log ("From book to activity selection.");
       }
       catch (System.Exception ex)

@@ -3497,7 +3497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c75d7b7cc3af884dac145aa1c131c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAssetBundle: 1
+  isAssetBundle: 0
   urlKey: adasdasd
   versionKey: adasdasd
   name: AfterTheRain

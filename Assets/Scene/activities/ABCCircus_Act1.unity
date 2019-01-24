@@ -1310,7 +1310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ef7d4a76e2d4742b9bcec977e7276e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showAds: 0
   goodJob:
   - {fileID: 8300000, guid: 9966571f9aef34a168c0b16261685a49, type: 3}
   - {fileID: 8300000, guid: 1909881b71172420c9ff3c0f09ddd4ba, type: 3}
@@ -1628,10 +1627,6 @@ Prefab:
     - target: {fileID: 152376, guid: a04705b4f50607340abd6b046aa7ddeb, type: 2}
       propertyPath: m_Name
       value: shadow_back (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 152376, guid: a04705b4f50607340abd6b046aa7ddeb, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a04705b4f50607340abd6b046aa7ddeb, type: 2}

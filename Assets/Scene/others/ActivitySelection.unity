@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToload: 
-  loading: {fileID: 0}
+  loading: {fileID: 626211563}
   isAssetBundle: 0
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
