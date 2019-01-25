@@ -14,17 +14,6 @@ using UnityEngine.SceneManagement;
 public class GradesCard : MonoBehaviour
 {
 
-    AccuracyABC accuracyABC;
-    AccuracyAfterTheRain accuracyAfterTheRain;
-    AccuracyChatWithCat accuracyChatWithCat;
-    AccuracyColorsAllMixedUp accuracyColorsAllMixedUp;
-    AccuracyFavoriteBox accuracyFavoriteBox;
-    AccuracyJoeyGoesToSchool accuracyJoeyGoesToSchool;
-    AccuracySoundsFantastic accuracySoundsFantastic;
-    AccuracyTinaAndJun accuracyTinaAndJun;
-    AccuracyWhatDidYouSee accuracyWhatDidYouSee;
-    AccuracyYummyShapes accuracyYummyShapes;
-
     [SerializeField]
     List<StudentGradeCard> sgc;
     [SerializeField]
@@ -50,9 +39,10 @@ public class GradesCard : MonoBehaviour
     StringBuilder SetStringLen(string s, int len = 50)
     {
         StringBuilder sb = new StringBuilder(s);
-        while (sb.Length < len)
+        int strLen = sb.Length;
+        while (strLen++ < len)
         {
-            sb.Append("");
+            sb.Append(" ");
         }
 
         return sb;
@@ -69,7 +59,7 @@ public class GradesCard : MonoBehaviour
         var students = DataService._connection.Table<StudentModel>().Where(x => x.SectionId == StoryBookSaveManager.ins.activeSection_id).OrderBy(x => x.Gender);
         var book = DataService._connection.Table<BookModel>();
 
-        txtData.text = "<b>" + SetStringLen("Fullname,", 50) + SetStringLen("Word,", 10) + SetStringLen("Observation,", 15) + SetStringLen("Total,", 10) + "</b>\n";
+        txtData.text = "<b>" + SetStringLen("Fullname,", 55) + SetStringLen("Word,", 15) + SetStringLen("Observation,", 20) + SetStringLen("Total,", 10) + "</b>\n";
 
         foreach (StudentModel s in students)
         {
@@ -111,9 +101,6 @@ public class GradesCard : MonoBehaviour
 
             }
 
-
-
-
             double wordTotalGrade = 0;// = bookGradeList.Sum(x => x.wordGrade.GetAccuracy());
             double observationTotalGrade = 0;// = bookGradeList.Sum(x => x.observationGrade.GetAccuracy());
 
@@ -130,12 +117,12 @@ public class GradesCard : MonoBehaviour
             {
 
                 txtData.text += SetStringLen("\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", ",50).ToString() +
-             SetStringLen(wordTotalGrade.ToString() + " inc" + ",", 10) + SetStringLen(observationTotalGrade.ToString() + " inc" + ",", 25) + SetStringLen(((wordTotalGrade + observationTotalGrade) / 2).ToString() + " inc", 10);
+             SetStringLen(string.Format("{0:0.00}", wordTotalGrade) + " inc" + ",", 20) + SetStringLen(string.Format("{0:0.00}", observationTotalGrade) + " inc" + ",", 20) + SetStringLen(string.Format("{0:0.00}", ((wordTotalGrade + observationTotalGrade) / 2)) + " inc", 10);
             }
             else
             {
                 txtData.text += SetStringLen("\n" + s.Lastname + " " + s.Givenname + " " + s.Middlename + ", ", 50).ToString() +
-             SetStringLen(wordTotalGrade.ToString() + ",", 10) + SetStringLen(observationTotalGrade.ToString() + ",", 25) + SetStringLen(((wordTotalGrade + observationTotalGrade) / 2).ToString(), 10);
+             SetStringLen(string.Format("{0:0.00}", wordTotalGrade) + ",", 20) + SetStringLen(string.Format("{0:0.00}", observationTotalGrade) + ",", 20) + SetStringLen(string.Format("{0:0.00}", ((wordTotalGrade + observationTotalGrade) / 2)), 10);
             }
             txtData.text += "</color>";
 
@@ -152,21 +139,6 @@ public class GradesCard : MonoBehaviour
 
     private void OnEnable()
     {
-        //if (accuracyABC == null)
-        //{
-        //    sgc = new List<StudentGradeCard>();
-        //    accuracyABC = new AccuracyABC();
-        //    accuracyAfterTheRain = new AccuracyAfterTheRain();
-        //    accuracyChatWithCat = new AccuracyChatWithCat();
-        //    accuracyColorsAllMixedUp = new AccuracyColorsAllMixedUp();
-        //    accuracyFavoriteBox = new AccuracyFavoriteBox();
-        //    accuracyJoeyGoesToSchool = new AccuracyJoeyGoesToSchool();
-        //    accuracySoundsFantastic = new AccuracySoundsFantastic();
-        //    accuracyTinaAndJun = new AccuracyTinaAndJun();
-        //    accuracyWhatDidYouSee = new AccuracyWhatDidYouSee();
-        //    accuracyYummyShapes = new AccuracyYummyShapes();
-        //}
-
         // data        
         columns += Environment.NewLine + "," + Environment.NewLine;
 
@@ -174,30 +146,10 @@ public class GradesCard : MonoBehaviour
 
     }
 
-    double TotalWordGrade(int id)
-    {
-        return (accuracyFavoriteBox.GetAccuracyWord(id) + accuracyABC.GetAccuracyWord(id) + accuracyAfterTheRain.GetAccuracyWord(id) +
-            accuracyChatWithCat.GetAccuracyWord(id) + accuracyColorsAllMixedUp.GetAccuracyWord(id) + accuracyJoeyGoesToSchool.GetAccuracyWord(id) +
-            accuracySoundsFantastic.GetAccuracyWord(id) + accuracyTinaAndJun.GetAccuracyWord(id) + accuracyWhatDidYouSee.GetAccuracyWord(id) +
-            accuracyYummyShapes.GetAccuracyWord(id)) / 10;
-    }
-
-    double TotalObservationGrade(int id)
-    {
-        return (accuracyFavoriteBox.GetAccuracyObservation(id) + accuracyABC.GetAccuracyObservation(id) + accuracyAfterTheRain.GetAccuracyObservation(id) +
-            accuracyChatWithCat.GetAccuracyObservation(id) + accuracyColorsAllMixedUp.GetAccuracyObservation(id) + accuracyJoeyGoesToSchool.GetAccuracyObservation(id) +
-            accuracySoundsFantastic.GetAccuracyObservation(id) + accuracyTinaAndJun.GetAccuracyObservation(id) + accuracyWhatDidYouSee.GetAccuracyObservation(id) +
-            accuracyYummyShapes.GetAccuracyObservation(id)) / 10;
-    }
-
-    public override string ToString()
-    {
-        return string.Format("{0}", accuracyFavoriteBox.GetAccuracy(1).ToString());
-    }
 
     bool IsIncomplete(List<BookGrade> bg)
     {
-        return false;
+      
         foreach (BookGrade g in bg)
         {
             if (g.wordGrade.GetAccuracy() == 0 || g.observationGrade.GetAccuracy() == 0)
