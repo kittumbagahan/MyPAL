@@ -201,7 +201,7 @@ public class StudentController : MonoBehaviour
 
                     _student.id = s.Id;
                     _student.name = studentName;
-                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name + s.Id;
+                    _obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _student.name;
                     _obj.transform.SetParent(btnStudentContainer.transform);
 
                     panelCreateStudentInput.gameObject.SetActive(false);

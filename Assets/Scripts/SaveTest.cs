@@ -20,7 +20,7 @@ public class SaveTest : MonoBehaviour
     {
         //print("USERNAME"+storyBook.ToString() + ", " + module.ToString() +  ", " + Set);
         //-----------------------------------------------------------------------------------add scene name here
-     
+
         print("SAVED " + ScoreManager.ins.GetGrade());
         print(StoryBookSaveManager.ins.Username + storyBook.ToString() + SceneManager.GetActiveScene().name + module.ToString() + set);
 
@@ -34,7 +34,7 @@ public class SaveTest : MonoBehaviour
         string grade = ScoreManager.ins.GetGrade();
 
         BookModel book = DataService._connection.Table<BookModel>().Where(a => a.Description == bookname).FirstOrDefault();
-       
+
         ActivityModel activityModel = DataService._connection.Table<ActivityModel>().Where(
              x => x.BookId == book.Id &&
              x.Description == scenename &&
@@ -50,7 +50,7 @@ public class SaveTest : MonoBehaviour
 
 
         // network data, activity
-        NetworkData networkData = new NetworkData ();
+        NetworkData networkData = new NetworkData();
         networkData.activity_book_ID = book.Id;
         networkData.activity_description = scenename;
         networkData.activity_module = modulename;
@@ -62,7 +62,7 @@ public class SaveTest : MonoBehaviour
         {
             StudentActivityModel model = new StudentActivityModel
             {
-                Id =0,
+                Id = 0,
                 SectionId = StoryBookSaveManager.ins.activeSection_id,
                 StudentId = StoryBookSaveManager.ins.activeUser_id,
                 BookId = activityModel.BookId,
@@ -89,7 +89,7 @@ public class SaveTest : MonoBehaviour
         }
         else
         {
-            print(grade + " updated!" );
+            print(grade + " updated!");
             int playN = studentActivityModel.PlayCount + 1;
 
             string command = "Update StudentActivityModel set Grade='" + grade

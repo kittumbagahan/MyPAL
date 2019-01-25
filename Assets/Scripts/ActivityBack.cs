@@ -14,7 +14,8 @@ public class ActivityBack : MonoBehaviour {
   
    string sceneToLoad = "ActivitySelection";
 
-   public void BackToLauncher()
+    //this is not back to launcher but to ActivitySelection
+    public void BackToLauncher()
    {
       if (isActivityAssetBundle)
       {

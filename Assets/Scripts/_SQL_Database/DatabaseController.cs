@@ -34,7 +34,8 @@ public class DatabaseController
     public static void SetDatabase(string databaseName)
     {
         PlayerPrefs.SetString("activeDatabase", databaseName);
-        MessageBox.ins.ShowOk("Db is set to " + databaseName, MessageBox.MsgIcon.msgInformation, null);
+        Debug.Log("Db is set to " + databaseName);
+        //MessageBox.ins.ShowOk("Db is set to " + databaseName, MessageBox.MsgIcon.msgInformation, null);
     }
 
     public void MakeBackUp()

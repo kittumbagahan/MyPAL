@@ -38,7 +38,7 @@ public class SQL_Editor
             foreach (var act in activityModelWord)
             {
                 Debug.Log(act.Description);
-                var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == 1 && x.SectionId == 1 && x.ActivityId == act.Id);
+                var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == 2 && x.SectionId == 1 && x.ActivityId == act.Id);
                 foreach (var g in grades)
                 {
                     wordGrade.Add(g.Grade);
@@ -51,7 +51,7 @@ public class SQL_Editor
             foreach (var act in activityModelObservation)
             {
                 Debug.Log(act.Description);
-                var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == 1 && x.SectionId == 1 && x.ActivityId == act.Id);
+                var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == 2 && x.SectionId == 1 && x.ActivityId == act.Id);
                 foreach (var g in grades)
                 {
                     observationGrade.Add(g.Grade);
