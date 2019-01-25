@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 
+
+
 public static class ThreadSafeRandom
 {
 	[ThreadStatic] private static Random Local;
@@ -26,5 +28,10 @@ public static class CSExtension
 			list[n] = value;
 		}
 	}
+
+    public static bool HasValue(this double value)
+    {
+        return !Double.IsNaN(value) && !Double.IsInfinity(value);
+    }
 
 }
