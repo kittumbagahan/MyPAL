@@ -61,7 +61,8 @@ public abstract class CachedAssetBundleLoader : MonoBehaviour
                     downloadInterrupted = true;
                     break;
                 }
-                yield return new WaitForFixedUpdate();
+                yield return null;
+               
             }
 
             if (Application.internetReachability != NetworkReachability.NotReachable && www.isDone)

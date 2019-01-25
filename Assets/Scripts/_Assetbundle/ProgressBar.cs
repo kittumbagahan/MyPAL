@@ -17,24 +17,10 @@ public class ProgressBar : MonoBehaviour {
     }
     void Start()
     {
-        //foreProgress = GameObject.Find("fore").GetComponent<RectTransform>();
-        //backgroundProgess = GameObject.Find("bg").GetComponent<RectTransform>();
-        //txtProgress = GameObject.Find("downloadProgress").GetComponent<TextMeshProUGUI>();
-       // txtTitle = GameObject.Find("title").GetComponent<TextMeshProUGUI>();
-
 
         bg_Max_Width = backgroundProgess.GetWidth();
-        //StartCoroutine(test());
     }
-    //float n = 0;
-    //void FixedUpdate()
-    //{
-
-    //    n++;
-    //    SetProgress(n / 100);
-    //}
-
-
+   
     public void SetTitle(string s)
 	{
 		txtTitle.text =s;
@@ -45,17 +31,16 @@ public class ProgressBar : MonoBehaviour {
         if(downloadProgress * 100 == 0)
         {
             txtProgress.text = "Loading...";
-        }else
+            foreProgress.SetWidth(bg_Max_Width * downloadProgress);
+        }
+        else
         {
             if (downloadProgress <= 1)
             {
                 txtProgress.text = (downloadProgress * 100).ToString("0.00") + "%";
                 foreProgress.SetWidth(bg_Max_Width * downloadProgress);
             }
-            
-            //if(foreProgress.GetWidth() < bg_Max_Width)
-            //print(downloadProgress + "%");
-                
+
         }
        
        

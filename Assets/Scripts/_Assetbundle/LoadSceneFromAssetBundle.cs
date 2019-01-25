@@ -60,8 +60,8 @@ public class LoadSceneFromAssetBundle
                     {
                         yield return new WaitForFixedUpdate();
                     }
-                    Debug.Log(sceneURL + " " + version);
-                    //assetBundle = www.assetBundle;
+                    //Debug.Log(sceneURL + " " + version);
+                    //Debug.Log("Loading assetbundle " + www.progress);
                    
                     abref.assetBundle = www.assetBundle;
                     AssetBundleManager.Add(abref);
