@@ -12,6 +12,7 @@ using TMPro;
 using System.Net.Sockets;
 using SQLite4Unity3d;
 using System;
+using System.Text;
 
 public class DataImportNetwork : MonoBehaviour
 {
@@ -526,21 +527,7 @@ public class DataImportNetwork : MonoBehaviour
         string selectedSection = dropdownSection.options[value].text;
 
         if (selectedSection == "" || selectedSection == null)
-            return;
-
-        if (accuracyABC == null)
-        {            
-            accuracyABC = new AccuracyABC();
-            accuracyAfterTheRain = new AccuracyAfterTheRain();
-            accuracyChatWithCat = new AccuracyChatWithCat();
-            accuracyColorsAllMixedUp = new AccuracyColorsAllMixedUp();
-            accuracyFavoriteBox = new AccuracyFavoriteBox();
-            accuracyJoeyGoesToSchool = new AccuracyJoeyGoesToSchool();
-            accuracySoundsFantastic = new AccuracySoundsFantastic();
-            accuracyTinaAndJun = new AccuracyTinaAndJun();
-            accuracyWhatDidYouSee = new AccuracyWhatDidYouSee();
-            accuracyYummyShapes = new AccuracyYummyShapes();
-        }
+            return;        
 
         // data        
         columns += Environment.NewLine + "," + Environment.NewLine;
@@ -550,30 +537,101 @@ public class DataImportNetwork : MonoBehaviour
 
         DataService.Open(selectedSection + ".db");
 
-        // student model
-        SQLiteCommand command = DataService._connection.CreateCommand("select * from StudentModel");
-        List<StudentModel> studentModel = command.ExecuteQuery<StudentModel>();
-
+        // student model                
+        SQLiteCommand command = DataService._connection.CreateCommand("select * from StudentModel");// Order By Gender Desc
+        List<StudentModel> students = command.ExecuteQuery<StudentModel>();
         // book model
-        command = DataService._connection.CreateCommand("select * from BookModel");
-        List<BookModel> bookModel = command.ExecuteQuery<BookModel>();
+        var book = DataService._connection.Table<BookModel>();
 
-        DataService.Close();                
-       
-        for (int i = 0; i < studentModel.Count; i++)
-        {            
-            double wordTotalGrade = TotalWordGrade(studentModel[i].Id);
-            double observationTotalGrade = TotalObservationGrade(studentModel[i].Id);
+        for(int i = 0; i < students.Count; i++)
+        {
+            List<BookGrade> bookGradeList = new List<BookGrade>();
 
-            Debug.Log("name " + studentModel[i].Lastname + ", id " + studentModel[i].Id);
+            foreach (var b in book)
+            {
+                BookGrade _bf = new BookGrade(b, students[i]);
+                bookGradeList.Add(_bf);
+                ModuleGrade wordGrade = new ModuleGrade();
+                ModuleGrade observationGrade = new ModuleGrade();
+                //Debug.Log(b.Description);
 
-            if (studentModel.Count - 1 == i)
-                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
-                "," + (wordTotalGrade + observationTotalGrade);
+                int ID = students[i].Id;
+
+                var activityModelWord = DataService._connection.Table<ActivityModel>().Where(x => x.BookId == b.Id && x.Module == "WORD");
+                foreach (var act in activityModelWord)
+                {                    
+
+                    //Debug.Log(act.Description);
+                    //var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == students[i].Id && x.SectionId == students[i].SectionId && x.ActivityId == act.Id);
+                    var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == ID && x.SectionId == 1 && x.ActivityId == act.Id);
+                    foreach (var g in grades)
+                    {
+                        wordGrade.Add(g.Grade);
+                        //Debug.Log(g.Grade);
+                    }
+                }
+
+                var activityModelObservation = DataService._connection.Table<ActivityModel>().Where(x => x.BookId == b.Id && x.Module == "OBSERVATION");
+                foreach (var act in activityModelObservation)
+                {
+                    //Debug.Log(act.Description);
+                    //var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == students[i].Id && x.SectionId == students[i].SectionId && x.ActivityId == act.Id);
+                    var grades = DataService._connection.Table<StudentActivityModel>().Where(x => x.StudentId == ID && x.SectionId == 1 && x.ActivityId == act.Id);
+                    foreach (var g in grades)
+                    {
+                        observationGrade.Add(g.Grade);
+                        //Debug.Log(g.Grade);
+                    }
+                }
+
+                _bf.wordGrade = wordGrade;
+                _bf.observationGrade = observationGrade;
+
+            }
+
+            double wordTotalGrade = 0;// = bookGradeList.Sum(x => x.wordGrade.GetAccuracy());
+            double observationTotalGrade = 0;// = bookGradeList.Sum(x => x.observationGrade.GetAccuracy());
+
+            foreach (var bg in bookGradeList)
+            {
+                wordTotalGrade += bg.wordGrade.GetAccuracy();
+                observationTotalGrade += bg.observationGrade.GetAccuracy();
+            }
+            Debug.Log("Wordy!" + wordTotalGrade);                                    
+
+            if (IsIncomplete(bookGradeList))
+            {
+
+                data += string.Format("\"{0}, {1} {2}.\",", students[i].Lastname, students[i].Givenname, students[i].Middlename) +
+             string.Format("{0:0.00} inc,", wordTotalGrade) + string.Format("{0:0.00} inc,", observationTotalGrade) + string.Format("{0:0.00} inc", (wordTotalGrade + observationTotalGrade) / 2);
+            }
             else
-                data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
-                "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
+            {
+                data += string.Format("\"{0}, {1} {2}.\",", students[i].Lastname, students[i].Givenname, students[i].Middlename) +
+             string.Format("{0:0.00},", wordTotalGrade) + string.Format("{0:0.00},", observationTotalGrade) + string.Format("{0:0.00}", (wordTotalGrade + observationTotalGrade) / 2);
+            }
+
+            // check if last item, add new line if not
+            if (students.Count - 1 != i)
+            {
+                data += Environment.NewLine;
+            }                                                    
         }
+        DataService.Close();
+        //for (int i = 0; i < studentModel.Count; i++)
+        //{            
+        //    double wordTotalGrade = TotalWordGrade(studentModel[i].Id);
+        //    double observationTotalGrade = TotalObservationGrade(studentModel[i].Id);
+
+        //    Debug.Log("name " + studentModel[i].Lastname + ", id " + studentModel[i].Id);
+
+        //    if (studentModel.Count - 1 == i)
+        //        data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
+        //        "," + (wordTotalGrade + observationTotalGrade);
+        //    else
+        //        data += string.Format("\"{0}, {1} {2}.\"", studentModel[i].Lastname, studentModel[i].Givenname, studentModel[i].Middlename) + "," + wordTotalGrade + "," + observationTotalGrade +
+        //        "," + (wordTotalGrade + observationTotalGrade) + Environment.NewLine;
+        //}
 
         Debug.Log("Huehue");
         textExport = columns + data;
@@ -584,30 +642,47 @@ public class DataImportNetwork : MonoBehaviour
             btnSender.interactable = true;
     }
 
-    double TotalWordGrade(int id)
+    StringBuilder SetStringLen(string s, int len = 50)
     {
-        return accuracyFavoriteBox.GetAccuracyWord(id) + accuracyABC.GetAccuracyWord(id) + accuracyAfterTheRain.GetAccuracyWord(id) +
-            accuracyChatWithCat.GetAccuracyWord(id) + accuracyColorsAllMixedUp.GetAccuracyWord(id) + accuracyJoeyGoesToSchool.GetAccuracyWord(id) +
-            accuracySoundsFantastic.GetAccuracyWord(id) + accuracyTinaAndJun.GetAccuracyWord(id) + accuracyWhatDidYouSee.GetAccuracyWord(id) +
-            accuracyYummyShapes.GetAccuracyWord(id);
+        StringBuilder sb = new StringBuilder(s);
+        int strLen = sb.Length;
+        while (strLen++ < len)
+        {
+            sb.Append(" ");
+        }
+
+        return sb;
     }
 
-    double TotalObservationGrade(int id)
+    bool IsIncomplete(List<BookGrade> bg)
     {
-        return accuracyFavoriteBox.GetAccuracyObservation(id) + accuracyABC.GetAccuracyObservation(id) + accuracyAfterTheRain.GetAccuracyObservation(id) +
-            accuracyChatWithCat.GetAccuracyObservation(id) + accuracyColorsAllMixedUp.GetAccuracyObservation(id) + accuracyJoeyGoesToSchool.GetAccuracyObservation(id) +
-            accuracySoundsFantastic.GetAccuracyObservation(id) + accuracyTinaAndJun.GetAccuracyObservation(id) + accuracyWhatDidYouSee.GetAccuracyObservation(id) +
-            accuracyYummyShapes.GetAccuracyObservation(id);
-    }
+
+        foreach (BookGrade g in bg)
+        {
+            if (g.wordGrade.GetAccuracy() == 0 || g.observationGrade.GetAccuracy() == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }    
 
     // UI
     public void LoadBookShelf()
     {
+        Quit();
         SceneManager.LoadScene("BookShelf");
+    }
+
+    public void Back()
+    {
+        Quit();
+        SceneManager.LoadScene("Admin");
     }
 
     public void DataSent()
     {
+        MessageBox.ins.ShowOk("Data Uploaded.", MessageBox.MsgIcon.msgInformation, null);
         txtStat.text = "Data sent";
     }
 }

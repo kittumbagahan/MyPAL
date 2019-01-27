@@ -513,7 +513,14 @@ public class DbSyncNetwork : MonoBehaviour
     #region UI
     public void LoadBookShelf()
     {
+        Quit();
         SceneManager.LoadScene ("BookShelf");
+    }
+
+    public void Back()
+    {
+        Quit();
+        SceneManager.LoadScene("Admin");
     }
     #endregion
 }
