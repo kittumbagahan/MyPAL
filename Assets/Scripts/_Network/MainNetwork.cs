@@ -206,7 +206,7 @@ public class MainNetwork : MonoBehaviour {
     }
 
     public void Host()
-    {               
+    {                           
         if (useTCP)
         {
             server = new TCPServer(100);
@@ -423,10 +423,10 @@ public class MainNetwork : MonoBehaviour {
         //}
 
         Debug.Log ("Find student button");
-        //btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
-        //btnStudent.onClick.RemoveAllListeners ();
-        //btnStudent.onClick.AddListener (AsStudent);
-        //Debug.Log (btnStudent);
+        btnStudent = GameObject.FindGameObjectWithTag("Student").GetComponent<Button>();
+        btnStudent.onClick.RemoveAllListeners();
+        btnStudent.onClick.AddListener(AsStudent);
+        Debug.Log(btnStudent);
 
         NetWorker.localServerLocated += TestLocalServerFind;
         	
@@ -456,15 +456,30 @@ public class MainNetwork : MonoBehaviour {
 
     public void AsTeacher()
     {
-        // the one who will send the data 
-        Debug.Log ("As teacher");       
+        // the one who will send the data  
+        
+        // check if connected to Wifi
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MainThreadManager.Run(NoNetwork_Message);
+            return;
+        }
+        Debug.Log("As teacher");
         Host();
     }
 
     public void AsStudent()
     {
-        Debug.Log ("As Student");
-        if(btnTeacher != null)
+        Debug.Log("As teacher");
+
+        // check if connected to Wifi
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MainThreadManager.Run(NoNetwork_Message);
+            return;
+        }
+
+        if (btnTeacher != null)
             btnTeacher.GetComponent<Button>().interactable = false;
 
         btnStudent.GetComponentInChildren<Text>().text = "Stop";
@@ -521,6 +536,11 @@ public class MainNetwork : MonoBehaviour {
 
             yield return new WaitForSeconds(1);
         }
+    }
+
+    void NoNetwork_Message()
+    {
+        MessageBox.ins.ShowOk("Not connected to a network, please check your wifi.", MessageBox.MsgIcon.msgInformation, null);
     }
 
     #endregion

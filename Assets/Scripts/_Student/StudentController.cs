@@ -55,6 +55,13 @@ public class StudentController : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        // set teacher button
+        if (MainNetwork.Instance != null)
+            MainNetwork.Instance.Teacher();
+    }
+
     void UpdateNumberOfStudents()
     {
         DataService.Open("system/admin.db");

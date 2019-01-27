@@ -550,13 +550,18 @@ public class DataImportNetwork : MonoBehaviour
 
         DataService.Open(selectedSection + ".db");
 
+        // student model
         SQLiteCommand command = DataService._connection.CreateCommand("select * from StudentModel");
         List<StudentModel> studentModel = command.ExecuteQuery<StudentModel>();
+
+        // book model
+        command = DataService._connection.CreateCommand("select * from BookModel");
+        List<BookModel> bookModel = command.ExecuteQuery<BookModel>();
 
         DataService.Close();                
        
         for (int i = 0; i < studentModel.Count; i++)
-        {
+        {            
             double wordTotalGrade = TotalWordGrade(studentModel[i].Id);
             double observationTotalGrade = TotalObservationGrade(studentModel[i].Id);
 
