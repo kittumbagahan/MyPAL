@@ -29,6 +29,10 @@ public class AdminUI : MonoBehaviour {
         {
             SceneManager.LoadScene ("Admin");
         }
+        else if(fieldPassword.text != "" && fieldPassword.text != password)
+        {
+            MessageBox.ins.ShowOk("Incorrect password", MessageBox.MsgIcon.msgInformation, null);
+        }
     }
 
     public void Pressed ()

@@ -200,8 +200,8 @@ public class ClientSendFile : MonoBehaviour
                     if(sentCount == currentCount)
                     {
                         GetComponent<DbSyncNetwork>().UpdateClientDB();
-                        Debug.Log ("All DB sent!");
-                        MessageBox.ins.ShowOk ("Database sync successful!", MessageBox.MsgIcon.msgInformation, null);
+                        Debug.Log ("All DB sent!");                        
+                        MessageBox.ins.ShowOk ("Database download successful!", MessageBox.MsgIcon.msgInformation, null);
                     }
                 }
 

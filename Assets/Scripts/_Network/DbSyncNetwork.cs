@@ -112,6 +112,13 @@ public class DbSyncNetwork : MonoBehaviour
 
         //NetWorker client;
 
+        // check if connected to Wifi
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MainThreadManager.Run(NoNetwork_Message);
+            return;
+        }
+
         if (useTCP)
         {
             client = new TCPClient ();
@@ -167,6 +174,13 @@ public class DbSyncNetwork : MonoBehaviour
 
     public void Host ()
     {
+        // check if connected to Wifi
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            MainThreadManager.Run(NoNetwork_Message);
+            return;
+        }
+
         if (useTCP)
         {
             server = new TCPServer (100);
@@ -239,6 +253,7 @@ public class DbSyncNetwork : MonoBehaviour
                 clientSendFile.SendDatabase (Application.persistentDataPath + "/"  + lstAdminSectionsModel[i].Description + ".db", ClientSendFile.MessageGroup.FullSync);
                 Debug.Log ("server sent: " + lstAdminSectionsModel[i].Description);
             }
+            MessageBox.ins.ShowOk("Database uploaded.", MessageBox.MsgIcon.msgInformation, null);
         }
         else
         {
@@ -521,6 +536,11 @@ public class DbSyncNetwork : MonoBehaviour
     {
         Quit();
         SceneManager.LoadScene("Admin");
+    }
+
+    void NoNetwork_Message()
+    {
+        MessageBox.ins.ShowOk("Not connected to a network, please check your wifi.", MessageBox.MsgIcon.msgInformation, null);
     }
     #endregion
 }
