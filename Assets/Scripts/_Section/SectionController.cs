@@ -121,18 +121,21 @@ public class SectionController : MonoBehaviour
 
          if (currentMaxSection < maxSectionAllowed)
          {
-            bool dup = false;
+            bool isDuplicate = false;
+            //loop through the controller's content see if input already exist
             for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
             {
                Debug.Log (btnSectionContainer.transform.GetChild (i).gameObject.transform.GetChild (0).gameObject.GetComponent<TextMeshProUGUI> ().text);
                if (view.txtSectionName.text.Equals (btnSectionContainer.transform.GetChild (i)
                   .gameObject.transform.GetChild (0).gameObject.GetComponent<TextMeshProUGUI> ().text))
                {
-                  dup = true;
+                  isDuplicate = true;
                }
 
             }
-            if (!dup)
+
+
+            if (!isDuplicate)
             {
                DatabaseSectionController dsc = new DatabaseSectionController ();
 
@@ -242,14 +245,17 @@ public class SectionController : MonoBehaviour
 
    public void Edit(Section s)
    {
+      //set view contents
       EditSectionView view = panelEditSectionInput.GetComponent<EditSectionView> ();
       view.gameObject.SetActive (true);
       view.txtSectionName.text = s.name;
-
       view.dropdownGradeLevel.value = view.dropdownGradeLevel.options.FindIndex ((i)=> { return i.text.Equals (s.gradeLevel); });
 
 
+      //initialize update
       UpdateSection updateSection = new UpdateSection (view, s);
+
+      //add update action to button
       view.btnOK.onClick.AddListener (updateSection.UpdateSectionName);
       view.btnClose.onClick.AddListener (EditClose);
 

@@ -22,6 +22,8 @@ public sealed class DatabaseAdminController : DatabaseController
         
     }
 
+   //On app initialize
+   //This initializes mypals database dataset
     public void CreateAdminDb()
     {
         Debug.Log(Application.persistentDataPath);

@@ -39,9 +39,9 @@ public class CreateDBScript : MonoBehaviour
          }
          catch (Exception e)
          {
-            
+            throw;
          }
-         finally { }
+        
 
 
          if (PlayerPrefs.GetInt ("adminDatabaseCreate").Equals (0))

@@ -43,7 +43,7 @@ public sealed class DatabaseSectionController : DatabaseController
       }
         catch(IOException ex)
       {
-         throw new IOException ("What happened? " + ex.Message);
+         throw;// new IOException ("What happened? " + ex.Message);
       }
     }
 
