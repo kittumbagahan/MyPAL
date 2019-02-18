@@ -22,11 +22,21 @@ public class SectionView : MonoBehaviour {
         get { return gradeLevel.captionText.text; }
     }
 
-    public Button OK
+    public Dropdown DropDownGradeLevel
+    {
+        get { return gradeLevel; }
+    }
+
+    public Button OKButton
     {
         get { return btnOK; }
     }      
-    
+
+    public Button CloseButton
+    {
+        get { return btnClose; }
+    }
+
     public void Sectionrequired()
     {
         noSectionLabel.text = "Section Required!";
@@ -34,6 +44,7 @@ public class SectionView : MonoBehaviour {
 
     public void Close()
     {
+
         Destroy(gameObject);
     }
 

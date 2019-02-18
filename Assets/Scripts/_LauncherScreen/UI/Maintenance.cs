@@ -13,26 +13,19 @@ namespace AppLauncher
     }
 
     public class Maintenance : MonoBehaviour
-    {
-
-        [SerializeField]
-        Transform transformParentContainer;
-
+    {    
         [SerializeField]
         List<GameObject> lstData;
-
-        [SerializeField]
-        GameObject data;
 
         [SerializeField]
         int maxSectionAllowed,
             currentMaxSection = 0,
             currentMaxStudent,        
-            maxStudentAllowed;
+            maxStudentAllowed;            
 
-        [SerializeField]
-        Toggle  toggleSection,
-                toggleStudent;
+        SelectedTab selectedTab;
+
+        MaintenanceView maintenanceView;
 
         // Use this for initialization
         void Start()
@@ -41,28 +34,40 @@ namespace AppLauncher
             maxSectionAllowed = DataService._connection.Table<NumberOfSectionsModel>().FirstOrDefault().MaxSection;
             DataService.Close();
 
+            // get view
+            maintenanceView = GetComponent<MaintenanceView> ();
+
+            // add button events
+            maintenanceView.BtnAdd.onClick.AddListener (Add);
+
             // add toggle events
             // section toggle
-            toggleSection.onValueChanged.AddListener(SectionToggle);
+            maintenanceView.ToggleSection.onValueChanged.AddListener(SectionToggle);
             // student toggle
-            toggleStudent.onValueChanged.AddListener(StudentToggle);
+            maintenanceView.ToggleStudent.onValueChanged.AddListener(StudentToggle);
 
             // set toggle section as selected
-            toggleSection.isOn = true;
+            maintenanceView.ToggleSection.isOn = true;
         }
 
         #region METHODS
 
         public void SectionToggle(bool isOn)
         {
-            if(isOn)
-                LoadSectionSQL();
+            if (isOn)
+            {
+                selectedTab = SelectedTab.Section;
+                LoadSectionSQL ();
+            }
         }
 
         public void StudentToggle(bool isOn)
         {
             if (isOn)
-                LoadStudentSQL();
+            {
+                selectedTab = SelectedTab.Student;
+                LoadStudentSQL ();
+            }
         }
 
         public GameObject CreateData()
@@ -72,7 +77,7 @@ namespace AppLauncher
             // all is active, instantiate new
             if(lstData.TrueForAll(IsActive))
             {
-                _data = Instantiate(data, transformParentContainer);
+                _data = Instantiate(maintenanceView.Data, maintenanceView.TransformParentContainer);
                 lstData.Add(_data);                
                 return _data;
             }
@@ -108,6 +113,21 @@ namespace AppLauncher
 
         #region SQL
 
+        void Add()
+        {
+            Debug.Log (string.Format ("Selected Tab is {0}", selectedTab));
+            // instantiate panel then add "Add (Selected Tab) class"
+
+            GameObject panel = Instantiate (maintenanceView.SectionPanel, transform);// maintenance panel
+
+            switch (selectedTab)
+            {
+                case SelectedTab.Section:
+                panel.AddComponent<AddSection> ();
+                break;   
+            }
+        }
+
         void LoadSectionSQL()
         {
             Debug.Log("Load Section");
@@ -126,6 +146,9 @@ namespace AppLauncher
                 _data.SetData(section.Description);
                 _data.AddEvent(() =>
                 {
+                    // instantiate panel then add "Edit (Selected Tab) class"
+                    GameObject panel = Instantiate (maintenanceView.SectionPanel, transform);
+
                     Debug.Log(string.Format("Description {0}, ID {1}", section.Description, section.Id));
                 });
 

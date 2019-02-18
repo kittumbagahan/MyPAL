@@ -1,26 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AddSection : MonoBehaviour {
+public class AddSection : SectionMaintenanceBase {
 
-    SectionView sectionView;
-
-	// Use this for initialization
-	void Start () {
-        sectionView = GetComponent<SectionView>();
-        sectionView.OK.onClick.AddListener(OK);
-	}
+    private void Start ()
+    {
+        SetUp ();
+    }
 
     #region METHODS
-    
-    void OK()
+
+    public override void OK()
     {
         if ("".Equals(sectionView.SectionName))
             sectionView.Sectionrequired();
         else
         {
-            Debug.Log(string.Format("Grade level {0}\nSection name {1}", sectionView.GradeLevel, sectionView.SectionName));
+            // save data to db
+           Debug.Log(string.Format("ADD Grade level {0}\nSection name {1}", sectionView.GradeLevel, sectionView.SectionName));
         }
     }    
 
