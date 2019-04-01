@@ -137,39 +137,40 @@ public class StoryBookStart : MonoBehaviour
 
       try
       {
-         string url = PlayerPrefs.GetString ("ActivitySelection_url_key");
-         int version = PlayerPrefs.GetInt ("ActivitySelection_version_key");
+         //   string url = PlayerPrefs.GetString ("ActivitySelection_url_key");
+         //   int version = PlayerPrefs.GetInt ("ActivitySelection_version_key");
 
-         if ("".Equals (url))
-         {
-            Debug.Log ("WOW");
-            SceneManager.LoadSceneAsync (name);
-            return;
-         }
+         //   if ("".Equals (url))
+         //   {
+         //      Debug.Log ("WOW");
+         //      SceneManager.LoadSceneAsync (name);
+         //      return;
+         //   }
 
-         EmptySceneLoader.ins.loadUrl = url;
-         EmptySceneLoader.ins.loadVersion = version;
-         EmptySceneLoader.ins.sceneToLoad = "ActivitySelection";
-         EmptySceneLoader.ins.isAssetBundle = true;
+         //   EmptySceneLoader.ins.loadUrl = url;
+         //   EmptySceneLoader.ins.loadVersion = version;
+         //   EmptySceneLoader.ins.sceneToLoad = "ActivitySelection";
+         //   EmptySceneLoader.ins.isAssetBundle = true;
 
-         //this is from book so
-         EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString (AssetBundleInfo.BookScene.urlKey);
-         EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt (AssetBundleInfo.BookScene.versionKey);
-         EmptySceneLoader.ins.unloadAll = false;
+         //   //this is from book so
+         //   EmptySceneLoader.ins.unloadUrl = PlayerPrefs.GetString (AssetBundleInfo.BookScene.urlKey);
+         //   EmptySceneLoader.ins.unloadVersion = PlayerPrefs.GetInt (AssetBundleInfo.BookScene.versionKey);
+         //   EmptySceneLoader.ins.unloadAll = false;
 
-         SceneManager.LoadSceneAsync ("empty");
-         Debug.Log ("unload url " + EmptySceneLoader.ins.unloadUrl);
-         Debug.Log ("load url " + url);
-         Debug.Log ("From book to activity selection.");
+         //   SceneManager.LoadSceneAsync ("empty");
+         //   Debug.Log ("unload url " + EmptySceneLoader.ins.unloadUrl);
+         //   Debug.Log ("load url " + url);
+         //   Debug.Log ("From book to activity selection.");
       }
       catch (System.Exception ex)
       {
          Debug.LogError ("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
       }
       //Application.LoadLevel(name);
+
+      EmptySceneLoader.ins.sceneToLoad = name;
+      SceneManager.LoadScene("empty");
       audSrc.PlayOneShot (audClipClick);
-
-
    }
 
    void Success()

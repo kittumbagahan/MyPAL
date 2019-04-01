@@ -151,7 +151,7 @@ public class ButtonActivity : MonoBehaviour
          AssetBundleInfo.ActivityScene.isAssetBundle = true;
          AssetBundleInfo.ActivityScene.name = sceneToLoad;
 
-         SceneManager.LoadSceneAsync ("empty");
+         SceneManager.LoadSceneAsync ("empty");         
       }
       else
       {

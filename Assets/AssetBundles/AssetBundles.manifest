@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 232900333
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: launcher_scene
+      Dependencies: {}
+    Info_1:
+      Name: book_test_1_scene
+      Dependencies: {}
+    Info_2:
+      Name: assetbundlebookshelf
+      Dependencies: {}
+    Info_3:
+      Name: book_test_1_act1_activity
+      Dependencies: {}
+    Info_4:
+      Name: storybook_activity_scenes_data_file
+      Dependencies: {}
+    Info_5:
+      Name: aftertherain_act1
+      Dependencies: {}
+    Info_6:
+      Name: aftertherain
+      Dependencies: {}
+    Info_7:
+      Name: activityselection
+      Dependencies: {}
+    Info_8:
+      Name: aftertherain_act2
+      Dependencies: {}
+    Info_9:
+      Name: aftertherain_act3
+      Dependencies: {}
+    Info_10:
+      Name: aftertherain_act4
+      Dependencies: {}
+    Info_11:
+      Name: aftertherain_act5
+      Dependencies: {}
+    Info_12:
+      Name: aftertherain_act6
+      Dependencies: {}

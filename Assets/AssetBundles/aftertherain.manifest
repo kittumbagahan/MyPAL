@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 481092202
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bf5e4b3bf3372bad982dfbec5cd3c80a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/AfterTheRain.unity
+Dependencies: []

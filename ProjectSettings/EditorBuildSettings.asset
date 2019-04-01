@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/others/ABC_Circus.unity
     guid: d6a57d2455a402144a0eeb70ddff2ee9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/others/AfterTheRain.unity
     guid: 0466e9ea2a37d47aaa274eaa93ac885c
   - enabled: 1
@@ -65,19 +65,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/activities/ABCCircus_Act6.unity
     guid: 325ada057699bbe4abe32bf582ea6333
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/activities/afterTheRain_Act1.unity
     guid: 79b9a68452d20874a95505abe4ffceb0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/activities/afterTheRain_Act2.unity
     guid: e53d84f4d8705814496303629b71c74d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/activities/afterTheRain_Act3.unity
     guid: 00ef85e50f228c84d87220d00cffec18
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/activities/afterTheRain_Act4.unity
     guid: be1806a7bdee14c7ea96513fc410af17
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/activities/afterTheRain_Act6.unity
     guid: e5650c9f500d7484a9ff7c744d4dda98
   - enabled: 1

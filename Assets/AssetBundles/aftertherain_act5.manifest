@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 2866311865
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e6bb01264b4d6f4362b46e36facad0f2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/afterTheRain_Act5.unity
+Dependencies: []

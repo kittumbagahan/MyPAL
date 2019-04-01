@@ -103,7 +103,7 @@ public class SceneLoader : MonoBehaviour
 
       }
       else
-      {
+      {         
          if ("".Equals (name))
          {
             name = sceneToload;
@@ -114,8 +114,7 @@ public class SceneLoader : MonoBehaviour
          //SceneManager.LoadSceneAsync(name);
          SceneManager.LoadSceneAsync ("empty");
 
-      }
-
+      }      
    }
 
    void Fail()

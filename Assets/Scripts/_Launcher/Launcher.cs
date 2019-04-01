@@ -182,7 +182,8 @@ public sealed class Launcher : CachedAssetBundleLoader
         pb.TextTitle.text = string.Format("Downloading " + assetBundleData.assetCategory.ToString() + " {0}/{1}", downloadCnt, numOfFilesToDownload);
         //*NOTE when we have downloaded versions bundle you can switch to previous version by setting the bundleVersion without changing bundleURL
         //*always download assetbundle together with its url and version number
-        if (assetBundleData.assetCategory != AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE && assetBundleData.assetCategory != AssetBundleCategory.STORYBOOK_ACTIVITY_SECLECTION_DATA_FILE)
+        if (assetBundleData.assetCategory != AssetBundleCategory.SECTION_BOOK_DB_DATA_FILE && 
+            assetBundleData.assetCategory != AssetBundleCategory.STORYBOOK_ACTIVITY_SECLECTION_DATA_FILE)
         {
             yield return StartCoroutine(IEGetFromCacheOrDownload(assetBundleData.url, assetBundleData.version));
         }
