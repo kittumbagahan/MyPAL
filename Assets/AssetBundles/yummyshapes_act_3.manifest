@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 214375259
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dfe27e0e0d23c679ea88e4e8f8b4dd2d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/yummyShapes_Act_3.unity
+Dependencies: []

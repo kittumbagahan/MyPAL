@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 2488478860
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6cd1a3755f2f3f7727edb112ef08358f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/colorsAllMixedUp_Act_2.unity
+Dependencies: []

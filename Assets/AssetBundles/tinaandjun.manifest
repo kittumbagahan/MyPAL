@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 3539655837
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0495a87f3d3f64be745becd01bb3cbab
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/TinaAndJun.unity
+Dependencies: []

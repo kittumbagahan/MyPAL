@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 298564963
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4430a6a2a9f13067c51645c75ca01b56
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/ABCCircus_Act2.unity
+Dependencies: []

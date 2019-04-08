@@ -7,34 +7,39 @@ using UnityEngine.UI;
 public class AdminManager : MonoBehaviour {
 
     [SerializeField]
-    Button btnHome, btnDataImport, btnSendDB, btnReceiveDB;
+    Button _btnHome, _btnDataImport, _btnSendDb, _btnReceiveDb;
 
 	// Use this for initialization
 	void Start () {
-        btnHome.onClick.AddListener (Home);
-        btnDataImport.onClick.AddListener (DataImport);
-        btnSendDB.onClick.AddListener (SendDB);
-        btnReceiveDB.onClick.AddListener (ReceiveDB);
+        _btnHome.onClick.AddListener (Home);
+        _btnDataImport.onClick.AddListener (DataImport);
+        _btnSendDb.onClick.AddListener (SendDb);
+        _btnReceiveDb.onClick.AddListener (ReceiveDb);
 	}
 
     void Home()
-    {
-        SceneManager.LoadScene ("BookShelf");
+    {        
+        LoadScene("BookShelf");
     }
 
     void DataImport()
-    {
-        Debug.Log("Loading from Admin Manager " + gameObject.name );
-        SceneManager.LoadScene("DataImporter");
+    {             
+        LoadScene("DataExporter");
     }
 
-    void SendDB()
-    {
-        SceneManager.LoadScene ("DBSyncSend");
+    void SendDb()
+    {     
+        LoadScene("DBSyncSend");
     }
 
-    void ReceiveDB()
+    void ReceiveDb()
+    {        
+        LoadScene("DbSyncReceive");
+    }
+
+    private void LoadScene(string sceneToLoad)
     {
-        SceneManager.LoadScene ("DbSYncReceive");
+        EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
+        SceneManager.LoadScene("empty");
     }
 }

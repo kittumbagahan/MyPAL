@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 11452230}
   - component: {fileID: 11413942}
   - component: {fileID: 11405254}
+  - component: {fileID: 114420298867883592}
+  - component: {fileID: 114947424369860630}
+  - component: {fileID: 114712628089447986}
   m_Layer: 0
   m_Name: Singleton
   m_TagString: Untagged
@@ -53,6 +56,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead09bd7e7ee74489bb8bc1928446a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeUser: 
+  activeUser_id: 0
+  activeSection: 
+  activeSection_id: 0
+  selectedBook: 0
 --- !u!114 &11452230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,3 +83,46 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 171622}
   m_IsPrefabParent: 1
+--- !u!114 &114420298867883592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21a8eccab57045c291e6e4fa001372d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: 
+  isAssetBundle: 0
+  unloadUrl: 
+  unloadVersion: 0
+  unloadAll: 0
+  loadUrl: 
+  loadVersion: 0
+--- !u!114 &114712628089447986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a939bec05ea455c8164dd1ae9cdfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeInSecondsUsage: 0
+--- !u!114 &114947424369860630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbbe27e7e4128c4480effd81452cbd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeUsageCounter: {fileID: 114712628089447986}
+  DebugText: {fileID: 0}

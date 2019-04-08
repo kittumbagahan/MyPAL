@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 2500564408
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4d2e37452221101c24b82717f0d926ec
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/chatWithCat_Act_5.unity
+Dependencies: []

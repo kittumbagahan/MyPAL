@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 1115786756
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b50b4248f5cf85dd47a0c6eb15ae5f57
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/JoeyGoesToSchool_Act3.unity
+Dependencies: []

@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 1301510033
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 56256f0185bf6507393d4582edb57eaf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/SoundsFantastic.unity
+Dependencies: []

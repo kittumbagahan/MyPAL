@@ -461,7 +461,7 @@ public class MainNetwork : MonoBehaviour {
         // check if connected to Wifi
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            MainThreadManager.Run(NoNetwork_Message);
+            MainThreadManager.Run(NoNetworkMessage);
             return;
         }
         Debug.Log("As teacher");
@@ -475,7 +475,7 @@ public class MainNetwork : MonoBehaviour {
         // check if connected to Wifi
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            MainThreadManager.Run(NoNetwork_Message);
+            MainThreadManager.Run(NoNetworkMessage);
             return;
         }
 
@@ -487,22 +487,22 @@ public class MainNetwork : MonoBehaviour {
         btnStudent.onClick.RemoveAllListeners();
         btnStudent.onClick.AddListener(() =>
         {
-            StopCoroutine("_FindServer");
+            StopCoroutine("FindServer");
 			ResetNetwork();
 //            StopCoroutine("_FindServerLoading");            
         });
 
-        StartCoroutine("_FindServer");        
+        StartCoroutine("FindServer");        
     }
 
-    WaitForSeconds wfs = new WaitForSeconds(1.5f);
-    IEnumerator _FindServer()
+    private readonly WaitForSeconds _wfs = new WaitForSeconds(1.5f);
+    private IEnumerator FindServer()
     {
         while (isServerFound == false)
         {
 			NetWorker.RefreshLocalUdpListings(mPort);
             Debug.Log("Finding Server");
-            yield return wfs;
+            yield return _wfs;
         }
 
         Debug.Log("Coroutine exited.");
@@ -512,8 +512,8 @@ public class MainNetwork : MonoBehaviour {
 
     IEnumerator _FindServerLoading()
     {
-        int counter = 0;
-        string status = "";
+        var counter = 0;
+        var status = "";
         while (isServerFound == false)
         {
             switch (counter)
@@ -538,7 +538,7 @@ public class MainNetwork : MonoBehaviour {
         }
     }
 
-    void NoNetwork_Message()
+    void NoNetworkMessage()
     {
         MessageBox.ins.ShowOk("Not connected to a network, please check your wifi.", MessageBox.MsgIcon.msgInformation, null);
     }

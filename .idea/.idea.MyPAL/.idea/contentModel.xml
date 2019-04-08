@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\kittu\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
+    <e p="E:\Documents\UnityProjects\MyPAL" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets\Arts" t="Include">
+        <e p="ColorsAllMixedUp_Act_7" t="Include">
+          <e p="ACtivity 07.txt" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\BackUpSaves.cs" t="Include" />
+      <e p="Assets\Bearded Man Studios Inc" t="Include">
+        <e p="Editor" t="Include">
+          <e p="Resources" t="Include">
+            <e p="BMS_Forge_Editor" t="Include">
+              <e p="NetworkBehaviorTemplate.txt" t="Include" />
+              <e p="NetworkManagerTemplate.txt" t="Include" />
+              <e p="NetworkObjectFactoryTemplate.txt" t="Include" />
+              <e p="NetworkObjectTemplate.txt" t="Include" />
+              <e p="StandAloneNetworkBehaviorTemplate.txt" t="Include" />
+              <e p="version.txt" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Examples" t="Include">
+          <e p="Cube Forge" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="CubeForgeGame.cs" t="Include" />
+              <e p="NetCam.cs" t="Include" />
+              <e p="Primitive.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Proximity" t="Include">
+            <e p="ExampleProximityPlayer.cs" t="Include" />
+            <e p="ExampleProximitySpawn.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Generated" t="Include">
+          <e p="NetworkManager.cs" t="Include" />
+          <e p="NetworkObjectFactory.cs" t="Include" />
+          <e p="UserGenerated" t="Include">
+            <e p="ChatManagerBehavior.cs" t="Include" />
+            <e p="ChatManagerNetworkObject.cs" t="Include" />
+            <e p="CubeForgeGameBehavior.cs" t="Include" />
+            <e p="CubeForgeGameNetworkObject.cs" t="Include" />
+            <e p="ExampleProximityPlayerBehavior.cs" t="Include" />
+            <e p="ExampleProximityPlayerNetworkObject.cs" t="Include" />
+            <e p="NetworkCameraBehavior.cs" t="Include" />
+            <e p="NetworkCameraNetworkObject.cs" t="Include" />
+            <e p="NetworkCommunicationBehavior.cs" t="Include" />
+            <e p="NetworkCommunicationNetworkObject.cs" t="Include" />
+            <e p="TestBehavior.cs" t="Include" />
+            <e p="TestNetworkObject.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Modules" t="Include">
+          <e p="Chat" t="Include">
+            <e p="ChatMaker.cs" t="Include" />
+            <e p="ChatManager.cs" t="Include" />
+          </e>
+          <e p="LobbySystem" t="Include">
+            <e p="LobbyManager.cs" t="Include" />
+            <e p="LobbyPlayer.cs" t="Include" />
+            <e p="LobbyPlayerItem.cs" t="Include" />
+          </e>
+          <e p="Stand Alone Chat" t="Include">
+            <e p="StandAloneChat.cs" t="Include" />
+          </e>
+          <e p="VOIP" t="Include">
+            <e p="VOIP.cs" t="Include" />
+            <e p="VoipStarter.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="BMSUnityExtensions.cs" t="Include" />
+          <e p="InterpolateQuaternion.cs" t="Include" />
+          <e p="InterpolateVector2.cs" t="Include" />
+          <e p="InterpolateVector3.cs" t="Include" />
+          <e p="InterpolateVector4.cs" t="Include" />
+          <e p="Logging" t="Include">
+            <e p="BMSLogger.cs" t="Include" />
+          </e>
+          <e p="MainThreadManager.cs" t="Include" />
+          <e p="Multiplayer Menu" t="Include">
+            <e p="MultiplayerMenu.cs" t="Include" />
+          </e>
+          <e p="NetworkBehavior.cs" t="Include" />
+          <e p="NetworkManager.cs" t="Include" />
+          <e p="NetworkObjectFactory.cs" t="Include" />
+          <e p="NetworkObjectFactoryBase.cs" t="Include" />
+          <e p="Server Browser" t="Include">
+            <e p="ServerBrowser.cs" t="Include" />
+            <e p="ServerBrowserItem.cs" t="Include" />
+          </e>
+          <e p="UnityObjectMapper.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\CarouselToggle" t="Include">
+        <e p="CarouselRotator.cs" t="Include" />
+        <e p="CarouselToggler.cs" t="Include" />
+        <e p="Examples" t="Include">
+          <e p="Counter" t="Include">
+            <e p="ButtonControl.cs" t="Include" />
+          </e>
+          <e p="Slots" t="Include">
+            <e p="SlotsControl.cs" t="Include" />
+          </e>
+        </e>
+        <e p="tutorial.txt" t="Include" />
+      </e>
+      <e p="Assets\Cheat.cs" t="Include" />
+      <e p="Assets\Editor" t="Include">
+        <e p="AssetBundleAssetList.cs" t="Include" />
+        <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
+      </e>
+      <e p="Assets\ForgotPassword.cs" t="Include" />
+      <e p="Assets\HOTween" t="Include">
+        <e p="HOTween_License.txt" t="Include" />
+      </e>
+      <e p="Assets\Material" t="Include">
+        <e p="Grayscale.shader" t="Include" />
+        <e p="PlainColor.shader" t="Include" />
+      </e>
+      <e p="Assets\MsgBoxTest.cs" t="Include" />
+      <e p="Assets\Plugins" t="Include">
+        <e p="Pixelplacement" t="Include">
+          <e p="iTween" t="Include">
+            <e p="iTween.cs" t="Include" />
+            <e p="ReadMe!" t="Include">
+              <e p="ReadMe!.txt" t="Include" />
+            </e>
+            <e p="Sample" t="Include">
+              <e p="MoveSample.cs" t="Include" />
+              <e p="RotateSample.cs" t="Include" />
+              <e p="SampleInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="SQLite4Unity3d" t="Include">
+          <e p="SQLite.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\Resources" t="Include">
+        <e p="$self_illuminated_outlined_diffuse_113.shader" t="Include" />
+      </e>
+      <e p="Assets\Scene" t="Include">
+        <e p="BtnBack.cs" t="Include" />
+        <e p="EmptySceneLoader.cs" t="Include" />
+        <e p="EmptySceneManager.cs" t="Include" />
+      </e>
+      <e p="Assets\Scripts" t="Include">
+        <e p="_Admin" t="Include">
+          <e p="AdminManager.cs" t="Include" />
+          <e p="AdminUI.cs" t="Include" />
+          <e p="MyPalsEditor.cs" t="Include" />
+        </e>
+        <e p="_Assetbundle" t="Include">
+          <e p="AssetBundleBook.cs" t="Include" />
+          <e p="AssetBundleInfo.cs" t="Include" />
+          <e p="AssetBundleManager.cs" t="Include" />
+          <e p="BundleCreator.cs" t="Include" />
+          <e p="BundleUpdateManager.cs" t="Include" />
+          <e p="CachedAssetBundle.cs" t="Include" />
+          <e p="CachedAssetBundleLoader.cs" t="Include" />
+          <e p="DownloadProgress.cs" t="Include" />
+          <e p="LoadSceneFromAssetBundle.cs" t="Include" />
+          <e p="PatchManager.cs" t="Include" />
+          <e p="ProgressBar.cs" t="Include" />
+        </e>
+        <e p="_AssetBundleServer" t="Include">
+          <e p="ActivityModelJson.cs" t="Include" />
+          <e p="AssetBundleServerManager.cs" t="Include" />
+          <e p="AssetBundleServerNetwork.cs" t="Include" />
+          <e p="BookAndActivityData.cs" t="Include" />
+          <e p="BookModelCreator.cs" t="Include" />
+          <e p="BookModelJson.cs" t="Include" />
+          <e p="NewBookAndActivityDataEditor.cs" t="Include" />
+        </e>
+        <e p="_Audio" t="Include">
+          <e p="AudioManager.cs" t="Include" />
+          <e p="AudioPlayer.cs" t="Include" />
+          <e p="DoNotDestroyScript.cs" t="Include" />
+          <e p="HowToPlayAudio.cs" t="Include" />
+          <e p="SubtitleManager.cs" t="Include" />
+        </e>
+        <e p="_Coloring" t="Include">
+          <e p="Collision.cs" t="Include" />
+          <e p="ColorButton.cs" t="Include" />
+          <e p="ColorButtonClick.cs" t="Include" />
+          <e p="Colors.cs" t="Include" />
+        </e>
+        <e p="_CustomExceptions" t="Include">
+          <e p="LoadSceneFromAssetBundleException.cs" t="Include" />
+          <e p="TimeUsageException.cs" t="Include" />
+        </e>
+        <e p="_Extension" t="Include">
+          <e p="CSExtension.cs" t="Include" />
+          <e p="FadeEffect.cs" t="Include" />
+          <e p="MonoExtension.cs" t="Include" />
+        </e>
+        <e p="_FileTransfer" t="Include">
+          <e p="Network" t="Include">
+            <e p="FileTransfer.cs" t="Include" />
+          </e>
+          <e p="SendThatFile.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="NetworkUI.cs" t="Include" />
+          </e>
+        </e>
+        <e p="_grading" t="Include">
+          <e p="BookGrade.cs" t="Include" />
+          <e p="GradesCard.cs" t="Include" />
+          <e p="ModuleGrade.cs" t="Include" />
+          <e p="ScoreManager.cs" t="Include" />
+          <e p="StudentGradeCard.cs" t="Include" />
+        </e>
+        <e p="_ImageEffects" t="Include">
+          <e p="BouncyButton.cs" t="Include" />
+          <e p="FadeIn.cs" t="Include" />
+          <e p="FadeOut.cs" t="Include" />
+          <e p="FlyIn.cs" t="Include" />
+          <e p="FlyOut.cs" t="Include" />
+          <e p="Grow.cs" t="Include" />
+          <e p="Shrink.cs" t="Include" />
+          <e p="Spin.cs" t="Include" />
+        </e>
+        <e p="_Inventory" t="Include">
+          <e p="InventoryManager.cs" t="Include" />
+          <e p="Item.cs" t="Include" />
+          <e p="Slot.cs" t="Include" />
+          <e p="SlotStringValue.cs" t="Include" />
+        </e>
+        <e p="_Json" t="Include">
+          <e p="Read.cs" t="Include" />
+        </e>
+        <e p="_Launcher" t="Include">
+          <e p="DownloadFile.cs" t="Include" />
+          <e p="DownloadFileWebRequest.cs" t="Include" />
+          <e p="HiddenLauncherButton.cs" t="Include" />
+          <e p="Launcher.cs" t="Include" />
+          <e p="LauncherNetworking.cs" t="Include" />
+          <e p="LoadAssetBundleScene.cs" t="Include" />
+          <e p="SaveBookAndActivityData.cs" t="Include" />
+        </e>
+        <e p="_Load.cs" t="Include" />
+        <e p="_Maintenance" t="Include">
+          <e p="MaintenanceAdminWindow.cs" t="Include" />
+          <e p="MaintenanceChangePWD.cs" t="Include" />
+          <e p="MaintenanceDevManageAdminWindow.cs" t="Include" />
+          <e p="MaintenanceDevResetPWDWindow.cs" t="Include" />
+          <e p="MaintenanceDevResetTImeWindow.cs" t="Include" />
+          <e p="MaintenanceDevWindow.cs" t="Include" />
+          <e p="MaintenanceDirectory.cs" t="Include" />
+          <e p="MaintenanceForgotPassword.cs" t="Include" />
+          <e p="MaintenanceLogIn.cs" t="Include" />
+          <e p="MaintenanceManager.cs" t="Include" />
+          <e p="MaintenanceNumberOfSectionsAllowed.cs" t="Include" />
+          <e p="MaintenanceNumberOfStudentsAllowed.cs" t="Include" />
+          <e p="MaintenanceWindows.cs" t="Include" />
+          <e p="TimeUsageCounter.cs" t="Include" />
+        </e>
+        <e p="_Matching" t="Include">
+          <e p="MatchingManager.cs" t="Include" />
+        </e>
+        <e p="_Memory" t="Include">
+          <e p="MemoryItem.cs" t="Include" />
+          <e p="MemoryManager.cs" t="Include" />
+        </e>
+        <e p="_modal" t="Include">
+          <e p="MessageBox.cs" t="Include" />
+        </e>
+        <e p="_Network" t="Include">
+          <e p="AssetBundleData.cs" t="Include" />
+          <e p="AssetBundleDataCollection.cs" t="Include" />
+          <e p="ClientSendFile.cs" t="Include" />
+          <e p="DataImportNetwork.cs" t="Include" />
+          <e p="DbSyncNetwork.cs" t="Include" />
+          <e p="MainNetwork.cs" t="Include" />
+          <e p="NetworkBackup.cs" t="Include" />
+          <e p="NetworkData.cs" t="Include" />
+          <e p="NetworkTest.cs" t="Include" />
+        </e>
+        <e p="_parent_control" t="Include">
+          <e p="BookAccuracy" t="Include">
+            <e p="AccuracyABC.cs" t="Include" />
+            <e p="AccuracyAfterTheRain.cs" t="Include" />
+            <e p="AccuracyChatWithCat.cs" t="Include" />
+            <e p="AccuracyColorsAllMixedUp.cs" t="Include" />
+            <e p="AccuracyFavoriteBox.cs" t="Include" />
+            <e p="AccuracyJoeyGoesToSchool.cs" t="Include" />
+            <e p="AccuracySoundsFantastic.cs" t="Include" />
+            <e p="AccuracyTinaAndJun.cs" t="Include" />
+            <e p="AccuracyWhatDidYouSee.cs" t="Include" />
+            <e p="AccuracyYummyShapes.cs" t="Include" />
+            <e p="BookAccuracy.cs" t="Include" />
+            <e p="BooksAccuracyCollection.cs" t="Include" />
+          </e>
+          <e p="LogIn.cs" t="Include" />
+          <e p="ParentalSecurity.cs" t="Include" />
+          <e p="SelectSection.cs" t="Include" />
+          <e p="StudentLogIn.cs" t="Include" />
+          <e p="Tammytam.cs" t="Include" />
+          <e p="TeacherLogIn.cs" t="Include" />
+          <e p="UserBook.cs" t="Include" />
+          <e p="UserBookActivitySave.cs" t="Include" />
+          <e p="UserBookSave.cs" t="Include" />
+          <e p="UserBooksManager.cs" t="Include" />
+          <e p="UserParentalManager.cs" t="Include" />
+          <e p="UserRecent.cs" t="Include" />
+        </e>
+        <e p="_Puzzle" t="Include">
+          <e p="PuzzlePiece.cs" t="Include" />
+          <e p="PuzzlePieceRotator.cs" t="Include" />
+        </e>
+        <e p="_Quiz" t="Include">
+          <e p="QuizAdmin.cs" t="Include" />
+          <e p="QuizManager.cs" t="Include" />
+        </e>
+        <e p="_Section" t="Include">
+          <e p="CreateSectionView.cs" t="Include" />
+          <e p="EditSectionView.cs" t="Include" />
+          <e p="Section.cs" t="Include" />
+          <e p="SectionController.cs" t="Include" />
+        </e>
+        <e p="_SlidePuzzle" t="Include">
+          <e p="ChatAspect.cs" t="Include" />
+          <e p="ImageManager.cs" t="Include" />
+          <e p="Tile.cs" t="Include" />
+        </e>
+        <e p="_SQL_Database" t="Include">
+          <e p="AdminSectionsModel.cs" t="Include" />
+          <e p="DatabaseAdminController.cs" t="Include" />
+          <e p="DatabaseController.cs" t="Include" />
+          <e p="DatabaseSectionController.cs" t="Include" />
+          <e p="Model" t="Include">
+            <e p="ActivityModel.cs" t="Include" />
+            <e p="BookModel.cs" t="Include" />
+            <e p="DeviceModel.cs" t="Include" />
+            <e p="Maintenance" t="Include">
+              <e p="AdminPasswordModel.cs" t="Include" />
+              <e p="NumberOfSectionsModel.cs" t="Include" />
+              <e p="NumberOfStudentsModel.cs" t="Include" />
+              <e p="ResetPasswordModel.cs" t="Include" />
+              <e p="ResetPasswordTimesModel.cs" t="Include" />
+              <e p="SubscriptionTimeModel.cs" t="Include" />
+            </e>
+            <e p="Network" t="Include">
+              <e p="NetworkModel.cs" t="Include" />
+            </e>
+            <e p="QuizModel.cs" t="Include" />
+            <e p="SectionModel.cs" t="Include" />
+            <e p="StudentActivityModel.cs" t="Include" />
+            <e p="StudentBookModel.cs" t="Include" />
+            <e p="StudentModel.cs" t="Include" />
+            <e p="SubjectModel.cs" t="Include" />
+            <e p="TeacherDeviceModel.cs" t="Include" />
+          </e>
+          <e p="Sample" t="Include">
+            <e p="CreateDBScript.cs" t="Include" />
+            <e p="DataService.cs" t="Include" />
+            <e p="ExistingDBScript.cs" t="Include" />
+            <e p="Person.cs" t="Include" />
+          </e>
+          <e p="SqlLoadingPanel.cs" t="Include" />
+          <e p="TeacherStudentsViewModel.cs" t="Include" />
+        </e>
+        <e p="_StoryBookSave" t="Include">
+          <e p="ActivityProgressLoader.cs" t="Include" />
+          <e p="StoryBookEnum.cs" t="Include" />
+          <e p="StoryBookSaveManager.cs" t="Include" />
+        </e>
+        <e p="_Student" t="Include">
+          <e p="EditStudentView.cs" t="Include" />
+          <e p="Student.cs" t="Include" />
+          <e p="StudentController.cs" t="Include" />
+          <e p="UpdateStudentName.cs" t="Include" />
+        </e>
+        <e p="_System" t="Include">
+          <e p="TeacherDeviceController.cs" t="Include" />
+          <e p="TeacherSetButton.cs" t="Include" />
+        </e>
+        <e p="_UI" t="Include">
+          <e p="Button" t="Include">
+            <e p="BookCarouselArrange.cs" t="Include" />
+            <e p="BookCategory.cs" t="Include" />
+            <e p="ButtonActivity.cs" t="Include" />
+            <e p="ReadSelection.cs" t="Include" />
+          </e>
+          <e p="Container" t="Include">
+            <e p="Book.cs" t="Include" />
+            <e p="ContainerDrag.cs" t="Include" />
+          </e>
+          <e p="KuyaTam" t="Include">
+            <e p="KuyaTamAnimation.cs" t="Include" />
+          </e>
+          <e p="QuizUI.cs" t="Include" />
+          <e p="ReadDialog.cs" t="Include" />
+          <e p="UI_Button.cs" t="Include" />
+        </e>
+        <e p="_Word" t="Include">
+          <e p="_LoadTestButton.cs" t="Include" />
+          <e p="WordGameManager.cs" t="Include" />
+          <e p="WordGameManager_2.cs" t="Include" />
+        </e>
+        <e p="ABCCircus_act1" t="Include">
+          <e p="ABCCircus_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="ABCCircus_act2" t="Include">
+          <e p="ABCCircus_Act2_Manager.cs" t="Include" />
+        </e>
+        <e p="ABCCircus_act3" t="Include">
+          <e p="ABCCircus_Act3_Manager.cs" t="Include" />
+        </e>
+        <e p="ABCCircus_act5" t="Include">
+          <e p="ABCCircus_Act5_Manager.cs" t="Include" />
+        </e>
+        <e p="ABCCircus_act6" t="Include">
+          <e p="ABCCircus_act6_Manager.cs" t="Include" />
+        </e>
+        <e p="ActivityBack.cs" t="Include" />
+        <e p="ActivityComplete" t="Include">
+          <e p="ActivityDone.cs" t="Include" />
+          <e p="DoneButton.cs" t="Include" />
+        </e>
+        <e p="ActivitySelectionManager.cs" t="Include" />
+        <e p="AfterTheRain_act1" t="Include">
+          <e p="AfterTheRain_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="AfterTheRain_act2" t="Include">
+          <e p="AfterTheRain_act2_Manager.cs" t="Include" />
+        </e>
+        <e p="AfterTheRain_act3" t="Include">
+          <e p="AfterTheRain_Act3_Manager.cs" t="Include" />
+        </e>
+        <e p="AspectManager.cs" t="Include" />
+        <e p="BG_Music.cs" t="Include" />
+        <e p="BookshelfLoader.cs" t="Include" />
+        <e p="BookshelfManager.cs" t="Include" />
+        <e p="CarouItem.cs" t="Include" />
+        <e p="ChatMyCat1_Rhyme" t="Include">
+          <e p="ChatMyCatRhymeManager.cs" t="Include" />
+        </e>
+        <e p="ChatMyCat2" t="Include">
+          <e p="ChatMyCat_Act2_Manager.cs" t="Include" />
+        </e>
+        <e p="ChatMyCat4" t="Include">
+          <e p="ChatWithCat_Act4_Manager.cs" t="Include" />
+          <e p="Hole.cs" t="Include" />
+          <e p="Mole.cs" t="Include" />
+          <e p="Tail.cs" t="Include" />
+        </e>
+        <e p="ChatWithCat_Act5" t="Include">
+          <e p="ChatWithCat_Act5_Manager.cs" t="Include" />
+          <e p="test_x.cs" t="Include" />
+        </e>
+        <e p="chatWithCat_Act_6" t="Include">
+          <e p="chatWithCat_Act_6_Manager.cs" t="Include" />
+        </e>
+        <e p="ColorsAllMixedUpAnagramActivity" t="Include">
+          <e p="AnagramActivityManager.cs" t="Include" />
+          <e p="ItemDrag.cs" t="Include" />
+        </e>
+        <e p="ColorsMixedUp1_ColorWheel" t="Include">
+          <e p="ColorObject.cs" t="Include" />
+          <e p="ColorSlot.cs" t="Include" />
+          <e p="ColorWheelManager.cs" t="Include" />
+        </e>
+        <e p="ColorsMixedUp2_Matching" t="Include">
+          <e p="ColorsMixedUpMatchingManager.cs" t="Include" />
+        </e>
+        <e p="ColorsMixedUp_Act_4" t="Include">
+          <e p="ActivityManager.cs" t="Include" />
+        </e>
+        <e p="ColorsMixedUp_Act_5" t="Include">
+          <e p="ColorsMixedUp_Act_5_Manager.cs" t="Include" />
+        </e>
+        <e p="ContactUs.cs" t="Include" />
+        <e p="DeleteUser.cs" t="Include" />
+        <e p="DontAllowSpecialCharacters.cs" t="Include" />
+        <e p="EnableGames.cs" t="Include" />
+        <e p="ExitApp.cs" t="Include" />
+        <e p="FavBox1_WordGameManager" t="Include">
+          <e p="FavoriteBox_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="FavBox3_SpotDiffManager" t="Include">
+          <e p="FavBox_Act3_Manager.cs" t="Include" />
+          <e p="ObjectToSpot.cs" t="Include" />
+          <e p="SpotDiffManager.cs" t="Include" />
+          <e p="UpAndDownAnimation.cs" t="Include" />
+        </e>
+        <e p="FavBox4_jigsaw" t="Include">
+          <e p="FavoriteBox_Act4_Manager.cs" t="Include" />
+        </e>
+        <e p="FavBox5" t="Include">
+          <e p="CarouselMove.cs" t="Include" />
+          <e p="FavBox_Act5_Manager.cs" t="Include" />
+          <e p="Medal.cs" t="Include" />
+          <e p="MedalValue.cs" t="Include" />
+          <e p="PuzzleIndex.cs" t="Include" />
+          <e p="PuzzlePieceStopper.cs" t="Include" />
+        </e>
+        <e p="FavBox6_RotatePuzzle" t="Include">
+          <e p="FavBox6_PuzzlePiece.cs" t="Include" />
+          <e p="FavoriteBox_Act6_Manager.cs" t="Include" />
+          <e p="Piece.cs" t="Include" />
+          <e p="PuzzleChecker.cs" t="Include" />
+          <e p="PuzzleController.cs" t="Include" />
+          <e p="Tween.cs" t="Include" />
+        </e>
+        <e p="JoeyGoSchool_Act1" t="Include">
+          <e p="JoeyGoSchool_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="JoeyGoSchool_Act3" t="Include">
+          <e p="JoeyGoSchool_Act3_Manager.cs" t="Include" />
+        </e>
+        <e p="JoeyGoSchool_Act5" t="Include">
+          <e p="JoeyGoSchool_Act5_Manager.cs" t="Include" />
+        </e>
+        <e p="Loading.cs" t="Include" />
+        <e p="Mute.cs" t="Include" />
+        <e p="SaveTest.cs" t="Include" />
+        <e p="SceneLoader" t="Include">
+          <e p="MainManager.cs" t="Include" />
+          <e p="SceneLoader.cs" t="Include" />
+          <e p="SceneSpawner.cs" t="Include" />
+        </e>
+        <e p="ScriptAudioPlayer.cs" t="Include" />
+        <e p="SelectActivity.cs" t="Include" />
+        <e p="Singleton.cs" t="Include" />
+        <e p="SoundsFantastic_Act1" t="Include">
+          <e p="SoundsFantastic_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="SoundsFantastic_Act2" t="Include">
+          <e p="SoundsFantastic_Act2_Manager.cs" t="Include" />
+        </e>
+        <e p="SoundsFantastic_Act3" t="Include">
+          <e p="SoundsFantastic_Act3_Manager.cs" t="Include" />
+        </e>
+        <e p="SoundsFantastic_Act4" t="Include">
+          <e p="SoundsFantastic_Act4_Manager.cs" t="Include" />
+        </e>
+        <e p="SoundsFantastic_Act6" t="Include">
+          <e p="Rock.cs" t="Include" />
+          <e p="SoundsFantastic_Act6_Manager.cs" t="Include" />
+          <e p="Tree.cs" t="Include" />
+        </e>
+        <e p="SoundsFantastic_Act7" t="Include">
+          <e p="SoundsFantastic_Act7_Manager.cs" t="Include" />
+        </e>
+        <e p="SQLite.cs" t="Include" />
+        <e p="Storybook.cs" t="Include" />
+        <e p="StoryBookPlayer" t="Include">
+          <e p="StoryBookPlayer.cs" t="Include" />
+          <e p="TextAudio.cs" t="Include" />
+        </e>
+        <e p="StoryBookStart.cs" t="Include" />
+        <e p="Swipe.cs" t="Include" />
+        <e p="SwipeControl.cs" t="Include" />
+        <e p="SwipeDetector.cs" t="Include" />
+        <e p="SwipeScript.cs" t="Include" />
+        <e p="TinaAndJun_Act1" t="Include">
+          <e p="TinaAndJun_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="TinaAndJun_Act2" t="Include">
+          <e p="TinaAndJun_Act2_Manager.cs" t="Include" />
+        </e>
+        <e p="TinaAndJun_Act3" t="Include">
+          <e p="TinaAndJun_Act3_Manager.cs" t="Include" />
+        </e>
+        <e p="TinaAndJun_Act6" t="Include">
+          <e p="TinaAndJun_Act6_Manager.cs" t="Include" />
+        </e>
+        <e p="UI_SoundFX.cs" t="Include" />
+        <e p="UserAccount.cs" t="Include" />
+        <e p="UserAccountManager.cs" t="Include" />
+        <e p="UserRestrictionController.cs" t="Include" />
+        <e p="WhatDidYaSee_act1" t="Include">
+          <e p="WhatDidYaSee_act1_Manager.cs" t="Include" />
+        </e>
+        <e p="WhatDidYaSee_act2" t="Include">
+          <e p="WhatDidYaSee_act2_Manager.cs" t="Include" />
+        </e>
+        <e p="WhatDidYaSee_act5" t="Include">
+          <e p="WhatDidYaSee_act5_Manager.cs" t="Include" />
+        </e>
+        <e p="WhatDidYaSee_act8" t="Include">
+          <e p="WhatDidYouSee_Act8_Manager.cs" t="Include" />
+        </e>
+        <e p="YummyShapes_act1" t="Include">
+          <e p="Shape.cs" t="Include" />
+          <e p="YummyShapes_Act1_Manager.cs" t="Include" />
+        </e>
+        <e p="YummyShapes_act2" t="Include">
+          <e p="YummyShapes_act2_Manager.cs" t="Include" />
+        </e>
+        <e p="YummyShapes_act3" t="Include">
+          <e p="YummyShapes_act3_Manager.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\SQL_Editor.cs" t="Include" />
+      <e p="Assets\TESTING_LANG.cs" t="Include" />
+      <e p="Assets\TextMesh Pro" t="Include">
+        <e p="Examples &amp; Extras" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="Anton OFL.txt" t="Include" />
+            <e p="Bangers - OFL.txt" t="Include" />
+            <e p="LiberationSans - OFL.txt" t="Include" />
+            <e p="NotoSans - License.txt" t="Include" />
+            <e p="Oswald Bold - OFL.txt" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="Benchmark01.cs" t="Include" />
+            <e p="Benchmark01_UGUI.cs" t="Include" />
+            <e p="Benchmark02.cs" t="Include" />
+            <e p="Benchmark03.cs" t="Include" />
+            <e p="Benchmark04.cs" t="Include" />
+            <e p="CameraController.cs" t="Include" />
+            <e p="ChatController.cs" t="Include" />
+            <e p="EnvMapAnimator.cs" t="Include" />
+            <e p="ObjectSpin.cs" t="Include" />
+            <e p="ShaderPropAnimator.cs" t="Include" />
+            <e p="SimpleScript.cs" t="Include" />
+            <e p="SkewTextExample.cs" t="Include" />
+            <e p="TeleType.cs" t="Include" />
+            <e p="TextConsoleSimulator.cs" t="Include" />
+            <e p="TextMeshProFloatingText.cs" t="Include" />
+            <e p="TextMeshSpawner.cs" t="Include" />
+            <e p="TMP_DigitValidator.cs" t="Include" />
+            <e p="TMP_ExampleScript_01.cs" t="Include" />
+            <e p="TMP_FrameRateCounter.cs" t="Include" />
+            <e p="TMP_PhoneNumberValidator.cs" t="Include" />
+            <e p="TMP_TextEventCheck.cs" t="Include" />
+            <e p="TMP_TextEventHandler.cs" t="Include" />
+            <e p="TMP_TextInfoDebugTool.cs" t="Include" />
+            <e p="TMP_TextSelector_A.cs" t="Include" />
+            <e p="TMP_TextSelector_B.cs" t="Include" />
+            <e p="TMP_UiFrameRateCounter.cs" t="Include" />
+            <e p="TMPro_InstructionOverlay.cs" t="Include" />
+            <e p="VertexColorCycler.cs" t="Include" />
+            <e p="VertexJitter.cs" t="Include" />
+            <e p="VertexShakeA.cs" t="Include" />
+            <e p="VertexShakeB.cs" t="Include" />
+            <e p="VertexZoom.cs" t="Include" />
+            <e p="WarpTextExample.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Resources" t="Include">
+          <e p="LineBreaking Following Characters.txt" t="Include" />
+          <e p="LineBreaking Leading Characters.txt" t="Include" />
+          <e p="Shaders" t="Include">
+            <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+            <e p="TMP_Bitmap.shader" t="Include" />
+            <e p="TMP_SDF Overlay.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+            <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+            <e p="TMP_SDF-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+            <e p="TMP_SDF-Surface.shader" t="Include" />
+            <e p="TMP_SDF.shader" t="Include" />
+            <e p="TMP_Sprite.shader" t="Include" />
+            <e p="TMPro.cginc" t="Include" />
+            <e p="TMPro_Properties.cginc" t="Include" />
+            <e p="TMPro_Surface.cginc" t="Include" />
+          </e>
+        </e>
+        <e p="Sprites" t="Include">
+          <e p="EmojiOne Attribution.txt" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\TMPRODropdownTEST.cs" t="Include" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="MyPAL.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

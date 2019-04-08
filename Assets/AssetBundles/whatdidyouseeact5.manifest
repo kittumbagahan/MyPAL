@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 2812478294
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: de610aea55841540b84eefc7d1bfe2c0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/activities/WhatDidYouSeeAct5.unity
+Dependencies: []

@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 3247824896
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f97c27c76ccf216450da3e8e9e8b82f3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/YummyShapes.unity
+Dependencies: []
