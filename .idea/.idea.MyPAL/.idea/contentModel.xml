@@ -115,6 +115,7 @@
       <e p="Assets\Editor" t="Include">
         <e p="AssetBundleAssetList.cs" t="Include" />
         <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
+        <e p="AssetBundleNameGenerator.cs" t="Include" />
       </e>
       <e p="Assets\ForgotPassword.cs" t="Include" />
       <e p="Assets\HOTween" t="Include">
@@ -246,6 +247,9 @@
           <e p="SaveBookAndActivityData.cs" t="Include" />
         </e>
         <e p="_Load.cs" t="Include" />
+        <e p="_Main" t="Include">
+          <e p="Main.cs" t="Include" />
+        </e>
         <e p="_Maintenance" t="Include">
           <e p="MaintenanceAdminWindow.cs" t="Include" />
           <e p="MaintenanceChangePWD.cs" t="Include" />
