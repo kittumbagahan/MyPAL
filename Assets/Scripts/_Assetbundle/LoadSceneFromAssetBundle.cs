@@ -1,92 +1,93 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 
-public class LoadSceneFromAssetBundle
+namespace _Assetbundle
 {
-
-    AssetBundle assetBundle;
-
-    string sceneURL;
-    int version = 0;
-    public delegate void LoadSceneFail();
-    public event LoadSceneFail OnLoadSceneFail;
-    public delegate void LoadSceneSuccess();
-    public event LoadSceneSuccess OnLoadSceneSuccess;
-
-    AssetBundleRef abref;
-
-    public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
+    public class LoadSceneFromAssetBundle
     {
-        sceneURL = urlBundle;
-        version = versionBundle;
 
-        abref = new AssetBundleRef(sceneURL, version);
-    }
+        AssetBundle assetBundle;
 
+        string sceneURL;
+        int version = 0;
+        public delegate void LoadSceneFail();
+        public event LoadSceneFail OnLoadSceneFail;
+        public delegate void LoadSceneSuccess();
+        public event LoadSceneSuccess OnLoadSceneSuccess;
 
+        AssetBundleRef abref;
 
-    public IEnumerator IEStreamAssetBundle()
-    {
-       
-        if ("".Equals(sceneURL))
+        public LoadSceneFromAssetBundle(string urlBundle, int versionBundle)
         {
-            if (OnLoadSceneFail != null)
-            {
-                OnLoadSceneFail();
+            sceneURL = urlBundle;
+            version = versionBundle;
 
-                OnLoadSceneFail = delegate { };
-            }
+            abref = new AssetBundleRef(sceneURL, version);
         }
-        else
+
+
+
+        public IEnumerator IEStreamAssetBundle()
         {
-            if (AssetBundleManager.ContainsKey(sceneURL, version))
+       
+            if ("".Equals(sceneURL))
             {
-                assetBundle = AssetBundleManager.getAssetBundle(sceneURL, version);
-                LoadScene(assetBundle);
-                yield return null;
+                if (OnLoadSceneFail != null)
+                {
+                    OnLoadSceneFail();
+
+                    OnLoadSceneFail = delegate { };
+                }
             }
             else
             {
-                while (!Caching.ready)
+                if (AssetBundleManager.ContainsKey(sceneURL, version))
                 {
+                    assetBundle = AssetBundleManager.getAssetBundle(sceneURL, version);
+                    LoadScene(assetBundle);
                     yield return null;
                 }
-                using (WWW www = WWW.LoadFromCacheOrDownload(sceneURL, version))
+                else
                 {
-                    while (!www.isDone)
+                    while (!Caching.ready)
                     {
-                        yield return new WaitForFixedUpdate();
+                        yield return null;
                     }
-                    //Debug.Log(sceneURL + " " + version);
-                    //Debug.Log("Loading assetbundle " + www.progress);
+                    using (WWW www = WWW.LoadFromCacheOrDownload(sceneURL, version))
+                    {
+                        while (!www.isDone)
+                        {
+                            yield return new WaitForFixedUpdate();
+                        }
+                        //Debug.Log(sceneURL + " " + version);
+                        //Debug.Log("Loading assetbundle " + www.progress);
                    
-                    abref.assetBundle = www.assetBundle;
-                    AssetBundleManager.Add(abref);
-                }
+                        abref.assetBundle = www.assetBundle;
+                        AssetBundleManager.Add(abref);
+                    }
 
-                LoadScene(abref.assetBundle);
-            }
+                    LoadScene(abref.assetBundle);
+                }
            
+            }
+
         }
 
-    }
-
-    void LoadScene(AssetBundle assetBundle)
-    {
-        if (assetBundle.isStreamedSceneAssetBundle)
+        void LoadScene(AssetBundle assetBundle)
         {
-            string[] scenePaths = assetBundle.GetAllScenePaths();
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
-            if (OnLoadSceneSuccess != null)
+            if (assetBundle.isStreamedSceneAssetBundle)
             {
-                OnLoadSceneSuccess();
-                OnLoadSceneSuccess = delegate { };
-            }
+                string[] scenePaths = assetBundle.GetAllScenePaths();
+                string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePaths[0]);
+                if (OnLoadSceneSuccess != null)
+                {
+                    OnLoadSceneSuccess();
+                    OnLoadSceneSuccess = delegate { };
+                }
 
-            SceneManager.LoadSceneAsync(sceneName);
+                SceneManager.LoadSceneAsync(sceneName);
+            }
         }
     }
 }

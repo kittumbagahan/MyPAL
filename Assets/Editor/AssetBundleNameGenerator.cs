@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AssetBundleNameGenerator : UnityEditor.Editor {
 
-	[MenuItem("Assets/Assign Asset Bundle Name")]
+	[MenuItem("Assets/Asset Bundle/Assign Asset Bundle Name")]
 	public static void GenerateAssetBundle()
 	{		
 		AssignAssetBundleName();

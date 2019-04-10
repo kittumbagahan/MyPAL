@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using _Assetbundle;
+using CachedAssetBundle = _Assetbundle.CachedAssetBundle;
 
 public class StoryBookStart : MonoBehaviour
 {

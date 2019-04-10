@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BundleUpdateManager : MonoBehaviour {
+namespace _Assetbundle
+{
+	public class BundleUpdateManager : MonoBehaviour {
 
-	public static string pid_bundle_1 = "bundle_1";
-	public static string pid_bundle_2 = "bundle_2";
-	public static string pid_bundle_all = "bundle_all";
+		public static string pid_bundle_1 = "bundle_1";
+		public static string pid_bundle_2 = "bundle_2";
+		public static string pid_bundle_all = "bundle_all";
 
-	/*
+		/*
 	if(the cached assetbundle is not equal to PatchManager.BundleURL(index))
 		delete cache
 		download new bundle
@@ -17,22 +17,23 @@ public class BundleUpdateManager : MonoBehaviour {
 
 	*/
 
-	// Use this for initialization
-	void Start () {
+		// Use this for initialization
+		void Start () {
 		
-	}
+		}
 	
-	// Update is called once per frame
-	void Update () {
+		// Update is called once per frame
+		void Update () {
 		
-	}
+		}
 
 
-	void CheckPurchases()
-	{
-		if(PlayerPrefs.GetInt("paid") == 1)
+		void CheckPurchases()
 		{
+			if(PlayerPrefs.GetInt("paid") == 1)
+			{
 			
+			}
 		}
 	}
 }

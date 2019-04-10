@@ -11,6 +11,7 @@ using BeardedManStudios.Forge.Networking;
 using BeardedManStudios.Forge.Networking.Frame;
 using BeardedManStudios.Forge.Networking.Unity;
 using System;
+using _Assetbundle;
 
 public sealed class Launcher : CachedAssetBundleLoader
 {

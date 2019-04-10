@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\kittu\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
-    <e p="E:\Documents\UnityProjects\MyPAL" t="IncludeRecursive">
+    <e p="C:\Users\palab\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_MyPAL.1548183821.00" t="ExcludeRecursive" />
+    <e p="F:\2018-2019_Projects\MyPAL" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -113,7 +113,6 @@
       </e>
       <e p="Assets\Cheat.cs" t="Include" />
       <e p="Assets\Editor" t="Include">
-        <e p="AssetBundleAssetList.cs" t="Include" />
         <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
         <e p="AssetBundleNameGenerator.cs" t="Include" />
       </e>
@@ -149,8 +148,6 @@
       </e>
       <e p="Assets\Scene" t="Include">
         <e p="BtnBack.cs" t="Include" />
-        <e p="EmptySceneLoader.cs" t="Include" />
-        <e p="EmptySceneManager.cs" t="Include" />
       </e>
       <e p="Assets\Scripts" t="Include">
         <e p="_Admin" t="Include">
@@ -527,6 +524,8 @@
         <e p="Mute.cs" t="Include" />
         <e p="SaveTest.cs" t="Include" />
         <e p="SceneLoader" t="Include">
+          <e p="EmptySceneLoader.cs" t="Include" />
+          <e p="EmptySceneManager.cs" t="Include" />
           <e p="MainManager.cs" t="Include" />
           <e p="SceneLoader.cs" t="Include" />
           <e p="SceneSpawner.cs" t="Include" />

@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-[System.Serializable]
-public class BookAndActivityData {
-
-    public BookModelJson book;
-    public List<ActivityModelJson> lstActivity = new List<ActivityModelJson>();
-
+namespace _AssetBundleServer
+{
+    [Serializable]
+    public class BookAndActivityData
+    {
+        public BookModelJson book;
+        public List<ActivityModelJson> lstActivity = new List<ActivityModelJson>();
+    }
 }

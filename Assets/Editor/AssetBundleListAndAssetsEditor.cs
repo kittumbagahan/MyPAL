@@ -7,7 +7,7 @@ namespace Editor
 {
 	public class AssetBundleListAndAssetsEditor : UnityEditor.Editor {
 
-		[MenuItem("Assets/Get All Asset Bundle Assets")]
+		[MenuItem("Assets/Asset Bundle/Get All Asset Bundle Assets")]
 		static void GetAssetWithAssetBundleName()
 		{
 			var objectSelection = new List<Object>();

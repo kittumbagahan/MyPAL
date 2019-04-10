@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using _Assetbundle;
+
 public class SceneLoader : MonoBehaviour
 {
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using _Assetbundle;
 
 public class TESTING_LANG : MonoBehaviour {
 

@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using _Assetbundle;
+
 public class ActivityDone : MonoBehaviour {
 
 	public static ActivityDone instance;

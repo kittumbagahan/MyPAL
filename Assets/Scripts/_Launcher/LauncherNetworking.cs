@@ -229,7 +229,7 @@ public class LauncherNetworking : MonoBehaviour
         //StopCoroutine(_FindServer());
     }
 
-    private void CreateInlineChat(Scene arg0, LoadSceneMode arg1)
+    private void CreateInlineChat(UnityEngine.SceneManagement.Scene scene, LoadSceneMode arg1)
     {
         SceneManager.sceneLoaded -= CreateInlineChat;
         var chat = NetworkManager.Instance.InstantiateChatManager();

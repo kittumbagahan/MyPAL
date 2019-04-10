@@ -1,83 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class AssetBundleServerManager : MonoBehaviour {
-
-    [SerializeField]
-    AssetBundleServerNetwork serverNet;
-
-    public InputField fieldURL;
-    public InputField fieldVersion;
-    [SerializeField]
-    Text txtNumOfConnection;
-    [SerializeField]
-    Text txtConnectionInfo;
-
-    [SerializeField]
-    Button btnOK, btnStart;
-
-    int numberOfConnectedClients;
-
-    private void Start()
+namespace _AssetBundleServer
+{
+    public class AssetBundleServerManager : MonoBehaviour
     {
-        serverNet.OnClientAccepted += IncNumberConnectedClients;
-        serverNet.OnClientDisconnected += DecNumberConnectedClients; //currently not working
-        InvokeRepeating("NetworkState", 1f, 1f);
-        btnStart.interactable = false;
-        btnOK.onClick.AddListener (AssetBundleInfoReady);
-    }
+        [SerializeField] private Button btnOK, btnStart;
 
-    private void AssetBundleInfoReady()
-    {
-        if("".Equals(fieldURL.text) || "".Equals (fieldVersion.text))
+        public InputField fieldURL;
+        public InputField fieldVersion;
+
+        private int numberOfConnectedClients;
+
+        [SerializeField] private AssetBundleServerNetwork serverNet;
+
+        [SerializeField] private Text txtConnectionInfo;
+
+        [SerializeField] private Text txtNumOfConnection;
+
+        private void Start()
         {
-            MessageBox.ins.ShowOk ("All fields are required.", MessageBox.MsgIcon.msgError, null);
+            serverNet.OnClientAccepted += IncNumberConnectedClients;
+            serverNet.OnClientDisconnected += DecNumberConnectedClients; //currently not working
+            InvokeRepeating("NetworkState", 1f, 1f);
+            btnStart.interactable = false;
+            btnOK.onClick.AddListener(AssetBundleInfoReady);
         }
-        else
+
+        private void AssetBundleInfoReady()
         {
-            MessageBox.ins.ShowQuestion ("Are you sure?\nURL " + fieldURL.text + "\nVersion " + fieldVersion.text, MessageBox.MsgIcon.msgInformation,
-            new UnityAction (StartServerYes), new UnityAction (StartServerNo));
+            if ("".Equals(fieldURL.text) || "".Equals(fieldVersion.text))
+                MessageBox.ins.ShowOk("All fields are required.", MessageBox.MsgIcon.msgError, null);
+            else
+                MessageBox.ins.ShowQuestion("Are you sure?\nURL " + fieldURL.text + "\nVersion " + fieldVersion.text,
+                    MessageBox.MsgIcon.msgInformation,
+                    StartServerYes, StartServerNo);
         }
-    }
 
 
-    void IncNumberConnectedClients()
-    {
-        numberOfConnectedClients++;
-        txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
-    }
-    void DecNumberConnectedClients ()
-    {
-        numberOfConnectedClients--;
-        txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
-    }
-
-    void StartServerYes ()
-    {
-        btnStart.interactable = true;
-        fieldURL.interactable = false;
-        fieldVersion.interactable = false;
-        btnOK.interactable = false;
-    }
-    void StartServerNo()
-    {
-
-    }
-
-    void NetworkState()
-    {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        private void IncNumberConnectedClients()
         {
-            txtConnectionInfo.text = "Not connected";
-            txtConnectionInfo.color = Color.red;
+            numberOfConnectedClients++;
+            txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
         }
-        else
+
+        private void DecNumberConnectedClients()
         {
-            txtConnectionInfo.text = "Connected";
-            txtConnectionInfo.color = Color.green;
+            numberOfConnectedClients--;
+            txtNumOfConnection.text = "Number of connected clients: " + numberOfConnectedClients;
+        }
+
+        private void StartServerYes()
+        {
+            btnStart.interactable = true;
+            fieldURL.interactable = false;
+            fieldVersion.interactable = false;
+            btnOK.interactable = false;
+        }
+
+        private void StartServerNo()
+        {
+        }
+
+        private void NetworkState()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                txtConnectionInfo.text = "Not connected";
+                txtConnectionInfo.color = Color.red;
+            }
+            else
+            {
+                txtConnectionInfo.text = "Connected";
+                txtConnectionInfo.color = Color.green;
+            }
         }
     }
 }
