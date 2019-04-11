@@ -1,259 +1,256 @@
 ManifestFileVersion: 0
-CRC: 2021785800
+CRC: 347563114
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: book_test_1_scene
-      Dependencies: {}
-    Info_1:
-      Name: aftertherain_act1
-      Dependencies: {}
-    Info_2:
-      Name: aftertherain
-      Dependencies: {}
-    Info_3:
-      Name: activityselection
-      Dependencies: {}
-    Info_4:
-      Name: aftertherain_act2
-      Dependencies: {}
-    Info_5:
-      Name: aftertherain_act3
-      Dependencies: {}
-    Info_6:
-      Name: aftertherain_act4
-      Dependencies: {}
-    Info_7:
-      Name: aftertherain_act5
-      Dependencies: {}
-    Info_8:
-      Name: aftertherain_act6
-      Dependencies: {}
-    Info_9:
       Name: launcher
       Dependencies: {}
-    Info_10:
+    Info_1:
       Name: dbsyncsend
       Dependencies: {}
-    Info_11:
+    Info_2:
       Name: admin
       Dependencies: {}
-    Info_12:
+    Info_3:
       Name: dataexporter
       Dependencies: {}
-    Info_13:
+    Info_4:
       Name: dbsyncreceive
       Dependencies: {}
-    Info_14:
+    Info_5:
       Name: whatdidyouseeact8
       Dependencies: {}
-    Info_15:
+    Info_6:
       Name: favbox_act4
       Dependencies: {}
-    Info_16:
+    Info_7:
+      Name: aftertherain_act3
+      Dependencies: {}
+    Info_8:
+      Name: aftertherain
+      Dependencies: {}
+    Info_9:
       Name: whatdidyasee_act1
       Dependencies: {}
-    Info_17:
+    Info_10:
       Name: joeygoestoschool_act5
       Dependencies: {}
-    Info_18:
+    Info_11:
       Name: soundsfantastic_act6
       Dependencies: {}
-    Info_19:
+    Info_12:
       Name: tinaandjun
       Dependencies: {}
-    Info_20:
+    Info_13:
       Name: colorsallmixedup_act_3
       Dependencies: {}
-    Info_21:
+    Info_14:
       Name: joeygoestoschool_act1
       Dependencies: {}
-    Info_22:
+    Info_15:
       Name: whatdidyouseeact7
       Dependencies: {}
-    Info_23:
+    Info_16:
       Name: soundsfantastic_act5
       Dependencies: {}
-    Info_24:
+    Info_17:
       Name: chatwithcat_act_4
       Dependencies: {}
-    Info_25:
+    Info_18:
       Name: tinaandjun_act1
       Dependencies: {}
-    Info_26:
+    Info_19:
       Name: chatwithcat_act_3
       Dependencies: {}
-    Info_27:
+    Info_20:
       Name: favbox_act5
       Dependencies: {}
-    Info_28:
+    Info_21:
       Name: yummyshapes_act_6
       Dependencies: {}
-    Info_29:
+    Info_22:
       Name: favbox_act2_coloring
       Dependencies: {}
-    Info_30:
+    Info_23:
       Name: colorsallmixedup_act_1
       Dependencies: {}
-    Info_31:
+    Info_24:
       Name: soundsfantastic_act1
       Dependencies: {}
-    Info_32:
+    Info_25:
       Name: abccircus_act6
       Dependencies: {}
-    Info_33:
+    Info_26:
       Name: joeygoestoschool_act3
       Dependencies: {}
-    Info_34:
+    Info_27:
       Name: soundsfantastic_act3
       Dependencies: {}
-    Info_35:
+    Info_28:
       Name: tinaandjun_act2
       Dependencies: {}
-    Info_36:
+    Info_29:
       Name: abccircus_act2
       Dependencies: {}
-    Info_37:
+    Info_30:
       Name: whatdidyasee_act2
       Dependencies: {}
-    Info_38:
+    Info_31:
       Name: tinaandjun_act7
       Dependencies: {}
-    Info_39:
+    Info_32:
+      Name: activityselection
+      Dependencies: {}
+    Info_33:
       Name: abccircus_act3_listen
       Dependencies: {}
-    Info_40:
+    Info_34:
       Name: favbox6_new
       Dependencies: {}
-    Info_41:
+    Info_35:
       Name: whatdidyousee
       Dependencies: {}
-    Info_42:
+    Info_36:
       Name: abccircus_act4
       Dependencies: {}
-    Info_43:
+    Info_37:
       Name: favbox_act3_spotdiff
       Dependencies: {}
-    Info_44:
+    Info_38:
       Name: tinaandjun_act5
       Dependencies: {}
-    Info_45:
+    Info_39:
       Name: whatdidyouseeact4
       Dependencies: {}
-    Info_46:
+    Info_40:
       Name: yummyshapes_act_7
       Dependencies: {}
-    Info_47:
+    Info_41:
       Name: tinaandjun_act4
       Dependencies: {}
-    Info_48:
+    Info_42:
       Name: joeygoestoschool_act2
       Dependencies: {}
-    Info_49:
+    Info_43:
       Name: colorsallmixedup_act_4
       Dependencies: {}
-    Info_50:
+    Info_44:
       Name: yummyshapes_act_5
       Dependencies: {}
-    Info_51:
+    Info_45:
       Name: abccircus_act5
       Dependencies: {}
-    Info_52:
+    Info_46:
       Name: yummyshapes_act_1
       Dependencies: {}
-    Info_53:
+    Info_47:
+      Name: aftertherain_act1
+      Dependencies: {}
+    Info_48:
       Name: colors all mixed up
       Dependencies: {}
-    Info_54:
+    Info_49:
       Name: colorsallmixedup_act_7
       Dependencies: {}
-    Info_55:
+    Info_50:
       Name: colorsallmixedup_act_5
       Dependencies: {}
-    Info_56:
+    Info_51:
       Name: bookshelf
       Dependencies: {}
-    Info_57:
+    Info_52:
       Name: soundsfantastic_act2
       Dependencies: {}
-    Info_58:
+    Info_53:
       Name: soundsfantastic_act4
       Dependencies: {}
-    Info_59:
+    Info_54:
+      Name: aftertherain_act5
+      Dependencies: {}
+    Info_55:
       Name: whatdidyouseeact3
       Dependencies: {}
-    Info_60:
+    Info_56:
       Name: tinaandjun_act6
       Dependencies: {}
-    Info_61:
+    Info_57:
       Name: yummyshapes_act_4
       Dependencies: {}
-    Info_62:
+    Info_58:
       Name: whatdidyouseeact6
       Dependencies: {}
-    Info_63:
+    Info_59:
       Name: yummyshapes_act_3
       Dependencies: {}
-    Info_64:
+    Info_60:
       Name: joeygoestoschool
       Dependencies: {}
-    Info_65:
+    Info_61:
       Name: whatdidyouseeact5
       Dependencies: {}
-    Info_66:
+    Info_62:
+      Name: aftertherain_act4
+      Dependencies: {}
+    Info_63:
       Name: colorsallmixedup_act_2
       Dependencies: {}
-    Info_67:
+    Info_64:
       Name: soundsfantastic
       Dependencies: {}
-    Info_68:
+    Info_65:
       Name: chatwithcat_act_1
       Dependencies: {}
-    Info_69:
+    Info_66:
       Name: soundsfantastic_act7
       Dependencies: {}
-    Info_70:
+    Info_67:
       Name: chatwithcat_act_5
       Dependencies: {}
-    Info_71:
+    Info_68:
       Name: abc_circus
       Dependencies: {}
-    Info_72:
+    Info_69:
       Name: joeygoestoschool_act4
       Dependencies: {}
-    Info_73:
+    Info_70:
       Name: abccircus_act1
       Dependencies: {}
-    Info_74:
+    Info_71:
       Name: tinaandjun_act3
       Dependencies: {}
-    Info_75:
+    Info_72:
       Name: favbox_act1_word
       Dependencies: {}
-    Info_76:
+    Info_73:
+      Name: aftertherain_act2
+      Dependencies: {}
+    Info_74:
+      Name: aftertherain_act6
+      Dependencies: {}
+    Info_75:
       Name: soundsfantastic_act8
       Dependencies: {}
-    Info_77:
+    Info_76:
       Name: colorsallmixedup_act_6
       Dependencies: {}
-    Info_78:
+    Info_77:
       Name: favoritebox
       Dependencies: {}
-    Info_79:
+    Info_78:
       Name: joeygoestoschool_act6
       Dependencies: {}
-    Info_80:
+    Info_79:
       Name: chatwithcat_act_2
       Dependencies: {}
-    Info_81:
+    Info_80:
       Name: yummyshapes
       Dependencies: {}
-    Info_82:
+    Info_81:
       Name: yummyshapes_act_2
       Dependencies: {}
-    Info_83:
+    Info_82:
       Name: chatwithcat_act_6
       Dependencies: {}
-    Info_84:
+    Info_83:
       Name: storybookactivityscene
       Dependencies: {}
