@@ -24,24 +24,6 @@ namespace _Assetbundle
 
         public float ContentLength {
             get { return contentLen; }
-        }
-
-
-        //public IEnumerator IEGetAssetBundleSize(String URL)
-        //{
-        //    WebRequest req = WebRequest.Create(URL);
-        //    req.Method = "HEAD";
-        //    yield return req;
-        //    using (System.Net.WebResponse resp = req.GetResponse())
-        //    {
-        //        float.TryParse(resp.ContentLength.ToString(), out contentLen);
-        //        yield return null;
-        //    }
-
-        //    //print("Asset bundle size: " + contentLen);
-        //}
-
-   
-
+        }       
     }
 }

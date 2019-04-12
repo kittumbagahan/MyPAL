@@ -14,3 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/empty.unity
     guid: 5c3fb1cdff8874c3396a1e9d7a0c8b30
+  - enabled: 1
+    path: Assets/Scene/Admin.unity
+    guid: 787ebf0d9c18844a6a13573694433535
+  - enabled: 1
+    path: Assets/Scene/DBSyncReceive.unity
+    guid: a16779795a93e4eb188d9d7b9b83878b
+  - enabled: 1
+    path: Assets/Scene/DBSyncSend.unity
+    guid: 16f7f0fc33dcb4c3db1e76a006631132
+  - enabled: 1
+    path: Assets/Scene/DataExporter.unity
+    guid: 82f139f05cf1847d8a273805b40a7a04
+  - enabled: 1
+    path: Assets/Scene/Launcher.unity
+    guid: 0f6ab64a7595d1349b459c64ebd97ae8

@@ -65,7 +65,7 @@ public sealed class Launcher : CachedAssetBundleLoader
         //DownloadAssetBundle(abd);
     }
 
-    public void CheckForUpdate()
+    public void CheckForUpdate()// used by button
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
