@@ -351,7 +351,7 @@ public class LauncherNetworking : MonoBehaviour
             //Debug.Log("version" + assetBundleData.version);
             //Debug.Log("url " + assetBundleData.url);
 
-            AssetBundleDataCollection assetBundleDataCollection = ConvertToObject2(frame.StreamData.CompressBytes());
+            AssetBundleDataCollection assetBundleDataCollection = ConvertToObjectAssetBundle(frame.StreamData.CompressBytes());
 
             MainThreadManager.Run(() =>
             {
@@ -381,7 +381,7 @@ public class LauncherNetworking : MonoBehaviour
         return (AssetBundleData)bin.Deserialize(ms);
     }
 
-    AssetBundleDataCollection ConvertToObject2(byte[] byteData)
+    AssetBundleDataCollection ConvertToObjectAssetBundle(byte[] byteData)
     {
         BinaryFormatter bin = new BinaryFormatter();
         MemoryStream ms = new MemoryStream();

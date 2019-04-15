@@ -64,16 +64,12 @@ namespace _AssetBundleServer
 
         private void NetworkState()
         {
-            if (Application.internetReachability == NetworkReachability.NotReachable)
-            {
-                txtConnectionInfo.text = "Not connected";
-                txtConnectionInfo.color = Color.red;
-            }
-            else
-            {
-                txtConnectionInfo.text = "Connected";
-                txtConnectionInfo.color = Color.green;
-            }
+            txtConnectionInfo.text =
+                Application.internetReachability == NetworkReachability.NotReachable ? "Not connected" : "Connected";
+            
+            txtConnectionInfo.color =
+                Application.internetReachability == NetworkReachability.NotReachable ? Color.red : Color.green;
+                        
         }
     }
 }

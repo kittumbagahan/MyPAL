@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using _Version;
 
 namespace _Assetbundle
 {
@@ -28,8 +29,8 @@ namespace _Assetbundle
 		}	
 
 		private void GetVersion()
-		{
-			_appVersion.text = PlayerPrefs.GetString("appVersion", "1.0.0");
+		{//
+			_appVersion.text = VersionChecker.Version();
 		}
 
 		private void GetApplicationName()
@@ -40,7 +41,7 @@ namespace _Assetbundle
 
 		IEnumerator DownloadAssetBundle()
 		{
-			var file = Path.Combine(_url, "bookshelf.unity3d");			
+			var file = Path.Combine(_url, "bookshelf");			
 			var unityWebRequest = new UnityWebRequest(file, UnityWebRequest.kHttpVerbGET);
 			var destinationPath = Application.dataPath + "/AssetBundles/" + Path.GetFileName(file);
 			

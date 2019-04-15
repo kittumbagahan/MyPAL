@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.03529412, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: https://www.dropbox.com/s/9inhox6owsspn40/assetbundlebookshelf.1?dl=1
+  m_Text: 127.0.0.1/AssetBundles
 --- !u!222 &61079579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -507,7 +507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &228316691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.03529412, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -691,7 +691,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 1.0.0
 --- !u!222 &276797771
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1053,13 +1053,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96132999d054c1d459a08ce4ab2d469d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverNet: {fileID: 442794325}
-  fieldURL: {fileID: 744487166}
-  fieldVersion: {fileID: 1992501212}
-  txtNumOfConnection: {fileID: 1784938881}
-  txtConnectionInfo: {fileID: 1087748224}
   btnOK: {fileID: 1726475287}
   btnStart: {fileID: 709924446}
+  fieldURL: {fileID: 744487166}
+  fieldVersion: {fileID: 1992501212}
+  serverNet: {fileID: 442794325}
+  txtConnectionInfo: {fileID: 1087748224}
+  txtNumOfConnection: {fileID: 1784938881}
 --- !u!4 &442794324
 Transform:
   m_ObjectHideFlags: 0
@@ -1084,22 +1084,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d43c06f25977ba4786112d5aca314e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnServer: {fileID: 709924446}
+  connectUsingMatchmaking: 0
   DontChangeSceneOnConnect: 0
+  eloRequired: 0
+  getLocalNetworkConnections: 0
   masterServerHost: 
   masterServerPort: 13940
+  mPort: 13937
+  myElo: 0
   natServerHost: 
   natServerPort: 13941
-  connectUsingMatchmaking: 0
-  useElo: 0
-  myElo: 0
-  eloRequired: 0
   networkManager: {fileID: 0}
-  useMainThreadManagerForRPCs: 1
+  useElo: 0
   useInlineChat: 0
-  getLocalNetworkConnections: 0
+  useMainThreadManagerForRPCs: 1
   useTCP: 0
-  mPort: 13937
-  btnServer: {fileID: 709924446}
 --- !u!1 &574858195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: https://www.dropbox.com/s/9inhox6owsspn40/assetbundlebookshelf.1?dl=1
+  m_Text: 127.0.0.1/AssetBundles
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3174,13 +3174,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1992501213}
   m_TextComponent: {fileID: 276797770}
   m_Placeholder: {fileID: 1226917912}
-  m_ContentType: 2
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 1
+  m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -3195,7 +3195,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 1
+  m_Text: 1.0.0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -3211,7 +3211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

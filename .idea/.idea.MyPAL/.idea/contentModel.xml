@@ -153,6 +153,9 @@
       <e p="Assets\Editor" t="Include">
         <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
         <e p="AssetBundleNameGenerator.cs" t="Include" />
+        <e p="Tests" t="Include">
+          <e p="VersionCheckerTests.cs" t="Include" />
+        </e>
       </e>
       <e p="Assets\ForgotPassword.cs" t="Include" />
       <e p="Assets\HOTween" t="Include">
@@ -195,6 +198,7 @@
         </e>
         <e p="_Assetbundle" t="Include">
           <e p="AssetBundleBook.cs" t="Include" />
+          <e p="AssetBundleDownloader.cs" t="Include" />
           <e p="AssetBundleInfo.cs" t="Include" />
           <e p="AssetBundleManager.cs" t="Include" />
           <e p="BundleCreator.cs" t="Include" />
@@ -438,6 +442,9 @@
           <e p="QuizUI.cs" t="Include" />
           <e p="ReadDialog.cs" t="Include" />
           <e p="UI_Button.cs" t="Include" />
+        </e>
+        <e p="_Version" t="Include">
+          <e p="VersionChecker.cs" t="Include" />
         </e>
         <e p="_Word" t="Include">
           <e p="_LoadTestButton.cs" t="Include" />

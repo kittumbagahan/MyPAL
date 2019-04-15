@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3144538410
+CRC: 3409558776
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8adf5f507723e5aef31506d1db2581a2
+    Hash: eb8239f5e2c4f6cad59c52d98515938d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -11,5 +11,4 @@ HashAppended: 0
 ClassTypes: []
 Assets:
 - Assets/Scene/Launcher.unity
-- Assets/Scene/Launcher 1.unity
 Dependencies: []

@@ -15,12 +15,14 @@ public class EmptySceneManager : MonoBehaviour
     {       
 #if UNITY_EDITOR
         var url = Path.Combine(Application.dataPath + @"\AssetBundles\",
-            EmptySceneLoader.ins.sceneToLoad.ToLower() + ".unity3d");
+            EmptySceneLoader.ins.sceneToLoad.ToLower());
 #elif UNITY_ANDROID
        var url =
- Path.Combine(Application.persistentDataPath + @"\AssetBundles\", EmptySceneLoader.ins.sceneToLoad.ToLower());
+ Path.Combine(Application.persistentDataPath + @"\AssetBundles\", EmptySceneLoader.ins.sceneToLoad.ToLower() + ".unity3d");
 #endif
-
+        
+        Debug.Log(string.Format("URL: {0}",url));
+        
         if (_assetBundle != null)
             _assetBundle.Unload(false);
     

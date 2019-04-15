@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 4190389008
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2180e227aea675115652301ce4b394c3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scene/others/ChatWithMyCat.unity
+Dependencies: []
