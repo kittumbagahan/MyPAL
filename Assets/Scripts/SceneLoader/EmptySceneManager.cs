@@ -17,8 +17,8 @@ public class EmptySceneManager : MonoBehaviour
         var url = Path.Combine(Application.dataPath + @"\AssetBundles\",
             EmptySceneLoader.ins.sceneToLoad.ToLower());
 #elif UNITY_ANDROID
-       var url =
- Path.Combine(Application.persistentDataPath + @"\AssetBundles\", EmptySceneLoader.ins.sceneToLoad.ToLower() + ".unity3d");
+        var url = Path.Combine(Application.persistentDataPath + @"\AssetBundles\", 
+            EmptySceneLoader.ins.sceneToLoad.ToLower());
 #endif
         
         Debug.Log(string.Format("URL: {0}",url));
