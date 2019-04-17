@@ -35,7 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-.idea/.idea.MyPAL/.idea/contentModel.xml
-.idea/.idea.MyPAL/.idea/contentModel.xml
-.idea/.idea.MyPAL/.idea/contentModel.xml
-.idea/.idea.MyPAL/.idea/workspace.xml
+.idea/
+Assets/AssetBundles/

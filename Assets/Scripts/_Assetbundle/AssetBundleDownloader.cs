@@ -20,7 +20,7 @@ namespace _Assetbundle
 			GetApplicationName();
 			GetVersion();						
 
-			StartCoroutine("DownloadAssetBundle");
+//			StartCoroutine("DownloadAssetBundle");
 		}
 	
 		// Update is called once per frame
