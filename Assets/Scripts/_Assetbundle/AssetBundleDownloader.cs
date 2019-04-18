@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using _AssetBundleServer;
 using _Version;
 
 namespace _Assetbundle
@@ -14,20 +15,56 @@ namespace _Assetbundle
 		[SerializeField] private Text _appName;
 
 		[SerializeField] private string _url;
+
+		private LauncherNetworking _launcherNetworking;
+		private AssetBundleDownloaderView _assetBundleDownloaderView;
 		
 		// Use this for initialization
 		void Start () {
 			GetApplicationName();
-			GetVersion();						
+			GetVersion();
+
+			SetUp();
 
 //			StartCoroutine("DownloadAssetBundle");
 		}
-	
-		// Update is called once per frame
-		void Update () {
-		
-		}	
 
+		private void SetUp()
+		{
+			GetComponents();
+			
+			_assetBundleDownloaderView.ConnectButton.onClick.AddListener(() =>
+			{
+				_assetBundleDownloaderView.ConnectButton.GetComponentInChildren<Text>().text = "Disconnect";
+				_assetBundleDownloaderView.ConnectButton.onClick.AddListener(_launcherNetworking.Quit);
+				_launcherNetworking.FindServer();
+			});
+			
+			Subscribe();
+		}
+		
+		private void Subscribe()
+		{
+			_launcherNetworking.clientDisconnected += ResetConnection;
+		}
+		
+		private void GetComponents()
+		{
+			_launcherNetworking = GetComponent<LauncherNetworking>();
+			_assetBundleDownloaderView = GetComponent<AssetBundleDownloaderView>();
+		}
+
+		private void ResetConnection()
+		{
+			_assetBundleDownloaderView.ConnectButton.GetComponentInChildren<Text>().text = "Connect";
+			_assetBundleDownloaderView.UpdateButton.gameObject.SetActive(false);
+		}
+
+		private void QuitClient()
+		{
+			
+		}
+		
 		private void GetVersion()
 		{//
 			_appVersion.text = VersionChecker.Version();

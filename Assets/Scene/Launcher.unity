@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -111, y: 185.00005}
+  m_AnchoredPosition: {x: -103.44995, y: 101.2}
   m_SizeDelta: {x: 185.40002, y: 83.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &175020049
@@ -1008,12 +1008,12 @@ GameObject:
   - component: {fileID: 542210117}
   - component: {fileID: 542210116}
   m_Layer: 5
-  m_Name: btnUpdate
+  m_Name: '*btnUpdate'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &542210115
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1030,7 +1030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -309, y: 185}
+  m_AnchoredPosition: {x: -308.9999, y: 101.2}
   m_SizeDelta: {x: 185.40002, y: 83.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542210116
@@ -1052,7 +1052,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.9647059, g: 0.708, b: 0, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -1128,6 +1128,7 @@ GameObject:
   - component: {fileID: 546868657}
   - component: {fileID: 546868659}
   - component: {fileID: 546868658}
+  - component: {fileID: 546868660}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1175,7 +1176,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -1185,13 +1186,27 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Check for Update
+  m_Text: Update
 --- !u!222 &546868659
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 546868656}
+--- !u!114 &546868660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 546868656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: -3, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &560666761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2755,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: Connect
 --- !u!222 &1572107529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2978,6 +2993,7 @@ GameObject:
   - component: {fileID: 1946998339}
   - component: {fileID: 1946998338}
   - component: {fileID: 1946998340}
+  - component: {fileID: 1946998341}
   m_Layer: 0
   m_Name: Code
   m_TagString: Untagged
@@ -3039,6 +3055,19 @@ MonoBehaviour:
   _appVersion: {fileID: 2059327138}
   _appName: {fileID: 192152931}
   _url: http://192.168.0.107/AssetBundles
+--- !u!114 &1946998341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1946998337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a81bcc0a12655409e0d3e32622a25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectButton: {fileID: 175020049}
+  updateButton: {fileID: 542210116}
 --- !u!1 &1989658951
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using SQLite4Unity3d;
 using System;
 using System.Text;
+using LitJson;
 
 public class ClientSendFile : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class ClientSendFile : MonoBehaviour
         Book_UpdateReadToMeCount = 5,
         Book_UpdateAutoReadCount = 6,
         Sync = 7,
+        AssetBundle = 8,
         CSV = 9,
         FullSync = 10
     }
@@ -59,9 +61,10 @@ public class ClientSendFile : MonoBehaviour
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync &&
-        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync)
-            return;
-
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.AssetBundle)
+            return;                
+        
         // sync message
         if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync)
         {
@@ -163,6 +166,9 @@ public class ClientSendFile : MonoBehaviour
             {
                 try
                 {
+                    if (!Directory.Exists(Application.persistentDataPath + "system"))                    
+                        Directory.CreateDirectory(Application.persistentDataPath + "/system");                    
+                    
                     // close any open database
                     //DataService.Close();
 
@@ -211,6 +217,22 @@ public class ClientSendFile : MonoBehaviour
                 }
             }
             );
+        }
+        else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.AssetBundle)
+        {
+            MainThreadManager.Run(() =>
+            {
+                var textFromServer = Encoding.UTF8.GetString(frame.StreamData.CompressBytes());
+
+                var assetBundleManifest = ConvertToAssetBundleManifest(frame.StreamData.CompressBytes());
+                
+                Debug.Log("Got message");                
+                Debug.Log(string.Format("Get url {0}.\n Get version {1}.\n", assetBundleManifest.url, assetBundleManifest.version));
+                foreach (var assetBundle in assetBundleManifest.assetBundleList.assetBundles)
+                {
+                    Debug.Log("Get asset bundle " + assetBundle + ".\n");
+                }               
+            });
         }
         else
         {
@@ -531,69 +553,7 @@ public class ClientSendFile : MonoBehaviour
         else
             ((TCPServer)networker).SendAll (frame);        
     }
-    NetworkModel networkModel;
-    //public void SendDatabase2()
-    //{
-    //    //NetworkModel networkModel = new NetworkModel();
-
-    //    DataService ds = new DataService();
-    //    SQLiteCommand command = ds._connection.CreateCommand("select * from ActivityModel");
-
-    //    networkModel.lstActivityModel = command.ExecuteQuery<ActivityModel>();
-
-    //    command = ds._connection.CreateCommand("select * from StudentModel");
-    //    networkModel.lstStudentModel = command.ExecuteQuery<StudentModel>();
-
-    //    ds._connection.Close();
-
-    //    // Throw an error if this is not the server
-    //    var networker = NetworkManager.Instance.Networker;
-
-    //    // event when file is sent        
-
-    //    if (!networker.IsServer)
-    //    {
-    //        Debug.LogError("Only the client can send files in this example!");
-    //        return;
-    //    }
-
-    //    byte[] allData = { };
-
-
-    //    // convert pData as byte[]
-    //    BinaryFormatter binFormatter = new BinaryFormatter();
-    //    MemoryStream memStream = new MemoryStream();
-    //    binFormatter.Serialize(memStream, networkModel);
-
-    //    allData = memStream.ToArray();
-
-    //    Debug.Log("allData " + allData.Length);
-
-    //    //        // Prepare a byte array for sending
-    //    //        BMSByte allData = new BMSByte();        
-    //    //
-    //    //        // Add the file name to the start of the payload        
-    //    //        ObjectMapper.Instance.MapBytes(allData);        
-
-    //    // Send the file to all connected clients
-    //    Binary frame = new Binary(
-    //        networker.Time.Timestep,                    // The current timestep for this frame
-    //        false,                                      // We are server, no mask needed
-    //        allData,                                    // The file that is being sent
-    //        Receivers.Others,                           // Send to all clients
-    //        MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync,   // Some random fake number
-    //        networker is TCPServer);
-
-    //    //        if (networker is UDPServer)
-    //    //            ((UDPServer)networker).Send(frame, true);
-    //    //        else
-    //    //            ((TCPServer)networker).SendAll(frame);
-
-    //    if (networker is UDPClient)
-    //        ((UDPClient)networker).Send(frame, true);
-    //    else
-    //        ((TCPClient)networker).Send(frame);
-    //}
+    NetworkModel networkModel;    
 
     NetworkData ConvertToObject(byte[] byteData)
 	{
@@ -603,8 +563,18 @@ public class ClientSendFile : MonoBehaviour
 		ms.Seek (0, SeekOrigin.Begin);
 
 		return (NetworkData)bin.Deserialize (ms);
-	}    
+	}
 
+    AssetBundleManifest ConvertToAssetBundleManifest(byte[] byteData)
+    {
+        BinaryFormatter bin = new BinaryFormatter ();
+        MemoryStream ms = new MemoryStream ();
+        ms.Write (byteData, 0, byteData.Length);
+        ms.Seek (0, SeekOrigin.Begin);
+
+        return (AssetBundleManifest)bin.Deserialize (ms);
+    }
+    
     //NetworkModel NetworkModelToObject(byte[] byteData)
     //{
     //    BinaryFormatter bin = new BinaryFormatter();

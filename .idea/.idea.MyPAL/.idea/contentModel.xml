@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\palab\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_MyPAL.1548183821.00" t="ExcludeRecursive" />
-    <e p="F:\2018-2019_Projects\MyPAL" t="IncludeRecursive">
+    <e p="C:\Users\kittu\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\kittu\.Rider2018.3\system\resharper-host\Local\Transient\ReSharperHost\v183\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
+    <e p="E:\Documents\UnityProjects\MyPAL" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -37,11 +38,13 @@
           </e>
           <e p="MessageList.cs" t="Include" />
           <e p="MessageSystem.cs" t="Include" />
+          <e p="Unity.AssetBundleBrowser.Editor.asmdef" t="Include" />
         </e>
         <e p="Tests" t="Include">
           <e p="Editor" t="Include">
             <e p="ABModelTests.cs" t="Include" />
             <e p="AssetBundleRecordTests.cs" t="Include" />
+            <e p="Unity.AssetBundleBrowser.Editor.Tests.asmdef" t="Include" />
             <e p="Util" t="Include">
               <e p="ABModelUtil.cs" t="Include" />
               <e p="TestUtil.cs" t="Include" />
@@ -199,8 +202,11 @@
         <e p="_Assetbundle" t="Include">
           <e p="AssetBundleBook.cs" t="Include" />
           <e p="AssetBundleDownloader.cs" t="Include" />
+          <e p="AssetBundleDownloaderView.cs" t="Include" />
           <e p="AssetBundleInfo.cs" t="Include" />
+          <e p="AssetBundleList.cs" t="Include" />
           <e p="AssetBundleManager.cs" t="Include" />
+          <e p="AssetBundleManifest.cs" t="Include" />
           <e p="BundleCreator.cs" t="Include" />
           <e p="BundleUpdateManager.cs" t="Include" />
           <e p="CachedAssetBundle.cs" t="Include" />
@@ -322,6 +328,7 @@
           <e p="DataImportNetwork.cs" t="Include" />
           <e p="DbSyncNetwork.cs" t="Include" />
           <e p="MainNetwork.cs" t="Include" />
+          <e p="MyPALAssetBundle.cs" t="Include" />
           <e p="NetworkBackup.cs" t="Include" />
           <e p="NetworkData.cs" t="Include" />
           <e p="NetworkTest.cs" t="Include" />

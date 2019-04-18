@@ -60,6 +60,8 @@ public class LauncherNetworking : MonoBehaviour
     public bool stopSearch;
 
 
+    public Action clientDisconnected;
+    
     public void Initialize()
     {
         if (!useTCP)
@@ -241,7 +243,7 @@ public class LauncherNetworking : MonoBehaviour
         Quit();
     }
 
-    void Quit()
+    public void Quit()
     {
         Debug.Log("Quit");
 
@@ -286,7 +288,10 @@ public class LauncherNetworking : MonoBehaviour
 
     private void ResetNetwork()
     {
-
+        Reset();
+        
+        if (clientDisconnected != null)
+            clientDisconnected();
     }
 
     private void OnEnable()

@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class AssetBundleDownloaderView : MonoBehaviour {
+namespace _Assetbundle
+{
+	public class AssetBundleDownloaderView : MonoBehaviour
+	{
+		[SerializeField] private Button connectButton;
+		[SerializeField] private Button updateButton;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		public Button ConnectButton
+		{
+			get { return connectButton; }
+		}
+
+		public Button UpdateButton
+		{
+			get { return updateButton; }
+		}
 	}
 }
