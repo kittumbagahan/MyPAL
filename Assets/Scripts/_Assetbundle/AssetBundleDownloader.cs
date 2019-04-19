@@ -1,96 +1,50 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using _AssetBundleServer;
-using _Version;
 
 namespace _Assetbundle
 {
-	public class AssetBundleDownloader : MonoBehaviour
+	public class AssetBundleDownloader: MonoBehaviour
 	{
+		private string _url;
+		private string _version;
+		private List<string> _assetBundles;		
 
-		[SerializeField] private Text _appVersion;
-		[SerializeField] private Text _appName;
-
-		[SerializeField] private string _url;
-
-		private LauncherNetworking _launcherNetworking;
-		private AssetBundleDownloaderView _assetBundleDownloaderView;
-		
-		// Use this for initialization
-		void Start () {
-			GetApplicationName();
-			GetVersion();
-
-			SetUp();
-
-//			StartCoroutine("DownloadAssetBundle");
-		}
-
-		private void SetUp()
+		private string FilePath
 		{
-			GetComponents();
-			
-			_assetBundleDownloaderView.ConnectButton.onClick.AddListener(() =>
-			{
-				_assetBundleDownloaderView.ConnectButton.GetComponentInChildren<Text>().text = "Disconnect";
-				_assetBundleDownloaderView.ConnectButton.onClick.AddListener(_launcherNetworking.Quit);
-				_launcherNetworking.FindServer();
-			});
-			
-			Subscribe();
+			get { return Path.Combine(_url, _version); }
 		}
 		
-		private void Subscribe()
+		public void DownloadAssetBundle(string url, string version, List<string> assetBundles)
 		{
-			_launcherNetworking.clientDisconnected += ResetConnection;
+			_url = url;
+			_version = version;
+			_assetBundles = assetBundles;
+			StartCoroutine(DownloadAssetBundle_());
 		}
-		
-		private void GetComponents()
-		{
-			_launcherNetworking = GetComponent<LauncherNetworking>();
-			_assetBundleDownloaderView = GetComponent<AssetBundleDownloaderView>();
-		}
-
-		private void ResetConnection()
-		{
-			_assetBundleDownloaderView.ConnectButton.GetComponentInChildren<Text>().text = "Connect";
-			_assetBundleDownloaderView.UpdateButton.gameObject.SetActive(false);
-		}
-
-		private void QuitClient()
-		{
-			
-		}
-		
-		private void GetVersion()
-		{//
-			_appVersion.text = VersionChecker.Version();
-		}
-
-		private void GetApplicationName()
-		{
-			_appName.text = Application.productName;
-		}
-
-
-		IEnumerator DownloadAssetBundle()
-		{
-			var file = Path.Combine(_url, "bookshelf");			
+	
+		IEnumerator DownloadAssetBundle_()
+		{										
+			var file = Path.Combine(FilePath, _assetBundles[0]);
 			var unityWebRequest = new UnityWebRequest(file, UnityWebRequest.kHttpVerbGET);
 			var destinationPath = Application.dataPath + "/AssetBundles/" + Path.GetFileName(file);
+			var downloadHandlerFile = new DownloadHandlerFile(destinationPath);
+			unityWebRequest.downloadHandler = downloadHandlerFile;					
 			
-			unityWebRequest.downloadHandler =
-				new DownloadHandlerFile(destinationPath);
+			yield return unityWebRequest.SendWebRequest();	
 			
-			yield return unityWebRequest.SendWebRequest();
-			
+//			while (!unityWebRequest.isDone)
+//			{
+//				Debug.Log("file " + destinationPath + ", progress: " + unityWebRequest.downloadProgress);
+//				yield return unityWebRequest;
+//			}							
+				
 			if(unityWebRequest.isNetworkError || unityWebRequest.isHttpError)
-				Debug.LogError(unityWebRequest.error);
-			else
-				Debug.Log("File successfully downloaded and saved to " + destinationPath);
+				print(unityWebRequest.error);
+			else				
+				print("File successfully downloaded and saved to " + destinationPath);
 		}
 	}
 }

@@ -14,6 +14,9 @@ using SQLite4Unity3d;
 using System;
 using System.Text;
 using LitJson;
+using UnityEngine.Events;
+using _Assetbundle;
+using _Version;
 
 public class ClientSendFile : MonoBehaviour
 {
@@ -37,8 +40,8 @@ public class ClientSendFile : MonoBehaviour
     int sentCount = 0; // should only be 2, for section and admin
     int currentCount = 0;
 
-    Queue<NetworkData> networkQueue;
-
+    Queue<NetworkData> networkQueue;   
+    
     //DataService dataService;
 
     private void Start()
@@ -221,17 +224,25 @@ public class ClientSendFile : MonoBehaviour
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.AssetBundle)
         {
             MainThreadManager.Run(() =>
-            {
-                var textFromServer = Encoding.UTF8.GetString(frame.StreamData.CompressBytes());
-
-                var assetBundleManifest = ConvertToAssetBundleManifest(frame.StreamData.CompressBytes());
+            {                
+                var assetBundleManifest = ConvertToObject<AssetBundleManifest>(frame.StreamData.CompressBytes());
                 
                 Debug.Log("Got message");                
                 Debug.Log(string.Format("Get url {0}.\n Get version {1}.\n", assetBundleManifest.url, assetBundleManifest.version));
-                foreach (var assetBundle in assetBundleManifest.assetBundleList.assetBundles)
+                var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);
+                
+                
+                
+                if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
                 {
-                    Debug.Log("Get asset bundle " + assetBundle + ".\n");
-                }               
+                    MessageBox.ins.ShowOk("Newer version found. Download will now proceed", MessageBox.MsgIcon.msgInformation, 
+                        () =>
+                        {
+                            GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest.url, 
+                                assetBundleManifest.version, 
+                                assetBundleList.assetBundles);
+                        });
+                }                                                                
             });
         }
         else
@@ -246,7 +257,7 @@ public class ClientSendFile : MonoBehaviour
                     (int)MessageGroup.Update));
                 Debug.Log(string.Format("Message group {0}", frame.GroupId));
 
-                NetworkData networkData = ConvertToObject(frame.StreamData.CompressBytes());
+                NetworkData networkData = ConvertToObject<NetworkData>(frame.StreamData.CompressBytes());
                 // add to queue for execution
                 networkQueue.Enqueue(networkData);
 
@@ -553,26 +564,16 @@ public class ClientSendFile : MonoBehaviour
         else
             ((TCPServer)networker).SendAll (frame);        
     }
-    NetworkModel networkModel;    
+    NetworkModel _networkModel;    
 
-    NetworkData ConvertToObject(byte[] byteData)
-	{
-		BinaryFormatter bin = new BinaryFormatter ();
-		MemoryStream ms = new MemoryStream ();
-		ms.Write (byteData, 0, byteData.Length);
-		ms.Seek (0, SeekOrigin.Begin);
-
-		return (NetworkData)bin.Deserialize (ms);
-	}
-
-    AssetBundleManifest ConvertToAssetBundleManifest(byte[] byteData)
+    public static T ConvertToObject<T>(byte[] byteData)
     {
         BinaryFormatter bin = new BinaryFormatter ();
         MemoryStream ms = new MemoryStream ();
         ms.Write (byteData, 0, byteData.Length);
         ms.Seek (0, SeekOrigin.Begin);
 
-        return (AssetBundleManifest)bin.Deserialize (ms);
+        return (T)bin.Deserialize (ms);
     }
     
     //NetworkModel NetworkModelToObject(byte[] byteData)
