@@ -36,4 +36,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .idea/
-Assets/AssetBundles/
+Assets/AssetBundles/*.*
