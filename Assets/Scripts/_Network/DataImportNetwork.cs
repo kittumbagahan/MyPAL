@@ -29,6 +29,9 @@ public class DataImportNetwork : MonoBehaviour
     public int myElo = 0;
     public int eloRequired = 0;
 
+    [SerializeField] private Button homeButton;
+    [SerializeField] private Button backButton;
+    
     public GameObject networkManager = null;
     private NetworkManager mgr = null;
     private NetWorker server, client;
@@ -69,9 +72,12 @@ public class DataImportNetwork : MonoBehaviour
         //  Button btn = ToggledButtons[i].GetComponent<Button>();
         //  if (btn != null)
         //      _uiButtons.Add(btn);
-        //}                                                    
-
+        //}                                                                    
+        
         mClientSendFile = GetComponent<ClientSendFile> ();
+        
+        NavigationSetup();
+
 
         if (Instance == null)
         {
@@ -100,6 +106,13 @@ public class DataImportNetwork : MonoBehaviour
         }
 
         RetrieveData();
+    }
+
+    private void NavigationSetup()
+    {
+        var navigation = new Navigation(Quit);
+        homeButton.onClick.AddListener(navigation.LoadBookShelf);
+        backButton.onClick.AddListener(navigation.Back);
     }
 
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
@@ -667,18 +680,7 @@ public class DataImportNetwork : MonoBehaviour
         return false;
     }    
 
-    // UI
-    public void LoadBookShelf()
-    {
-        Quit();
-        SceneManager.LoadScene("BookShelf");
-    }
-
-    public void Back()
-    {
-        Quit();
-        SceneManager.LoadScene("Admin");
-    }
+    // UI    
 
     public void DataSent()
     {

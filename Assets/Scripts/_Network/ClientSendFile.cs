@@ -17,13 +17,13 @@ using LitJson;
 using UnityEngine.Events;
 using _Assetbundle;
 using _Version;
+using Text = UnityEngine.UI.Text;
 
 public class ClientSendFile : MonoBehaviour
 {
-    // kit
-    [SerializeField]
-    UnityEngine.UI.Text txtTest;
-
+    [SerializeField] private Image progressBar;
+    [SerializeField] private Text percentage;
+    
     public enum MessageGroup
     {
         Insert = 2,
@@ -230,18 +230,11 @@ public class ClientSendFile : MonoBehaviour
                 Debug.Log("Got message");                
                 Debug.Log(string.Format("Get url {0}.\n Get version {1}.\n", assetBundleManifest.url, assetBundleManifest.version));
                 var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);
-                
-                
-                
+                                                
                 if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
                 {
                     MessageBox.ins.ShowOk("Newer version found. Download will now proceed", MessageBox.MsgIcon.msgInformation, 
-                        () =>
-                        {
-                            GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest.url, 
-                                assetBundleManifest.version, 
-                                assetBundleList.assetBundles);
-                        });
+                        () => DownloadAssetBundle(assetBundleManifest, assetBundleList));
                 }                                                                
             });
         }
@@ -397,14 +390,17 @@ public class ClientSendFile : MonoBehaviour
                 Debug.Log("Queue empty");
             });            
         }        
+    }
 
-		// kit, test data display text
-		//MainThreadManager.Run( () => GameObject.FindGameObjectWithTag("data").GetComponent<UnityEngine.UI.Text>().text = string.Format("Name: {0}\nAge: {1}\nSection: {2}\n\n", networkData.name, networkData.age, networkData.section));
+    private void DownloadAssetBundle(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
+    {
+        GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, progressBar)
+            .onDownloadComplete += DownloadComplete;
+    }
 
-        // Write the rest of the payload as the contents of the file and
-        // use the file name that was extracted as the file's name    
-
-        //MainThreadManager.Run(() => File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes()));        
+    private static void DownloadComplete()
+    {
+        MessageBox.ins.ShowOk("MyPAL update complete", MessageBox.MsgIcon.msgInformation, null);
     }
 
     public void SendData(NetworkData pNetworkData, MessageGroup messageGroup)
@@ -620,11 +616,5 @@ public class ClientSendFile : MonoBehaviour
             DataService.Close();
             return false;
         }
-    }
-
-    // kit, test
-    void DebugText(string pText)
-    {
-        txtTest.text += pText;
-    }
+    }   
 }

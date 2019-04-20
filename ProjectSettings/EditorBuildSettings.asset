@@ -27,8 +27,5 @@ EditorBuildSettings:
     path: Assets/Scene/DataExporter.unity
     guid: 82f139f05cf1847d8a273805b40a7a04
   - enabled: 1
-    path: Assets/Scene/Launcher.unity
-    guid: 0f6ab64a7595d1349b459c64ebd97ae8
-  - enabled: 1
     path: Assets/Scene/UpdateMyPAL.unity
     guid: 5ce9ce20d1df6b24480e3c05fe38cead

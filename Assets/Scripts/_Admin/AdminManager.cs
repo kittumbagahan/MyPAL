@@ -46,7 +46,8 @@ public class AdminManager : MonoBehaviour {
     
     private void LoadScene(string sceneToLoad)
     {
-        EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
-        SceneManager.LoadScene("empty");
+        //EmptySceneLoader.ins.sceneToLoad = sceneToLoad;
+        //SceneManager.LoadScene("empty");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

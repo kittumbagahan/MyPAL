@@ -31,6 +31,7 @@ public class EmptySceneManager : MonoBehaviour
         if (_assetBundle == null)
         {
             Debug.Log("Failed to load assetbundle");
+            SceneManager.LoadScene("Admin");
             return;
         }
 

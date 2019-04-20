@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1493,7 +1493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b45401dc3dc424a95dfd6439c83f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtTest: {fileID: 0}
+  progressBar: {fileID: 0}
+  percentage: {fileID: 0}
 --- !u!114 &918292876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1514,6 +1515,8 @@ MonoBehaviour:
   useElo: 0
   myElo: 0
   eloRequired: 0
+  homeButton: {fileID: 1300706017}
+  backButton: {fileID: 902092822}
   networkManager: {fileID: 0}
   useMainThreadManagerForRPCs: 1
   useInlineChat: 0

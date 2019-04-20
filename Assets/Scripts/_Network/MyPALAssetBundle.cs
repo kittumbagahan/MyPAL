@@ -53,8 +53,10 @@ public class MyPALAssetBundle : MonoBehaviour
     // kit
     public static MyPALAssetBundle Instance;
     NetworkingPlayer player;
-    
 
+    [SerializeField] private Button homeButton;
+    [SerializeField] private Button backButton;
+    
     private void Start ()
     {
         //ipAddress.text = "127.0.0.1";
@@ -66,6 +68,8 @@ public class MyPALAssetBundle : MonoBehaviour
         //  if (btn != null)
         //      _uiButtons.Add(btn);
         //}                                                    
+        
+        NavigationSetup();
 
         mClientSendFile = GetComponent<ClientSendFile> ();
 
@@ -94,6 +98,13 @@ public class MyPALAssetBundle : MonoBehaviour
             //NetWorker.RefreshLocalUdpListings(ushort.Parse(portNumber.text));
             NetWorker.RefreshLocalUdpListings (mPort);
         }
+    }
+
+    private void NavigationSetup()
+    {
+        var navigation = new Navigation(Quit);
+        homeButton.onClick.AddListener(navigation.LoadBookShelf);
+        backButton.onClick.AddListener(navigation.Back);
     }
 
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
