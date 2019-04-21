@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace _Version
 {
-	public class VersionChecker{
+	public static class VersionChecker{
 
 		public static string Version()
 		{
@@ -14,12 +15,12 @@ namespace _Version
 			var currentVersionArray = Version().Split('.');
 			var versionArray = newVersion.Split('.');
 
-			for (int index = 0; index < currentVersionArray.Length; index++)
-			{				
-				return int.Parse(currentVersionArray[index]) < int.Parse(versionArray[index]) ? true : false;
-			}
+			return currentVersionArray.Select((t, index) => int.Parse(t) < int.Parse(versionArray[index])).FirstOrDefault();
+		}
 
-			return false;
-		}				
+		public static void SetNewVersion(string newVersion)
+		{
+			PlayerPrefs.SetString("version", newVersion);
+		}
 	}
 }

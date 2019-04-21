@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -188,18 +188,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 233647412}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1799141624}
-        m_MethodName: LoadBookShelf
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &233647412
@@ -1467,18 +1456,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1180415285}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1799141624}
-        m_MethodName: Back
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1180415285
@@ -2215,7 +2193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b45401dc3dc424a95dfd6439c83f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtTest: {fileID: 0}
+  progressBar: {fileID: 0}
+  percentage: {fileID: 0}
 --- !u!4 &1799141623
 Transform:
   m_ObjectHideFlags: 0
@@ -2258,6 +2237,8 @@ MonoBehaviour:
   btnReceiver: {fileID: 1920580034}
   btnSender: {fileID: 0}
   txtClientStat: {fileID: 426503698}
+  homeButton: {fileID: 233647411}
+  backButton: {fileID: 1180415284}
 --- !u!1 &1804106680
 GameObject:
   m_ObjectHideFlags: 0

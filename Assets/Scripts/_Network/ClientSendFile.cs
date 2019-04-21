@@ -233,7 +233,7 @@ public class ClientSendFile : MonoBehaviour
                                                 
                 if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
                 {
-                    MessageBox.ins.ShowOk("Newer version found. Download will now proceed", MessageBox.MsgIcon.msgInformation, 
+                    MessageBox.ins.ShowOk("Newer version found. Please confirm download.", MessageBox.MsgIcon.msgInformation, 
                         () => DownloadAssetBundle(assetBundleManifest, assetBundleList));
                 }                                                                
             });
@@ -395,11 +395,12 @@ public class ClientSendFile : MonoBehaviour
     private void DownloadAssetBundle(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
     {
         GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, progressBar)
-            .onDownloadComplete += DownloadComplete;
+            .onDownloadComplete += () => DownloadComplete(assetBundleManifest.version);
     }
 
-    private static void DownloadComplete()
-    {
+    private static void DownloadComplete(string newVersion)
+    {        
+        VersionChecker.SetNewVersion(newVersion);
         MessageBox.ins.ShowOk("MyPAL update complete", MessageBox.MsgIcon.msgInformation, null);
     }
 

@@ -2415,6 +2415,8 @@ MonoBehaviour:
   btnReceiver: {fileID: 1920580034}
   btnSender: {fileID: 0}
   txtClientStat: {fileID: 426503698}
+  homeButton: {fileID: 233647411}
+  backButton: {fileID: 1180415284}
 --- !u!1 &1804106680
 GameObject:
   m_ObjectHideFlags: 0
