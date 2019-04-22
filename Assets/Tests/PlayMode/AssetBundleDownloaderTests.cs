@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.TestTools;
-using NUnit.Framework;
 using System.Collections;
-using System.IO;
 using LitJson;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using _Assetbundle;
 	
@@ -23,10 +20,11 @@ public class AssetBundleDownloaderTests {
         var	assetBundleList = JsonMapper.ToObject<AssetBundleList>("{'assetBundles':['bookshelf','abc_circus']}");
         var assetBundleDownloader = gameObject.AddComponent<AssetBundleDownloader>();
         var progressBar = gameObject.AddComponent<Image>();
+        var downloadDialog = gameObject.AddComponent<DownloadDialog>();
         progressBar.type = Image.Type.Filled;
         progressBar.fillMethod = Image.FillMethod.Horizontal;
         
-        assetBundleDownloader.DownloadAssetBundle(assetBundleManifest, assetBundleList, progressBar);
+        assetBundleDownloader.DownloadAssetBundle(assetBundleManifest, assetBundleList, downloadDialog);
         yield return new WaitForSeconds(5);        
     }   
 }

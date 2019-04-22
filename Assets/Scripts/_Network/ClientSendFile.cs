@@ -21,8 +21,7 @@ using Text = UnityEngine.UI.Text;
 
 public class ClientSendFile : MonoBehaviour
 {
-    [SerializeField] private Image progressBar;
-    [SerializeField] private Text percentage;
+    [SerializeField] private DownloadDialog _downloadDialog;
     
     public enum MessageGroup
     {
@@ -394,11 +393,11 @@ public class ClientSendFile : MonoBehaviour
 
     private void DownloadAssetBundle(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
     {
-        GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, progressBar)
+        GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, _downloadDialog)
             .onDownloadComplete += () => DownloadComplete(assetBundleManifest.version);
     }
 
-    private static void DownloadComplete(string newVersion)
+    private void DownloadComplete(string newVersion)
     {        
         VersionChecker.SetNewVersion(newVersion);
         MessageBox.ins.ShowOk("MyPAL update complete", MessageBox.MsgIcon.msgInformation, null);

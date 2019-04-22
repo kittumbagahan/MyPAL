@@ -12,6 +12,7 @@ using TMPro;
 using System.Net.Sockets;
 using SQLite4Unity3d;
 using System;
+using _Version;
 
 public class MyPALAssetBundle : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class MyPALAssetBundle : MonoBehaviour
 
     [SerializeField] private Button homeButton;
     [SerializeField] private Button backButton;
-    
+    [SerializeField] private Text txtVersion;    
     private void Start ()
     {
         //ipAddress.text = "127.0.0.1";
@@ -69,10 +70,12 @@ public class MyPALAssetBundle : MonoBehaviour
         //      _uiButtons.Add(btn);
         //}                                                    
         
+        GetVersion();
+        
         NavigationSetup();
 
-        mClientSendFile = GetComponent<ClientSendFile> ();
-
+        mClientSendFile = GetComponent<ClientSendFile> ();        
+        
         if (Instance == null)
         {
             Instance = this;
@@ -100,8 +103,13 @@ public class MyPALAssetBundle : MonoBehaviour
         }
     }
 
-    private void NavigationSetup()
+    private void GetVersion()
     {
+        txtVersion.text = "version: " + VersionChecker.Version();
+    }
+
+    private void NavigationSetup()
+    {                
         var navigation = new Navigation(Quit);
         homeButton.onClick.AddListener(navigation.LoadBookShelf);
         backButton.onClick.AddListener(navigation.Back);
@@ -536,18 +544,7 @@ public class MyPALAssetBundle : MonoBehaviour
 
     #endregion
 
-    #region UI
-    public void LoadBookShelf()
-    {
-        Quit();
-        SceneManager.LoadScene ("BookShelf");
-    }
-
-    public void Back()
-    {
-        Quit();
-        SceneManager.LoadScene("Admin");
-    }
+    #region UI    
 
     void NoNetwork_Message()
     {

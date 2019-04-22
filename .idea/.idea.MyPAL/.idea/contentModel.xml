@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\kittu\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\kittu\.Rider2018.3\system\resharper-host\Local\Transient\ReSharperHost\v183\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
+    <e p="C:\Users\kittu\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
     <e p="E:\Documents\UnityProjects\MyPAL" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -114,11 +114,11 @@
       </e>
       <e p="Assets\Cheat.cs" t="Include" />
       <e p="Assets\Editor" t="Include">
-        <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
-        <e p="AssetBundleNameGenerator.cs" t="Include" />
+        <e p="AssetBundles" t="Include">
+          <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
+          <e p="AssetBundleNameGenerator.cs" t="Include" />
+        </e>
         <e p="Tests" t="Include">
-          <e p="AssetBundleDownloaderTest.cs" t="Include" />
-          <e p="AssetBundleDownloaderTests.cs" t="Include" />
           <e p="AssetBundlesToJsonFileTest.cs" t="Include" />
           <e p="VersionCheckerTests.cs" t="Include" />
         </e>
@@ -165,11 +165,11 @@
         <e p="_Assetbundle" t="Include">
           <e p="AssetBundleBook.cs" t="Include" />
           <e p="AssetBundleDownloader.cs" t="Include" />
-          <e p="AssetBundleDownloaderView.cs" t="Include" />
           <e p="AssetBundleInfo.cs" t="Include" />
           <e p="AssetBundleList.cs" t="Include" />
           <e p="AssetBundleManager.cs" t="Include" />
           <e p="AssetBundleManifest.cs" t="Include" />
+          <e p="AssetBundleRef.cs" t="Include" />
           <e p="BundleCreator.cs" t="Include" />
           <e p="BundleUpdateManager.cs" t="Include" />
           <e p="CachedAssetBundle.cs" t="Include" />
@@ -285,6 +285,7 @@
           <e p="MessageBox.cs" t="Include" />
         </e>
         <e p="_Network" t="Include">
+          <e p="AdminNavigation.cs" t="Include" />
           <e p="AssetBundleData.cs" t="Include" />
           <e p="AssetBundleDataCollection.cs" t="Include" />
           <e p="ClientSendFile.cs" t="Include" />
@@ -292,9 +293,11 @@
           <e p="DbSyncNetwork.cs" t="Include" />
           <e p="MainNetwork.cs" t="Include" />
           <e p="MyPALAssetBundle.cs" t="Include" />
+          <e p="Navigation.cs" t="Include" />
           <e p="NetworkBackup.cs" t="Include" />
           <e p="NetworkData.cs" t="Include" />
           <e p="NetworkTest.cs" t="Include" />
+          <e p="NetworkTestObject.cs" t="Include" />
         </e>
         <e p="_parent_control" t="Include">
           <e p="BookAccuracy" t="Include">
@@ -405,6 +408,9 @@
           <e p="Container" t="Include">
             <e p="Book.cs" t="Include" />
             <e p="ContainerDrag.cs" t="Include" />
+          </e>
+          <e p="Download" t="Include">
+            <e p="DownloadDialog.cs" t="Include" />
           </e>
           <e p="KuyaTam" t="Include">
             <e p="KuyaTamAnimation.cs" t="Include" />
@@ -620,6 +626,11 @@
       </e>
       <e p="Assets\SQL_Editor.cs" t="Include" />
       <e p="Assets\TESTING_LANG.cs" t="Include" />
+      <e p="Assets\Tests" t="Include">
+        <e p="PlayMode" t="Include">
+          <e p="AssetBundleDownloaderTests.cs" t="Include" />
+        </e>
+      </e>
       <e p="Assets\TextMesh Pro" t="Include">
         <e p="Examples &amp; Extras" t="Include">
           <e p="Fonts" t="Include">
