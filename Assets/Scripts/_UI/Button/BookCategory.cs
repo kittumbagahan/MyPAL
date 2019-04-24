@@ -59,7 +59,7 @@ public class BookCategory : MonoBehaviour, IPointerClickHandler, IGrow, IShrink 
             Grow();
             transform.SetAsLastSibling();
 			Book.instance.BookCover(bookIndex);
-			Book.instance.BOokDescription(bookIndex);
+			Book.instance.BookDescription(bookIndex);
 			GetComponent<Image>().raycastTarget = true;
 		}
 		else

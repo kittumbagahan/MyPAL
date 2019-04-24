@@ -28,7 +28,7 @@ public class Book : MonoBehaviour {
 		rawImage.texture = bookCover[index];
 	}
 
-	public void BOokDescription(int index)
+	public void BookDescription(int index)
 	{
 		bookDescription.text = _bookDescription[index];
 	}
