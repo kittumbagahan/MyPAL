@@ -78,7 +78,7 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
             }
 
             Book.instance.BookCover(bookIndex);
-            Book.instance.BOokDescription(bookIndex);
+            Book.instance.BookDescription(bookIndex);
         }
         else
         {
