@@ -12,15 +12,49 @@ namespace _AssetBundleServer
         {
             //Selected book enum is in capital letters
             //this one is the name of the scene so... 
-            bad.book = new BookModelJson(11, StoryBook.HUGIS_KAY_SARAP.ToString());
-            bad.lstActivity.Add(new ActivityModelJson(11, "book_test_1_Act1", Module.WORD, 0));
-            bad.lstActivity.Add(new ActivityModelJson(11, "book_test_1_Act1", Module.WORD, 3));
-            bad.lstActivity.Add(new ActivityModelJson(11, "book_test_1_Act1", Module.WORD, 6));
-            bad.lstActivity.Add(new ActivityModelJson(11, "book_test_1_Act1", Module.WORD, 9));
-            bad.lstActivity.Add(new ActivityModelJson(11, "book_test_1_Act1", Module.WORD, 12));
-
+            bad.book = new BookModelJson()
+            {
+                Id = 11,
+                Description = StoryBook.HUGIS_KAY_SARAP.ToString()
+            };
+            bad.lstActivity.Add(new ActivityModelJson()
+            {
+                BookId = 11,
+                Description = "book_test_1_Act1",
+                Module = Module.WORD.ToString(),
+                Set = 0
+            });
+            bad.lstActivity.Add(new ActivityModelJson()
+            {
+                BookId = 11,
+                Description = "book_test_1_Act1",
+                Module = Module.WORD.ToString(),
+                Set = 3
+            });
+            bad.lstActivity.Add(new ActivityModelJson()
+            {
+                BookId = 11,
+                Description = "book_test_1_Act1",
+                Module = Module.WORD.ToString(),
+                Set = 6
+            });
+            bad.lstActivity.Add(new ActivityModelJson()
+            {
+                BookId = 11,
+                Description = "book_test_1_Act1",
+                Module = Module.WORD.ToString(),
+                Set = 9
+            });
+            bad.lstActivity.Add(new ActivityModelJson()
+            {
+                BookId = 11,
+                Description = "book_test_1_Act1",
+                Module = Module.WORD.ToString(),
+                Set = 12
+            });
+            
             var json = JsonUtility.ToJson(bad);
-            PlayerPrefs.SetString("bad", json);
+            //PlayerPrefs.SetString("bad", json);
             Debug.Log(json);
             //bad = JsonUtility.FromJson<BookAndActivityData>(PlayerPrefs.GetString("bad"));
         }

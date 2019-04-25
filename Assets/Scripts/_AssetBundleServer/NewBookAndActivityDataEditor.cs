@@ -14,7 +14,7 @@ namespace _AssetBundleServer
             //ATTACHED ON LAUNCHER SCENE GAMEOBJECT
 
             //temporary reading from playerprefs
-            var bad = JsonUtility.FromJson<BookAndActivityData>(PlayerPrefs.GetString("bad"));
+            var bookAndActivityData = JsonUtility.FromJson<BookAndActivityData>(PlayerPrefs.GetString("bad"));
 
             DataService.Open("system/admin.db");
             var sectionsCount = DataService._connection.Table<AdminSectionsModel>().Count();
@@ -28,7 +28,7 @@ namespace _AssetBundleServer
                     .FirstOrDefault().Description;
                 Debug.Log(sectionName);
                 DataService.Close();
-                AddNewBook(sectionName, bad);
+                AddNewBook(sectionName, bookAndActivityData);
             }
         }
 

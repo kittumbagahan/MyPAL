@@ -5,16 +5,11 @@ namespace _AssetBundleServer
     [Serializable]
     public class BookModelJson
     {
-        public string Description;
+        public string Description { get; set; }
 
-        public int Id;
-
-        public BookModelJson(int id, string desc)
-        {
-            Id = id;
-            Description = desc;
-        }
-
+        public int Id { get; set; }               
+        
+        
         public override string ToString()
         {
             return string.Format("[Book: Id={0}, Desc={1}", Id, Description);

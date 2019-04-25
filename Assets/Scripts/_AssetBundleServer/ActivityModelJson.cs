@@ -5,20 +5,12 @@ namespace _AssetBundleServer
     [Serializable]
     public class ActivityModelJson
     {
-        public int BookId;
-        public string Description;
+        public int BookId { get; set; }
+        public string Description { get; set; }
 
         public int Id; //Auto Inc
-        public string Module;
-        public int Set;
-
-        public ActivityModelJson(int bookId, string desc, Module module, int set)
-        {
-            BookId = bookId;
-            Description = desc;
-            Module = module.ToString();
-            Set = set;
-        }
+        public string Module { get; set; }
+        public int Set { get; set; }       
 
         public override string ToString()
         {

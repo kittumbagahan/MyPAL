@@ -49,7 +49,7 @@ public class Read : MonoBehaviour
     private AssetBundle GetAssetBundle(string fileName)
     {
 #if UNITY_EDITOR      
-        var url = Path.Combine (@"E:\Documents\UnityProjects\MyPAL\Assets\AssetBundles\", Path.GetFileNameWithoutExtension(AssetName).ToLower());
+        var url = Path.Combine (Application.dataPath + @"\AssetBundles\", Path.GetFileNameWithoutExtension(AssetName).ToLower());
 #elif UNITY_ANDROID       
         var url = Path.Combine(Application.persistentDataPath + @"\AssetBundles\", Path.GetFileNameWithoutExtension(AssetName).ToLower());
 #endif
