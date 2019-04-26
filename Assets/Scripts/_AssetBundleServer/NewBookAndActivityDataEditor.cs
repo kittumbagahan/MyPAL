@@ -39,24 +39,24 @@ namespace _AssetBundleServer
             Debug.Log(books.Count());
             foreach (var book in books) Debug.Log(book.Description);
 
-            var bm = DataService._connection.Table<BookModel>().Where(x => x.Description == bad.book.Description)
+            var bm = DataService._connection.Table<BookModel>().Where(x => x.Description == bad.book.Description.ToString())
                 .FirstOrDefault();
             if (bm == null)
             {
                 bm = new BookModel();
-                bm.Description = bad.book.Description;
+                bm.Description = bad.book.Description.ToString();
                 DataService._connection.Insert(bm);
 
-                bm = DataService._connection.Table<BookModel>().Where(x => x.Description == bad.book.Description)
+                bm = DataService._connection.Table<BookModel>().Where(x => x.Description == bad.book.Description.ToString())
                     .FirstOrDefault();
 
-                for (var i = 0; i < bad.lstActivity.Count; i++)
+                for (var i = 0; i < bad.activities.Count; i++)
                 {
                     var am = new ActivityModel();
                     am.BookId = bm.Id;
-                    am.Description = bad.lstActivity[i].Description;
-                    am.Module = bad.lstActivity[i].Module;
-                    am.Set = bad.lstActivity[i].Set;
+                    am.Description = bad.activities[i].Description;
+                    am.Module = bad.activities[i].Module.ToString();
+                    am.Set = bad.activities[i].Set;
 
                     DataService._connection.Insert(am);
                 }

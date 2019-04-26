@@ -18,41 +18,41 @@ public class BookAndModelDataTests {
 		bookAndActivity.book = new BookModelJson()
 		{
 			Id = 11,
-			Description = StoryBook.HUGIS_KAY_SARAP.ToString()
+			Name = StoryBook.HUGIS_KAY_SARAP
 		};
-		bookAndActivity.lstActivity.Add(new ActivityModelJson()
+		bookAndActivity.activities.Add(new ActivityModelJson()
 		{
 			BookId = 11,
-			Description = "book_test_1_Act1",
-			Module = Module.WORD.ToString(),
+			Name = "book_test_1_Act1",
+			Module = Module.WORD,
 			Set = 0
 		});
-		bookAndActivity.lstActivity.Add(new ActivityModelJson()
+		bookAndActivity.activities.Add(new ActivityModelJson()
 		{
 			BookId = 11,
-			Description = "book_test_1_Act1",
-			Module = Module.WORD.ToString(),
+			Name = "book_test_1_Act1",
+			Module = Module.WORD,
 			Set = 3
 		});
-		bookAndActivity.lstActivity.Add(new ActivityModelJson()
+		bookAndActivity.activities.Add(new ActivityModelJson()
 		{
 			BookId = 11,
-			Description = "book_test_1_Act1",
-			Module = Module.WORD.ToString(),
+			Name = "book_test_1_Act1",
+			Module = Module.WORD,
 			Set = 6
 		});
-		bookAndActivity.lstActivity.Add(new ActivityModelJson()
+		bookAndActivity.activities.Add(new ActivityModelJson()
 		{
 			BookId = 11,
-			Description = "book_test_1_Act1",
-			Module = Module.WORD.ToString(),
+			Name = "book_test_1_Act1",
+			Module = Module.WORD,
 			Set = 9
 		});
-		bookAndActivity.lstActivity.Add(new ActivityModelJson()
+		bookAndActivity.activities.Add(new ActivityModelJson()
 		{
 			BookId = 11,
-			Description = "book_test_1_Act1",
-			Module = Module.WORD.ToString(),
+			Name = "book_test_1_Act1",
+			Module = Module.WORD,
 			Set = 12
 		});
 		

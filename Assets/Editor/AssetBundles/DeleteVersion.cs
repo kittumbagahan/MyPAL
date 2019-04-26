@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DeleteVersion : UnityEditor.Editor {
 
-	[MenuItem("Assets/Delete App Version")]
+	[MenuItem("MyPAL/Delete App Version")]
 	public static void DeleteAppVersion()
 	{
 		PlayerPrefs.DeleteKey("version");		

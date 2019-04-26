@@ -15,41 +15,41 @@ namespace _AssetBundleServer
             bad.book = new BookModelJson()
             {
                 Id = 11,
-                Description = StoryBook.HUGIS_KAY_SARAP.ToString()
+                Name = StoryBook.HUGIS_KAY_SARAP
             };
-            bad.lstActivity.Add(new ActivityModelJson()
+            bad.activities.Add(new ActivityModelJson()
             {
                 BookId = 11,
-                Description = "book_test_1_Act1",
-                Module = Module.WORD.ToString(),
+                Name = "book_test_1_Act1",
+                Module = Module.WORD,
                 Set = 0
             });
-            bad.lstActivity.Add(new ActivityModelJson()
+            bad.activities.Add(new ActivityModelJson()
             {
                 BookId = 11,
-                Description = "book_test_1_Act1",
-                Module = Module.WORD.ToString(),
+                Name = "book_test_1_Act1",
+                Module = Module.WORD,
                 Set = 3
             });
-            bad.lstActivity.Add(new ActivityModelJson()
+            bad.activities.Add(new ActivityModelJson()
             {
                 BookId = 11,
-                Description = "book_test_1_Act1",
-                Module = Module.WORD.ToString(),
+                Name = "book_test_1_Act1",
+                Module = Module.WORD,
                 Set = 6
             });
-            bad.lstActivity.Add(new ActivityModelJson()
+            bad.activities.Add(new ActivityModelJson()
             {
                 BookId = 11,
-                Description = "book_test_1_Act1",
-                Module = Module.WORD.ToString(),
+                Name = "book_test_1_Act1",
+                Module = Module.WORD,
                 Set = 9
             });
-            bad.lstActivity.Add(new ActivityModelJson()
+            bad.activities.Add(new ActivityModelJson()
             {
                 BookId = 11,
-                Description = "book_test_1_Act1",
-                Module = Module.WORD.ToString(),
+                Name = "book_test_1_Act1",
+                Module = Module.WORD,
                 Set = 12
             });
             

@@ -62,11 +62,11 @@ public class BookAndActivity {
 
 		var bookModel = FindBookAndActivityData(bookAndActivityData);
 
-		foreach (var activity in bookAndActivityData.lstActivity)
+		foreach (var activity in bookAndActivityData.activities)
 		{
 			var activityModel = new ActivityModel
 			{
-				BookId = bookModel.Id, Description = activity.Description, Module = activity.Module, Set = activity.Set
+				BookId = bookModel.Id, Description = activity.Description, Module = activity.Module.ToString(), Set = activity.Set
 			};
 
 			DataService._connection.Insert(activityModel);
@@ -76,7 +76,7 @@ public class BookAndActivity {
 	private static BookModel FindBookAndActivityData(BookAndActivityData bookAndActivityData)
 	{
 		return DataService._connection.Table<BookModel>()
-			.Where(x => x.Description == bookAndActivityData.book.Description)
+			.Where(x => x.Description == bookAndActivityData.book.Description.ToString())
 			.FirstOrDefault();
 	}
 
@@ -84,7 +84,7 @@ public class BookAndActivity {
 	{					
 		var bookModel = new BookModel()
 		{
-			Description = bookAndActivityData.book.Description
+			Description = bookAndActivityData.book.Description.ToString()
 		};
 		
 		return bookModel;

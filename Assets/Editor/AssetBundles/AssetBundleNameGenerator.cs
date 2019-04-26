@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class AssetBundleNameGenerator : UnityEditor.Editor {
 
-	[MenuItem("Assets/Asset Bundle/Assign Asset Bundle Name")]
+	[MenuItem("MyPAL/Asset Bundle/Assign Asset Bundle Name")]
 	public static void GenerateAssetBundle()
 	{		
 		AssignAssetBundleName();
@@ -31,7 +31,7 @@ public class AssetBundleNameGenerator : UnityEditor.Editor {
 		EditorUtility.DisplayDialog("Asset Bundle Naming", "Asset bundle naming successful.", "OK");
 	}
 
-	[MenuItem("Assets/Asset Bundle/Build Selected")]
+	[MenuItem("MyPAL/Asset Bundle/Build Selected")]
 	public static void BuildSelected()
 	{
 		// Get all selected *assets*

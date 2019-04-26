@@ -1,16 +1,25 @@
 ﻿using System;
+using UnityEngine;
 
 namespace _AssetBundleServer
 {
     [Serializable]
     public class ActivityModelJson
     {
-        public int BookId { get; set; }
-        public string Description { get; set; }
-
+        public string Name;
+        
+        public int BookId;
+        
+        public string Description
+        {
+            get { return Name; }
+        }
+        
+        [HideInInspector]
         public int Id; //Auto Inc
-        public string Module { get; set; }
-        public int Set { get; set; }       
+
+        public Module Module;
+        public int Set;
 
         public override string ToString()
         {

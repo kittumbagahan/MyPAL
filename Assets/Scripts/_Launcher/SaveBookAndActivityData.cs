@@ -49,22 +49,22 @@ public static class SaveBookAndActivityData
          Debug.Log (book.Description);
       }
 
-      BookModel bm = DataService._connection.Table<BookModel> ().Where (x => x.Description == bad.book.Description).FirstOrDefault ();
+      BookModel bm = DataService._connection.Table<BookModel> ().Where (x => x.Description == bad.book.Description.ToString()).FirstOrDefault ();
       if (bm == null)
       {
          bm = new BookModel ();
-         bm.Description = bad.book.Description;
+         bm.Description = bad.book.Description.ToString();
          DataService._connection.Insert (bm);
 
-         bm = DataService._connection.Table<BookModel> ().Where (x => x.Description == bad.book.Description).FirstOrDefault ();
+         bm = DataService._connection.Table<BookModel> ().Where (x => x.Description == bad.book.Description.ToString()).FirstOrDefault ();
 
-         for (int i = 0; i < bad.lstActivity.Count; i++)
+         for (int i = 0; i < bad.activities.Count; i++)
          {
             ActivityModel am = new ActivityModel ();
             am.BookId = bm.Id;
-            am.Description = bad.lstActivity[i].Description;
-            am.Module = bad.lstActivity[i].Module;
-            am.Set = bad.lstActivity[i].Set;
+            am.Description = bad.activities[i].Description;
+            am.Module = bad.activities[i].Module.ToString();
+            am.Set = bad.activities[i].Set;
 
             DataService._connection.Insert (am);
          }

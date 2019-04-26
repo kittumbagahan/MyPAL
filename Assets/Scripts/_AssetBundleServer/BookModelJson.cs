@@ -1,13 +1,15 @@
 ﻿using System;
+using UnityEngine;
 
 namespace _AssetBundleServer
 {
     [Serializable]
     public class BookModelJson
     {
-        public string Description { get; set; }
+        public StoryBook Name;
+        public StoryBook Description {get { return Name; }}
 
-        public int Id { get; set; }               
+        [HideInInspector] public int Id;               
         
         
         public override string ToString()
