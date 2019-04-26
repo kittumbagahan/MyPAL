@@ -9,7 +9,7 @@ namespace Editor
 {
 	public class AssetBundleListAndAssetsEditor : UnityEditor.Editor {
 
-		[MenuItem("Assets/Asset Bundle/Get All Asset Bundle Assets")]
+		[MenuItem("MyPAL/Asset Bundle/Get All Asset Bundle Assets")]
 		static void GetAssetWithAssetBundleName()
 		{
 			var objectSelection = new List<Object>();
@@ -36,7 +36,7 @@ namespace Editor
 			}
 		}
 
-		[MenuItem("Assets/Asset Bundle/Save All Asset Bundle To Json File")]
+		[MenuItem("MyPAL/Asset Bundle/Save All Asset Bundle To Json File")]
 		static void SaveToJson()
 		{
 			var assetBundleList = new AssetBundleList();
