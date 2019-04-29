@@ -7,7 +7,7 @@ namespace _Version
 
 		public static string Version()
 		{
-			return PlayerPrefs.GetString("version", "0.0.9");
+			return PlayerPrefs.GetString("version", "0.0.0");
 		}
 
 		public static bool IsNewVersionGreater(string newVersion)

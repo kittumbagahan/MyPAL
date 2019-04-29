@@ -16,6 +16,7 @@ using System.Text;
 using LitJson;
 using UnityEngine.Events;
 using _Assetbundle;
+using _AssetBundleServer;
 using _Version;
 using Text = UnityEngine.UI.Text;
 
@@ -228,13 +229,8 @@ public class ClientSendFile : MonoBehaviour
                 
                 Debug.Log("Got message");                
                 Debug.Log(string.Format("Get url {0}.\n Get version {1}.\n", assetBundleManifest.url, assetBundleManifest.version));
-                var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);
-                                                
-                if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
-                {
-                    MessageBox.ins.ShowOk("Newer version found. Please confirm download.", MessageBox.MsgIcon.msgInformation, 
-                        () => DownloadAssetBundle(assetBundleManifest, assetBundleList));
-                }                                                                
+                
+                DownloadDialog(assetBundleManifest);
             });
         }
         else
@@ -391,12 +387,34 @@ public class ClientSendFile : MonoBehaviour
         }        
     }
 
+    private void DownloadDialog(AssetBundleManifest assetBundleManifest)
+    {
+        var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);
+
+        var bookAndActivityList = JsonMapper.ToObject<List<BookAndActivityData>>(assetBundleManifest.bookAndActivityJson);
+
+        if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
+        {
+            MessageBox.ins.ShowOk("Newer version found. Please confirm download.", MessageBox.MsgIcon.msgInformation,
+                () =>
+                {
+                    CreateBookAndActivityData(bookAndActivityList);
+                    DownloadAssetBundle(assetBundleManifest, assetBundleList);
+                });
+        }
+    }   
+
+    private void CreateBookAndActivityData(List<BookAndActivityData> bookAndActivityData)
+    {
+        BookAndActivity.NewBookAndActivity(bookAndActivityData);
+    }
+    
     private void DownloadAssetBundle(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
     {
         GetComponent<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, _downloadDialog)
             .onDownloadComplete += () => DownloadComplete(assetBundleManifest.version);
     }
-
+    
     private void DownloadComplete(string newVersion)
     {        
         VersionChecker.SetNewVersion(newVersion);

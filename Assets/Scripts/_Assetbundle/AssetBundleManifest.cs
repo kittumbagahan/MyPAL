@@ -11,4 +11,5 @@ public class AssetBundleManifest
 	[SerializeField]
 	public string version;	
 	[SerializeField] public string assetBundleJson;
+	[SerializeField] public string bookAndActivityJson;
 }

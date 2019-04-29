@@ -75,8 +75,10 @@ public class BookAndActivity {
 
 	private static BookModel FindBookAndActivityData(BookAndActivityData bookAndActivityData)
 	{
+		string bookName = bookAndActivityData.book.Description.ToString();
+		
 		return DataService._connection.Table<BookModel>()
-			.Where(x => x.Description == bookAndActivityData.book.Description.ToString())
+			.Where(x => x.Description == bookName)
 			.FirstOrDefault();
 	}
 
