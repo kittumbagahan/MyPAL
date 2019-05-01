@@ -389,20 +389,26 @@ public class ClientSendFile : MonoBehaviour
 
     private void DownloadDialog(AssetBundleManifest assetBundleManifest)
     {
-        var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);
-
-        var bookAndActivityList = JsonMapper.ToObject<List<BookAndActivityData>>(assetBundleManifest.bookAndActivityJson);
+        var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);                              
 
         if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
         {
             MessageBox.ins.ShowOk("Newer version found. Please confirm download.", MessageBox.MsgIcon.msgInformation,
-                () =>
-                {
-                    CreateBookAndActivityData(bookAndActivityList);
-                    DownloadAssetBundle(assetBundleManifest, assetBundleList);
-                });
+                () => Download(assetBundleManifest, assetBundleList));
         }
-    }   
+    }
+
+    private void Download(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
+    {
+        if (assetBundleManifest.bookAndActivityJson != null)
+        {
+            var bookAndActivityList =
+                JsonMapper.ToObject<List<BookAndActivityData>>(assetBundleManifest.bookAndActivityJson);
+            CreateBookAndActivityData(bookAndActivityList);
+        }
+
+        DownloadAssetBundle(assetBundleManifest, assetBundleList);
+    }
 
     private void CreateBookAndActivityData(List<BookAndActivityData> bookAndActivityData)
     {

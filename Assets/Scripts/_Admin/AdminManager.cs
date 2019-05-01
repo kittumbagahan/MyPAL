@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class AdminManager : MonoBehaviour {
 
     [SerializeField]
-    private Button btnHome, btnDataExport, btnSendDb, btnReceiveDb, btnUpdateMyPal;
+    private Button 
+        btnHome, 
+        btnDataExport, 
+        btnSendDb, 
+        btnReceiveDb, 
+        btnUpdateMyPal,
+        btnresetVersion;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +22,15 @@ public class AdminManager : MonoBehaviour {
         btnSendDb.onClick.AddListener (SendDb);
         btnReceiveDb.onClick.AddListener (ReceiveDb);
         btnUpdateMyPal.onClick.AddListener(UpdateMyPal);
+        btnresetVersion.onClick.AddListener(ResetVersion);
+    }
+
+    private void ResetVersion()
+    {
+        MessageBox.ins.ShowQuestion("Reset current version?", 
+            MessageBox.MsgIcon.msgInformation, 
+            () => PlayerPrefs.DeleteKey("version"), 
+            null);
     }
 
     void Home()
