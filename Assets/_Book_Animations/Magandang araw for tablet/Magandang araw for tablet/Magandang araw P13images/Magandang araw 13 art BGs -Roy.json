@@ -1,0 +1,32 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Granpa Left arm","bone":"root","attachment":"Granpa Left arm"},
+	{"name":"Granpa Left handcane","bone":"root","attachment":"Granpa Left handcane"},
+	{"name":"Granpa body","bone":"root","attachment":"Granpa body"},
+	{"name":"Granpa right arm","bone":"root","attachment":"Granpa right arm"},
+	{"name":"Granpa right hand","bone":"root","attachment":"Granpa right hand"},
+	{"name":"Granma Body","bone":"root","attachment":"Granma Body"},
+	{"name":"Granma Right arm","bone":"root","attachment":"Granma Right arm"},
+	{"name":"Boy Body","bone":"root","attachment":"Boy Body"},
+	{"name":"Boy Right arm","bone":"root","attachment":"Boy Right arm"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":1413,"y":1049.5,"width":402,"height":277}},
+		"Boy Right arm":{"Boy Right arm":{"x":647.5,"y":326.5,"width":179,"height":89}},
+		"Boy Body":{"Boy Body":{"x":473,"y":347.5,"width":312,"height":627}},
+		"Granma Right arm":{"Granma Right arm":{"x":601.5,"y":422.5,"width":209,"height":291}},
+		"Granma Body":{"Granma Body":{"x":719,"y":554.5,"width":486,"height":805}},
+		"Granpa right hand":{"Granpa right hand":{"x":986,"y":355.5,"width":60,"height":55}},
+		"Granpa right arm":{"Granpa right arm":{"x":927.5,"y":479.5,"width":115,"height":257}},
+		"Granpa body":{"Granpa body":{"x":994.5,"y":540,"width":331,"height":676}},
+		"Granpa Left handcane":{"Granpa Left handcane":{"x":1190,"y":343,"width":72,"height":250}},
+		"Granpa Left arm":{"Granpa Left arm":{"x":1114.5,"y":509.5,"width":139,"height":173}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

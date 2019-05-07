@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Teacher
   - Student
+  - Parent
   layers:
   - Default
   - TransparentFX

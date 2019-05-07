@@ -1,0 +1,28 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Granpa","bone":"root","attachment":"Granpa"},
+	{"name":"Granma","bone":"root","attachment":"Granma"},
+	{"name":"Layer 5 Copy 2","bone":"root","attachment":"Layer 5 Copy 2"},
+	{"name":"Boy Body Copy","bone":"root","attachment":"Boy Body Copy"},
+	{"name":"Boy arm","bone":"root","attachment":"Boy arm"},
+	{"name":"Mom Arm","bone":"root","attachment":"Mom Arm"},
+	{"name":"Layer 3 Copy 2","bone":"root","attachment":"Layer 3 Copy 2"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":966,"y":214.5,"width":512,"height":367}},
+		"Layer 3 Copy 2":{"Layer 3 Copy 2":{"x":891,"y":1022.5,"width":536,"height":367}},
+		"Mom Arm":{"Mom Arm":{"x":1050,"y":497.5,"width":278,"height":221}},
+		"Boy arm":{"Boy arm":{"x":915,"y":548,"width":434,"height":182}},
+		"Boy Body Copy":{"Boy Body Copy":{"x":801,"y":487.5,"width":334,"height":651}},
+		"Layer 5 Copy 2":{"Layer 5 Copy 2":{"x":1133,"y":588.5,"width":522,"height":783}},
+		"Granma":{"Granma":{"x":1512.5,"y":582.5,"width":347,"height":553}},
+		"Granpa":{"Granpa":{"x":457.5,"y":527,"width":295,"height":446}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

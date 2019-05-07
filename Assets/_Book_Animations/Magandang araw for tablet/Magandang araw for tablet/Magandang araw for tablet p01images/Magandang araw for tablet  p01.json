@@ -1,0 +1,28 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"Layer 0","bone":"root","attachment":"Layer 0"},
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"sun","bone":"root","attachment":"sun"},
+	{"name":"wall","bone":"root","attachment":"wall"},
+	{"name":"window left","bone":"root","attachment":"window left"},
+	{"name":"window right","bone":"root","attachment":"window right"},
+	{"name":"boy hand","bone":"root","attachment":"boy hand"},
+	{"name":"boy","bone":"root","attachment":"boy"},
+	{"name":"balloon","bone":"root","attachment":"balloon"}
+],
+"skins":{
+	"default":{
+		"balloon":{"balloon":{"x":1601,"y":898,"width":736,"height":622}},
+		"boy":{"boy":{"x":1412.5,"y":405,"width":657,"height":810}},
+		"boy hand":{"boy hand":{"x":1166,"y":519.5,"width":292,"height":337}},
+		"window right":{"window right":{"x":1672,"y":728,"width":594,"height":994}},
+		"window left":{"window left":{"x":345,"y":728,"width":594,"height":994}},
+		"wall":{"wall":{"x":1025,"y":641,"width":2050,"height":1282}},
+		"sun":{"sun":{"x":750.5,"y":839.5,"width":509,"height":505}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}},
+		"Layer 0":{"Layer 0":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

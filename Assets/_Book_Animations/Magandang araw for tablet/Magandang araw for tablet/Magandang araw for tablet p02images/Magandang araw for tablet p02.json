@@ -1,0 +1,22 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"mom","bone":"root","attachment":"mom"},
+	{"name":"boy hand","bone":"root","attachment":"boy hand"},
+	{"name":"boy","bone":"root","attachment":"boy"},
+	{"name":"ladder","bone":"root","attachment":"ladder"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":1298.5,"y":850.5,"width":737,"height":639}},
+		"ladder":{"ladder":{"x":545.5,"y":534,"width":1091,"height":1068}},
+		"boy":{"boy":{"x":517.5,"y":772.5,"width":409,"height":891}},
+		"boy hand":{"boy hand":{"x":757.5,"y":885,"width":253,"height":324}},
+		"mom":{"mom":{"x":1547,"y":361.5,"width":638,"height":723}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

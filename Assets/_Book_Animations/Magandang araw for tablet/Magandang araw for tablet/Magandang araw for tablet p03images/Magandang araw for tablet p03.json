@@ -1,0 +1,24 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Layer 1","bone":"root","attachment":"Layer 1"},
+	{"name":"Layer 4","bone":"root","attachment":"Layer 4"},
+	{"name":"Layer 3","bone":"root","attachment":"Layer 3"},
+	{"name":"Folder 3 Copy","bone":"root","attachment":"Folder 3 Copy"},
+	{"name":"Layer 2","bone":"root","attachment":"Layer 2"},
+	{"name":"balloon","bone":"root","attachment":"balloon"}
+],
+"skins":{
+	"default":{
+		"balloon":{"balloon":{"x":568.5,"y":937.5,"width":887,"height":627}},
+		"Layer 2":{"Layer 2":{"x":1708.5,"y":201,"width":683,"height":402}},
+		"Folder 3 Copy":{"Folder 3 Copy":{"x":1011,"y":349.5,"width":1064,"height":699}},
+		"Layer 3":{"Layer 3":{"x":733,"y":625.5,"width":472,"height":477}},
+		"Layer 4":{"Layer 4":{"x":1158,"y":697.5,"width":688,"height":743}},
+		"Layer 1":{"Layer 1":{"x":1025,"y":641,"width":2050,"height":1282}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

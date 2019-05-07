@@ -1,0 +1,22 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BGs Copy","bone":"root","attachment":"BGs Copy"},
+	{"name":"Dad Body","bone":"root","attachment":"Dad Body"},
+	{"name":"Boy Body","bone":"root","attachment":"Boy Body"},
+	{"name":"Boy feet","bone":"root","attachment":"Boy feet"},
+	{"name":"Boy Arm","bone":"root","attachment":"Boy Arm"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":601.5,"y":1019.5,"width":897,"height":471}},
+		"Boy Arm":{"Boy Arm":{"x":1084,"y":573,"width":380,"height":258}},
+		"Boy feet":{"Boy feet":{"x":839.5,"y":80.0000000000002,"width":221,"height":132}},
+		"Boy Body":{"Boy Body":{"x":809.5,"y":434,"width":381,"height":842}},
+		"Dad Body":{"Dad Body":{"x":1175,"y":586.5,"width":674,"height":1023}},
+		"BGs Copy":{"BGs Copy":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

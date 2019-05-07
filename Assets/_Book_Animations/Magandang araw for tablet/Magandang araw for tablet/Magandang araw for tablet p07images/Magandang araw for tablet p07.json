@@ -1,0 +1,22 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"teacher","bone":"root","attachment":"teacher"},
+	{"name":"teacher head","bone":"root","attachment":"teacher head"},
+	{"name":"FG students","bone":"root","attachment":"FG students"},
+	{"name":"balloon 2","bone":"root","attachment":"balloon 2"},
+	{"name":"balloon 1","bone":"root","attachment":"balloon 1"}
+],
+"skins":{
+	"default":{
+		"balloon 1":{"balloon 1":{"x":432.5,"y":949.5,"width":741,"height":535}},
+		"balloon 2":{"balloon 2":{"x":1643.5,"y":288,"width":717,"height":538}},
+		"FG students":{"FG students":{"x":1025,"y":224,"width":2050,"height":448}},
+		"teacher head":{"teacher head":{"x":996.5,"y":848.5,"width":461,"height":365}},
+		"teacher":{"teacher":{"x":1007.5,"y":535.5,"width":443,"height":789}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

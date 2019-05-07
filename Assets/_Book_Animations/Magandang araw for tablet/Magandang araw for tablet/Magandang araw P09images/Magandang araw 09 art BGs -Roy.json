@@ -1,0 +1,22 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Students back","bone":"root","attachment":"Students back"},
+	{"name":"Boy Arm raise","bone":"root","attachment":"Boy Arm raise"},
+	{"name":"Students front","bone":"root","attachment":"Students front"},
+	{"name":"Teacher","bone":"root","attachment":"Teacher"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":864,"y":1018,"width":498,"height":300}},
+		"Teacher":{"Teacher":{"x":1651.5,"y":456,"width":615,"height":868}},
+		"Students front":{"Students front":{"x":1012.5,"y":508,"width":1179,"height":662}},
+		"Boy Arm raise":{"Boy Arm raise":{"x":875,"y":635,"width":82,"height":304}},
+		"Students back":{"Students back":{"x":766.5,"y":699,"width":1039,"height":550}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

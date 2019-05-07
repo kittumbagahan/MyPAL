@@ -1,0 +1,22 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"cook","bone":"root","attachment":"cook"},
+	{"name":"cook head","bone":"root","attachment":"cook head"},
+	{"name":"boy hand","bone":"root","attachment":"boy hand"},
+	{"name":"boy","bone":"root","attachment":"boy"},
+	{"name":"balloon","bone":"root","attachment":"balloon"}
+],
+"skins":{
+	"default":{
+		"balloon":{"balloon":{"x":1117,"y":972,"width":624,"height":526}},
+		"boy":{"boy":{"x":1498,"y":469,"width":1104,"height":824}},
+		"boy hand":{"boy hand":{"x":1203.5,"y":594.5,"width":181,"height":219}},
+		"cook head":{"cook head":{"x":542.5,"y":929,"width":567,"height":492}},
+		"cook":{"cook":{"x":977.5,"y":613,"width":1311,"height":966}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

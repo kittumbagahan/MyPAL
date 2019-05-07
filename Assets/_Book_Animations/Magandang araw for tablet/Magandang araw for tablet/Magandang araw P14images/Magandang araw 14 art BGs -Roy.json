@@ -1,0 +1,26 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"hidden dad","bone":"root","attachment":"hidden dad"},
+	{"name":"Granpa","bone":"root","attachment":"Granpa"},
+	{"name":"Granma","bone":"root","attachment":"Granma"},
+	{"name":"boy body","bone":"root","attachment":"boy body"},
+	{"name":"boy arm","bone":"root","attachment":"boy arm"},
+	{"name":"Layer 3 Copy 2","bone":"root","attachment":"Layer 3 Copy 2"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":1565.5,"y":199.5,"width":747,"height":181}},
+		"Layer 3 Copy 2":{"Layer 3 Copy 2":{"x":869.5,"y":1001,"width":613,"height":240}},
+		"boy arm":{"boy arm":{"x":1064,"y":167,"width":322,"height":334}},
+		"boy body":{"boy body":{"x":976,"y":314.5,"width":532,"height":629}},
+		"Granma":{"Granma":{"x":1230,"y":530,"width":392,"height":686}},
+		"Granpa":{"Granpa":{"x":1477,"y":456.5,"width":368,"height":557}},
+		"hidden dad":{"hidden dad":{"x":1436,"y":474,"width":320,"height":484}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

@@ -7184,6 +7184,9 @@ MonoBehaviour:
   sceneIndex: 0
   bookH: 1
   bookW: 1
+  isAssetBundle: 0
+  assetBunldeUrlKey: 
+  assetBundleUrlVersionKey: 
 --- !u!114 &11437798
 MonoBehaviour:
   m_ObjectHideFlags: 1

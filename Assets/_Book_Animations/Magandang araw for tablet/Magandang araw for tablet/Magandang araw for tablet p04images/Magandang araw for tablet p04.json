@@ -1,0 +1,24 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"bg","bone":"root","attachment":"bg"},
+	{"name":"boy","bone":"root","attachment":"boy"},
+	{"name":"boy head","bone":"root","attachment":"boy head"},
+	{"name":"cat","bone":"root","attachment":"cat"},
+	{"name":"cat eyes closed","bone":"root","attachment":"cat eyes closed"},
+	{"name":"cat mouth open","bone":"root","attachment":"cat mouth open"},
+	{"name":"balloon","bone":"root","attachment":"balloon"}
+],
+"skins":{
+	"default":{
+		"balloon":{"balloon":{"x":763,"y":907,"width":836,"height":644}},
+		"cat mouth open":{"cat mouth open":{"x":763,"y":453.5,"width":78,"height":101}},
+		"cat eyes closed":{"cat eyes closed":{"x":703.5,"y":517.5,"width":109,"height":101}},
+		"cat":{"cat":{"x":644.5,"y":401.5,"width":445,"height":539}},
+		"boy head":{"boy head":{"x":1440.5,"y":893,"width":503,"height":504}},
+		"boy":{"boy":{"x":1396,"y":539.5,"width":600,"height":689}},
+		"bg":{"bg":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

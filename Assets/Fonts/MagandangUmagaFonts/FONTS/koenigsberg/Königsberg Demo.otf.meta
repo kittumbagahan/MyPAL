@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 76adab86e665da546b415d7d64b3e31b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: K?nigsberg
+  fontNames:
+  - K?nigsberg
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6dee99a5e5f2bb2459bf3e44428e4421, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

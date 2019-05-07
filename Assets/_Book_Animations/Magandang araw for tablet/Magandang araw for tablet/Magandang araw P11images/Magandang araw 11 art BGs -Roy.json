@@ -1,0 +1,32 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Boy shadow","bone":"root","attachment":"Boy shadow"},
+	{"name":"Boy Head","bone":"root","attachment":"Boy Head"},
+	{"name":"Boy Body","bone":"root","attachment":"Boy Body"},
+	{"name":"sHADOW","bone":"root","attachment":"sHADOW"},
+	{"name":"Granma arm","bone":"root","attachment":"Granma arm"},
+	{"name":"Granma","bone":"root","attachment":"Granma"},
+	{"name":"shadow","bone":"root","attachment":"shadow"},
+	{"name":"Granpa","bone":"root","attachment":"Granpa"},
+	{"name":"Boy Arm","bone":"root","attachment":"Boy Arm"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":880.5,"y":995,"width":487,"height":360}},
+		"Boy Arm":{"Boy Arm":{"x":857.5,"y":469,"width":55,"height":142}},
+		"Granpa":{"Granpa":{"x":1333,"y":346,"width":408,"height":618}},
+		"shadow":{"shadow":{"x":1368,"y":50.9999999999998,"width":336,"height":62}},
+		"Granma":{"Granma":{"x":1161,"y":497,"width":442,"height":784}},
+		"Granma arm":{"Granma arm":{"x":916.5,"y":492.5,"width":275,"height":201}},
+		"sHADOW":{"sHADOW":{"x":1135.5,"y":96.0000000000002,"width":343,"height":62}},
+		"Boy Body":{"Boy Body":{"x":692,"y":279,"width":382,"height":436}},
+		"Boy Head":{"Boy Head":{"x":705.5,"y":546.5,"width":309,"height":351}},
+		"Boy shadow":{"Boy shadow":{"x":665,"y":65.5,"width":298,"height":61}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

@@ -1,0 +1,24 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"Layer 3","bone":"root","attachment":"Layer 3"},
+	{"name":"Layer 2","bone":"root","attachment":"Layer 2"},
+	{"name":"Layer 1","bone":"root","attachment":"Layer 1"},
+	{"name":"driver hand","bone":"root","attachment":"driver hand"},
+	{"name":"driver","bone":"root","attachment":"driver"},
+	{"name":"balloon 1","bone":"root","attachment":"balloon 1"},
+	{"name":"ballon 2","bone":"root","attachment":"ballon 2"}
+],
+"skins":{
+	"default":{
+		"ballon 2":{"ballon 2":{"x":986.5,"y":246.5,"width":709,"height":439}},
+		"balloon 1":{"balloon 1":{"x":672,"y":1004,"width":724,"height":532}},
+		"driver":{"driver":{"x":1617,"y":565,"width":866,"height":1130}},
+		"driver hand":{"driver hand":{"x":1117.5,"y":422,"width":447,"height":554}},
+		"Layer 1":{"Layer 1":{"x":1025,"y":641,"width":2050,"height":1282}},
+		"Layer 2":{"Layer 2":{"x":549.5,"y":416,"width":693,"height":832}},
+		"Layer 3":{"Layer 3":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

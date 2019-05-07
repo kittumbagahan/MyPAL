@@ -1,0 +1,18 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Characters","bone":"root","attachment":"Characters"},
+	{"name":"Boy arm","bone":"root","attachment":"Boy arm"},
+	{"name":"Layer 3 Copy","bone":"root","attachment":"Layer 3 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 3 Copy":{"Layer 3 Copy":{"x":1137.5,"y":997,"width":477,"height":352}},
+		"Boy arm":{"Boy arm":{"x":912,"y":380.5,"width":122,"height":169}},
+		"Characters":{"Characters":{"x":1070,"y":474.5,"width":1016,"height":905}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}

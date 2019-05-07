@@ -9,15 +9,17 @@ public class SceneSpawner : MonoBehaviour
     public Transform parent;
     public Button UIBtnNext, UIBtnPrev;
     public List<GameObject> lstScenes = new List<GameObject>();
+    
     List<GameObject> lstPool = new List<GameObject>();
 
     public GameObject curr, prev, next;
-    GameObject o;
+    
+    GameObject sceneObject;
+    
     [SerializeField]
     int sceneIndex = 0;
-    [SerializeField]
-    float bookH = 1f, bookW = 1f;
-    SubtitleManager subsMan;
+    
+    SubtitleManager _subtitleManager;
 
     [SerializeField]
     bool isAssetBundle;
@@ -28,8 +30,16 @@ public class SceneSpawner : MonoBehaviour
 
     void Start()
     {
-        subsMan = GetComponent<SubtitleManager>();
-        if (parent == null) parent = GameObject.Find("Canvas_UI_SceneLoader").GetComponent<Transform>();
+        _subtitleManager = GetComponent<SubtitleManager>();
+
+        if (parent == null)
+        {            
+            if(GameObject.FindWithTag("Parent") == null)
+                parent = GameObject.Find("Canvas_UI_SceneLoader").GetComponent<Transform>();
+            else            
+                parent = GameObject.FindWithTag("Parent").GetComponent<Transform>();
+        }
+                
         if (UIBtnNext == null)
         {
             UIBtnNext = GameObject.Find("_btnNext").GetComponent<Button>();
@@ -40,33 +50,32 @@ public class SceneSpawner : MonoBehaviour
             UIBtnPrev = GameObject.Find("_btnPrev").GetComponent<Button>();
             UIBtnPrev.onClick.AddListener(Prev);
         }
-        //if (UIBtnAgain == null)
-        //{
-        //    UIBtnAgain = GameObject.Find("_btnAgain").GetComponent<Button>();
-        //    UIBtnAgain.onClick.AddListener(Again);
-        //    UIBtnAgain.gameObject.SetActive(false);
-        //}
+                
         StoryBookStart.instance.btnAgain.gameObject.SetActive(false);
-        StoryBookStart.instance.btnAgain.onClick.AddListener(Again);
-        //print(lstScenes.Count - 1);
+        StoryBookStart.instance.btnAgain.onClick.AddListener(Replay);
+        
         ins = this;
-        o = (GameObject)Instantiate(lstScenes[sceneIndex]);
+        sceneObject = Instantiate(lstScenes[sceneIndex]);       
+        
+        SetMyParent(sceneObject);       
 
-        SetMyParent(o);
-
-        lstPool.Add(o);
-        curr = o;
+        SetScale(sceneObject);
+        
+        lstPool.Add(sceneObject);
+        curr = sceneObject;
         sceneIndex++; //for the "next" object see Line 26
 
         try
         {
             //pool the next object
-            o = (GameObject)Instantiate(lstScenes[sceneIndex]);
+            sceneObject = Instantiate(lstScenes[sceneIndex]);
 
-            SetMyParent(o);
-
-            lstPool.Add(o);
-            next = o;
+            SetMyParent(sceneObject);
+            
+            SetScale(sceneObject);
+            
+            lstPool.Add(sceneObject);
+            next = sceneObject;
             next.SetActive(false);
         }
         catch (System.ArgumentOutOfRangeException ex)
@@ -74,15 +83,21 @@ public class SceneSpawner : MonoBehaviour
             print(ex.Message.ToUpper());
         }
         curr.SetActive(true);
-        subsMan.ShowSubs(0);
+        _subtitleManager.ShowSubs(0);
         //play text animation
 
         Trace();
     }
 
+    private void SetScale(GameObject sceneGameObject)
+    {
+        if(sceneGameObject.GetComponent<RectTransform>() != null)
+            sceneGameObject.transform.localScale = new Vector3(1, 1, 1);
+    }
+
     void SetMyParent(GameObject _object)
     {
-        _object.transform.SetParent(parent);
+        _object.transform.SetParent(parent);        
         _object.transform.SetAsFirstSibling();
     }
 
@@ -113,7 +128,7 @@ public class SceneSpawner : MonoBehaviour
                 {
                     //print("MUST PLAY");
                     curr.SetActive(true); /* play text animation */ //curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
-                    subsMan.ShowSubs(sceneIndex - 1);
+                    _subtitleManager.ShowSubs(sceneIndex - 1);
                 }
                 UI_SoundFX.ins.PlayUITurnPage();
                 //print("pressed prev " + sceneIndex);
@@ -188,12 +203,14 @@ public class SceneSpawner : MonoBehaviour
                     }
                     else if (!HasDuplicate(lstScenes[sceneIndex]))
                     {
-                        o = (GameObject)Instantiate(lstScenes[sceneIndex]);
+                        sceneObject = Instantiate(lstScenes[sceneIndex]);
 
-                        SetMyParent(o);
-
-                        lstPool.Add(o);
-                        next = o;
+                        SetMyParent(sceneObject);
+                        
+                        SetScale(sceneObject);
+                        
+                        lstPool.Add(sceneObject);
+                        next = sceneObject;
                     }
                 }
                 catch (System.ArgumentOutOfRangeException ex)
@@ -206,7 +223,7 @@ public class SceneSpawner : MonoBehaviour
                     if (curr != null)  /* play text animation */ //curr.GetComponent<StoryBookPlayer>().PlayTextAnimation();
                     {
                         curr.SetActive(true);
-                        subsMan.ShowSubs(sceneIndex - 1);
+                        _subtitleManager.ShowSubs(sceneIndex - 1);
                     }
 
                     if (next != null) next.SetActive(false);
@@ -231,9 +248,9 @@ public class SceneSpawner : MonoBehaviour
 
     }
 
-    public void Again()
+    public void Replay()
     {
-        subsMan.ShowSubs(sceneIndex - 1);
+        _subtitleManager.ShowSubs(sceneIndex - 1);
     }
 
     void Trace()

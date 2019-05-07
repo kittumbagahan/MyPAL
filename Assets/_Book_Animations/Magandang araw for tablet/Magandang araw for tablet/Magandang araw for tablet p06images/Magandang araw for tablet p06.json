@@ -1,0 +1,28 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"bg","bone":"root","attachment":"bg"},
+	{"name":"boy1","bone":"root","attachment":"boy1"},
+	{"name":"boy2","bone":"root","attachment":"boy2"},
+	{"name":"waving girl hand","bone":"root","attachment":"waving girl hand"},
+	{"name":"waving girl","bone":"root","attachment":"waving girl"},
+	{"name":"jumping boy","bone":"root","attachment":"jumping boy"},
+	{"name":"foreground kids","bone":"root","attachment":"foreground kids"},
+	{"name":"ballon 2","bone":"root","attachment":"ballon 2"},
+	{"name":"balloon 1","bone":"root","attachment":"balloon 1"}
+],
+"skins":{
+	"default":{
+		"balloon 1":{"balloon 1":{"x":758.5,"y":911,"width":609,"height":534}},
+		"ballon 2":{"ballon 2":{"x":1141.5,"y":251,"width":589,"height":434}},
+		"foreground kids":{"foreground kids":{"x":607,"y":173.5,"width":678,"height":347}},
+		"jumping boy":{"jumping boy":{"x":1572,"y":351,"width":276,"height":448}},
+		"waving girl":{"waving girl":{"x":1250,"y":434,"width":230,"height":424}},
+		"waving girl hand":{"waving girl hand":{"x":1145.5,"y":519.5,"width":169,"height":157}},
+		"boy2":{"boy2":{"x":479,"y":554.5,"width":154,"height":419}},
+		"boy1":{"boy1":{"x":711,"y":489,"width":270,"height":364}},
+		"bg":{"bg":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}
