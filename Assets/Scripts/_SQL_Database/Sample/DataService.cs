@@ -82,8 +82,8 @@ public static class DataService
     public static IEnumerable<StudentBookModel> GetStudentBooks()
     {
         return _connection.Table<StudentBookModel>();
-    }
-
+    }  
+    
 
     public static Person CreatePerson()
     {

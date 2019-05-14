@@ -339,10 +339,11 @@ public class MainNetwork : MonoBehaviour {
             else
                 NetworkObject.Flush(networker); //Called because we are already in the correct scene!                
 
-            // kit, is server
+            // kit, is server            
 			btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Stop";
 			btnTeacher.onClick.RemoveAllListeners ();
 			btnTeacher.onClick.AddListener (Quit);
+            ServerView.OpenMasterListUi();
             Debug.Log("Connected as server");            
         }  
 
@@ -383,6 +384,7 @@ public class MainNetwork : MonoBehaviour {
     {
         isServerFound = false;        
         mIpAddress = "";
+        ServerView.CloseMasterList();
     }
 
 	private void ResetNetwork()
