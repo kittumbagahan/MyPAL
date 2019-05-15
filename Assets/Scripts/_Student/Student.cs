@@ -48,6 +48,8 @@ public class Student : MonoBehaviour
       {
          Tammytam.ins.Say ("Let's read \n" + name.Split (' ')[3] + "!");
       }
+      
+      // tell server you are online
    }
 
    void LoadNo()
