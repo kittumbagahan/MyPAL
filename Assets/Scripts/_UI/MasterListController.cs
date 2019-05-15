@@ -16,11 +16,16 @@ public class MasterListController : MonoBehaviour
 	private void SetUp()
 	{
 		_studentModels = new Dictionary<int, StudentModel>();
-		
+
+		Subscribe();
+	}
+
+	private void Subscribe()
+	{
 		ServerView.OnOpenMasterList = OpenMasterList;
 		ServerView.OnCloseMasterList = CloseMasterList;
 	}
-	
+
 	private void OpenMasterList()
 	{
 		CreateStudentBlock();

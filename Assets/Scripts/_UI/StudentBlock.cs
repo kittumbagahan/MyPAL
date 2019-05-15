@@ -9,7 +9,7 @@ public class StudentBlock : MonoBehaviour
 
 	[SerializeField] private Text text;
 
-	private string networkStatus = NetworkStatus.Offline.ToString();		
+	private string _networkStatus = NetworkStatus.Offline.ToString();		
 		
 	public StudentModel StudentModel
 	{
@@ -30,20 +30,15 @@ public class StudentBlock : MonoBehaviour
 
 	public void SetViewOffline()
 	{
-		text.text = string.Format("{0}, {1} {2}. : {3}",
-			_studentModel.Lastname,
-			_studentModel.Givenname,
-			_studentModel.Middlename,
-			new Network().NetWorkStatus(NetworkStatus.Offline));
+		var networkText = new NetworkText();
+		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Offline);
 	}
-}
-
-public class Network
-{
-	public string NetWorkStatus(NetworkStatus status)
+	
+	public void SetViewOnline()
 	{
-		return status == NetworkStatus.Online ? "<color=#00ff00ff>Online</color>" : "<color=#ff0000ff>Offline</color>";
-	}
+		var networkText = new NetworkText();
+		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Online);	
+	}		
 }
 
 public enum NetworkStatus
