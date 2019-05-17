@@ -48,8 +48,11 @@ public class DbSyncNetwork : MonoBehaviour
     public Button btnReceiver, btnSender;
     [SerializeField]
     Text txtClientStat;
-    ClientSendFile mClientSendFile;    
+    ClientSendFile mClientSendFile;
 
+    [SerializeField] private Button homeButton;
+    [SerializeField] private Button backButton;
+    
     // kit
     public static DbSyncNetwork Instance;
     NetworkingPlayer player;
@@ -66,7 +69,9 @@ public class DbSyncNetwork : MonoBehaviour
         //  if (btn != null)
         //      _uiButtons.Add(btn);
         //}                                                    
-
+        
+        NavigationSetup();
+        
         mClientSendFile = GetComponent<ClientSendFile> ();
 
         if (Instance == null)
@@ -95,7 +100,15 @@ public class DbSyncNetwork : MonoBehaviour
             NetWorker.RefreshLocalUdpListings (mPort);
         }
     }
-
+    
+    private Navigation _navigation;
+    private void NavigationSetup()
+    {                
+        _navigation = new Navigation(Quit);
+        homeButton.onClick.AddListener(_navigation.LoadBookShelf);
+        backButton.onClick.AddListener(_navigation.Back);
+    }
+    
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)
     {
         Debug.Log ("Found endpoint: " + endpoint.Address + ":" + endpoint.Port);

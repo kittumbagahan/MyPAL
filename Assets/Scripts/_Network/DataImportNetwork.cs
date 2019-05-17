@@ -108,11 +108,12 @@ public class DataImportNetwork : MonoBehaviour
         RetrieveData();
     }
 
+    private Navigation _navigation;
     private void NavigationSetup()
     {
-        var navigation = new Navigation(Quit);
-        homeButton.onClick.AddListener(navigation.LoadBookShelf);
-        backButton.onClick.AddListener(navigation.Back);
+        _navigation = new Navigation(Quit);
+        homeButton.onClick.AddListener(_navigation.LoadBookShelf);
+        backButton.onClick.AddListener(_navigation.Back);
     }
 
     private void LocalServerLocated (NetWorker.BroadcastEndpoints endpoint, NetWorker sender)

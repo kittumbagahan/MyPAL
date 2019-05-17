@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SQLite4Unity3d;
 using UnityEngine;
 
 public class MasterListController : MonoBehaviour
 {
-	private Dictionary<int, StudentModel> _studentModels;
+	private static Dictionary<int, StudentBlock> _students;
 	
 	// Use this for initialization
 	void Start ()
@@ -15,7 +16,7 @@ public class MasterListController : MonoBehaviour
 
 	private void SetUp()
 	{
-		_studentModels = new Dictionary<int, StudentModel>();
+		_students = new Dictionary<int, StudentBlock>();
 
 		Subscribe();
 	}
@@ -48,10 +49,19 @@ public class MasterListController : MonoBehaviour
 			studentBlock.StudentModel = studentModel;
 			studentBlock.SetViewOffline();
 			
-			_studentModels.Add(studentModel.Id, studentModel);
+			_students.Add(studentModel.Id, studentBlock);
 		}
 
 		DataService.Close();
 	}
 
+	public static void StudentOnline(StudentModel studentModel)
+	{
+		_students[studentModel.Id].SetViewOnline();
+	}
+
+	public static void StudentOnlineActivity(StudentModel studentModel, string activity)
+	{
+		
+	}
 }

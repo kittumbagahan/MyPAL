@@ -38,7 +38,13 @@ public class StudentBlock : MonoBehaviour
 	{
 		var networkText = new NetworkText();
 		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Online);	
-	}		
+	}
+
+	public void SetViewOnlineActivity(string activity)
+	{
+		var networkText = new NetworkText();
+		text.text = networkText.SetNetworkViewActivity(_studentModel, activity);
+	}
 }
 
 public enum NetworkStatus

@@ -377,7 +377,7 @@ public class MainNetwork : MonoBehaviour {
 	{
 		get { return mClientSendFile; }
 	}
-
+    
     #region ADDITIONAL LOGIC
     bool isServerFound = false;
     private void Reset()
@@ -545,5 +545,12 @@ public class MainNetwork : MonoBehaviour {
         MessageBox.ins.ShowOk("Not connected to a network, please check your wifi.", MessageBox.MsgIcon.msgInformation, null);
     }
 
+
+    public void StudentOnline(StudentModel studentModel)
+    {
+        if (clientSendFile != null)        
+            clientSendFile.SendStudentOnline(studentModel);        
+    }
+    
     #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 public class Student : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class Student : MonoBehaviour
 
    void LoadYes()
    {
+      StudentOnline();              
+      
       StoryBookSaveManager.ins.activeUser = name;
       StoryBookSaveManager.ins.activeUser_id = id;
       StudentController.ins.Close ();
@@ -47,13 +50,22 @@ public class Student : MonoBehaviour
       else
       {
          Tammytam.ins.Say ("Let's read \n" + name.Split (' ')[3] + "!");
-      }
-      
-      // tell server you are online
+      }            
    }
 
    void LoadNo()
    {
 
+   }
+
+   private void StudentOnline()
+   {
+      // tell server you are online
+      DataService.Open();
+      StudentModel studentModel = DataService._connection.Table<StudentModel>().Where(student => student.Id == id)
+         .FirstOrDefault();
+      DataService.Close();      
+      
+      MainNetwork.Instance.StudentOnline(studentModel);
    }
 }
