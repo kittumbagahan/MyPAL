@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using _UI;
 
 public class StudentBlock : MonoBehaviour
 {	
 	private StudentModel _studentModel;
 
 	[SerializeField] private Text text;
-
+	[SerializeField] private Image networkImage;
+	
 	private string _networkStatus = NetworkStatus.Offline.ToString();		
 		
 	public StudentModel StudentModel
@@ -32,18 +34,22 @@ public class StudentBlock : MonoBehaviour
 	{
 		var networkText = new NetworkText();
 		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Offline);
+
+		networkImage.sprite = ServerView.Instance.Offline;
 	}
 	
 	public void SetViewOnline()
 	{
 		var networkText = new NetworkText();
-		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Online);	
+		text.text = networkText.SetNetworkView(_studentModel, NetworkStatus.Online);
+		
+		networkImage.sprite = ServerView.Instance.Online;
 	}
 
 	public void SetViewOnlineActivity(string activity)
 	{
 		var networkText = new NetworkText();
-		text.text = networkText.SetNetworkViewActivity(_studentModel, activity);
+		text.text = networkText.SetNetworkViewActivity(_studentModel, activity);				
 	}
 }
 

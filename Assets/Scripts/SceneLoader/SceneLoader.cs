@@ -115,8 +115,17 @@ public class SceneLoader : MonoBehaviour
          EmptySceneLoader.ins.sceneToLoad = name;
          //SceneManager.LoadSceneAsync(name);
          SceneManager.LoadSceneAsync ("empty");
-
+         
+         StudentOnline();
       }      
+   }
+
+   private static void StudentOnline()
+   {
+      DataService.Open();
+      var studentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+      DataService.Close();
+      MainNetwork.Instance.StudentOnline(studentModel);
    }
 
    void Fail()

@@ -55,8 +55,7 @@ public class AdminManager : MonoBehaviour {
     
     void UpdateMyPal()
     {        
-//        LoadScene("UpdateMyPAL");
-        SceneManager.LoadScene("UpdateMyPAL");
+        LoadScene("UpdateMyPAL");        
     }
     
     private void LoadScene(string sceneToLoad)

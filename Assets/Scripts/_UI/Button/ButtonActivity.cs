@@ -115,6 +115,9 @@ public class ButtonActivity : MonoBehaviour
       SaveTest.Set = index;
       SaveTest.module = module;
       SaveTest.storyBook = storyBook;
+
+      StudentOnlineActivity();
+
       //print("LOADING " + sceneToLoad);
       //BG_Music.ins.Mute();
       BG_Music.ins.SetToReadingVolume ();
@@ -127,6 +130,22 @@ public class ButtonActivity : MonoBehaviour
       //SceneLoader.instance.LoadStr(sceneToLoad);
       AddActivity ();
    }
+
+   private void StudentOnlineActivity()
+   {
+      DataService.Open();
+      var studentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+      DataService.Close();
+
+      var networkActivity = new NetworkActivity();
+      networkActivity.Activity = string.Format("{0} : {1}",
+         storyBook.ToString().Replace('_', ' '),
+         string.Format("{0} - {1}", module, buttonIndex + 1));
+      networkActivity.StudentModel = studentModel;
+      
+      MainNetwork.Instance.StudentOnlineActivity(networkActivity);
+   }
+
    IEnumerator IEClick()
    {
 

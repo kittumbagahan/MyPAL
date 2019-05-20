@@ -43,9 +43,24 @@ public class StoryBookStart : MonoBehaviour
       //reset the bg volume to original from reading volume 0.1f
       BG_Music.ins.SetVolume (0.5f);
       //BG_Music.ins.SetToReadingVolume();
+      
+      StudentOnlineActivity();
    }
 
-
+   private void StudentOnlineActivity()
+   {
+// tell server you are online                
+      var networkActivity = new NetworkActivity();
+        
+      DataService.Open();
+      networkActivity.StudentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+      DataService.Close();
+        
+      networkActivity.Activity = string.Format("Book : {0}", StoryBookSaveManager.ins.selectedBook.ToString().Replace('_', ' '));
+        
+      MainNetwork.Instance.StudentOnlineActivity(networkActivity);
+   }
+   
    public void DisableButtons()
    {
       for (int i = 0; i < btns.Length; i++)
@@ -168,12 +183,12 @@ public class StoryBookStart : MonoBehaviour
       {
          Debug.LogError ("The book url key downloaded from assetbundle not found.\n Download try downloading the book again from the launcher.");
       }
-      //Application.LoadLevel(name);
+      //Application.LoadLevel(name);         
 
       EmptySceneLoader.ins.sceneToLoad = name;
       SceneManager.LoadScene("empty");
       audSrc.PlayOneShot (audClipClick);
-   }
+   }  
 
    void Success()
    {

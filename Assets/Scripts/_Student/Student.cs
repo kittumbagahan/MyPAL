@@ -62,10 +62,9 @@ public class Student : MonoBehaviour
    {
       // tell server you are online
       DataService.Open();
-      StudentModel studentModel = DataService._connection.Table<StudentModel>().Where(student => student.Id == id)
-         .FirstOrDefault();
+      var studentModel = DataService.StudentModel(id);
       DataService.Close();      
       
-      MainNetwork.Instance.StudentOnline(studentModel);
+      MainNetwork.Instance.StudentOnline(studentModel);                        
    }
 }

@@ -13,6 +13,7 @@ using TMPro;
 
 using System.Net.Sockets;
 using System;
+using _UI;
 
 public class MainNetwork : MonoBehaviour {
 
@@ -155,7 +156,11 @@ public class MainNetwork : MonoBehaviour {
     private void Client_disconnected(NetWorker sender)
     {
         Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
-		MainThreadManager.Run(ResetNetwork);
+
+        MainThreadManager.Run(ResetNetwork);
+        
+        EmptySceneLoader.ins.sceneToLoad = "BookShelf";                
+		SceneManager.LoadScene("empty");
     }
 
     private void Client_serverAccepted(NetWorker sender)
@@ -343,7 +348,7 @@ public class MainNetwork : MonoBehaviour {
 			btnTeacher.GetComponentInChildren<TextMeshProUGUI>().text = "Stop";
 			btnTeacher.onClick.RemoveAllListeners ();
 			btnTeacher.onClick.AddListener (Quit);
-            ServerView.OpenMasterListUi();
+            ServerView.Instance.OpenMasterListUi();
             Debug.Log("Connected as server");            
         }  
 
@@ -384,7 +389,7 @@ public class MainNetwork : MonoBehaviour {
     {
         isServerFound = false;        
         mIpAddress = "";
-        ServerView.CloseMasterList();
+        ServerView.Instance.CloseMasterList();
     }
 
 	private void ResetNetwork()
@@ -550,6 +555,12 @@ public class MainNetwork : MonoBehaviour {
     {
         if (clientSendFile != null)        
             clientSendFile.SendStudentOnline(studentModel);        
+    }
+
+    public void StudentOnlineActivity(NetworkActivity activity)
+    {
+        if(clientSendFile != null)
+            clientSendFile.SendStudentOnlineActivity(activity);
     }
     
     #endregion

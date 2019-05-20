@@ -143,6 +143,9 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
+                    
+                    StudentOnlineActivity();
+
                     //print("print " + sceneToLoad);
                     StoryBookSaveManager.ins.selectedBook = selectedStoryBook;
                     //StoryBookSaveManager.instance. = sceneToLoad;
@@ -159,6 +162,20 @@ public class CarouItem : MonoBehaviour, IPointerClickHandler
 
         }
 
+    }
+
+    private void StudentOnlineActivity()
+    {
+// tell server you are online                
+        var networkActivity = new NetworkActivity();
+        
+        DataService.Open();
+        networkActivity.StudentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+        DataService.Close();
+        
+        networkActivity.Activity = string.Format("Book : {0}", selectedStoryBook.ToString().Replace('_', ' '));
+        
+        MainNetwork.Instance.StudentOnlineActivity(networkActivity);
     }
 
     IEnumerator IEClick()

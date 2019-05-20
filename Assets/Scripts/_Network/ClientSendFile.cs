@@ -17,6 +17,7 @@ using LitJson;
 using UnityEngine.Events;
 using _Assetbundle;
 using _AssetBundleServer;
+using _UI;
 using _Version;
 using Text = UnityEngine.UI.Text;
 
@@ -239,13 +240,21 @@ public class ClientSendFile : MonoBehaviour
         }
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnline)
         {
-            var studentModel = ConvertToObject<StudentModel>(frame.StreamData.CompressBytes());
-            MasterListController.StudentOnline(studentModel);
+            MainThreadManager.Run(() =>
+            {
+                var studentModel = ConvertToObject<StudentModel>(frame.StreamData.CompressBytes());
+                MasterListController.StudentOnline(studentModel);
+                Debug.Log(string.Format("online {0}", studentModel.Lastname)); 
+            });            
         }
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnlineActivity)
         {
-            var networkActivity = ConvertToObject<NetworkActivity>(frame.StreamData.CompressBytes());
-            MasterListController.StudentOnlineActivity(networkActivity.StudentModel, networkActivity.Activity);
+            MainThreadManager.Run(action: () =>
+            {
+                var networkActivity = ConvertToObject<NetworkActivity>(frame.StreamData.CompressBytes());
+                MasterListController.StudentOnlineActivity(networkActivity.StudentModel, networkActivity.Activity);
+                Debug.Log(string.Format("online {0}, activity {1}", networkActivity.StudentModel.Lastname, networkActivity.Activity));
+            });            
         }
         else
         {
@@ -683,7 +692,7 @@ public class ClientSendFile : MonoBehaviour
             false,                                      // We are server, no mask needed
             allData,                                    // The file that is being sent
             Receivers.Others,                           // Send to all clients
-            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOnline,   // Some random fake number
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOnlineActivity,   // Some random fake number
             networker is TCPServer);
 
         if (networker is UDPClient)

@@ -25,5 +25,20 @@ public class ActivitySelectionManager : MonoBehaviour {
 
         Debug.Log("CHECK OUT FOR THIS");
 		BG_Music.ins.SetVolume(0.5f);
+		
+		SelectActivity();
+	}
+	
+	private static void SelectActivity()
+	{
+		DataService.Open();
+		var studentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+		DataService.Close();
+
+		var networkActivity = new NetworkActivity();
+		networkActivity.Activity = string.Format("{0} : {1}",
+			StoryBookSaveManager.ins.selectedBook.ToString().Replace('_', ' '), "Activity Selection");
+		networkActivity.StudentModel = studentModel;
+		MainNetwork.Instance.StudentOnlineActivity(networkActivity);
 	}
 }

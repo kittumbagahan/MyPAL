@@ -96,4 +96,11 @@ public static class DataService
         _connection.Insert(p);
         return p;
     }
+
+    public static StudentModel StudentModel(int id)
+    {
+        return _connection.Table<StudentModel>()
+            .Where(student => student.Id == id)
+            .FirstOrDefault();
+    }
 }
