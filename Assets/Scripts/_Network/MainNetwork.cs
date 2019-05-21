@@ -553,12 +553,14 @@ public class MainNetwork : MonoBehaviour {
 
     public void StudentOnline(StudentModel studentModel)
     {
+        Debug.Log("StudentOnline");
         if (clientSendFile != null)        
             clientSendFile.SendStudentOnline(studentModel);        
     }
 
     public void StudentOnlineActivity(NetworkActivity activity)
     {
+        Debug.Log("StudentOnlineActivity");
         if(clientSendFile != null)
             clientSendFile.SendStudentOnlineActivity(activity);
     }

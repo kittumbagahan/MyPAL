@@ -116,7 +116,8 @@ public class SceneLoader : MonoBehaviour
          //SceneManager.LoadSceneAsync(name);
          SceneManager.LoadSceneAsync ("empty");
          
-         StudentOnline();
+         if(name == "BookShelf")
+            StudentOnline();
       }      
    }
 
