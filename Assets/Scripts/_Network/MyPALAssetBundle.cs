@@ -397,8 +397,7 @@ public class MyPALAssetBundle : MonoBehaviour
 
         if (getLocalNetworkConnections)
             NetWorker.EndSession ();
-
-        //if (server != null) server.Disconnect(true);
+        
         if (server != null) server.Disconnect (false);
     }
 

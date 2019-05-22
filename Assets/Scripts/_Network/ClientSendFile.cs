@@ -36,8 +36,9 @@ public class ClientSendFile : MonoBehaviour
         AssetBundle = 8,
         CSV = 9,
         FullSync = 10,
-        StudentOnline = 11,
-        StudentOnlineActivity = 12
+        StudentOffline = 11,
+        StudentOnline = 12,
+        StudentOnlineActivity = 13
     }
 
     int sentCount = 0; // should only be 2, for section and admin
@@ -69,6 +70,7 @@ public class ClientSendFile : MonoBehaviour
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.AssetBundle &&
+        frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOffline &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOnline &&
         frame.GroupId != MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOnlineActivity)
             return;                
@@ -238,6 +240,15 @@ public class ClientSendFile : MonoBehaviour
                 DownloadDialog(assetBundleManifest);
             });
         }
+        else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOffline)
+        {
+            MainThreadManager.Run(() =>
+            {
+                var studentModel = ConvertToObject<StudentModel>(frame.StreamData.CompressBytes());
+                MasterListController.StudentOffline(studentModel);
+                Debug.Log(string.Format("offline {0}", studentModel.Lastname)); 
+            });            
+        }
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnline)
         {
             MainThreadManager.Run(() =>
@@ -246,7 +257,7 @@ public class ClientSendFile : MonoBehaviour
                 MasterListController.StudentOnline(studentModel);
                 Debug.Log(string.Format("online {0}", studentModel.Lastname)); 
             });            
-        }
+        }        
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnlineActivity)
         {
             MainThreadManager.Run(action: () =>
@@ -613,6 +624,8 @@ public class ClientSendFile : MonoBehaviour
         // Throw an error if this is not the server
         var networker = NetworkManager.Instance.Networker;
 
+        networker.Me.Name = studentModel.Lastname;
+        
         // event when file is sent        
 
         if (networker.IsServer)
@@ -661,7 +674,61 @@ public class ClientSendFile : MonoBehaviour
 						
         //StringBuilder("sending file");
     }
+    
+    public void SendStudentOffline(StudentModel studentModel)
+    {
+        // Throw an error if this is not the server
+        var networker = NetworkManager.Instance.Networker;
 
+        // event when file is sent        
+
+        if (networker.IsServer)
+        {
+            Debug.LogError("Only the client can send files in this example!");
+            return;
+        }      
+
+        byte[] allData = { };
+
+
+        // convert pData as byte[]
+        BinaryFormatter binFormatter = new BinaryFormatter();
+        MemoryStream memStream = new MemoryStream ();
+        binFormatter.Serialize (memStream, studentModel);
+
+        allData = memStream.ToArray ();
+
+        Debug.Log ("allData " + allData.Length);		
+
+//        // Prepare a byte array for sending
+//        BMSByte allData = new BMSByte();        
+//
+//        // Add the file name to the start of the payload        
+//        ObjectMapper.Instance.MapBytes(allData);        
+
+        // Send the file to all connected clients
+        Binary frame = new Binary(
+            networker.Time.Timestep,                    // The current timestep for this frame
+            false,                                      // We are server, no mask needed
+            allData,                                    // The file that is being sent
+            Receivers.Others,                           // Send to all clients
+            MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOffline,   // Some random fake number
+            networker is TCPServer);
+
+//        if (networker is UDPServer)
+//            ((UDPServer)networker).Send(frame, true);
+//        else
+//            ((TCPServer)networker).SendAll(frame);
+
+        if (networker is UDPClient)
+            ((UDPClient)networker).Send (frame, true);
+        else
+            ((TCPClient)networker).Send (frame);
+		
+						
+        //StringBuilder("sending file");
+    }
+    
     public void SendStudentOnlineActivity(NetworkActivity networkActivity)
     {
         // Throw an error if this is not the server
