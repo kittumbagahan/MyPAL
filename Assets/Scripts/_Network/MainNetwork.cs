@@ -31,7 +31,7 @@ public class MainNetwork : MonoBehaviour {
 
     public GameObject networkManager = null;
     private NetworkManager mgr = null;
-    private NetWorker server, client, currentNetworker;
+    private NetWorker server, client;
 
     //private List<Button> _uiButtons = new List<Button>();
     private bool _matchmaking = false;
@@ -50,8 +50,7 @@ public class MainNetwork : MonoBehaviour {
 	ClientSendFile mClientSendFile;
 
     // kit
-    public static MainNetwork Instance;
-    NetworkingPlayer player;
+    public static MainNetwork Instance;    
 
     private void Start()
     {
@@ -150,17 +149,33 @@ public class MainNetwork : MonoBehaviour {
         client.serverAccepted += Client_serverAccepted;
         client.disconnected += Client_disconnected;        
 
-        Connected(client);
+        Connected(client);        
     }
 
     private void Client_disconnected(NetWorker sender)
+    {        
+        MainThreadManager.Run(Disconnect);                
+    }   
+    
+    private void Disconnect()
     {
         Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
 
-        MainThreadManager.Run(ResetNetwork);
-        
-        EmptySceneLoader.ins.sceneToLoad = "BookShelf";                
-		SceneManager.LoadScene("empty");
+        ResetNetwork();
+
+        StudentOffline();
+
+        EmptySceneLoader.ins.sceneToLoad = "BookShelf";
+        SceneManager.LoadScene("empty");
+    }
+
+    private static void StudentOffline()
+    {
+        DataService.Open();
+        var studentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
+        DataService.Close();
+
+        MainNetwork.Instance.StudentOffline(studentModel);
     }
 
     private void Client_serverAccepted(NetWorker sender)
@@ -256,8 +271,17 @@ public class MainNetwork : MonoBehaviour {
         server.playerConnected += Server_playerConnected;
         server.disconnected += Server_disconnected;
         server.playerAccepted += Server_playerAccepted;
+        server.playerDisconnected += ServerOnPlayerDisconnected;
         // kit, event                      
         Connected(server);                
+    }
+
+    private void ServerOnPlayerDisconnected(NetworkingPlayer networkingPlayer, NetWorker sender)
+    {
+        MainThreadManager.Run(() =>
+        {            
+            Debug.Log(string.Format("Player {0}, disconnected from server.", networkingPlayer.Ip));
+        });
     }
 
     private void Server_playerAccepted(NetworkingPlayer player, NetWorker sender)
@@ -305,10 +329,7 @@ public class MainNetwork : MonoBehaviour {
         {
             Debug.LogError("NetWorker failed to bind");
             return;
-        }
-
-        // current networker
-        currentNetworker = networker;
+        }       
 
         if (mgr == null && networkManager == null)
         {
@@ -364,6 +385,8 @@ public class MainNetwork : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
+        Disconnect();
+        
         Quit();        
     }
 
@@ -549,11 +572,15 @@ public class MainNetwork : MonoBehaviour {
     {
         MessageBox.ins.ShowOk("Not connected to a network, please check your wifi.", MessageBox.MsgIcon.msgInformation, null);
     }
-
-
-    public void StudentOnline(StudentModel studentModel)
+    
+    public void StudentOffline(StudentModel studentModel)
     {
         Debug.Log("StudentOnline");
+        if (clientSendFile != null)        
+            clientSendFile.SendStudentOffline(studentModel);        
+    }
+    public void StudentOnline(StudentModel studentModel)
+    {                
         if (clientSendFile != null)        
             clientSendFile.SendStudentOnline(studentModel);        
     }
