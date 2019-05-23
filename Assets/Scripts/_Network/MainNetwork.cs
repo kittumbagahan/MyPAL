@@ -152,7 +152,8 @@ public class MainNetwork : MonoBehaviour {
     private void Disconnect()
     {
         Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
-
+        
+        DestroyNetworkObject();
         ResetNetwork();       
 
         EmptySceneLoader.ins.sceneToLoad = "BookShelf";
@@ -386,9 +387,7 @@ public class MainNetwork : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        Disconnect();
-        
-        Quit();        
+        Quit();                            
     }
 
     void Quit()
@@ -399,13 +398,22 @@ public class MainNetwork : MonoBehaviour {
             NetWorker.EndSession();
 
         //if (server != null) server.Disconnect(true);
-        if (server != null) server.Disconnect(false);
-        
-        if(NetworkManager.Instance != null)
-            DestroyObject(NetworkManager.Instance.gameObject);
+        if (server != null)
+        {
+            server.Disconnect(false);
+            DestroyNetworkObject();
+        }                                
     }
 
-	public ClientSendFile clientSendFile
+    private void DestroyNetworkObject()
+    {
+        if (NetworkManager.Instance != null)
+            DestroyObject(NetworkManager.Instance.gameObject);
+
+        clientSendFile.enabled = false;
+    }
+
+    public ClientSendFile clientSendFile
 	{
 		get { return mClientSendFile; }
 	}

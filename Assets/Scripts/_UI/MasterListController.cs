@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting;
 using UnityEngine;
 
 namespace _UI
@@ -11,8 +14,8 @@ namespace _UI
 		void Start ()
 		{		
 			SetUp();
-		}
-
+		}	
+		
 		private void SetUp()
 		{
 			_students = new Dictionary<int, StudentBlock>();
@@ -24,6 +27,19 @@ namespace _UI
 		{
 			ServerView.Instance.OnOpenMasterList = OpenMasterList;
 			ServerView.Instance.OnCloseMasterList = CloseMasterList;
+			
+			ServerView.Instance.InputSearchStudent.onValueChanged.AddListener(SearchStudent);
+		}
+
+		private void SearchStudent(string value)
+		{			
+			foreach (var obj in _students)
+			{
+				if (value == null || value == "")
+					obj.Value.gameObject.SetActive(true);
+				else
+					obj.Value.gameObject.SetActive(obj.Value.StudentModel.Lastname.ToLower().Contains(value.ToLower()));
+			}		
 		}
 
 		private void OpenMasterList()

@@ -50,13 +50,23 @@ public class ClientSendFile : MonoBehaviour
 
     private void Start()
     {        
-        NetworkManager.Instance.Networker.binaryMessageReceived += ReceiveFile;
+        //NetworkManager.Instance.Networker.binaryMessageReceived += ReceiveFile;
         networkQueue = new Queue<NetworkData>();
 
         // create database connection
         //dataService = new DataService();
     }
-    
+
+    private void OnEnable()
+    {
+        NetworkManager.Instance.Networker.binaryMessageReceived += ReceiveFile;
+    }
+
+    private void OnDisable()
+    {
+        NetworkManager.Instance.Networker.binaryMessageReceived -= ReceiveFile;
+    }
+
     private void ReceiveFile(NetworkingPlayer player, Binary frame, NetWorker sender)
     {
         Debug.Log("frame group id:" + frame.GroupId);

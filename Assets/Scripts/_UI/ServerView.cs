@@ -22,6 +22,8 @@ namespace _UI
 		[SerializeField] private Sprite _online;
 		[SerializeField] private Sprite _offline;
 
+		[SerializeField] private InputField inputSearchStudent;
+		
 		public Sprite Online
 		{
 			get { return _online; }
@@ -32,11 +34,16 @@ namespace _UI
 			get { return _offline; }
 		}
 
+		public InputField InputSearchStudent
+		{
+			get { return inputSearchStudent; }
+		}
+
 		void Awake()
 		{
 			if (Instance == null)				
 				Instance = this;
-		}
+		}		
 
 		public GameObject StudentBlock
 		{
@@ -95,6 +102,6 @@ namespace _UI
 
 			if (OnCloseMasterList != null)
 				OnCloseMasterList();
-		}
+		}				
 	}
 }
