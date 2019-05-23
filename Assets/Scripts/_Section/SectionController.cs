@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using System.IO;
 using System;
 using System.Linq;
+using BeardedManStudios.Forge.Networking.Unity;
 
 public class SectionController : MonoBehaviour
 {
@@ -57,13 +58,73 @@ public class SectionController : MonoBehaviour
         // set teacher button
         if (MainNetwork.Instance != null)
             MainNetwork.Instance.Teacher ();
-
-      //Debug.Log("SECCTIONS NOT LOADed");
+      
       Debug.Log ("Load Sections!");
-      LoadSectionsSQL ();
+
+      //LoadSectionsSql();
+      LoadSection();
    }
 
-   public void LoadSectionsSQL()
+   private void LoadSection()
+   {
+      if (NetworkManager.Instance != null && !NetworkManager.Instance.IsServer)
+      {
+         Debug.Log(String.Format("Is server? {0}, server section: {1}",
+            NetworkManager.Instance.Networker.IsServer,
+            StoryBookSaveManager.ins.activeSection));
+
+         LoadSelectedSection(StoryBookSaveManager.ins.activeSection);
+         return;
+      }
+
+      LoadSectionsSql();
+   }
+
+   private void LoadSelectedSection(string sectionName)
+   {
+      DataService.Open ("system/admin.db");
+
+      var sections = DataService._connection.Table<AdminSectionsModel> ().Where(section => section.Description == sectionName);
+
+      for (int i = 0; i < btnSectionContainer.transform.childCount; i++)
+      {
+         Destroy (btnSectionContainer.transform.GetChild (i).gameObject);
+      }
+
+      foreach (var section in sections)
+      {
+         GameObject _obj = Instantiate (btnSectionPrefab);
+         Section _section = _obj.GetComponent<Section> ();
+         _section.UID = section.DeviceId;
+         _section.id = section.SectionId;
+         _section.name = section.Description;
+         _section.gradeLevel = section.GradeLevel;
+         if (_obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> () == null)
+         {
+            _obj.transform.GetChild (0).gameObject.AddComponent<TextMeshProUGUI> ();
+         }
+         _obj.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = _section.gradeLevel + " " + _section.name;
+         _obj.transform.SetParent (btnSectionContainer.transform);
+         currentMaxSection++;
+      }
+
+      if (btnSectionContainer.transform.childCount == 0)
+      {
+         btnEdit.gameObject.SetActive (false);
+      }
+      else
+      {
+         if (UserRestrictionController.ins.restriction == 0)
+         {
+            btnEdit.gameObject.SetActive (true);
+         }
+
+      }
+
+      DataService.Close ();
+   }
+   
+   public void LoadSectionsSql()
    {
       //DataService ds = new DataService();
       DataService.Open ("system/admin.db");
@@ -317,7 +378,7 @@ class UpdateSection
          DataService._connection.Execute ("Update SectionModel set Description='" + model.Description + "' where Id='" + model.Id + "'");
          MessageBox.ins.ShowOk ("Section name updated!", MessageBox.MsgIcon.msgInformation, null);
          SectionController.ins.editMode = false;
-         SectionController.ins.LoadSectionsSQL ();
+         SectionController.ins.LoadSectionsSql ();
          view.gameObject.SetActive (false);
          view.btnOK.onClick.RemoveAllListeners ();
 

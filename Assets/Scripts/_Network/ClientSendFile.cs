@@ -120,6 +120,8 @@ public class ClientSendFile : MonoBehaviour
                         // Write the rest of the payload as the contents of the file and
                         // use the file name that was extracted as the file's name 
                         File.WriteAllBytes(string.Format("{0}/{1}", Application.persistentDataPath, fileName), frame.StreamData.CompressBytes());
+                        
+                        StoryBookSaveManager.ins.activeSection = Path.GetFileNameWithoutExtension(fileName);
                     }                    
 
                     // check sent count
@@ -147,17 +149,7 @@ public class ClientSendFile : MonoBehaviour
             //MainThreadManager.Run(() => DataService.SetDbName(fileName));
             // load section selection
             //MainThreadManager.Run(MainNetwork.Instance.LoadSectionSelection);
-            #endregion
-
-            //MainThreadManager.Run(() =>
-            //{
-            //    Debug.Log("Sync enter");
-            //    NetworkModel networkModel = NetworkModelToObject(frame.StreamData.CompressBytes());
-
-            //    Debug.Log("Activity model, section count " + networkModel.lstActivityModel.Count);
-            //    Debug.Log("Student model, student count " + networkModel.lstStudentModel.Count);
-            //    Debug.Log("Sync exit");
-            //});
+            #endregion           
         } 
         else if(frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.FullSync)
         {
@@ -253,9 +245,13 @@ public class ClientSendFile : MonoBehaviour
         {
             MainThreadManager.Run(() =>
             {
+                Debug.Log(string.Format("student online with ip of: {0}", frame.Sender.Ip));
+                
                 var studentModel = ConvertToObject<StudentModel>(frame.StreamData.CompressBytes());
                 MasterListController.StudentOnline(studentModel);
-                Debug.Log(string.Format("online {0}", studentModel.Lastname)); 
+                Debug.Log(string.Format("online {0}", studentModel.Lastname));
+
+                MainNetwork.Instance.OnlineStudents[frame.Sender.Ip] = studentModel;
             });            
         }        
         else if (frame.GroupId == MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnlineActivity)
@@ -622,9 +618,7 @@ public class ClientSendFile : MonoBehaviour
     public void SendStudentOnline(StudentModel studentModel)
     {
         // Throw an error if this is not the server
-        var networker = NetworkManager.Instance.Networker;
-
-        networker.Me.Name = studentModel.Lastname;
+        var networker = NetworkManager.Instance.Networker;       
         
         // event when file is sent        
 

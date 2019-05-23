@@ -51,19 +51,11 @@ public class MainNetwork : MonoBehaviour {
 
     // kit
     public static MainNetwork Instance;    
-
+    
+    private readonly Dictionary<string, StudentModel> _onlineStudents = new Dictionary<string, StudentModel>();
+    
     private void Start()
-    {
-        //ipAddress.text = "127.0.0.1";
-        //portNumber.text = "15937";          
-
-        //for (int i = 0; i < ToggledButtons.Length; ++i)
-        //{
-        //	Button btn = ToggledButtons[i].GetComponent<Button>();
-        //	if (btn != null)
-        //		_uiButtons.Add(btn);
-        //}		                                               
-
+    {                                                      
         SceneManager.sceneLoaded += OnSceneLoaded;
 
 		mClientSendFile = GetComponent<ClientSendFile> ();
@@ -161,9 +153,7 @@ public class MainNetwork : MonoBehaviour {
     {
         Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
 
-        ResetNetwork();
-
-        StudentOffline();
+        ResetNetwork();       
 
         EmptySceneLoader.ins.sceneToLoad = "BookShelf";
         SceneManager.LoadScene("empty");
@@ -175,14 +165,14 @@ public class MainNetwork : MonoBehaviour {
         var studentModel = DataService.StudentModel(StoryBookSaveManager.ins.activeUser_id);
         DataService.Close();
 
-        MainNetwork.Instance.StudentOffline(studentModel);
+        Instance.StudentOffline(studentModel);
     }
 
     private void Client_serverAccepted(NetWorker sender)
     {
         Debug.Log(string.Format("{0} is connected to server", "Huehue"));
         //MainThreadManager.Run(() => SceneManager.LoadScene("Test"));
-        MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+        //MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
     }
 
     // kit, test
@@ -281,6 +271,8 @@ public class MainNetwork : MonoBehaviour {
         MainThreadManager.Run(() =>
         {            
             Debug.Log(string.Format("Player {0}, disconnected from server.", networkingPlayer.Ip));
+            
+            MasterListController.StudentOffline(OnlineStudents[networkingPlayer.Ip]);
         });
     }
 
@@ -288,11 +280,20 @@ public class MainNetwork : MonoBehaviour {
     {
         MainThreadManager.Run(() =>
         {
-            Debug.Log("player is accepted");
+            Debug.Log(string.Format("player is accepted, ip is: {0}", player.Ip));
             // send DB
             clientSendFile.SendDatabase(Application.persistentDataPath + "/" + DataService.ActiveDatabase(), ClientSendFile.MessageGroup.Sync);
             // send admin
             clientSendFile.SendDatabase(Application.persistentDataPath + "/system/admin.db", ClientSendFile.MessageGroup.Sync);
+
+            try
+            {
+                var student = _onlineStudents[player.Ip];
+            }
+            catch (KeyNotFoundException e)
+            {
+                _onlineStudents.Add(player.Ip, null);
+            }
         });        
     }
 
@@ -399,6 +400,9 @@ public class MainNetwork : MonoBehaviour {
 
         //if (server != null) server.Disconnect(true);
         if (server != null) server.Disconnect(false);
+        
+        if(NetworkManager.Instance != null)
+            DestroyObject(NetworkManager.Instance.gameObject);
     }
 
 	public ClientSendFile clientSendFile
@@ -591,6 +595,11 @@ public class MainNetwork : MonoBehaviour {
         if(clientSendFile != null)
             clientSendFile.SendStudentOnlineActivity(activity);
     }
-    
+
+    public Dictionary<string, StudentModel> OnlineStudents
+    {
+        get { return _onlineStudents; }        
+    }
+
     #endregion
 }
