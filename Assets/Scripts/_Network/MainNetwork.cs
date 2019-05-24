@@ -154,10 +154,13 @@ public class MainNetwork : MonoBehaviour {
         Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
         
         DestroyNetworkObject();
-        ResetNetwork();       
+        ResetNetwork();
 
-        EmptySceneLoader.ins.sceneToLoad = "BookShelf";
-        SceneManager.LoadScene("empty");
+        if (SceneManager.GetActiveScene().name != "BookShelf")
+        {
+            EmptySceneLoader.ins.sceneToLoad = "BookShelf";
+            SceneManager.LoadScene("empty");   
+        }        
     }
 
     private static void StudentOffline()

@@ -171,8 +171,17 @@ public class MyPALAssetBundle : MonoBehaviour
     private void Client_disconnected (NetWorker sender)
     {
         Debug.Log (string.Format ("{0} is disconnected from server", "Huehue"));
-        MainThreadManager.Run (ResetNetwork);
+        MainThreadManager.Run (Disconnect);
     }
+
+    private void Disconnect()
+    {
+        Debug.Log(string.Format("{0} is disconnected from server", "Huehue"));
+                
+        DestroyNetworkObject();
+        ResetNetwork();
+    }
+
 
     private void Client_serverAccepted (NetWorker sender)
     {
@@ -393,14 +402,27 @@ public class MyPALAssetBundle : MonoBehaviour
 
     void Quit ()
     {
-        Debug.Log ("Quit");
+        Debug.Log("Quit");
 
         if (getLocalNetworkConnections)
-            NetWorker.EndSession ();
-        
-        if (server != null) server.Disconnect (false);
+            NetWorker.EndSession();
+
+        //if (server != null) server.Disconnect(true);
+        if (server != null)
+        {
+            server.Disconnect(false);
+            DestroyNetworkObject();
+        }
     }
 
+    private void DestroyNetworkObject()
+    {
+        if (NetworkManager.Instance != null)
+            DestroyObject(NetworkManager.Instance.gameObject);
+
+        clientSendFile.enabled = false;
+    }
+    
     public ClientSendFile clientSendFile
     {
         get { return mClientSendFile; }

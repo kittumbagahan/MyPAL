@@ -40,7 +40,9 @@ public class ClientSendFile : MonoBehaviour
         StudentOnline = 12,
         StudentOnlineActivity = 13
     }
-
+    
+    //private readonly Dictionary<MessageGroup>
+    
     int sentCount = 0; // should only be 2, for section and admin
     int currentCount = 0;
 
