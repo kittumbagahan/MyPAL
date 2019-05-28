@@ -47,6 +47,7 @@ public class MainNetwork : MonoBehaviour {
     private ushort mPort = 14937;
     private string mIpAddress = "127.0.0.1";
     [SerializeField] Button btnTeacher, btnStudent;
+    [SerializeField] private GameObject panelConnecting;
 	ClientSendFile mClientSendFile;
 
     // kit
@@ -183,6 +184,12 @@ public class MainNetwork : MonoBehaviour {
     public void LoadSectionSelection()
     {
         MainThreadManager.Run(() => btnStudent.GetComponent<StudentLogIn>().LogIn());
+        PanelConnect(false);
+    }
+
+    private void PanelConnect(bool isEnabled)
+    {
+        panelConnecting.SetActive(isEnabled);
     }
 
     public void ConnectToMatchmaking()
@@ -445,38 +452,23 @@ public class MainNetwork : MonoBehaviour {
             btnStudent.onClick.RemoveAllListeners();
             btnStudent.onClick.AddListener(AsStudent);
             btnStudent.GetComponentInChildren<Text> ().text = "I'm a Student";
+            
+            PanelConnect(false);
         }						                       
 	}
 
     private void OnEnable()
-    {
-        // find teacher and student button
-        Debug.Log ("On enable");
-        //btnTeacher = GameObject.FindGameObjectWithTag ("Teacher").GetComponent<Button> ();
-        //Debug.Log ("Find teacher button");
-
-        //btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
-        //Debug.Log ("Find student button");
-
-        //if (btnStudent == null)
-        //{
-        //    Debug.Log ("Find student button");
-        //    btnStudent = GameObject.FindGameObjectWithTag ("Student").GetComponent<Button> ();
-        //    btnStudent.onClick.RemoveAllListeners ();
-        //    btnStudent.onClick.AddListener (AsStudent);
-        //    Debug.Log (btnStudent);
-        //}
-
-        Debug.Log ("Find student button");
+    {        
+        Debug.Log ("On enable");               
+        Debug.Log ("Find student button");        
+     
         btnStudent = GameObject.FindGameObjectWithTag("Student").GetComponent<Button>();
         btnStudent.onClick.RemoveAllListeners();
         btnStudent.onClick.AddListener(AsStudent);
         Debug.Log(btnStudent);
 
-        NetWorker.localServerLocated += TestLocalServerFind;
-        	
+        NetWorker.localServerLocated += TestLocalServerFind;        	
     }
-
 
     // called by SectionController
     public void Teacher()
@@ -528,7 +520,9 @@ public class MainNetwork : MonoBehaviour {
             btnTeacher.GetComponent<Button>().interactable = false;
 
         btnStudent.GetComponentInChildren<Text>().text = "Stop";
-
+    
+        PanelConnect(true);
+        
         btnStudent.onClick.RemoveAllListeners();
         btnStudent.onClick.AddListener(() =>
         {

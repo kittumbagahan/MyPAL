@@ -69,6 +69,7 @@ MonoBehaviour:
   mPort: 14937
   btnTeacher: {fileID: 0}
   btnStudent: {fileID: 0}
+  panelConnecting: {fileID: 0}
 --- !u!114 &114987275251120190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,4 +81,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b45401dc3dc424a95dfd6439c83f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtTest: {fileID: 0}
+  _downloadDialog: {fileID: 0}

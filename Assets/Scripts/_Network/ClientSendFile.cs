@@ -55,21 +55,42 @@ public class ClientSendFile : MonoBehaviour
 
     private void GenerateMessages()
     {
+        SetDataBaseSyncMessage();
+        SetAssetBundleMessage();
+        SetStudentMessage();
+        SetDataBaseMessage();
+    }
+
+    private void SetStudentMessage()
+    {
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOffline,
+            new StudentOfflineMessage());
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnline, new StudentOnlineMessage());
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.StudentOnlineActivity,
+            new StudentOnlineActivity());
+    }
+
+    private void SetDataBaseSyncMessage()
+    {
         var sync = new SyncMessage();
         _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Sync, sync);
         _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.FullSync, sync);
-        
+    }
+
+    private void SetAssetBundleMessage()
+    {
         _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.AssetBundle,
             new AssetBundleMessage(_downloadDialog));
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOffline, new StudentOfflineMessage());
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.StudentOffline, new StudentOnlineMessage());
-        
+    }
+
+    private void SetDataBaseMessage()
+    {
         var dataBaseMessage = new DataBaseMessage();
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Insert, dataBaseMessage);
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Update, dataBaseMessage);
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadCount, dataBaseMessage);
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateAutoReadCount, dataBaseMessage);
-        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Book_UpdateReadToMeCount, dataBaseMessage);
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Insert, dataBaseMessage);
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Update, dataBaseMessage);
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Book_UpdateReadCount, dataBaseMessage);
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Book_UpdateAutoReadCount, dataBaseMessage);
+        _messages.Add(MessageGroupIds.START_OF_GENERIC_IDS + (int) MessageGroup.Book_UpdateReadToMeCount, dataBaseMessage);
     }
 
     private void OnEnable()
@@ -88,8 +109,15 @@ public class ClientSendFile : MonoBehaviour
         Debug.Log("Message group id of sync, " + MessageGroupIds.START_OF_GENERIC_IDS + (int)MessageGroup.Sync);
 
         MainThreadManager.Run(() =>
-        {                
-            MainThreadManager.Run(() => _messages[frame.GroupId].Send(player, frame, sender));
+        {
+            try
+            {
+                _messages[frame.GroupId].Send(player, frame, sender);
+            }
+            catch (KeyNotFoundException e)
+            {
+                Console.WriteLine(e.Message);                
+            }            
         });     
     }                 
 
