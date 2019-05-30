@@ -92,7 +92,7 @@ public class ApkInstall : MonoBehaviour
 		{
 			AndroidJavaClass intentObj = new AndroidJavaClass("android.content.Intent");									
 			string ACTION_VIEW = intentObj.GetStatic<string>("ACTION_VIEW");
-			int FLAG_ACTIVITY_NEW_TASK = intentObj.GetStatic<int>("FLAG_ACTIVITY_NEW_TASK");
+			int FLAG_ACTIVITY_NEW_TASK = intentObj.GetStatic<int>("FLAG_ACTIVITY_CLEAR_TOP");
 			AndroidJavaObject intent = new AndroidJavaObject("android.content.Intent", ACTION_VIEW);
 
 			AndroidJavaObject fileObj = new AndroidJavaObject("java.io.File", _path);
@@ -100,9 +100,7 @@ public class ApkInstall : MonoBehaviour
 			AndroidJavaObject uri = uriObj.CallStatic<AndroidJavaObject>("fromFile", fileObj);
 
 			intent.Call<AndroidJavaObject>("setDataAndType", uri, "application/vnd.android.package-archive");
-			intent.Call<AndroidJavaObject>("addFlags", FLAG_ACTIVITY_NEW_TASK);
-			intent.Call<AndroidJavaObject>("setClassName", "com.android.packageinstaller",
-				"com.android.packageinstaller.PackageInstallerActivity");
+			intent.Call<AndroidJavaObject>("setFlags", FLAG_ACTIVITY_NEW_TASK);
 
 			AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 			AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
