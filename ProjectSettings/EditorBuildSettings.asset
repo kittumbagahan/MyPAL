@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/Scene/AssetBundleServer.unity
     guid: ae3c0e860c831134384131c3f0ea93fc
   - enabled: 1
+    path: Assets/Scene/Admin.unity
+    guid: 787ebf0d9c18844a6a13573694433535
+  - enabled: 1
     path: Assets/Scene/Main.unity
     guid: ff87b8f2400f49d44a4c576cda0dba72
   - enabled: 1
-    path: Assets/Scene/empty.unity
-    guid: 5c3fb1cdff8874c3396a1e9d7a0c8b30
-  - enabled: 1
-    path: Assets/Scene/Admin.unity
-    guid: 787ebf0d9c18844a6a13573694433535
+    path: Assets/Scene/UpdateMyPAL.unity
+    guid: 5ce9ce20d1df6b24480e3c05fe38cead
   - enabled: 1
     path: Assets/Scene/DBSyncReceive.unity
     guid: a16779795a93e4eb188d9d7b9b83878b
@@ -27,8 +27,8 @@ EditorBuildSettings:
     path: Assets/Scene/DataExporter.unity
     guid: 82f139f05cf1847d8a273805b40a7a04
   - enabled: 1
-    path: Assets/Scene/UpdateMyPAL.unity
-    guid: 5ce9ce20d1df6b24480e3c05fe38cead
-  - enabled: 1
     path: Assets/Scene/others/BookShelf.unity
     guid: 8abef7c0ffbeb417cb63e630be496d14
+  - enabled: 1
+    path: Assets/Scene/empty.unity
+    guid: 5c3fb1cdff8874c3396a1e9d7a0c8b30

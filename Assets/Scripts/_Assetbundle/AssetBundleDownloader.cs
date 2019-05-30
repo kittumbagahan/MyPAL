@@ -21,62 +21,55 @@ namespace _Assetbundle
 			get { return Path.Combine(_assetBundleManifest.url, _assetBundleManifest.version); }
 		}
 		
-		public AssetBundleDownloader DownloadAssetBundle([NotNull] AssetBundleManifest assetBundleManifest, [NotNull] AssetBundleList assetBundleList, [NotNull] DownloadDialog downloadDialog)
+		public AssetBundleDownloader DownloadAssetBundle([NotNull] AssetBundleManifest assetBundleManifest,
+			[NotNull] DownloadDialog downloadDialog)
 		{
-			Setup(assetBundleManifest, assetBundleList, downloadDialog);
+			Setup(assetBundleManifest, downloadDialog);
 
-			StartCoroutine(DownloadAssetBundle_());
+			StartCoroutine(DownloadApk_());
 
 			return this;
 		}
 
-		private void Setup(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList,
+		private void Setup(AssetBundleManifest assetBundleManifest,
 			DownloadDialog downloadDialog)
 		{						
-			_assetBundleManifest = assetBundleManifest;
-			_assetBundleList = assetBundleList;
+			_assetBundleManifest = assetBundleManifest;				
 			_downloadDialog = downloadDialog;
 
 			_downloadDialog.gameObject.SetActive(true);
 			_downloadDialog.AssetBeingDownloaded.text = "";			
 		}
 
-		IEnumerator DownloadAssetBundle_()
-		{
-			var completed = 0;
-			for (int index = 0; index < _assetBundleList.assetBundles.Count; index++)
-			{
-				var unityWebRequest = UnityWebRequest(index);							
-				unityWebRequest.SendWebRequest();	
+		IEnumerator DownloadApk_()
+		{			
+			var unityWebRequest = UnityWebRequest(_assetBundleManifest.apkFile);							
+			unityWebRequest.SendWebRequest();	
 			
-				SetAssetBeingDownloaded(index);
+			SetAssetBeingDownloaded(_assetBundleManifest.apkFile);
 				
-				while (!unityWebRequest.isDone)
-				{										
-					yield return unityWebRequest;
+			while (!unityWebRequest.isDone)
+			{										
+				yield return unityWebRequest;
 
-					AssetBundleProgress(unityWebRequest);
-					TotalAssetBundleProgress(completed, _assetBundleList.assetBundles.Count);
-					if (unityWebRequest.isDone)																											
-						break;														
-				}					
+				AssetBundleProgress(unityWebRequest);
+				
+				if (unityWebRequest.isDone)																											
+					break;														
+			}					
+			
 
-				//TotalAssetBundleProgress(completed++, _assetBundleList.assetBundles.Count);
-
-				if(unityWebRequest.isNetworkError || unityWebRequest.isHttpError)
-					print(unityWebRequest.error);
-
-				completed++;
-			}
+			if(unityWebRequest.isNetworkError || unityWebRequest.isHttpError)
+				print(unityWebRequest.error);
 
 			DownloadComplete();
 			
 			print("All asset bundles downloaded");
 		}
 
-		private void SetAssetBeingDownloaded(int index)
+		private void SetAssetBeingDownloaded(string fileName)
 		{
-			_downloadDialog.AssetBeingDownloaded.text = string.Format("Downloading {0}.", _assetBundleList.assetBundles[index]);
+			_downloadDialog.AssetBeingDownloaded.text = string.Format("Downloading {0}.", fileName);
 		}
 
 		private void DownloadComplete()
@@ -89,20 +82,14 @@ namespace _Assetbundle
 			_downloadDialog.gameObject.SetActive(false	);
 		}
 
-		private UnityWebRequest UnityWebRequest(int index)
+		private UnityWebRequest UnityWebRequest(string fileName)
 		{
-			var file = Path.Combine(FilePath, _assetBundleList.assetBundles[index]);
+			var file = Path.Combine(FilePath, fileName);
 			var unityWebRequest = new UnityWebRequest(file, UnityEngine.Networking.UnityWebRequest.kHttpVerbGET);
 			var destinationPath = CheckDirectory() + Path.GetFileName(file);
 			var downloadHandlerFile = new DownloadHandlerFile(destinationPath);
 			unityWebRequest.downloadHandler = downloadHandlerFile;
 			return unityWebRequest;
-		}
-
-		private void TotalAssetBundleProgress(int completed, int totalAssets)
-		{			
-			_downloadDialog.TotalAssetBundleProgressText.text = string.Format("{0}/{1}", completed, totalAssets);
-			_downloadDialog.TotalAssetBundleProgress.fillAmount = (((float) completed / totalAssets));
 		}
 
 		private void AssetBundleProgress(UnityWebRequest unityWebRequest)
@@ -114,15 +101,15 @@ namespace _Assetbundle
 		private string CheckDirectory()
 		{			
 			#if UNITY_EDITOR
-				if(!Directory.Exists(Application.dataPath + "/AssetBundles/"))
-					Directory.CreateDirectory(Application.dataPath + "/AssetBundles/");
+				if(!Directory.Exists(Application.dataPath + "/Apk/"))
+					Directory.CreateDirectory(Application.dataPath + "/Apk/");
 				
-				return Application.dataPath + "/AssetBundles/";
+				return Application.dataPath + "/Apk/";
 #elif UNITY_ANDROID
-				if(!Directory.Exists(Application.persistentDataPath + "/AssetBundles/"))
-					Directory.CreateDirectory(Application.persistentDataPath + "/AssetBundles/");
+				if(!Directory.Exists(Application.persistentDataPath + "/Apk/"))
+					Directory.CreateDirectory(Application.persistentDataPath + "/Apk/");
 
-				return Application.persistentDataPath + "/AssetBundles/";
+				return Application.persistentDataPath + "/Apk/";
 #endif
 		}
 	}

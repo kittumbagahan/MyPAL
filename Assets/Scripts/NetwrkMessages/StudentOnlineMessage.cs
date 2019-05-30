@@ -11,7 +11,7 @@ public class StudentOnlineMessage : INetworkMessage {
 	{
 		Debug.Log(string.Format("student online with ip of: {0}", frame.Sender.Ip));
                 
-		var studentModel = ByteToObject.ConvertToObject<StudentModel>(frame.StreamData.CompressBytes());
+		var studentModel = ByteToObject.ConvertTo<StudentModel>(frame.StreamData.CompressBytes());
 		MasterListController.StudentOnline(studentModel);
 		Debug.Log(string.Format("online {0}", studentModel.Lastname));
 

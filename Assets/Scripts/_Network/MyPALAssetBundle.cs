@@ -192,15 +192,7 @@ public class MyPALAssetBundle : MonoBehaviour
         //{
         //    btnReceiver.GetComponent<Text> ().text = "Disconnect";
         //});
-    }
-
-    public void SendData ()
-    {
-        MainThreadManager.Run (() =>
-        {
-
-        });
-    }
+    }   
 
     public void Host ()
     {

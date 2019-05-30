@@ -24,7 +24,7 @@ public class AssetBundleDownloaderTests {
         progressBar.type = Image.Type.Filled;
         progressBar.fillMethod = Image.FillMethod.Horizontal;
         
-        assetBundleDownloader.DownloadAssetBundle(assetBundleManifest, assetBundleList, downloadDialog);
+        assetBundleDownloader.DownloadAssetBundle(assetBundleManifest, downloadDialog);
         yield return new WaitForSeconds(5);        
     }   
 }

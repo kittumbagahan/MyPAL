@@ -16,20 +16,20 @@ public class DownloadDialog : MonoBehaviour
 		get { return assetBundleProgress; }
 	}
 
-	public Image TotalAssetBundleProgress
-	{
-		get { return totalAssetBundleProgress; }
-	}
+//	public Image TotalAssetBundleProgress
+//	{
+//		get { return totalAssetBundleProgress; }
+//	}
 
 	public Text AssetBundleProgressText
 	{
 		get { return assetBundleProgressText; }
 	}
 
-	public Text TotalAssetBundleProgressText
-	{
-		get { return totalAssetBundleProgressText; }
-	}
+//	public Text TotalAssetBundleProgressText
+//	{
+//		get { return totalAssetBundleProgressText; }
+//	}
 
 	public Text AssetBeingDownloaded
 	{

@@ -9,49 +9,7 @@ public class EmptySceneManager : MonoBehaviour
     void Start()
     {
         LoadScene();
-    }
-
-//    private static void GetAssetBundleScene()
-//    {       
-//#if UNITY_EDITOR
-//        var url = Path.Combine(Application.dataPath + @"\AssetBundles\",
-//            EmptySceneLoader.ins.sceneToLoad.ToLower());
-//#elif UNITY_ANDROID
-//        var url = Path.Combine(Application.persistentDataPath + @"\AssetBundles\", 
-//            EmptySceneLoader.ins.sceneToLoad.ToLower());
-//#endif
-//        
-//        Debug.Log(string.Format("URL: {0}",url));
-//        
-//        if (_assetBundle != null)
-//            _assetBundle.Unload(false);
-//    
-//        _assetBundle = AssetBundle.LoadFromFile(url);
-//
-//        if (_assetBundle == null)
-//        {
-//            Debug.Log("Failed to load assetbundle");
-//            SceneManager.LoadScene("Admin");
-//            return;
-//        }
-//
-//        var scenes = _assetBundle.GetAllScenePaths();
-//
-//        if (scenes.Length <= 0)
-//        {
-//            Debug.Log("No scene loaded");
-//            return;
-//            //assetBundle.Unload (false);
-//        }
-//        
-//        // scene asset bundle contains only 1 scene each;
-//        var sceneName = scenes[0];
-//        
-//        Debug.Log("Load Scene :" + sceneName);
-//        Debug.Log("Scene count: " + _assetBundle.GetAllScenePaths().Length);
-//        
-//        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-//    }
+    }   
 
     private void LoadScene()
     {

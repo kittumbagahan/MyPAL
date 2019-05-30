@@ -23,7 +23,7 @@ public class DataBaseMessage : INetworkMessage
                     (int)ClientSendFile.MessageGroup.Update));
                 Debug.Log(string.Format("Message group {0}", frame.GroupId));
 
-                NetworkData networkData = ByteToObject.ConvertToObject<NetworkData>(frame.StreamData.CompressBytes());
+                NetworkData networkData = ByteToObject.ConvertTo<NetworkData>(frame.StreamData.CompressBytes());
                 // add to queue for execution
                 _networkQueue.Enqueue(networkData);
 

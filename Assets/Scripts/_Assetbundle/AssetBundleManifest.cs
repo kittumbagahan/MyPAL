@@ -4,12 +4,9 @@ using UnityEngine;
 
 [Serializable]
 public class AssetBundleManifest
-{
-
-	[SerializeField]
-	public string url;
-	[SerializeField]
-	public string version;	
-	[SerializeField] public string assetBundleJson;
-	[SerializeField] public string bookAndActivityJson;
+{	
+	public string url;	
+	public string version;		
+	public string bookAndActivityJson;
+	public string apkFile;
 }

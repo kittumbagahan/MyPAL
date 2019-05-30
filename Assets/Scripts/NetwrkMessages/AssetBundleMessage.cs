@@ -9,8 +9,11 @@ using _AssetBundleServer;
 using _Version;
 
 public class AssetBundleMessage : INetworkMessage {
+	
 	private readonly DownloadDialog _downloadDialog;
 
+	private AssetBundleManifest _assetBundleManifest;
+	
 	public AssetBundleMessage(DownloadDialog downloadDialog)
 	{
 		_downloadDialog = downloadDialog;
@@ -18,7 +21,7 @@ public class AssetBundleMessage : INetworkMessage {
 	
 	public void Send(NetworkingPlayer player, Binary frame, NetWorker sender)
 	{
-		var assetBundleManifest = ByteToObject.ConvertToObject<AssetBundleManifest>(frame.StreamData.CompressBytes());
+		var assetBundleManifest = ByteToObject.ConvertTo<AssetBundleManifest>(frame.StreamData.CompressBytes());
                 
 		Debug.Log("Got message");                
 		Debug.Log(string.Format("Get url {0}.\n Get version {1}.\n", assetBundleManifest.url, assetBundleManifest.version));
@@ -28,25 +31,25 @@ public class AssetBundleMessage : INetworkMessage {
 	
 	private void DownloadDialog(AssetBundleManifest assetBundleManifest)
 	{
-		var assetBundleList = JsonMapper.ToObject<AssetBundleList>(assetBundleManifest.assetBundleJson);                              
-
-		if (VersionChecker.IsNewVersionGreater(assetBundleManifest.version))
+		_assetBundleManifest = assetBundleManifest;
+		
+		if (VersionChecker.IsNewVersionGreater(_assetBundleManifest.version))
 		{
 			MessageBox.ins.ShowOk("Newer version found. Please confirm download.", MessageBox.MsgIcon.msgInformation,
-				() => Download(assetBundleManifest, assetBundleList));
+				() => Download());
 		}
 	}
 	
-	private void Download(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
+	private void Download()
 	{
-		if (assetBundleManifest.bookAndActivityJson != null)
+		if (_assetBundleManifest.bookAndActivityJson != null)
 		{
 			var bookAndActivityList =
-				JsonMapper.ToObject<List<BookAndActivityData>>(assetBundleManifest.bookAndActivityJson);
+				JsonMapper.ToObject<List<BookAndActivityData>>(_assetBundleManifest.bookAndActivityJson);
 			CreateBookAndActivityData(bookAndActivityList);
 		}
 
-		DownloadAssetBundle(assetBundleManifest, assetBundleList);
+		DownloadAssetBundle();
 	}
 	
 	private void CreateBookAndActivityData(List<BookAndActivityData> bookAndActivityData)
@@ -54,15 +57,21 @@ public class AssetBundleMessage : INetworkMessage {
 		BookAndActivity.NewBookAndActivity(bookAndActivityData);
 	}
 	
-	private void DownloadAssetBundle(AssetBundleManifest assetBundleManifest, AssetBundleList assetBundleList)
+	private void DownloadAssetBundle()
 	{
-		GameObject.FindObjectOfType<AssetBundleDownloader>().DownloadAssetBundle(assetBundleManifest, assetBundleList, _downloadDialog)
-			.onDownloadComplete += () => DownloadComplete(assetBundleManifest.version);
+		GameObject.FindObjectOfType<AssetBundleDownloader>().DownloadAssetBundle(_assetBundleManifest, _downloadDialog)
+			.onDownloadComplete += () => DownloadComplete(_assetBundleManifest.version);
 	}
 	
 	private void DownloadComplete(string newVersion)
 	{        
 		VersionChecker.SetNewVersion(newVersion);
-		MessageBox.ins.ShowOk("MyPAL update complete", MessageBox.MsgIcon.msgInformation, null);
+		MessageBox.ins.ShowOk("MyPAL update complete.\nInstallation will now proceed.", MessageBox.MsgIcon.msgInformation, InstallApk);
+	}
+
+	private void InstallApk()
+	{
+		var apkInstall = new ApkInstall(Application.persistentDataPath + "/Apk/MyPAL.apk");
+		apkInstall.Install();
 	}
 }
