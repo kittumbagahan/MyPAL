@@ -63,7 +63,7 @@ public class ApkInstall
 		}
 		catch (System.Exception e)
 		{
-			ErrorMessage();
+			ErrorMessage(e.Message);
 			return false;
 		}
 	
@@ -94,13 +94,13 @@ public class ApkInstall
 		}
 		catch (System.Exception e)
 		{
-			ErrorMessage();		
+			ErrorMessage(e.Message);		
 			return false;
 		}
 	}
 
-	private void ErrorMessage()
+	private void ErrorMessage(string message)
 	{
-		MessageBox.ins.ShowOk(string.Format("Error: {0}", e.Message), MessageBox.MsgIcon.msgError, null);
+		MessageBox.ins.ShowOk(string.Format("Error: {0}", message), MessageBox.MsgIcon.msgError, null);
 	}
 }

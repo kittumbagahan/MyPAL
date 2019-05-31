@@ -59,8 +59,8 @@ public class ButtonActivity : MonoBehaviour
       {
          //storyBook = Singleton.SelectedBook;
          storyBook = StoryBookSaveManager.ins.selectedBook;
-         index = Read.instance.SceneIndex (storyBook, module, buttonIndex);
-         sceneToLoad = Read.instance.SceneName (storyBook, module, buttonIndex);
+         index = Read.Instance.SceneIndex (storyBook, module, buttonIndex);
+         sceneToLoad = Read.Instance.SceneName (storyBook, module, buttonIndex);
 
          DataService.Open ();
          string bookname = storyBook.ToString ();

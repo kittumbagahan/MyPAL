@@ -583,21 +583,19 @@ public class MainNetwork : MonoBehaviour {
     }
     
     public void StudentOffline(StudentModel studentModel)
-    {
-        Debug.Log("StudentOnline");
-        if (clientSendFile != null)        
+    {                
+        if(NetworkManager.Instance != null)             
             clientSendFile.SendStudentOffline(studentModel);        
     }
     public void StudentOnline(StudentModel studentModel)
     {                
-        if (clientSendFile != null)        
+        if(NetworkManager.Instance != null)        
             clientSendFile.SendStudentOnline(studentModel);        
     }
 
     public void StudentOnlineActivity(NetworkActivity activity)
-    {
-        Debug.Log("StudentOnlineActivity");
-        if(clientSendFile != null)
+    {        
+        if(NetworkManager.Instance != null)
             clientSendFile.SendStudentOnlineActivity(activity);
     }
 

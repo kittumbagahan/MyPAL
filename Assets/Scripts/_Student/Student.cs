@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BeardedManStudios.Forge.Networking.Unity;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -37,7 +38,8 @@ public class Student : MonoBehaviour
 
    void LoadYes()
    {
-      StudentOnline();              
+      if(NetworkManager.Instance != null)
+         StudentOnline();              
       
       StoryBookSaveManager.ins.activeUser = name;
       StoryBookSaveManager.ins.activeUser_id = id;
