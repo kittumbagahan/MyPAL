@@ -17,9 +17,7 @@ public class Read : MonoBehaviour
         string fileInfo = PlayerPrefs.GetString("StoryBookActivityScene");
 
         if ("".Equals(fileInfo))
-        {
-            fileInfo = GetTexTAsset();
-        }                
+            fileInfo = GetTexTAsset();                
 
         _data = JsonMapper.ToObject(fileInfo);                
     }
