@@ -19,8 +19,7 @@ public class WordGameManager : MonoBehaviour {
     //public ActionGenerateWord delGenerateWord;
     public static event ActionGenerateWord OnGenerate;
     public float dist = 50f;
-    
-	List<GameObject> emptyList = new List<GameObject>(); //for emptying list on next word
+    	
 	string strExtracted;
 	string strClue;  //clue
 	string word;
@@ -77,7 +76,6 @@ public class WordGameManager : MonoBehaviour {
 			cnt--;
 			//strClue = strClue.Replace(strClue[rnd]
 		}
-
 	}
 
 	void SpawnSlotTo(Transform container, List<GameObject> lstInventory, char charVal)

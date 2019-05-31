@@ -5,23 +5,18 @@ using UnityEngine.UI;
 public class FavoriteBox_Act1_Manager : MonoBehaviour {
 
     [SerializeField]
-    AudioClip clipFit, clipWrong, clipDrag, clipSolved;
-    public Sprite itemBG;
-   // public AudioClip[] audClip;
-    AudioSource audSrc;
-    int slotIndex;
+    AudioClip clipFit, clipWrong, clipDrag, clipSolved;      
+    AudioSource _audSrc;
+    int _slotIndex;
     [SerializeField]
     WordGameManager wordGameManager;
 
 	void Start () {
-        //WordGameManager.OnGenerate += DisableItemsImage;
-        // WordGameManager.OnGenerate += ChageItemBG;
         WordGameManager.OnGenerate += ResizeItems;
         WordGameManager.OnGenerate += SetSlotsValue;
         WordGameManager.OnGenerate += DisableGroupLettersSlotImage;
        
-        audSrc = GetComponent<AudioSource>();
-        //wordGameManager.SetIndex = _SaveTest.Load(StoryBook.FAVORITE_BOX, Module.WORD);
+        _audSrc = GetComponent<AudioSource>();
 		wordGameManager.SetIndex = SaveTest.Set;
 
 		if(StoryBookSaveManager.ins.selectedBook == StoryBook.FAVORITE_BOX)
@@ -42,9 +37,6 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
 				break;
 			case 12: 
 				ScoreManager.ins.maxMove = 8;
-				break;
-
-			default: 
 				break;
 			}
 		}
@@ -89,8 +81,9 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
 
     void ResizeItems()
     {
-        RectTransform rect = null;
-        Text txt = null;
+	    RectTransform rect;
+        Text txt;
+        
         for(int i=0; i<InventoryManager.ins.items.Count; i++)
         {
             rect = InventoryManager.ins.items[i].GetComponent<RectTransform>();
@@ -107,18 +100,7 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
         {
             WordGameManager.ins.groupLetters.transform.GetChild(i).GetComponent<Image>().enabled = false;
         }
-    }
-
-    //void ChageItemBG()
-    //{
-    //    Image img = null;
-    //    for (int i = 0; i < InventoryManager.ins.items.Count; i++)
-    //    {
-    //        img = InventoryManager.ins.items[i].GetComponent<Image>();
-    //        img.sprite = itemBG;
-    //    }
-       
-    //}
+    }   
 
     void SetSlotsValue()
     {
@@ -127,8 +109,7 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
         for(int i=0; i<WordGameManager.ins.groupClue.transform.childCount; i++)
         {
             slot = WordGameManager.ins.groupClue.transform.GetChild(i).GetComponent<SlotStringValue>();
-            slot.strAlphabetValue = WordGameManager.ins.Word[i].ToString();
-           // print(WordGameManager.ins.Word[i].ToString());
+            slot.strAlphabetValue = WordGameManager.ins.Word[i].ToString();           
         }
     
         Item.OnInsert += Insert;
@@ -142,25 +123,21 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
         Text txt = null;
         slot = parent.GetComponent<SlotStringValue>();
         txt = item.GetChild(0).GetComponent<Text>();
-        //print(txt.text + " " + slot.strAlphabetValue);
+        
         if (txt.text != slot.strAlphabetValue)
         {
             item.GetComponent<Item>().Return();
             item.GetComponent<Item>().RecentParent = item.GetComponent<Item>().StartOrigin;
-            parent.GetComponent<Slot>().CheckSlot();
-            //audSrc.clip = audClip[1];
-            //audSrc.Play();
-           // audSrc.PlayOneShot(clipFit);
-           
+            parent.GetComponent<Slot>().CheckSlot();          
         }
         else {
             item.GetComponent<Item>().Locked = true;
             if (wordGameManager.WordSolved())
             {
-                audSrc.PlayOneShot(clipSolved);
+                _audSrc.PlayOneShot(clipSolved);
             }
             else {
-                audSrc.PlayOneShot(clipFit); 
+                _audSrc.PlayOneShot(clipFit); 
             }
             
         }
@@ -168,14 +145,14 @@ public class FavoriteBox_Act1_Manager : MonoBehaviour {
 
     void WrongInsert(Transform t)
     {
-        audSrc.PlayOneShot(clipWrong);
+        _audSrc.PlayOneShot(clipWrong);
         print("wrong");
 		ScoreManager.ins.IncNumOfMistakes();
     }
 
     void BeginDrag(GameObject obj)
     {
-        audSrc.PlayOneShot(clipDrag);
+        _audSrc.PlayOneShot(clipDrag);
 		ScoreManager.ins.IncNumOfMoves();
     }
 }

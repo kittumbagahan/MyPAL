@@ -1484,6 +1484,7 @@ GameObject:
   - component: {fileID: 1441941623}
   - component: {fileID: 1441941625}
   - component: {fileID: 1441941626}
+  - component: {fileID: 1441941627}
   m_Layer: 0
   m_Name: MANAGER
   m_TagString: Untagged
@@ -1497,7 +1498,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1441941622}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10549d98785833e4a87fccc9f3770494, type: 3}
   m_Name: 
@@ -1506,7 +1507,6 @@ MonoBehaviour:
   clipWrong: {fileID: 8300000, guid: 5381b9bf66d0e7946a8f84269efa2457, type: 3}
   clipDrag: {fileID: 8300000, guid: 759d123dbcde04a439c9a17cabfab03f, type: 3}
   clipSolved: {fileID: 8300000, guid: 60394b00e4ecc84499d0f4b217fb241d, type: 3}
-  itemBG: {fileID: 21300000, guid: 42d14c74fe3228a40b593e8014efcc93, type: 3}
   wordGameManager: {fileID: 726500899}
 --- !u!4 &1441941624
 Transform:
@@ -1617,6 +1617,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1909881b71172420c9ff3c0f09ddd4ba, type: 3}
   doneFX: {fileID: 8300000, guid: 42dfd9d8d8568234383e9854ae93f639, type: 3}
   dialog: {fileID: 35824930}
+--- !u!114 &1441941627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1441941622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99551a50b6a28914ba1da096f041dff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipFit: {fileID: 8300000, guid: 8d2d9153923e11a428e8bae2762a9516, type: 3}
+  clipWrong: {fileID: 8300000, guid: 5381b9bf66d0e7946a8f84269efa2457, type: 3}
+  clipDrag: {fileID: 8300000, guid: 759d123dbcde04a439c9a17cabfab03f, type: 3}
+  clipSolved: {fileID: 8300000, guid: 60394b00e4ecc84499d0f4b217fb241d, type: 3}
+  wordGameManager: {fileID: 726500899}
 --- !u!1 &1463120047
 GameObject:
   m_ObjectHideFlags: 0
