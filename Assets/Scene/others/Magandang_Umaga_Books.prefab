@@ -7448,25 +7448,25 @@ MonoBehaviour:
   UIBtnPrev: {fileID: 0}
   lstScenes:
   - {fileID: 1626903601992506, guid: b6770d5c80c4fd341bb4b93f7712bb3b, type: 2}
-  - {fileID: 140446, guid: 0ead60e7841aaab439a80fc5d337389b, type: 2}
-  - {fileID: 111190, guid: d6b271d0635b4b5479740b2f57460d95, type: 2}
-  - {fileID: 120354, guid: a33c79bbd09cdda449e50988696f4d4c, type: 2}
-  - {fileID: 187106, guid: 413f3a67e19ce9a45ad89fcb0cb973cb, type: 2}
-  - {fileID: 180878, guid: 82d452ea5dde9a844b7fc30b7b0801ab, type: 2}
-  - {fileID: 152730, guid: 7c0da431b30b8d24ba2efa076d443659, type: 2}
-  - {fileID: 181286, guid: 107356e22872f9348b427852a693baec, type: 2}
-  - {fileID: 146088, guid: 4078b9a83c4127648aab5a230d1889a0, type: 2}
-  - {fileID: 125532, guid: 7f3555da79b43be43b2d8941d12b365b, type: 2}
-  - {fileID: 153654, guid: 3df4a16d49a226144813e76c8f837057, type: 2}
-  - {fileID: 124212, guid: 334ae04c2a7529343ada5fd19c01f701, type: 2}
-  - {fileID: 118918, guid: 442522b6e9dff124eb83c4aea22cb30d, type: 2}
-  - {fileID: 137116, guid: 25d3f759290c8404ea77cef79c787b07, type: 2}
+  - {fileID: 1821132195410188, guid: 9a56feb17407aa441bd346a5832463a9, type: 2}
+  - {fileID: 1857295038319308, guid: 4cbb49143b66eed4b8bcf0a304a55d1c, type: 2}
+  - {fileID: 1653162406035904, guid: 4c721715703986f479110d5556fa419e, type: 2}
+  - {fileID: 1717876486335696, guid: 05bf27931bc90d4448da68f18b341a14, type: 2}
+  - {fileID: 1252708597435656, guid: 240866e0cdc50734da60c4deda7fb02b, type: 2}
+  - {fileID: 1625307355963178, guid: c56b482e1a6df514692772dae76ca8ec, type: 2}
+  - {fileID: 1648463402291730, guid: 8c5846eb593897a47ad991b2cf1bfb5d, type: 2}
+  - {fileID: 1660675684794246, guid: c09c80578688dcb449820354772494af, type: 2}
+  - {fileID: 1260253269064426, guid: 673ec27c7d33b954ea3cce9f41b34eab, type: 2}
+  - {fileID: 1720365671991860, guid: 4fb9c707bd81fdd4fb666329ed9f6db1, type: 2}
+  - {fileID: 1761286631438632, guid: be4d3029afdebe24fafb5e07d95ddf4a, type: 2}
+  - {fileID: 1857594804287498, guid: 2cbbc243de0617440a45ad5362ac7860, type: 2}
+  - {fileID: 1733047960340056, guid: d094123abe3dc154b9cd072e205ad471, type: 2}
+  - {fileID: 1840525287263024, guid: f3d0f028b6d1a95479c32c8750fa83a8, type: 2}
+  - {fileID: 1422771904007290, guid: a9ee493026f77e442bc6695aea577064, type: 2}
   curr: {fileID: 0}
   prev: {fileID: 0}
   next: {fileID: 0}
   sceneIndex: 0
-  bookH: 1
-  bookW: 1
   isAssetBundle: 0
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
