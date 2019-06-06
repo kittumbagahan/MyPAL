@@ -11,8 +11,7 @@ TrueTypeFontImporter:
   fontName: K?nigsberg
   fontNames:
   - K?nigsberg
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 6dee99a5e5f2bb2459bf3e44428e4421, type: 3}
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
