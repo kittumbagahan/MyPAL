@@ -7,7 +7,6 @@ using _AssetBundleServer;
 
 public static class SaveBookAndActivityData
 {
-
    public static void SaveActivityToPlayerPrefs(UnityWebRequest file)
    {
       DownloadFileWebRequest w = (DownloadFileWebRequest) file.downloadHandler;
@@ -26,10 +25,9 @@ public static class SaveBookAndActivityData
       DataService.Open ("system/admin.db");
       int sectionsCount = DataService._connection.Table<AdminSectionsModel> ().Count ();
       DataService.Close ();
-      //Debug.Log ("Awwwii");
+      
       for (int i = 1; i <= sectionsCount; i++)
-      {
-         //Debug.Log ("muuuu");
+      {         
          DataService.Open ("system/admin.db");
          string sectionName = DataService._connection.Table<AdminSectionsModel> ().Where (x => x.Id == i).FirstOrDefault ().Description;
          Debug.Log ("saving to " + sectionName);
@@ -37,7 +35,6 @@ public static class SaveBookAndActivityData
          AddNewBook (sectionName, bad);
       }
    }
-
 
    static void AddNewBook(string sectionDbName, BookAndActivityData bad)
    {
@@ -68,18 +65,11 @@ public static class SaveBookAndActivityData
 
             DataService._connection.Insert (am);
          }
-
       }
       else
       {
-         Debug.Log ("Book description already exist.");
-         //throw new System.Exception("ERROR!");
-
+         Debug.Log ("Book description already exist.");         
       }
-      DataService.Close ();
-
-
-
-
+      DataService.Close();
    }
 }

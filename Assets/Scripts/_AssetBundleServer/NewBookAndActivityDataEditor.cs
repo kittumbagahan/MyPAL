@@ -9,8 +9,7 @@ namespace _AssetBundleServer
     {
         //Launcher will use this after downloading assetbundles
         private void Start()
-        {
-            Debug.Log("HHOOY!");
+        {            
             //ATTACHED ON LAUNCHER SCENE GAMEOBJECT
 
             //temporary reading from playerprefs
@@ -18,11 +17,9 @@ namespace _AssetBundleServer
 
             DataService.Open("system/admin.db");
             var sectionsCount = DataService._connection.Table<AdminSectionsModel>().Count();
-            DataService.Close();
-            Debug.Log("Awwwii");
+            DataService.Close();            
             for (var i = 1; i <= sectionsCount; i++)
-            {
-                Debug.Log("muuuu");
+            {                
                 DataService.Open("system/admin.db");
                 var sectionName = DataService._connection.Table<AdminSectionsModel>().Where(x => x.Id == i)
                     .FirstOrDefault().Description;
@@ -63,8 +60,7 @@ namespace _AssetBundleServer
             }
             else
             {
-                Debug.Log("Book description already exist.");
-                //throw new System.Exception("ERROR!");
+                Debug.Log("Book description already exist.");                
             }
 
             DataService.Close();
