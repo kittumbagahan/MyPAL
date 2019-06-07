@@ -1,0 +1,26 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"Layer 19 Copy","bone":"root","attachment":"Layer 19 Copy"},
+	{"name":"Layer 21 Copy","bone":"root","attachment":"Layer 21 Copy"},
+	{"name":"Layer 11 Copy","bone":"root","attachment":"Layer 11 Copy"},
+	{"name":"Straberries","bone":"root","attachment":"Straberries"},
+	{"name":"Durian","bone":"root","attachment":"Durian"},
+	{"name":"Grapes","bone":"root","attachment":"Grapes"},
+	{"name":"Kastanyas","bone":"root","attachment":"Kastanyas"},
+	{"name":"Layer 23 copy 4 Copy","bone":"root","attachment":"Layer 23 copy 4 Copy"}
+],
+"skins":{
+	"default":{
+		"Layer 23 copy 4 Copy":{"Layer 23 copy 4 Copy":{"x":1018,"y":760,"width":1142,"height":110}},
+		"Kastanyas":{"Kastanyas":{"x":1246.5,"y":300.5,"width":257,"height":291}},
+		"Grapes":{"Grapes":{"x":1606.5,"y":396.5,"width":257,"height":487}},
+		"Durian":{"Durian":{"x":899,"y":533,"width":420,"height":306}},
+		"Straberries":{"Straberries":{"x":493.5,"y":409,"width":225,"height":434}},
+		"Layer 11 Copy":{"Layer 11 Copy":{"x":1025,"y":387.5,"width":2050,"height":775}},
+		"Layer 21 Copy":{"Layer 21 Copy":{"x":1034.5,"y":859.5,"width":615,"height":789}},
+		"Layer 19 Copy":{"Layer 19 Copy":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}
