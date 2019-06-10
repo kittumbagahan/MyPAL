@@ -19,14 +19,14 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: 180}
-        outSlope: {x: 0, y: 0, z: 180}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: {x: 0, y: 0, z: 360}
-        inSlope: {x: 0, y: 0, z: 180}
-        outSlope: {x: 0, y: 0, z: 180}
+        value: {x: 0, y: 0, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -122,14 +122,14 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 0
-        inSlope: 180
-        outSlope: 180
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
       - serializedVersion: 2
         time: 2
-        value: 360
-        inSlope: 180
-        outSlope: 180
+        value: 0
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
       m_PreInfinity: 2
       m_PostInfinity: 2
