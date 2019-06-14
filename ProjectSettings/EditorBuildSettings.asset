@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scene/AssetBundleServer.unity
     guid: ae3c0e860c831134384131c3f0ea93fc
   - enabled: 1
-    path: Assets/Scene/Admin.unity
-    guid: 787ebf0d9c18844a6a13573694433535
-  - enabled: 1
     path: Assets/Scene/Main.unity
     guid: ff87b8f2400f49d44a4c576cda0dba72
+  - enabled: 1
+    path: Assets/Scene/Admin.unity
+    guid: 787ebf0d9c18844a6a13573694433535
   - enabled: 1
     path: Assets/Scene/UpdateMyPAL.unity
     guid: 5ce9ce20d1df6b24480e3c05fe38cead

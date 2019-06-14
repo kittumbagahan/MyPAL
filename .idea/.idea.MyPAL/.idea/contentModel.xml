@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\kittu\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\kittu\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_MyPAL.469580004.00" t="ExcludeRecursive" />
-    <e p="E:\Documents\UnityProjects\MyPAL" t="IncludeRecursive">
+    <e p="C:\Users\palab\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\palab\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_MyPAL.1548183821.00" t="ExcludeRecursive" />
+    <e p="F:\2018-2019_Projects\MyPAL" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets\Arts" t="Include">
         <e p="ColorsAllMixedUp_Act_7" t="Include">
           <e p="ACtivity 07.txt" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\AssetBundleBrowser" t="Include">
+        <e p="Editor" t="Include">
+          <e p="AssetBundleBrowserMain.cs" t="Include" />
+          <e p="AssetBundleBuildTab.cs" t="Include" />
+          <e p="AssetBundleDataSource" t="Include">
+            <e p="ABDataSource.cs" t="Include" />
+            <e p="ABDataSourceProvider.cs" t="Include" />
+            <e p="AssetDatabaseABDataSource.cs" t="Include" />
+          </e>
+          <e p="AssetBundleManageTab.cs" t="Include" />
+          <e p="AssetBundleModel" t="Include">
+            <e p="ABModel.cs" t="Include" />
+            <e p="ABModelAssetInfo.cs" t="Include" />
+            <e p="ABModelBundleInfo.cs" t="Include" />
+          </e>
+          <e p="AssetBundleTree.cs" t="Include" />
+          <e p="AssetListTree.cs" t="Include" />
+          <e p="BundleDetailList.cs" t="Include" />
+          <e p="InspectTab" t="Include">
+            <e p="AssetBundleInspectTab.cs" t="Include" />
+            <e p="AssetBundleRecord.cs" t="Include" />
+            <e p="InspectSingleBundle.cs" t="Include" />
+            <e p="InspectTreeView.cs" t="Include" />
+          </e>
+          <e p="MessageList.cs" t="Include" />
+          <e p="MessageSystem.cs" t="Include" />
         </e>
       </e>
       <e p="Assets\BackUpSaves.cs" t="Include" />
@@ -117,10 +145,39 @@
         <e p="AssetBundles" t="Include">
           <e p="AssetBundleListAndAssetsEditor.cs" t="Include" />
           <e p="AssetBundleNameGenerator.cs" t="Include" />
+          <e p="DeleteVersion.cs" t="Include" />
+          <e p="NewBookGenerator.cs" t="Include" />
+        </e>
+        <e p="Database" t="Include">
+          <e p="SelectDatabase.cs" t="Include" />
         </e>
         <e p="Tests" t="Include">
           <e p="AssetBundlesToJsonFileTest.cs" t="Include" />
+          <e p="BookAndModelDataTests.cs" t="Include" />
+          <e p="NetworkViewTest.cs" t="Include" />
           <e p="VersionCheckerTests.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Assets\Fonts" t="Include">
+        <e p="MagandangUmagaFonts" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="green-eggs-and-spam" t="Include">
+              <e p="readme.txt" t="Include" />
+            </e>
+            <e p="grinched-2-0" t="Include">
+              <e p="readme.txt" t="Include" />
+            </e>
+            <e p="henny-penny" t="Include">
+              <e p="OFL.txt" t="Include" />
+            </e>
+            <e p="koenigsberg" t="Include">
+              <e p="readme.txt" t="Include" />
+            </e>
+            <e p="marko-one" t="Include">
+              <e p="FONTLOG.txt" t="Include" />
+              <e p="OFL.txt" t="Include" />
+            </e>
+          </e>
         </e>
       </e>
       <e p="Assets\ForgotPassword.cs" t="Include" />
@@ -133,6 +190,9 @@
       </e>
       <e p="Assets\MsgBoxTest.cs" t="Include" />
       <e p="Assets\Plugins" t="Include">
+        <e p="Android" t="Include">
+          <e p="AndroidManifest.xml" t="Include" />
+        </e>
         <e p="Pixelplacement" t="Include">
           <e p="iTween" t="Include">
             <e p="iTween.cs" t="Include" />
@@ -155,6 +215,9 @@
       </e>
       <e p="Assets\Scene" t="Include">
         <e p="BtnBack.cs" t="Include" />
+        <e p="Tests" t="Include">
+          <e p="ApkInstall.cs" t="Include" />
+        </e>
       </e>
       <e p="Assets\Scripts" t="Include">
         <e p="_Admin" t="Include">
@@ -183,6 +246,7 @@
           <e p="ActivityModelJson.cs" t="Include" />
           <e p="AssetBundleServerManager.cs" t="Include" />
           <e p="AssetBundleServerNetwork.cs" t="Include" />
+          <e p="BookAndActivity.cs" t="Include" />
           <e p="BookAndActivityData.cs" t="Include" />
           <e p="BookModelCreator.cs" t="Include" />
           <e p="BookModelJson.cs" t="Include" />
@@ -288,6 +352,7 @@
           <e p="AdminNavigation.cs" t="Include" />
           <e p="AssetBundleData.cs" t="Include" />
           <e p="AssetBundleDataCollection.cs" t="Include" />
+          <e p="ByteToObject.cs" t="Include" />
           <e p="ClientSendFile.cs" t="Include" />
           <e p="DataImportNetwork.cs" t="Include" />
           <e p="DbSyncNetwork.cs" t="Include" />
@@ -415,8 +480,14 @@
           <e p="KuyaTam" t="Include">
             <e p="KuyaTamAnimation.cs" t="Include" />
           </e>
+          <e p="MasterListController.cs" t="Include" />
+          <e p="Network.cs" t="Include" />
+          <e p="NetworkActivity.cs" t="Include" />
+          <e p="NetworkText.cs" t="Include" />
           <e p="QuizUI.cs" t="Include" />
           <e p="ReadDialog.cs" t="Include" />
+          <e p="ServerView.cs" t="Include" />
+          <e p="StudentBlock.cs" t="Include" />
           <e p="UI_Button.cs" t="Include" />
         </e>
         <e p="_Version" t="Include">
@@ -458,6 +529,9 @@
           <e p="AfterTheRain_Act3_Manager.cs" t="Include" />
         </e>
         <e p="AspectManager.cs" t="Include" />
+        <e p="Base" t="Include">
+          <e p="WordActivityBaseManager.cs" t="Include" />
+        </e>
         <e p="BG_Music.cs" t="Include" />
         <e p="BookshelfLoader.cs" t="Include" />
         <e p="BookshelfManager.cs" t="Include" />
@@ -506,6 +580,7 @@
         <e p="ExitApp.cs" t="Include" />
         <e p="FavBox1_WordGameManager" t="Include">
           <e p="FavoriteBox_Act1_Manager.cs" t="Include" />
+          <e p="FavoriteBoxWordActivity.cs" t="Include" />
         </e>
         <e p="FavBox3_SpotDiffManager" t="Include">
           <e p="FavBox_Act3_Manager.cs" t="Include" />
@@ -532,6 +607,9 @@
           <e p="PuzzleController.cs" t="Include" />
           <e p="Tween.cs" t="Include" />
         </e>
+        <e p="Interfaces" t="Include">
+          <e p="INetworkMessage.cs" t="Include" />
+        </e>
         <e p="JoeyGoSchool_Act1" t="Include">
           <e p="JoeyGoSchool_Act1_Manager.cs" t="Include" />
         </e>
@@ -543,6 +621,14 @@
         </e>
         <e p="Loading.cs" t="Include" />
         <e p="Mute.cs" t="Include" />
+        <e p="NetwrkMessages" t="Include">
+          <e p="AssetBundleMessage.cs" t="Include" />
+          <e p="DataBaseMessage.cs" t="Include" />
+          <e p="StudentOfflineMessage.cs" t="Include" />
+          <e p="StudentOnlineActivity.cs" t="Include" />
+          <e p="StudentOnlineMessage.cs" t="Include" />
+          <e p="SyncMessage.cs" t="Include" />
+        </e>
         <e p="SaveTest.cs" t="Include" />
         <e p="SceneLoader" t="Include">
           <e p="EmptySceneLoader.cs" t="Include" />
