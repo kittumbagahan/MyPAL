@@ -1,0 +1,34 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG Background","bone":"root","attachment":"BG Background"},
+	{"name":"Mom Body","bone":"root","attachment":"Mom Body"},
+	{"name":"Mom Head","bone":"root","attachment":"Mom Head"},
+	{"name":"Girl hair","bone":"root","attachment":"Girl hair"},
+	{"name":"Girl Body","bone":"root","attachment":"Girl Body"},
+	{"name":"Girl Head","bone":"root","attachment":"Girl Head"},
+	{"name":"BG foreground","bone":"root","attachment":"BG foreground"},
+	{"name":"Grape","bone":"root","attachment":"Grape"},
+	{"name":"Strawberry","bone":"root","attachment":"Strawberry"},
+	{"name":"Watermelon","bone":"root","attachment":"Watermelon"},
+	{"name":"Banana","bone":"root","attachment":"Banana"},
+	{"name":"Durian","bone":"root","attachment":"Durian"}
+],
+"skins":{
+	"default":{
+		"Durian":{"Durian":{"x":375,"y":382,"width":284,"height":338}},
+		"Banana":{"Banana":{"x":720.5,"y":335.5,"width":151,"height":273}},
+		"Watermelon":{"Watermelon":{"x":1056,"y":340.5,"width":266,"height":237}},
+		"Strawberry":{"Strawberry":{"x":1367,"y":356,"width":142,"height":196}},
+		"Grape":{"Grape":{"x":1682.5,"y":330.5,"width":109,"height":111}},
+		"BG foreground":{"BG foreground":{"x":1025,"y":351.5,"width":2050,"height":703}},
+		"Girl Head":{"Girl Head":{"x":1454,"y":966,"width":434,"height":376}},
+		"Girl Body":{"Girl Body":{"x":1428,"y":693.5,"width":118,"height":233}},
+		"Girl hair":{"Girl hair":{"x":1490.5,"y":816.5,"width":425,"height":193}},
+		"Mom Head":{"Mom Head":{"x":676,"y":988.5,"width":570,"height":479}},
+		"Mom Body":{"Mom Body":{"x":670,"y":637,"width":726,"height":302}},
+		"BG Background":{"BG Background":{"x":1025,"y":832.5,"width":2050,"height":899}}
+	}
+},
+"animations":{"animation":{}}
+}

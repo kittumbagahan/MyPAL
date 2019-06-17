@@ -1,0 +1,28 @@
+{"skeleton":{"images":"images/"},
+"bones":[{"name":"root"}],
+"slots":[
+	{"name":"BG","bone":"root","attachment":"BG"},
+	{"name":"Girl body","bone":"root","attachment":"Girl body"},
+	{"name":"salamat sign","bone":"root","attachment":"salamat sign"},
+	{"name":"Girl right hand","bone":"root","attachment":"Girl right hand"},
+	{"name":"Girl Left hand","bone":"root","attachment":"Girl Left hand"},
+	{"name":"Heart 04","bone":"root","attachment":"Heart 04"},
+	{"name":"Heart 03","bone":"root","attachment":"Heart 03"},
+	{"name":"Heart 02","bone":"root","attachment":"Heart 02"},
+	{"name":"Heart 01","bone":"root","attachment":"Heart 01"}
+],
+"skins":{
+	"default":{
+		"Heart 01":{"Heart 01":{"x":1749.5,"y":1002,"width":251,"height":222}},
+		"Heart 02":{"Heart 02":{"x":1526,"y":830,"width":246,"height":232}},
+		"Heart 03":{"Heart 03":{"x":283.5,"y":1016,"width":251,"height":222}},
+		"Heart 04":{"Heart 04":{"x":493.5,"y":791.5,"width":245,"height":231}},
+		"Girl Left hand":{"Girl Left hand":{"x":1622.5,"y":601.5,"width":205,"height":191}},
+		"Girl right hand":{"Girl right hand":{"x":519,"y":463,"width":190,"height":204}},
+		"salamat sign":{"salamat sign":{"x":1113.5,"y":381,"width":1337,"height":542}},
+		"Girl body":{"Girl body":{"x":1153,"y":506.5,"width":940,"height":1013}},
+		"BG":{"BG":{"x":1025,"y":641,"width":2050,"height":1282}}
+	}
+},
+"animations":{"animation":{}}
+}
