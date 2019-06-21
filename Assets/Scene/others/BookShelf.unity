@@ -310,7 +310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -11.889053}
+  m_AnchoredPosition: {x: 0, y: -11.889038}
   m_SizeDelta: {x: -649.7, y: -438.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4882152
@@ -7536,7 +7536,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1484057872}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18247,9 +18247,9 @@ MonoBehaviour:
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
   isAssetBundle: 0
-  sceneToLoad: YummyShapes
+  sceneToLoad: MagandangUmaga
   isClickable: 0
-  selectedStoryBook: 9
+  selectedStoryBook: 12
   imgClickEffect: {fileID: 426837685}
 --- !u!114 &1181434482
 MonoBehaviour:
@@ -18263,14 +18263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1f20c0c95e7d15e41b1e57e35b0fae33, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d132729a6a3824240b31a91ed4bc99ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21158,7 +21158,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1625650321}
   m_HandleRect: {fileID: 1625650320}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -25435,7 +25435,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 01e6b17f88f0c4c48993a2844ecc95a4, type: 3}
   - {fileID: 2800000, guid: 0c8d8ec76eac8ec489f323c02438bd31, type: 3}
   - {fileID: 2800000, guid: 1f20c0c95e7d15e41b1e57e35b0fae33, type: 3}
-  - {fileID: 2800000, guid: 9a1070cebca1b004699b2fbaa68d7297, type: 3}
+  - {fileID: 2800000, guid: d132729a6a3824240b31a91ed4bc99ab, type: 3}
   bookDescription: {fileID: 335719908}
   _bookDescription:
   - Green sky and blue trees?!  Oh no!  All the colors of the world are mixed up!
@@ -25462,7 +25462,7 @@ MonoBehaviour:
     of each other! And yet despite their adversity, they are best friends! '
   - Circles! Triangles! Rectangles and More! All these shapes can be yummy treats!
     Read how this little girl can see shapes in most everything she loves to eat!
-  - Hugis, Kay Sarap! Huehuehue
+  - Alamin natin ang wastong pagbati sa wikang Filipino!
   - Testing a book
 --- !u!1 &1581455032
 GameObject:
@@ -32326,9 +32326,9 @@ MonoBehaviour:
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
   isAssetBundle: 0
-  sceneToLoad: MagandangUmaga
+  sceneToLoad: AfterTheRain
   isClickable: 0
-  selectedStoryBook: 12
+  selectedStoryBook: 2
   imgClickEffect: {fileID: 426837685}
 --- !u!114 &1998619439
 MonoBehaviour:
@@ -34466,9 +34466,9 @@ MonoBehaviour:
   assetBunldeUrlKey: 
   assetBundleUrlVersionKey: 
   isAssetBundle: 0
-  sceneToLoad: MagandangUmaga
+  sceneToLoad: AfterTheRain
   isClickable: 0
-  selectedStoryBook: 12
+  selectedStoryBook: 2
   imgClickEffect: {fileID: 426837685}
 --- !u!114 &2114740211
 MonoBehaviour:
