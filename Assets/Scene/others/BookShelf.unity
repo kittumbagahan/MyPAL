@@ -980,7 +980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1153.1001, y: 0}
+  m_AnchoredPosition: {x: 833.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &116553394
@@ -3086,7 +3086,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1313.1001, y: 0}
+  m_AnchoredPosition: {x: 993.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215156562
@@ -3557,7 +3557,7 @@ GameObject:
   - component: {fileID: 259372317}
   - component: {fileID: 259372316}
   m_Layer: 5
-  m_Name: was for time usage TextMeshPro Text
+  m_Name: '*was for time usage TextMeshPro Text'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3735,7 +3735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33.099987, y: 0}
+  m_AnchoredPosition: {x: -286.90002, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276403473
@@ -6038,7 +6038,7 @@ GameObject:
   - component: {fileID: 398920023}
   - component: {fileID: 398920022}
   m_Layer: 5
-  m_Name: Grades
+  m_Name: '*Grades'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7018,7 +7018,7 @@ GameObject:
   - component: {fileID: 426837688}
   - component: {fileID: 426837687}
   m_Layer: 5
-  m_Name: bookClickEffect
+  m_Name: '*bookClickEffect'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8392,7 +8392,7 @@ GameObject:
   - component: {fileID: 533316324}
   - component: {fileID: 533316327}
   m_Layer: 5
-  m_Name: '*Log-In_select_user'
+  m_Name: Log-In_select_user
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8814,7 +8814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 513.1, y: 0}
+  m_AnchoredPosition: {x: 193.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557014900
@@ -9111,7 +9111,7 @@ GameObject:
   - component: {fileID: 612590699}
   - component: {fileID: 612590701}
   m_Layer: 5
-  m_Name: '*Authentication_VIEW_O'
+  m_Name: Authentication_VIEW_O
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9620,7 +9620,7 @@ GameObject:
   - component: {fileID: 662605816}
   - component: {fileID: 662605820}
   m_Layer: 5
-  m_Name: Canvas_Maintenance
+  m_Name: '*Canvas_Maintenance'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10798,7 +10798,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 993.1001, y: 0}
+  m_AnchoredPosition: {x: 673.1001, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703450062
@@ -11923,7 +11923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1473.1001, y: 0}
+  m_AnchoredPosition: {x: 1153.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789392914
@@ -14875,7 +14875,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2720, y: 300}
+  m_SizeDelta: {x: 2400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &964990467
 AudioSource:
@@ -15326,7 +15326,7 @@ GameObject:
   - component: {fileID: 1035603644}
   - component: {fileID: 1035603643}
   m_Layer: 5
-  m_Name: CanvasAdmin
+  m_Name: '*CanvasAdmin'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15633,7 +15633,7 @@ GameObject:
   - component: {fileID: 1059392042}
   - component: {fileID: 1059392041}
   m_Layer: 5
-  m_Name: LoadBackUp
+  m_Name: '*LoadBackUp'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18194,7 +18194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1181434479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22267,7 +22267,7 @@ GameObject:
   - component: {fileID: 1434117954}
   - component: {fileID: 1434117957}
   m_Layer: 5
-  m_Name: backUPtest
+  m_Name: '*backUPtest'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25125,7 +25125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1570918473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25851,7 +25851,7 @@ GameObject:
   - component: {fileID: 1606524402}
   - component: {fileID: 1606524401}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: '*RawImage'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27455,7 +27455,7 @@ GameObject:
   - component: {fileID: 1708396616}
   - component: {fileID: 1708396618}
   m_Layer: 5
-  m_Name: SELECT_SECTION_VIEW_X
+  m_Name: '*SELECT_SECTION_VIEW_X'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28205,7 +28205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 193.09999, y: 0}
+  m_AnchoredPosition: {x: -126.9, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753616717
@@ -28893,7 +28893,7 @@ GameObject:
   - component: {fileID: 1800870669}
   - component: {fileID: 1800870668}
   m_Layer: 5
-  m_Name: ChangePWD_window
+  m_Name: '*ChangePWD_window'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29949,7 +29949,7 @@ GameObject:
   - component: {fileID: 1862284704}
   - component: {fileID: 1862284703}
   m_Layer: 5
-  m_Name: btnAudio
+  m_Name: '*btnAudio'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31890,7 +31890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 353.09998, y: 0}
+  m_AnchoredPosition: {x: 33.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1974449862
@@ -33057,7 +33057,7 @@ GameObject:
   - component: {fileID: 2069078436}
   - component: {fileID: 2069078437}
   m_Layer: 5
-  m_Name: Loading
+  m_Name: '*Loading'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33844,7 +33844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000052078, y: 0.00000759605}
+  m_AnchoredPosition: {x: 0.0000052078, y: 0.000015230028}
   m_SizeDelta: {x: -0.000061035, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2095856164
@@ -34034,7 +34034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 833.1, y: 0}
+  m_AnchoredPosition: {x: 513.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2105808064
@@ -34444,7 +34444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 673.1, y: 0}
+  m_AnchoredPosition: {x: 353.1, y: 0}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2114740210
